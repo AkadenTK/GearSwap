@@ -38,7 +38,7 @@ function init_gear_sets()
     -- Special sets (required by rules)
     --------------------------------------
 
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands="Plunderer's Armlets +1",feet="Skulk. Poulaines"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", hands="Plunderer's Armlets +1",feet="Skulk. Poulaines"})
     sets.ExtraRegen = {}
     sets.Kiting = {feet="Fajin Boots"}
     sets.Capacity={back="Aptitude Mantle"}
@@ -122,7 +122,7 @@ function init_gear_sets()
         left_ear="Brutal Earring",
         right_ear="Suppanomimi",
         left_ring="Epona's Ring",
-        right_ring="Rajas Ring",
+        right_ring="Petrov Ring",
         back={ name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}}, }
     
     sets.engaged.Acc = {

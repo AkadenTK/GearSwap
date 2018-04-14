@@ -49,7 +49,7 @@ augmented_gear.Herculean.WSD.STR = {
 augmented_gear.Herculean.WSD.AGI = {
     body={ name="Herculean Vest", augments={'Weapon skill damage +4%','STR+6','Rng.Acc.+13','Rng.Atk.+12',}},
     legs={ name="Herculean Trousers", augments={'Rng.Acc.+24 Rng.Atk.+24','Weapon skill damage +2%','AGI+7','Rng.Atk.+8',}},
-    feet=augmented_gear.Herculean.WSD.STR.feet,
+    feet={ name="Herculean Boots", augments={'Rng.Atk.+24','Weapon skill damage +2%','AGI+6','Rng.Acc.+2',}},
 }
 
 augmented_gear.Herculean.CritDMG = {}
@@ -59,4 +59,27 @@ augmented_gear.Herculean.CritDMG.DEX = {
 
 augmented_gear.Herculean.TA = {
     feet={ name="Herculean Boots", augments={'Accuracy+28','"Triple Atk."+4','STR+3',}},
+}
+augmented_gear.Adhemar = {}
+augmented_gear.Adhemar.Acc = {
+    head={ name="Adhemar Bonnet", augments={'DEX+10','AGI+10','Accuracy+15',}},
+    body={ name="Adhemar Jacket", augments={'DEX+10','AGI+10','Accuracy+15',}},
+    hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+}
+augmented_gear.Adhemar.Atk = {
+    head=augmented_gear.Adhemar.Acc.head,
+    body=augmented_gear.Adhemar.Acc.body,
+    hands=augmented_gear.Adhemar.Acc.hands,
+}
+augmented_gear.Adhemar.Racc = {
+    hands={ name="Adhemar Wristbands", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}},
+    legs={ name="Adhemar Kecks", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}},
+}
+augmented_gear.Adhemar.Ratk = {
+    hands=augmented_gear.Adhemar.Racc.hands,
+    legs=augmented_gear.Adhemar.Racc.legs,
+}
+augmented_gear.Adhemar.D = {
+    legs={ name="Adhemar Kecks", augments={'AGI+10','"Rapid Shot"+10','Enmity-5',}}, 
+    feet={ name="Adhemar Gamashes", augments={'HP+50','"Store TP"+6','"Snapshot"+8',}},
 }

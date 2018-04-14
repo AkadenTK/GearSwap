@@ -77,12 +77,12 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {
         ammo="Ginsen",
-        head="Adhemar Bonnet",
+        head=augmented_gear.Adhemar.Atk.head,
         neck="Asperity Necklace",
         ear1='Suppanomimi',
         ear2="Brutal Earring",
-        body="Adhemar Jacket",
-        hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        body=augmented_gear.Adhemar.Atk.body,
+        hands=augmented_gear.Adhemar.Atk.hands,
         ring1="Ilabrat ring",
         ring2="Epona's ring",
         back="Atheling Mantle",
@@ -90,7 +90,10 @@ function init_gear_sets()
         legs="Samnuha tights",
         feet=augmented_gear.Herculean.TA,
     }
-    sets.engaged.Acc = {}
+    sets.engaged.Acc = {
+        head=augmented_gear.Adhemar.Acc.head,
+        body=augmented_gear.Adhemar.Acc.body,
+        hands=augmented_gear.Adhemar.Acc.hands,}
     sets.engaged.FullAcc = {}
 
     -- Snapshot for ranged
@@ -104,7 +107,7 @@ function init_gear_sets()
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Blade: Jin'] = set_combine(sets.precast.WS, {
         ammo="Jukukik Feather",
-        head={ name="Adhemar Bonnet", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        head=augmented_gear.Adhemar.Atk.head,
         body="Mummu Jacket +1",
         hands="Meg. Gloves +2",
         legs=augmented_gear.Herculean.CritDMG.DEX.legs,
@@ -136,7 +139,7 @@ function init_gear_sets()
 
     sets.precast.WS['Blade: Ten'] = set_combine(sets.precast.WS, {
         ammo="Jukukik Feather",
-        head={ name="Adhemar Bonnet", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        head=augmented_gear.Adhemar.Atk.head,
         body="Mummu Jacket +1",
         hands="Meg. Gloves +2",
         legs=augmented_gear.Herculean.CritDMG.DEX.legs,

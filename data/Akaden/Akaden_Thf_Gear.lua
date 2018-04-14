@@ -112,12 +112,12 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {
         ammo="Ginsen",
-        head="Adhemar Bonnet",
+        head=augmented_gear.Adhemar.Atk.head,
         neck="Asperity Necklace",
         ear1='Suppanomimi',
         ear2="Brutal Earring",
-        body="Adhemar Jacket",
-        hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        body=augmented_gear.Adhemar.Atk.body,
+        hands=augmented_gear.Adhemar.Atk.hands,
         ring1="Ilabrat ring",
         ring2="Epona's ring",
         back="Atheling Mantle",
@@ -128,7 +128,10 @@ function init_gear_sets()
     
     sets.engaged.Acc = set_combine(sets.engaged, {
         ammo="Falcon Eye",
+        head=augmented_gear.Adhemar.Acc.head,
         ear1="Dignitary's earring",
+        body=augmented_gear.Adhemar.Acc.body,
+        hands=augmented_gear.Adhemar.Acc.hands,
         back="Kayapa cape",
         waist="Kentarch belt +1",
     })
@@ -181,7 +184,7 @@ function init_gear_sets()
 	
     sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS, {
         ammo="Jukukik Feather",
-        head={ name="Adhemar Bonnet", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        head=augmented_gear.Adhemar.Atk.head,
         body="Mummu Jacket +1",
         hands="Meg. Gloves +2",
         legs=augmented_gear.Herculean.CritDMG.DEX.legs,

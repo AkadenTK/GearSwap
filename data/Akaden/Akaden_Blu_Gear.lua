@@ -167,11 +167,11 @@ function init_gear_sets()
 
 	sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {
         ammo="Jukukik feather",
-        head="Adhemar Bonnet",
+        head=augmented_gear.Adhemar.Atk.head,
         body="Assimilator's Jubbah +3",
         neck="Fotia Gorget",
         ear2="Brutal Earring",
-        hands="jhakri cuffs +2",
+        hands=augmented_gear.Adhemar.Atk.hands,
         back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20', 'DEX+10','Crit.hit rate+10',}},
         waist="Fotia Belt",
         ring1="Ilabrat Ring",
@@ -266,8 +266,8 @@ function init_gear_sets()
         neck="Caro necklace",
         ear1="Assuage earring",
         ear2="Moonshade earring",
-        body="Adhemar Jacket",
-    	hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        body=augmented_gear.Adhemar.Atk.body,
+    	hands=augmented_gear.Adhemar.Atk.hands,
         ring2="Ifrit ring +1",
         back="Buquwik Cape",
         waist="Prosilio belt",
@@ -289,7 +289,7 @@ function init_gear_sets()
 	sets.midcast['Blue Magic'].PhysicalStr.Fodder = set_combine(sets.midcast['Blue Magic'].Physical.Fodder, {})
 
 	sets.midcast['Blue Magic'].PhysicalDex = set_combine(sets.midcast['Blue Magic'].Physical, {
-    	hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+    	hands=augmented_gear.Adhemar.Atk.hands,
         waist="Chiner's belt +1",
         legs="Hashishin Tayt",
         back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}},
@@ -461,12 +461,12 @@ function init_gear_sets()
 
 	sets.engaged = {
         ammo="Ginsen",
-        head="Adhemar Bonnet",
+        head=augmented_gear.Adhemar.Atk.head,
         neck="Lissome Necklace",
         ear1='Suppanomimi',
         ear2="Brutal Earring",
-        body="Adhemar Jacket",
-    	hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        body=augmented_gear.Adhemar.Atk.body,
+    	hands=augmented_gear.Adhemar.Atk.hands,
         ring1="Hetairoi ring",
         ring2="Epona's ring",
     	back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
@@ -491,6 +491,8 @@ function init_gear_sets()
         neck='Ej necklace',
         ear1="Dignitary's earring",
         ear2="Telos earring",
+        body=augmented_gear.Adhemar.Acc.body,
+    	hands=augmented_gear.Adhemar.Acc.hands,
         ring1="Ilabrat ring",
         waist="Kentarch belt +1",
         legs="Ayanmo cosciales +2",
@@ -625,7 +627,7 @@ function init_gear_sets()
     sets.MP_Knockback = {}
 	sets.SuppaBrutal = {ear1="Suppanomimi", ear2="Brutal Earring"}
 	sets.DWEarrings = {ear1="Dudgeon Earring",ear2="Heartseeker Earring"}
-	sets.DWMax = {ear1="Dudgeon Earring",ear2="Heartseeker Earring",body="Adhemar Jacket +1",waist="Reiki Yotai",legs="Carmine Cuisses +1"}
+	sets.DWMax = {ear1="Dudgeon Earring",ear2="Heartseeker Earring",body="Adhemar Jacket",waist="Reiki Yotai",legs="Carmine Cuisses +1"}
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt"})
 	sets.Assault = {ring1="Balrahn's Ring"}
 	sets.Capacity={back="Aptitude Mantle"}

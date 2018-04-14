@@ -8,7 +8,6 @@ function user_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand'}
-    state.CompensatorMode = M{'Never','500+','1000+','Always'}
     state.Weapons:options('ShieldLeaden','ShieldLastStand','DWLeaden','DWLastStand', 'SavageBlade', 'None')
 
     state.LastRoll = 'unknown'
@@ -62,11 +61,11 @@ function init_gear_sets()
     -- Start defining the sets
     --------------------------------------
     sets.weapons = {}
-    sets.weapons.ShieldLeaden = {main='Fettering Blade', sub="Nusku Shield", ranged="Fomalhaut"}
-    sets.weapons.DWLeaden = {main='Fettering Blade', sub="Atoyac", ranged="Fomalhaut"}
-    sets.weapons.ShieldLastStand = {main='Kustawi +1', sub="Nusku Shield", ranged="Fomalhaut"}
-    sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", ranged="Fomalhaut"}
-    sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Atoyac", ranged="Anarchy +2"}
+    sets.weapons.ShieldLeaden = {main='Fettering Blade', sub="Nusku Shield", range="Fomalhaut"}
+    sets.weapons.DWLeaden = {main='Fettering Blade', sub="Atoyac", range="Fomalhaut"}
+    sets.weapons.ShieldLastStand = {main='Kustawi +1', sub="Nusku Shield", range="Fomalhaut"}
+    sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
+    sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Atoyac", range="Anarchy +2"}
 
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt"})
     
@@ -105,12 +104,12 @@ function init_gear_sets()
     
     -- Normal melee group
     sets.engaged = {
-        head="Adhemar Bonnet",
+        head=augmented_gear.Adhemar.Atk.head,
         neck="Asperity Necklace",
         ear1='Suppanomimi',
         ear2="Brutal Earring",
-        body="Adhemar Jacket",
-        hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        body=augmented_gear.Adhemar.Atk.body,
+        hands=augmented_gear.Adhemar.Atk.hands,
         ring1="Ilabrat ring",
         ring2="Epona's ring",
         back="Atheling Mantle",
@@ -120,8 +119,11 @@ function init_gear_sets()
     }
 
     sets.engaged.Acc = set_combine(sets.engaged, {
+        head=augmented_gear.Adhemar.Acc.head,
         neck="Ej necklace",
         ear2="Dignitary's earring",
+        body=augmented_gear.Adhemar.Acc.body,
+        hands=augmented_gear.Adhemar.Acc.hands,
         waist="kentarch belt +1",
         back="Kayapa cape",
     })
@@ -152,7 +154,7 @@ function init_gear_sets()
         body="Samnuha Coat",
         hands="Carmine Finger Gauntlets +1",
         legs=augmented_gear.Herculean.WSD.MAB.legs,
-        feet="Adhemar Gamashes",
+        feet=augmented_gear.Adhemar.D.feet,
         neck="Sanctity Necklace",
         left_ear="Friomisi Earring",
         right_ear="Hecate's Earring",
@@ -201,7 +203,7 @@ function init_gear_sets()
         hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}}, -- s8 r11
         back="Navarch's Mantle", -- s7
         waist="Impulse belt", -- s3
-        legs={ name="Adhemar Kecks", augments={'AGI+10','"Rapid Shot"+10','Enmity-5',}}, --s9 r10
+        legs=augmented_gear.Adhemar.D.legs, --s9 r10
         feet="Meghanada Jambeaux +2" -- s10
     }
 		
@@ -335,13 +337,13 @@ function init_gear_sets()
         ear1="Dedition earring",
         neck="Marked Gorget",
         body="Oshosi vest",
-        hands={ name="Adhemar Wristbands", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}},
+        hands=augmented_gear.Adhemar.Ratk.hands,
         ring1="Ilabrat ring",
         ring2="Hajduk ring +1",
         back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','"Store TP"+10',}},
         waist="Yemaya belt",
-        legs={ name="Adhemar Kecks", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}},
-        feet="Adhemar Gamashes"
+        legs=augmented_gear.Adhemar.Ratk.legs,
+        feet=augmented_gear.Adhemar.Ratk.feet,
     }
 
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA,{
@@ -428,24 +430,6 @@ function user_job_pretarget(spell, spellMap, eventArgs)
         cancel_spell()
         send_command('input /ja "Double-Up" <me>')
     end 
-end
-
-function user_job_precast(spell, spellMap, eventArgs)
-    if spell.type == "CorsairRoll" and
-        ((state.CompensatorMode.value == '500+' and player.tp < 500) or
-        (state.CompensatorMode.value == '1000+' and player.tp < 1000) or
-        state.CompensatorMode.value == 'Always') then
-        enable('ranged')
-        equip({ranged="Compensator"})
-
-        add_to_chat(123,'Equipped Compensator')
-    end
-end
-
-function user_job_aftercast(spell, spellMap, eventArgs)
-    if spell.type == "CorsairRoll" and state.CompensatorMode.value ~= 'Never' then
-        equip_weaponset(state.Weapons.value)
-    end
 end
 
 function user_job_post_precast(spell, spellMap, eventArgs)

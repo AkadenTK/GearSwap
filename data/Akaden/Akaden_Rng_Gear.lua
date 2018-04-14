@@ -63,13 +63,13 @@ function init_gear_sets()
 		head="Taeon chapeau", -- s7
 		body="Arcadian Jerkin +1", -- r12
 	    hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}}, -- s8 r11
-	    legs={ name="Adhemar Kecks", augments={'AGI+10','"Rapid Shot"+10','Enmity-5',}}, --s9 r10
+	    legs=augmented_gear.Adhemar.D.legs, --s9 r10
 	    feet="Meg. Jam. +2", --s10
 	    waist="Impulse Belt",} -- s3
 		
 	sets.precast.RA.Flurry = set_combine(sets.precast.RA, {})
 	sets.precast.RA.Flurry2 = set_combine(sets.precast.RA, {
-		head="Orion beret +2",
+		head="Orion Beret +3",
 		feet="Pursuer's gaiters"})
 
 
@@ -144,7 +144,7 @@ function init_gear_sets()
 
     sets.precast.WS['Last Stand'] = {
 	    ammo=gear.WSbullet,
-	    head="Orion Beret +2",
+	    head="Orion Beret +3",
    		body=augmented_gear.Herculean.WSD.AGI.body,
 	    hands="Meg. Gloves +2",
 	    legs=augmented_gear.Herculean.WSD.AGI.legs,
@@ -188,14 +188,15 @@ function init_gear_sets()
         ear2="Cessance earring",
         neck="Marked Gorget",
         body="Mummu jacket +2",
-        hands={ name="Adhemar Wristbands", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}},
+        hands=augmented_gear.Adhemar.Ratk.hands,
         ring1="Hajduk ring",
         ring2="Hajduk ring",
         back={ name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','"Store TP"+10',}},
         waist="Yemaya belt",
-        legs={ name="Adhemar Kecks", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}},
-        feet="Adhemar Gamashes"}
-
+        legs=augmented_gear.Adhemar.Ratk.legs,
+        feet=augmented_gear.Adhemar.D.feet,
+    }
+    
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA, {
         hands="Meghanada gloves +2",
         waist="Kwahu Kachina belt",
@@ -244,12 +245,12 @@ function init_gear_sets()
 
     -- Normal melee group
     sets.engaged = {
-        head="Adhemar Bonnet",
+        head=augmented_gear.Adhemar.Atk.head,
         neck="Asperity Necklace",
         ear1='Suppanomimi',
         ear2="Brutal Earring",
-        body="Adhemar Jacket",
-        hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        body=augmented_gear.Adhemar.Atk.body,
+        hands=augmented_gear.Adhemar.Atk.hands,
         ring1="Ilabrat ring",
         ring2="Epona's ring",
         back="Atheling Mantle",
@@ -259,8 +260,11 @@ function init_gear_sets()
     }
 
     sets.engaged.Acc = set_combine(sets.engaged, {
+        head=augmented_gear.Adhemar.Acc.head,
         neck="Ej necklace",
         ear2="Dignitary's earring",
+        body=augmented_gear.Adhemar.Acc.body,
+        hands=augmented_gear.Adhemar.Acc.hands,
         waist="kentarch belt +1",
         back="Kayapa cape",
     })

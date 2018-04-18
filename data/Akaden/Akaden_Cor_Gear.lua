@@ -337,13 +337,13 @@ function init_gear_sets()
         ear1="Dedition earring",
         neck="Marked Gorget",
         body="Oshosi vest",
-        hands=augmented_gear.Adhemar.Ratk.hands,
+        hands=augmented_gear.Adhemar.Rng.hands,
         ring1="Ilabrat ring",
         ring2="Hajduk ring +1",
         back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','"Store TP"+10',}},
         waist="Yemaya belt",
-        legs=augmented_gear.Adhemar.Ratk.legs,
-        feet=augmented_gear.Adhemar.Ratk.feet,
+        legs=augmented_gear.Adhemar.Rng.legs,
+        feet=augmented_gear.Adhemar.Rng.feet,
     }
 
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA,{

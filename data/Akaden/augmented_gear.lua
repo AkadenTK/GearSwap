@@ -61,23 +61,31 @@ augmented_gear.Herculean.TA = {
     feet={ name="Herculean Boots", augments={'Accuracy+28','"Triple Atk."+4','STR+3',}},
 }
 augmented_gear.Adhemar = {}
+augments = {}
+augments.Herculean = {}
+augments.Herculean.NQ = {
+    A = {'DEX+10','AGI+10','Accuracy+15',},
+    B = {'STR+10','DEX+10','Attack+15',},
+    C = {'AGI+10','Rng.Acc.+15','Rng.Atk.+15',},
+}
+augments.Herculean.HQ = {
+    A = {'DEX+12','AGI+12','Accuracy+20',},
+    B = {'STR+12','DEX+12','Attack+20',},
+    C = {'AGI+12','Rng.Acc.+20','Rng.Atk.+20',},
+}
 augmented_gear.Adhemar.Acc = {
-    head={ name="Adhemar Bonnet", augments={'DEX+10','AGI+10','Accuracy+15',}},
-    body={ name="Adhemar Jacket", augments={'DEX+10','AGI+10','Accuracy+15',}},
-    hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+    head={ name="Adhemar Bonnet", augments=augments.Herculean.NQ.B},
+    body={ name="Adhemar Jacket", augments=augments.Herculean.NQ.A},
+    hands={ name="Adhemar Wristbands", augments=augments.Herculean.NQ.A},
 }
 augmented_gear.Adhemar.Atk = {
-    head=augmented_gear.Adhemar.Acc.head,
-    body=augmented_gear.Adhemar.Acc.body,
-    hands=augmented_gear.Adhemar.Acc.hands,
+    head={ name="Adhemar Bonnet", augments=augments.Herculean.NQ.B},
+    body={ name="Adhemar Jacket", augments=augments.Herculean.NQ.A},
+    hands={ name="Adhemar Wristbands", augments=augments.Herculean.NQ.A},
 }
-augmented_gear.Adhemar.Racc = {
-    hands={ name="Adhemar Wristbands", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}},
-    legs={ name="Adhemar Kecks", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}},
-}
-augmented_gear.Adhemar.Ratk = {
-    hands=augmented_gear.Adhemar.Racc.hands,
-    legs=augmented_gear.Adhemar.Racc.legs,
+augmented_gear.Adhemar.Rng = {
+    hands={ name="Adhemar Wristbands", augments=augments.Herculean.NQ.C},
+    legs={ name="Adhemar Kecks", augments=augments.Herculean.NQ.C},
 }
 augmented_gear.Adhemar.D = {
     legs={ name="Adhemar Kecks", augments={'AGI+10','"Rapid Shot"+10','Enmity-5',}}, 

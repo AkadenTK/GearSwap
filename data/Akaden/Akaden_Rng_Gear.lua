@@ -51,9 +51,15 @@ function init_gear_sets()
 
 	-- Fast cast sets for spells
 
-    sets.precast.FC = {}
+    sets.precast.FC = {
+    	head="Carmine mask",
+    	body="Samnuha coat",
+    	hands="Leyline gloves",
+    	legs="Gyve Trouses",
 
-	sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {})
+	}
+
+	sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga bead necklace"})
 
 
 	-- Ranged sets (snapshot)
@@ -63,6 +69,7 @@ function init_gear_sets()
 		head="Taeon chapeau", -- s7
 		body="Arcadian Jerkin +1", -- r12
 	    hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}}, -- s8 r11
+	    back={ name="Belenus's cape", augments={'"Snapshot"+10'}}
 	    legs=augmented_gear.Adhemar.D.legs, --s9 r10
 	    feet="Meg. Jam. +2", --s10
 	    waist="Impulse Belt",} -- s3
@@ -188,12 +195,12 @@ function init_gear_sets()
         ear2="Cessance earring",
         neck="Marked Gorget",
         body="Mummu jacket +2",
-        hands=augmented_gear.Adhemar.Ratk.hands,
+        hands=augmented_gear.Adhemar.Rng.hands,
         ring1="Hajduk ring",
         ring2="Hajduk ring",
         back={ name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','"Store TP"+10',}},
         waist="Yemaya belt",
-        legs=augmented_gear.Adhemar.Ratk.legs,
+        legs=augmented_gear.Adhemar.Rng.legs,
         feet=augmented_gear.Adhemar.D.feet,
     }
     
@@ -251,10 +258,10 @@ function init_gear_sets()
         ear2="Brutal Earring",
         body=augmented_gear.Adhemar.Atk.body,
         hands=augmented_gear.Adhemar.Atk.hands,
-        ring1="Ilabrat ring",
+        ring1="Petrov ring",
         ring2="Epona's ring",
         back="Atheling Mantle",
-        waist="Chiner's belt +1",
+        waist="Windbuffet belt +1",
         legs="Samnuha tights",
         feet=augmented_gear.Herculean.TA.feet,
     }
@@ -262,10 +269,12 @@ function init_gear_sets()
     sets.engaged.Acc = set_combine(sets.engaged, {
         head=augmented_gear.Adhemar.Acc.head,
         neck="Ej necklace",
+        ear1="Telos earring",
         ear2="Dignitary's earring",
-        body=augmented_gear.Adhemar.Acc.body,
+        body="Mummu Jacket +2",
         hands=augmented_gear.Adhemar.Acc.hands,
         waist="kentarch belt +1",
+        legs="Meghanada chausses +2",
         back="Kayapa cape",
     })
 

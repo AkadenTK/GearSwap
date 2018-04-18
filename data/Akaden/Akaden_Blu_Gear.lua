@@ -3,7 +3,7 @@ function user_setup()
 	-- Options: Override default values
     state.OffenseMode:options('Normal','Acc','FullAcc','None')
 	state.HybridMode:options('Normal','DTLite','PDT','MDT')
-    state.WeaponskillMode:options('Match','Normal','SomeAcc','Acc','HighAcc','FullAcc','Fodder')
+    state.WeaponskillMode:options('Match','Normal','Acc','FullAcc','Fodder')
     state.CastingMode:options('Normal','Resistant','Fodder')
     state.IdleMode:options('Normal', 'DTKite','PDT', 'MDT','DT')
 	state.PhysicalDefenseMode:options('PDT', 'NukeLock')
@@ -71,7 +71,7 @@ function init_gear_sets()
     	back="Moonbeam cape",
     	waist="Flume belt",		
     	legs="ayanmo cosciales +2",
-    	feet="Ayanmo gambieras +1"
+    	feet="Ayanmo gambieras +2"
 	}
 
 	sets.weapons = {}
@@ -161,7 +161,7 @@ function init_gear_sets()
 	--sets.precast.WS['Realmrazer'] = set_combine(sets.precast.WS, {head="Jhakri Coronal +2",ear1="Regal Earring",body="Jhakri Robe +2",ring2="Rufescent Ring",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"})
 	--sets.precast.WS['Realmrazer'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {head="Jhakri Coronal +2",ear1="Regal Earring",ear2="Telos Earring",body="Jhakri Robe +2",ring2="Rufescent Ring",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"})
 	--sets.precast.WS['Realmrazer'].Acc = set_combine(sets.precast.WS.Acc, {head="Jhakri Coronal +2",ear1="Regal Earring",ear2="Telos Earring",ring1="Rufescent Ring",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"})
-	--sets.precast.WS['Realmrazer'].HighAcc = set_combine(sets.precast.WS.HighAcc, {ring1="Rufescent Ring",feet="Jhakri Pigaches +2"})
+	--sets.precast.WS['Realmrazer'].HighAcc = set_combine(sets.precast.WS.HighAcc, {ring1="Rufescent Ring",feet="Jhakri Pigaches +2"}),
 	--sets.precast.WS['Realmrazer'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
 	--sets.precast.WS['Realmrazer'].Fodder = set_combine(sets.precast.WS['Realmrazer'], {})
 
@@ -180,13 +180,17 @@ function init_gear_sets()
         feet="Thereoid Greaves"
     })
 	sets.precast.WS['Chant du Cygne'].SomeAcc = set_combine(sets.precast.WS['Chant du Cygne'], {})
-	sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS['Chant du Cygne'].SomeAcc, {
-		ammo="Hasty Pinion +1",
-		ear1="Dignitary's earring",
-		ear2="Cessance Earring",
+	sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS['Chant du Cygne'].Acc, {
+		ammo="Falcon Eye",
+		ear1="Cessance Earring",
+		ear2="Telos earring",
+		feet="Ayanmo gambieras +2",
 	})
-	sets.precast.WS['Chant du Cygne'].HighAcc = set_combine(sets.precast.WS['Chant du Cygne'].Acc, {})
-	sets.precast.WS['Chant du Cygne'].FullAcc = set_combine(sets.precast.WS['Chant du Cygne'].HighAcc, {})
+	sets.precast.WS['Chant du Cygne'].FullAcc = set_combine(sets.precast.WS['Chant du Cygne'].Acc, {
+		head="Jhakri coronal +2",
+		ear1="Dignitary's Earring",
+		legs=augmented_gear.Herculean.WSD.STR.legs,
+	})
 	sets.precast.WS['Chant du Cygne'].Fodder = set_combine(sets.precast.WS['Chant du Cygne'], {})
 
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
@@ -251,8 +255,8 @@ function init_gear_sets()
 	--		         back=gear.mab_jse_back,waist="Yamabuki-no-Obi",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
 
 	-- Swap to these on Moonshade using WS if at 3000 TP
-	sets.MaxTP = {ear1="Cessance Earring",ear2="Brutal Earring"}
-	sets.AccMaxTP = {ear1="Cessance Earring",ear2="Dignitary's Earring"}
+	--sets.MaxTP = {ear1="Cessance Earring",ear2="Brutal Earring"}
+	--sets.AccMaxTP = {ear1="Cessance Earring",ear2="Dignitary's Earring"}
 
 	-- Midcast Sets
 	sets.midcast.FastRecast = set_combine(sets.precast.FC, {})
@@ -477,36 +481,26 @@ function init_gear_sets()
 
 	sets.engaged.AM = set_combine(sets.engaged, {neck="Asperity Necklace", ear2="Dedition earring", ring1="Ilabrat Ring"})
 
-	sets.engaged.MinAcc = set_combine(sets.engaged, {})
-
-	--sets.engaged.MinAcc.AM = set_combine(sets.engaged, {})
-
-	sets.engaged.SomeAcc = set_combine(sets.engaged, {})
-
-	--sets.engaged.SomeAcc.AM = set_combine(sets.engaged, {})
-
 	sets.engaged.Acc = set_combine(sets.engaged, {
         ammo="Falcon Eye",
-        head="Ayanmo Zucchetto +2",
         neck='Ej necklace',
-        ear1="Dignitary's earring",
+        ear1="Cessance earring",
         ear2="Telos earring",
         body=augmented_gear.Adhemar.Acc.body,
     	hands=augmented_gear.Adhemar.Acc.hands,
         ring1="Ilabrat ring",
         waist="Kentarch belt +1",
-        legs="Ayanmo cosciales +2",
     })
 
 	sets.engaged.Acc.AM = set_combine(sets.engaged.Acc, {ring1="Ilabrat Ring", ear2="Telos earring"})
 
-	sets.engaged.HighAcc = set_combine(sets.engaged.Acc, {})
+	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
+        head="Ayanmo Zucchetto +2",
+        ear1="Dignitary's earring",
+        legs="Ayanmo cosciales +2",
+		feet="Ayanmo gambieras +2",})
 
-	--sets.engaged.HighAcc.AM = set_combine(sets.engaged, {})
-
-	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {})
-
-	--sets.engaged.FullAcc.AM = set_combine(sets.engaged, {})
+	sets.engaged.FullAcc.AM = set_combine(sets.engaged.FullAcc, {})
 
 	sets.engaged.Fodder = set_combine(sets.engaged, {})
 
@@ -528,21 +522,10 @@ function init_gear_sets()
 		ring2="Warden's ring"
 		})
 
-	sets.engaged.MinAcc.DTLite = set_combine(sets.engaged.DTLite, {})
-
-	sets.engaged.MinAcc.PDT = set_combine(sets.engaged.PDT, {})
-
-	sets.engaged.SomeAcc.DTLite = set_combine(sets.engaged.PDT, {})
-
-	sets.engaged.SomeAcc.PDT = set_combine(sets.engaged.PDT, {})
 
 	sets.engaged.Acc.DTLite = set_combine(sets.engaged.DTLite, {})
 
 	sets.engaged.Acc.PDT = set_combine(sets.engaged.PDT, {})
-
-	sets.engaged.HighAcc.DTLite = set_combine(sets.engaged.DTLite, {})
-
-	sets.engaged.HighAcc.PDT = set_combine(sets.engaged.PDT, {})
 
 	sets.engaged.FullAcc.DTLite = set_combine(sets.engaged.DTLite, {})
 
@@ -558,13 +541,7 @@ function init_gear_sets()
 		ring2="Yacuruna ring",
 	})
 
-	sets.engaged.MinAcc.MDT = set_combine(sets.engaged.MDT, {})
-
-	sets.engaged.SomeAcc.MDT = set_combine(sets.engaged.MDT, {})
-
 	sets.engaged.Acc.MDT = set_combine(sets.engaged.MDT, {})
-
-	sets.engaged.HighAcc.MDT = set_combine(sets.engaged.MDT, {})
 
 	sets.engaged.FullAcc.MDT = set_combine(sets.engaged.MDT, {})
 

@@ -123,12 +123,13 @@ bayld_items = {'Tlalpoloani','Macoquetza','Camatlatia','Icoyoca','Tlamini','Suij
 
 
 function user_self_command(commandArgs, eventArgs)
-  	if commandArgs[1]:lower() == 'rh' and commandArgs[2]:lower() == 'cyclews' then
-		state.RHAutoWS:cycle()
-	    if state.RHAutoWS.value == '' then
-	    	windower.send_command("gs rh set");
-	    else
-		    windower.send_command("gs rh set \""..state.RHAutoWS.value.."\"")
-		end
-	end
+    if commandArgs[1]:lower() == 'rh' and commandArgs[2]:lower() == 'cyclews' then
+    	state.RHAutoWS:cycle()
+        if state.RHAutoWS.value == '' then
+            state.AutoWSMode.value = false
+        else
+            state.AutoWSMode.value = true
+    	    windower.send_command("gs c autows \""..state.RHAutoWS.value.."\"")
+        end
+    end
 end

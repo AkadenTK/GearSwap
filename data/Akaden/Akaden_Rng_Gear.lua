@@ -69,7 +69,7 @@ function init_gear_sets()
 		head="Taeon chapeau", -- s7
 		body="Arcadian Jerkin +1", -- r12
 	    hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}}, -- s8 r11
-	    back={ name="Belenus's cape", augments={'"Snapshot"+10'}}
+	    back={ name="Belenus's cape", augments={'"Snapshot"+10'}},
 	    legs=augmented_gear.Adhemar.D.legs, --s9 r10
 	    feet="Meg. Jam. +2", --s10
 	    waist="Impulse Belt",} -- s3

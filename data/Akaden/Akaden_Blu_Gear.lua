@@ -97,16 +97,19 @@ function init_gear_sets()
 	-- Fast cast sets for spells
 
 	sets.precast.FC = set_combine(sets.engaged, {
-        head="Carmine mask",
-        neck="Baetyl pendant", 
+        legs="Psycloth lappas",
+        feet="Amalric nails",
         ear1="Halasz earring", -- mp
         ear2="Gifted earring", -- mp
+        ring2="Lebeche ring",
+        head="Carmine mask",
+		ammo="Impatiens",
+        neck="Baetyl pendant", 
         body="Samnuha coat",
         hands="Leyline gloves",
         ring1="Kishar ring",
         back={ name="Rosmerta's Cape", augments={'"Fast Cast"+10',}},
-        legs="Psycloth lappas",
-        feet="Amalric nails"
+        waist="Witful Belt",
     })
 
 	sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga beads"})
@@ -180,10 +183,11 @@ function init_gear_sets()
         feet="Thereoid Greaves"
     })
 	sets.precast.WS['Chant du Cygne'].SomeAcc = set_combine(sets.precast.WS['Chant du Cygne'], {})
-	sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS['Chant du Cygne'].Acc, {
+	sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS['Chant du Cygne'], {
 		ammo="Falcon Eye",
-		ear1="Cessance Earring",
+		ear1="Regal Earring",
 		ear2="Telos earring",
+        body="Assimilator's Jubbah +3",
 		feet="Ayanmo gambieras +2",
 	})
 	sets.precast.WS['Chant du Cygne'].FullAcc = set_combine(sets.precast.WS['Chant du Cygne'].Acc, {
@@ -334,7 +338,7 @@ function init_gear_sets()
         neck="Baetyl pendant",
         body="Shamash Robe",
         ear1="Friomisi earring",
-        ear2="Hecate's earring",
+        ear2="Regal earring",
         hands="Jhakri cuffs +2",
         ring1="Acumen ring",
         ring2="Shiva Ring +1",
@@ -344,7 +348,9 @@ function init_gear_sets()
     	back={ name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','System: 1 ID: 1155 Val: 4',}},
     }
 
-	sets.midcast['Blue Magic'].Magical.Resistant = set_combine(sets.midcast['Blue Magic'].Magical, {})
+	sets.midcast['Blue Magic'].Magical.Resistant = set_combine(sets.midcast['Blue Magic'].Magical, {
+		head="Assimilator's Keffiyeh +3",
+		})
 
 	sets.midcast['Blue Magic'].Magical.Fodder = set_combine(sets.midcast['Blue Magic'].Magical, {})
 
@@ -358,8 +364,8 @@ function init_gear_sets()
         head="Assimilator's Keffiyeh +3",
         body="Ayanmo corazza +2",
         neck="Erra pendant",
-        hands="jhakri cuffs +2",
-        ear2="Hermetic earring",
+        hands="Jhakri cuffs +2",
+        ear2="Regal earring",
         ear1="Dignitary's earring",
         ring1="Stikini ring",
         ring2="Etana ring",
@@ -375,7 +381,8 @@ function init_gear_sets()
 
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {})
 
-	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {})
+	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {
+		waist="Emphatikos rope",})
 
 	sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {})
 
@@ -407,6 +414,7 @@ function init_gear_sets()
         legs="Psycloth Lappas",
         feet="Medium's sabots",
         ear1="Mendi. Earring",
+        ring2="Lebeche ring",
         back="Solemnity cape",
         legs="Gyve trousers"
     }
@@ -425,15 +433,14 @@ function init_gear_sets()
 
 	-- Other Specific Spells --
 
-	sets.midcast['Blue Magic']['White Wind'] = set_combine(sets.midcast.Cure, {
+	sets.midcast['Blue Magic']['White Wind'] = set_combine(sets.midcast.FastRecast, sets.midcast.Cure, {
 		ammo="Falcon eye",
 		head="Assimilator's Keffiyeh +3",
 		body="Assimilator's Jubbah +3",
 		ear2="Ethereal earring",
 		ring1="Ilabrat ring",
-		ring2="Etana ring",
 		back="moonbeam cape"
-		})
+	})
 					
 	sets.midcast['Blue Magic']['Healing Breeze'] = set_combine(sets.midcast.Cure, {})
 
@@ -444,13 +451,27 @@ function init_gear_sets()
 	--Overwrite certain spells with these peices even if the day matches, because of resource inconsistancies.
 	sets.NonElementalCure = set_combine(sets.midcast.Cure,{})
 
-	sets.midcast['Blue Magic'].SkillBasedBuff = {}
+	sets.midcast['Blue Magic'].SkillBasedBuff = {
+		body="Assimilator's jubbah +3",
+		hands="Rawhide gloves",
+		legs="Hashishin tayt +1",
+		feet="Luhlaza charuqs",
+		ring1="Stikini ring",
+		back="Cornflower cape",
+	}
 
 	sets.midcast['Blue Magic'].Buff = {}
 
 	sets.midcast['Blue Magic']['Battery Charge'] = set_combine(sets.midcast['Blue Magic'].Buff, {})
 
 	sets.midcast['Blue Magic']['Carcharian Verve'] = set_combine(sets.midcast['Blue Magic'].Buff, {})
+
+	sets.midcast['Blue Magic']['Dream Flower'] = set_combine(sets.midcast['Blue Magic'].MagicAccuracy, {
+        hands="Rawhide Gloves",
+		waist="Emphatikos rope",
+	})
+
+	sets.midcast['Blue Magic']['Sheep Song'] = set_combine(sets.midcast['Blue Magic']['Dream Flower'], {})
 
 	-- Sets to return to when not performing an action.
 
@@ -483,6 +504,7 @@ function init_gear_sets()
 
 	sets.engaged.Acc = set_combine(sets.engaged, {
         ammo="Falcon Eye",
+        head=augmented_gear.Adhemar.Acc.head,
         neck='Ej necklace',
         ear1="Cessance earring",
         ear2="Telos earring",

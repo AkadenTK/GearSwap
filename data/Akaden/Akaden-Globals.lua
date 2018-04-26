@@ -126,9 +126,9 @@ function user_self_command(commandArgs, eventArgs)
     if commandArgs[1]:lower() == 'rh' and commandArgs[2]:lower() == 'cyclews' then
     	state.RHAutoWS:cycle()
         if state.RHAutoWS.value == '' then
-            state.AutoWSMode.value = false
+            windower.send_command("gs c set AutoWSMode false")
         else
-            state.AutoWSMode.value = true
+            windower.send_command("gs c set AutoWSMode true")
     	    windower.send_command("gs c autows \""..state.RHAutoWS.value.."\"")
         end
     end

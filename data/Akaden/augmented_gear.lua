@@ -74,14 +74,14 @@ augments.Herculean.HQ = {
     C = {'AGI+12','Rng.Acc.+20','Rng.Atk.+20',},
 }
 augmented_gear.Adhemar.Acc = {
-    head={ name="Adhemar Bonnet", augments=augments.Herculean.NQ.B},
+    head={ name="Adhemar Bonnet", augments=augments.Herculean.NQ.A},
     body={ name="Adhemar Jacket", augments=augments.Herculean.NQ.A},
     hands={ name="Adhemar Wristbands", augments=augments.Herculean.NQ.A},
 }
 augmented_gear.Adhemar.Atk = {
-    head={ name="Adhemar Bonnet", augments=augments.Herculean.NQ.B},
+    head={ name="Adhemar Bonnet +1", augments=augments.Herculean.HQ.B},
     body={ name="Adhemar Jacket", augments=augments.Herculean.NQ.A},
-    hands={ name="Adhemar Wristbands", augments=augments.Herculean.NQ.A},
+    hands={ name="Adhemar Wristbands +1", augments=augments.Herculean.HQ.B},
 }
 augmented_gear.Adhemar.Rng = {
     hands={ name="Adhemar Wristbands", augments=augments.Herculean.NQ.C},

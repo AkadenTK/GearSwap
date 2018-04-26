@@ -67,7 +67,7 @@ function init_gear_sets()
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Atoyac", range="Anarchy +2"}
 
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt"})
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt"})
     
     -- Precast Sets
 

@@ -37,6 +37,7 @@ function init_gear_sets()
 	-- Precast sets
 	--------------------------------------
 
+	sets.Capacity={back="Aptitude Mantle"}
 	
 	
 	-- Precast sets to enhance JAs
@@ -82,11 +83,31 @@ function init_gear_sets()
 
 	-- Weaponskill sets
 	-- Default set for any weaponskill that isn't any more specifically defined
-    sets.precast.WS = {}
+    sets.precast.WS = {
+	    head="Orion Beret +3",
+	    neck="Fotia Gorget",
+	    left_ear="Moonshade earring",
+        hands="Meghanada gloves +2",
+	    waist="Fotia Belt",
+	    right_ring="Illabrat ring",
+	}
 
-    sets.precast.WS.Acc = {}
+    sets.precast.WS.Acc = set_combine(sets.precast.WS,{})
+
+    sets.precast.WS['Ruinator'] = set_combine(sets.precast.WS, {
+	    right_ear="Brutal Earring",
+        body=augmented_gear.Herculean.WSD.STR.body,
+	    left_ring="Ifrit Ring +1",
+	    back={ name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Weapon skill damage +10%',}},
+        legs=augmented_gear.Herculean.WSD.STR.legs,
+    	feet=augmented_gear.Herculean.WSD.STR.feet,
+	})
+
+    sets.precast.WS['Ruinator'] = set_combine(sets.precast.WS['Ruinator'], {
+
+	})
 		
-    sets.precast.WS['Aeolian Edge'] = {   
+    sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, {   
 	    ammo=gear.MAbullet,
 	    head=augmented_gear.Herculean.WSD.MAB.head,
 	    body="Samnuha coat",
@@ -98,11 +119,11 @@ function init_gear_sets()
 	    left_ear="Friomisi Earring",
 	    right_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +25',}},
 	    left_ring="Acumen Ring",
-	    right_ring="Karieyh Ring",
+	    right_ring="Shiva Ring +1",
 	    back={ name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Weapon skill damage +10%',}},
-   }
+   })
 		
-    sets.precast.WS['Wildfire'] = {   
+    sets.precast.WS['Wildfire'] = set_combine(sets.precast.WS, {   
 	    ammo=gear.MAbullet,
 	    head=augmented_gear.Herculean.WSD.MAB.head,
 	    body="Samnuha coat",
@@ -114,9 +135,9 @@ function init_gear_sets()
 	    left_ear="Friomisi Earring",
 	    right_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +25',}},
 	    left_ring="Acumen Ring",
-	    right_ring="Karieyh Ring",
+	    right_ring="Illabrat Ring",
 	    back={ name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Weapon skill damage +10%',}},
-   }
+   })
 
     sets.precast.WS['Wildfire'].Acc = set_combine(sets.precast.WS['Wildfire'], {
         left_ear="Hermetic Earring",
@@ -125,7 +146,7 @@ function init_gear_sets()
         waist="Kwahu Kachina belt",
         })
 		
-    sets.precast.WS['Trueflight'] = {   
+    sets.precast.WS['Trueflight'] = set_combine(sets.precast.WS, {   
 	    ammo=gear.MAbullet,
 	    head=augmented_gear.Herculean.WSD.MAB.head,
 	    body="Samnuha coat",
@@ -137,9 +158,9 @@ function init_gear_sets()
 	    left_ear="Friomisi Earring",
 	    right_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +25',}},
 	    left_ring="Acumen Ring",
-	    right_ring="Karieyh Ring",
+	    right_ring="Weatherspoon Ring",
 	    back={ name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Weapon skill damage +10%',}},
-   }
+   })
 
     sets.precast.WS['Trueflight'].Acc = set_combine(sets.precast.WS['Trueflight'], {
         left_ear="Hermetic Earring",
@@ -149,7 +170,7 @@ function init_gear_sets()
         waist="Kwahu Kachina belt",
         })
 
-    sets.precast.WS['Last Stand'] = {
+    sets.precast.WS['Last Stand'] = set_combine(sets.precast.WS, {
 	    ammo=gear.WSbullet,
 	    head="Orion Beret +3",
    		body=augmented_gear.Herculean.WSD.AGI.body,
@@ -161,13 +182,14 @@ function init_gear_sets()
 	    left_ear="Suppanomimi",
 	    right_ear="Ishvara Earring",
 	    left_ring="Ilabrat Ring",
-	    right_ring="Karieyh Ring",
-	    back={ name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Weapon skill damage +10%',}},
-    }
+	    right_ring="Garuda Ring",
+	    back={ name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}},
+    })
+
     sets.precast.WS['Last Stand'].Acc = set_combine(sets.precast.WS['Last Stand'], {
     	left_ear="Telos Earring",
     	body="Mummu jacket +2",
-    	legs="Meghanada chausses +1",
+    	legs="Meghanada chausses +2",
     	feet="Meghanada jambeaux +2",
     	})
 		
@@ -207,7 +229,7 @@ function init_gear_sets()
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA, {
         hands="Meghanada gloves +2",
         waist="Kwahu Kachina belt",
-        legs="Meghanada chausses +1",
+        legs="Meghanada chausses +2",
         feet="Meg. Jam. +2"})
 		
 	sets.buff['Double Shot'] = {

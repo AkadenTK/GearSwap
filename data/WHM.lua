@@ -285,7 +285,7 @@ function job_self_command(commandArgs, eventArgs)
 			return
 		end
 		
-		if missingHP < 170 then
+		if missingHP < 250 then
 			if spell_recasts[1] == 0 then
 				windower.chat.input('/ma "Cure" <t>')
 			elseif spell_recasts[2] == 0 then
@@ -353,12 +353,12 @@ function check_arts()
 
 		if abil_recasts[29] == 0 and not state.Buff['Afflatus Solace'] and not state.Buff['Afflatus Misery'] then
 			send_command('@input /ja "Afflatus Solace" <me>')
-			tickdelay = 30
+			tickdelay = (framerate * .5)
 			return true
 
 		elseif not arts_active() and abil_recasts[228] == 0 then
 			send_command('@input /ja "Light Arts" <me>')
-			tickdelay = 30
+			tickdelay = (framerate * .5)
 			return true
 		end
 		

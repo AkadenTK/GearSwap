@@ -103,6 +103,7 @@ function update_job_states()
         TotalHaste = "Haste",
         DelayReduction = "Delay",
 		LearningMode = "Learning",
+		ElementalWheel = "Elemental Wheel",
 		MagicBurstMode = "Magic Burst",
 		RecoverMode = "Recover MP",
 		ElementalMode = "Element",
@@ -194,17 +195,17 @@ function update_job_states()
 			if state.DefenseMode.value ~= 'None' then
 				stateBox:append(string.format("%sDefense Active: ", clr.w))
 				if state.DefenseMode.value == 'Physical' then
-					stateBox:append(string.format("%s%s: %s%s", clr.h, state.DefenseMode.current, state.PhysicalDefenseMode.current, clr.s))
+					stateBox:append(string.format("%s%s: %s%s", clr.h, state.DefenseMode.current, state.PhysicalDefenseMode.current, clr.w))
 				elseif state.DefenseMode.value == 'Magical' then
-					stateBox:append(string.format("%s%s: %s%s", clr.h, state.DefenseMode.current, state.MagicalDefenseMode.current, clr.s))
+					stateBox:append(string.format("%s%s: %s%s", clr.h, state.DefenseMode.current, state.MagicalDefenseMode.current, clr.w))
 				elseif state.DefenseMode.value == 'Resist' then
-					stateBox:append(string.format("%s%s: %s%s", clr.h, state.DefenseMode.current, state.ResistDefenseMode.current, clr.s))
+					stateBox:append(string.format("%s%s: %s%s", clr.h, state.DefenseMode.current, state.ResistDefenseMode.current, clr.w))
 				end
 				if state.ExtraDefenseMode and state.ExtraDefenseMode.value ~= 'None' then
 					stateBox:append(string.format("%s / %s%s%s", clr.n, clr.h, state.ExtraDefenseMode.current, clr.n))
 				end
 			else
-				stateBox:append(string.format("%s: ${%s}", labels[n], n))
+				stateBox:append(string.format("%s%s: ${%s}", clr.w, labels[n], n))
 				if state.HybridMode then
 					if state.HybridMode.value == 'Normal' then
 						stateBox:append(string.format("%s / %s%s%s", clr.n, clr.w, state.HybridMode.current, clr.n))

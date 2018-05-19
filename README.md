@@ -1,3 +1,6 @@
+DISCLAIMER: PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME, however feel free to shoot me a way to contact you outside of game,
+	through	the game, and I'm happy to help.
+
 Setting up my Gearswaps and Github updating.
 
 1.) Create a Github account if you don't already have one: https://github.com/join
@@ -21,8 +24,8 @@ Setting up my Gearswaps and Github updating.
 
 7.) If you don't have my style Character luas already, then Inside your Gearswap\Data\
 	folder, first copy, then rename the "Selindrile" folder once for each of your
-	characters' names, then within those new folders, rename the "Selindrile" at 
-	the beginning of each of those files to your characters' names.
+	characters' names, you can click Rename.bat and for the first sequence enter:
+	Selindrile, then enter your character's name for new sequence.
 
 8.) To update my gearswaps in the future open up Github Desktop and click the third button (Fetch Origin, then
     push the same button again.
@@ -33,7 +36,8 @@ Setting up my Gearswaps and Github updating.
 10.) Optional: Obtain Init file (Goes in Windower\Script folder) from:
     https://www.dropbox.com/sh/20vy32liub3glxz/AAAiIVHAasFdwCK1SZdZz7d_a?dl=0
 	and place it in your Windower\Scripts folder (Rename and keep your
-	original just in case)
+	original just in case) I also run many unofficial addons, most of which can be found at:
+	https://www.dropbox.com/sh/8l6m0lfpgw59ycc/AABZn4T7gVphpX77wetsAx45a?dl=0
     
 11.) Optional: For full functionality my gearswap and init files do depend on a few other addons that can
     be found in your launcher, I'll list them here: Addons: Shortcuts, Cancel, Itemizer. Plugins: Timers, Run

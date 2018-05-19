@@ -50,7 +50,7 @@ function init_gear_sets()
     
     sets.precast.FC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Impatiens",
 		head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Loquacious Earring",
-		body="Inyanga Jubbah +2",hands="Helios Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
+		body="Inyanga Jubbah +2",hands="Volte Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
 		back="Perimede Cape",waist="Witful Belt",legs="Psycloth Lappas",feet="Regal Pumps +1"}
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC, {main="Serenity",sub="Clerisy Strap +1"})
@@ -68,7 +68,7 @@ function init_gear_sets()
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Myrkr'] = {ammo="Sancus Sachet +1",
         head="Beckoner's Horn +1",neck="Sanctity Necklace",ear1="Etiolation Earring",ear2="Gifted Earring",
-        body="Con. Doublet +3",hands="Helios Gloves",ring1="Mephitas's Ring +1",ring2="Mephitas's Ring",
+        body="Con. Doublet +3",hands="Regal Cuffs",ring1="Mephitas's Ring +1",ring2="Mephitas's Ring",
         back="Conveyance Cape",waist="Luminary Sash",legs="Psycloth Lappas",feet="Beck. Pigaches +1"}
 
     
@@ -78,7 +78,7 @@ function init_gear_sets()
 
     sets.midcast.FastRecast = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Hasty Pinion +1",
 		head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Loquacious Earring",
-		body="Inyanga Jubbah +2",hands="Helios Gloves",ring1="Kishar Ring",ring2="Prolix Ring",
+		body="Inyanga Jubbah +2",hands="Volte Gloves",ring1="Kishar Ring",ring2="Prolix Ring",
 		back="Swith Cape +1",waist="Witful Belt",legs="Lengo Pants",feet="Regal Pumps +1"}
 	
     sets.midcast.Cure = {main=gear.gada_healing_club,sub="Sors Shield",ammo="Hasty Pinion +1",
@@ -136,12 +136,12 @@ function init_gear_sets()
 		
     sets.midcast.Stun = {main="Oranyan",sub="Clerisy Strap +1",ammo="Hasty Pinion +1",
 		head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Loquacious Earring",
-		body="Inyanga Jubbah +2",hands="Helios Gloves",ring1="Kishar Ring",ring2="Stikini Ring",
+		body="Inyanga Jubbah +2",hands="Volte Gloves",ring1="Kishar Ring",ring2="Stikini Ring",
 		back="Swith Cape +1",waist="Witful Belt",legs="Psycloth Lappas",feet="Regal Pumps +1"}
 		
     sets.midcast.Stun.Resistant = {main="Oranyan",sub="Clerisy Strap +1",ammo="Hasty Pinion +1",
 		head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Gwati Earring",
-		body="Inyanga Jubbah +2",hands="Helios Gloves",ring1="Kishar Ring",ring2="Stikini Ring",
+		body="Inyanga Jubbah +2",hands="Volte Gloves",ring1="Kishar Ring",ring2="Stikini Ring",
 		back="Aurist's Cape +1",waist="Witful Belt",legs="Psycloth Lappas",feet=gear.merlinic_aspir_feet}
 		
 	sets.midcast['Enfeebling Magic'] = {main="Oranyan",sub="Enki Strap",ammo="Pemphredo Tathlum",
@@ -210,8 +210,18 @@ function init_gear_sets()
         head="Apogee Crown +1",neck="Adad Amulet",ear1="Gelos Earring",ear2="Lugalbanda Earring",
         body="Con. Doublet +3",hands=gear.merlinic_magpact_hands,ring1="Varar Ring",ring2="Varar Ring",
         back=gear.phys_jse_back,waist="Regal Belt",legs="Apogee Slacks +1",feet="Apogee Pumps +1"}
-		
 	sets.midcast.Pet['Flaming Crush'].Acc = {feet="Convo. Pigaches +3"}
+	
+	sets.midcast.Pet['Mountain Buster'] = set_combine(sets.midcast.Pet.PhysicalBloodPactRage, {legs="Enticer's Pants"})
+	sets.midcast.Pet['Mountain Buster'].Acc = set_combine(sets.midcast.Pet.PhysicalBloodPactRage.Acc, {legs="Enticer's Pants"})
+	sets.midcast.Pet['Rock Buster'] = set_combine(sets.midcast.Pet.PhysicalBloodPactRage, {legs="Enticer's Pants"})
+	sets.midcast.Pet['Rock Buster'].Acc = set_combine(sets.midcast.Pet.PhysicalBloodPactRage.Acc, {legs="Enticer's Pants"})
+	sets.midcast.Pet['Crescent Fang'] = set_combine(sets.midcast.Pet.PhysicalBloodPactRage, {legs="Enticer's Pants"})
+	sets.midcast.Pet['Crescent Fang'].Acc = set_combine(sets.midcast.Pet.PhysicalBloodPactRage.Acc, {legs="Enticer's Pants"})
+	sets.midcast.Pet['Eclipse Bite'] = set_combine(sets.midcast.Pet.PhysicalBloodPactRage, {legs="Enticer's Pants"})
+	sets.midcast.Pet['Eclipse Bite'].Acc = set_combine(sets.midcast.Pet.PhysicalBloodPactRage.Acc, {legs="Enticer's Pants"})
+	sets.midcast.Pet['Blindside'] = set_combine(sets.midcast.Pet.PhysicalBloodPactRage, {legs="Enticer's Pants"})
+	sets.midcast.Pet['Blindside'].Acc = set_combine(sets.midcast.Pet.PhysicalBloodPactRage.Acc, {legs="Enticer's Pants"})
 
     --------------------------------------
     -- Idle/resting/defense/etc sets

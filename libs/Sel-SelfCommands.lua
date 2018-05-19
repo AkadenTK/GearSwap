@@ -315,6 +315,7 @@ function handle_weapons(cmdParams)
 		if sets.weapons[state.Weapons.value] then
 			equip_weaponset(state.Weapons.value)
 		end
+	elseif cmdParams[1] == 'None' then
 	elseif cmdParams[1]:lower() == 'default' then
 		if (player.sub_job == 'DNC' or player.sub_job == 'NIN') and state.Weapons:contains('DualWeapons') and sets.weapons.DualWeapons then
 			if state.Weapons.value ~= 'DualWeapons' then
@@ -366,13 +367,16 @@ end
 function handle_showset(cmdParams)
     enable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
 	
+	equip_weaponset(state.Weapons.value)
+
 	if cmdParams[1] ~= nil then
-	
-	local key_list = parse_set_to_keys(cmdParams)
-	local set = get_set_from_keys(key_list)
+		local key_list = parse_set_to_keys(cmdParams)
+		local set = get_set_from_keys(key_list)
 	
 		equip(set)
 		disable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
+	else
+		handle_update({'auto'})
 	end
 end
 
@@ -545,11 +549,23 @@ function handle_curecheat(cmdParams)
     if sets.HPDown then
         curecheat = true
 		equip(sets.HPDown)
-        send_command('@wait 1;input /ma "Cure IV" <me>')
+		if player.main_job == 'BLU' then
+			send_command('@wait 1;input /ma "Magic Fruit" <me>')
+		elseif player.main_job == 'WHM' then
+			send_command('@wait 1;input /ma "Cure III" <me>')
+		else
+			send_command('@wait 1;input /ma "Cure IV" <me>')
+		end
 	--If we only have an HighHP set, we assume that this is sufficient.
 	elseif sets.HPCure then
 		curecheat = true
-        windower.chat.input('/ma "Cure IV" <me>')
+		if player.main_job == 'BLU' then
+			windower.chat.input('/ma "Magic Fruit" <me>')
+		elseif player.main_job == 'WHM' then
+			windower.chat.input('/ma "Cure III" <me>')
+		else
+			windower.chat.input('/ma "Cure IV" <me>')
+		end
     else
         add_to_chat(123,"You don't have a sets.HPDown nor a sets.HPCure to cheat with.")
     end

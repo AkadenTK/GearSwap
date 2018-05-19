@@ -11,6 +11,8 @@ end
 function job_setup()
 
 	state.Buff['Mana Wall'] = buffactive['Mana Wall'] or false
+	state.Buff['Manafont'] = buffactive['Manafont'] or false
+	state.Buff['Manawell'] = buffactive['Manawell'] or false
 
     LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
         'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
@@ -136,7 +138,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				equip(sets.element[spell.element])
 			end
 			
-			if state.RecoverMode.value ~= 'Never' and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
+			if state.RecoverMode.value ~= 'Never' and not (state.Buff['Manafont'] or state.Buff['Manawell']) and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
 				if state.MagicBurstMode.value ~= 'Off' and sets.RecoverBurst then
 					equip(sets.RecoverBurst)
 				else
@@ -158,9 +160,6 @@ function job_aftercast(spell, spellMap, eventArgs)
             send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
         elseif spell.english == 'Sleep II' or spell.english == 'Sleepga II' then
             send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 90 down spells/00220.png')
-        elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
-            state.MagicBurstMode:reset()
-			if state.DisplayMode.value then update_job_states()	end
 		elseif spell.english == "Death" and state.DeathMode.value == 'Single' then
 			state.DeathMode:reset()
 			if state.DisplayMode.value then update_job_states()	end
@@ -266,7 +265,7 @@ function check_arts()
 
 		if abil_recasts[232] == 0 then
 			windower.chat.input('/ja "Dark Arts" <me>')
-			tickdelay = 30
+			tickdelay = (framerate * .5)
 			return true
 		end
 

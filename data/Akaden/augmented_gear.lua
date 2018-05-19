@@ -31,6 +31,7 @@ augmented_gear.Merlinic.Accuracy = {
 augmented_gear.Herculean = {}
 augmented_gear.Herculean.Refresh = {
     hands={ name="Herculean Gloves", augments={'Mag. Acc.+3','Damage taken-1%','"Refresh"+1','Accuracy+9 Attack+9','Mag. Acc.+10 "Mag.Atk.Bns."+10',}},
+    feet={ name="Herculean Boots", augments={'Attack+10','Weapon skill damage +2%','"Refresh"+2','Mag. Acc.+9 "Mag.Atk.Bns."+9',}},
 }
 
 augmented_gear.Herculean.WSD = {}
@@ -59,6 +60,10 @@ augmented_gear.Herculean.CritDMG.DEX = {
 
 augmented_gear.Herculean.TA = {
     feet={ name="Herculean Boots", augments={'Accuracy+28','"Triple Atk."+4','STR+3',}},
+}
+
+augmented_gear.Herculean.TH = {
+    feet={ name="Herculean Boots", augments={'Potency of "Cure" effect received+6%','Magic dmg. taken -4%','"Treasure Hunter"+1','Accuracy+17 Attack+17','Mag. Acc.+3 "Mag.Atk.Bns."+3',}},
 }
 augmented_gear.Adhemar = {}
 augments = {}

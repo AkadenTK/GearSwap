@@ -108,6 +108,7 @@ function init_gear_sets()
         body="Samnuha coat",
         hands="Leyline gloves",
         ring1="Kishar ring",
+        ring2="Weatherspoon ring",
         back={ name="Rosmerta's Cape", augments={'"Fast Cast"+10',}},
         waist="Witful Belt",
     })
@@ -127,7 +128,6 @@ function init_gear_sets()
         hands="jhakri cuffs +2",
         ear2="Ishvara Earring",
         ear1="Moonshade earring",
-        ring2="Karieyh ring",
         back={ name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10',}},
         waist="Fotia Belt",
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -152,7 +152,6 @@ function init_gear_sets()
             legs="Hashishin tayt +1",
             feet="Jhakri pigaches +2",
             ring1="Stikini Ring",
-            ring2="Karieyh ring",
             ammo="Hasty pinion +1"
 	})
 	sets.precast.WS['Requiescat'].SomeAcc = set_combine(sets.precast.WS['Requiescat'], {})
@@ -178,7 +177,7 @@ function init_gear_sets()
         back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20', 'DEX+10','Crit.hit rate+10',}},
         waist="Fotia Belt",
         ring1="Ilabrat Ring",
-        ring2="Karieyh ring",
+        ring2="Begrudging ring",
         legs=augmented_gear.Herculean.CritDMG.DEX.legs,
         feet="Thereoid Greaves"
     })
@@ -204,7 +203,7 @@ function init_gear_sets()
         ear2="Ishvara Earring",
         body="Assimilator's Jubbah +3",
         hands="jhakri cuffs +2",
-        ring2="Karieyh ring",
+        ring2="Ilabrat ring",
     	ring1="Ifrit ring +1",
         waist="Prosilio belt",
         back={ name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10',}},
@@ -238,7 +237,7 @@ function init_gear_sets()
         ear2="Ishvara Earring",
         body="Assimilator's Jubbah +3",
         hands="jhakri cuffs +2",
-        ring2="Karieyh ring",
+        ring2="Apate ring",
         ring1="Ifrit ring +1",
         waist="Prosilio belt",
         back={ name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10',}},
@@ -349,17 +348,6 @@ function init_gear_sets()
     }
 
 	sets.midcast['Blue Magic'].Magical.Resistant = set_combine(sets.midcast['Blue Magic'].Magical, {
-		head="Assimilator's Keffiyeh +3",
-		})
-
-	sets.midcast['Blue Magic'].Magical.Fodder = set_combine(sets.midcast['Blue Magic'].Magical, {})
-
-	sets.midcast['Blue Magic'].MagicalMnd = set_combine(sets.midcast['Blue Magic'].Magical, {})
-	sets.midcast['Blue Magic'].MagicalChr = set_combine(sets.midcast['Blue Magic'].Magical, {})
-	sets.midcast['Blue Magic'].MagicalVit = set_combine(sets.midcast['Blue Magic'].Magical, {})
-	sets.midcast['Blue Magic'].MagicalDex = set_combine(sets.midcast['Blue Magic'].Magical, {})
-
-	sets.midcast['Blue Magic'].MagicAccuracy = set_combine(sets.midcast['Blue Magic'].Magical, {
         ammo="Pemphredo Tathlum",
         head="Assimilator's Keffiyeh +3",
         body="Ayanmo corazza +2",
@@ -369,9 +357,18 @@ function init_gear_sets()
         ear1="Dignitary's earring",
         ring1="Stikini ring",
         ring2="Etana ring",
-        legs="ayanmo cosciales +2",
+        legs="Assimilator's Shalwar +3",
         feet="Jhakri pigaches +2"
-    })
+		})
+
+	sets.midcast['Blue Magic'].Magical.Fodder = set_combine(sets.midcast['Blue Magic'].Magical, {})
+
+	sets.midcast['Blue Magic'].MagicalMnd = set_combine(sets.midcast['Blue Magic'].Magical, {})
+	sets.midcast['Blue Magic'].MagicalChr = set_combine(sets.midcast['Blue Magic'].Magical, {})
+	sets.midcast['Blue Magic'].MagicalVit = set_combine(sets.midcast['Blue Magic'].Magical, {})
+	sets.midcast['Blue Magic'].MagicalDex = set_combine(sets.midcast['Blue Magic'].Magical, {})
+
+	sets.midcast['Blue Magic'].MagicAccuracy = set_combine(sets.midcast['Blue Magic'].Magical.Resistant, {})
 
 	sets.midcast['Enfeebling Magic'] = set_combine(sets.midcast['Blue Magic'].MagicAccuracy, {})
 
@@ -447,6 +444,7 @@ function init_gear_sets()
 	sets.midcast['Blue Magic'].Healing = set_combine(sets.midcast.Cure, {})
 
 	sets.midcast['Blue Magic']['Tenebral Crush'] = set_combine(sets.midcast['Blue Magic'].Magical, sets.element.dark)
+	sets.midcast['Blue Magic']['Tenebral Crush'].Resistant = set_combine(sets.midcast['Blue Magic'].Magical.Resistant, {})
 
 	--Overwrite certain spells with these peices even if the day matches, because of resource inconsistancies.
 	sets.NonElementalCure = set_combine(sets.midcast.Cure,{})
@@ -576,11 +574,11 @@ function init_gear_sets()
             body="Shamash robe",
         	hands=augmented_gear.Herculean.Refresh.hands,
             hands="Herculean gloves",
-            ring1="Karieyh ring",
+            ring1="Warden's ring",
             ring2="Paguroidea ring",
             back="moonbeam cape",
             legs="Carmine Cuisses +1",
-            feet="Serpentes Sabots"
+            feet=augmented_gear.Herculean.Refresh.feet,
         })
 	sets.idle.Town = set_combine(sets.idle, {})
 
@@ -627,9 +625,8 @@ function init_gear_sets()
 	sets.SuppaBrutal = {ear1="Suppanomimi", ear2="Brutal Earring"}
 	sets.DWEarrings = {ear1="Dudgeon Earring",ear2="Heartseeker Earring"}
 	sets.DWMax = {ear1="Dudgeon Earring",ear2="Heartseeker Earring",body="Adhemar Jacket",waist="Reiki Yotai",legs="Carmine Cuisses +1"}
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt",feet=augmented_gear.Herculean.TH.feet})
 	sets.Assault = {ring1="Balrahn's Ring"}
-	sets.Capacity={back="Aptitude Mantle"}
 
 	sets.Self_Healing = {neck="Phalaina locket"}
 	sets.Self_Healing_Club = {}

@@ -33,7 +33,7 @@ function init_gear_sets()
     --------------------------------------
 
     sets.Enmity = {}
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist="Chaac belt"})
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt", feet=augmented_gear.Herculean.TH.feet})
 	
     -- Precast sets to enhance JAs
     sets.precast.JA['Mijin Gakure'] = {} --legs="Mochizuki Hakama"
@@ -117,7 +117,7 @@ function init_gear_sets()
         left_ear="Ishvara Earring",
         right_ear="Brutal Earring",
         left_ring="Ilabrat Ring",
-        right_ring="Karieyh Ring",
+        right_ring="Ifrit Ring +1",
         back="Kayapa Cape",
     })
     sets.precast.WS['Blade: Jin'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {})
@@ -149,7 +149,7 @@ function init_gear_sets()
         left_ear="Ishvara Earring",
         right_ear="Brutal Earring",
         left_ring="Ilabrat Ring",
-        right_ring="Karieyh Ring",
+        right_ring="Ifrit Ring +1",
         back="Kayapa Cape",
     })
     sets.precast.WS['Blade: Ten'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {})

@@ -67,7 +67,7 @@ function init_gear_sets()
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Atoyac", range="Anarchy +2"}
 
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt"})
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt", feet=augmented_gear.Herculean.TH.feet})
     
     -- Precast Sets
 
@@ -75,7 +75,7 @@ function init_gear_sets()
 	
 	sets.precast.JA['Triple Shot'] = {body="Chasseur's Frac +1"}
     sets.precast.JA['Snake Eye'] = {legs="Lanun trews +1"}
-    sets.precast.JA['Wild Card'] = {feet="Lanun Bottes +2"}
+    sets.precast.JA['Wild Card'] = {feet="Lanun Bottes +3"}
     sets.precast.JA['Random Deal'] = {body="Lanun Frac +2"}
     sets.precast.FoldDoubleBust = {hands="Lanun Gants +1"}
     
@@ -112,7 +112,7 @@ function init_gear_sets()
         hands=augmented_gear.Adhemar.Atk.hands,
         ring1="Ilabrat ring",
         ring2="Epona's ring",
-        back="Atheling Mantle",
+        back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
         waist="Chiner's belt +1",
         legs="Samnuha tights",
         feet=augmented_gear.Herculean.TA.feet,
@@ -125,7 +125,6 @@ function init_gear_sets()
         body=augmented_gear.Adhemar.Acc.body,
         hands=augmented_gear.Adhemar.Acc.hands,
         waist="kentarch belt +1",
-        back="Kayapa cape",
     })
 
     sets.engaged.MegaAcc = set_combine(sets.engaged.Acc, {
@@ -231,7 +230,7 @@ function init_gear_sets()
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
         ring1="Ifrit ring +1",
-        ring2="Karieyh ring",
+        ring2="Ilabrat ring",
         back={ name="Camulus's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}},
         waist="Prosilio belt",
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -251,13 +250,13 @@ function init_gear_sets()
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
         legs=augmented_gear.Herculean.WSD.AGI.legs,
-        feet="Lanun Bottes +2",
+        feet="Lanun Bottes +3",
         neck="Fotia Gorget",
         waist="Fotia Belt",
         left_ear="Moonshade Earring",
         right_ear="Ishvara Earring",
         left_ring="Apate Ring",
-        right_ring="Karieyh ring",
+        right_ring="Garuda ring",
         back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}},
     }
 
@@ -284,12 +283,12 @@ function init_gear_sets()
         body="Laksamana's frac +3",
         hands="Carmine Finger Gauntlets +1",
         legs=augmented_gear.Herculean.WSD.MAB.legs,
-        feet="Lanun Bottes +2",
+        feet="Lanun Bottes +3",
         neck="Baetyl pendant",
         waist="Svelt. Gouriz +1",
         left_ear="Friomisi Earring",
         right_ear="Moonshade Earring",
-        ring2="Karieyh ring",
+        ring2="Acumen ring",
         ring1="Archon Ring",
         back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
         --back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','"Mag.Atk.Bns."+10',}},
@@ -383,12 +382,11 @@ function init_gear_sets()
         body="Laksamana's frac +3",
         hands=augmented_gear.Herculean.Refresh.hands,
         legs="Meg. Chausses +1",
-        feet={ name="Lanun Bottes +2", augments={'Enhances "Wild Card" effect',}},
+        feet="Lanun Bottes +3",
         neck="Wiglen Gorget",
         waist="Flume Belt",
         left_ear="Ethereal Earring",
         left_ring="Warden's Ring",
-        right_ring="Karieyh Ring",
         back="moonbeam cape",
     })
 		

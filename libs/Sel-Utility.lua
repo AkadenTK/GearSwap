@@ -1893,49 +1893,49 @@ function face_target()
 	end
 end
 
-function check_shadows()
-	if not state.AutoShadowMode.value or moving or areas.Cities:contains(world.area) then return false end
-	local spell_recasts = windower.ffxi.get_spell_recasts()
+function check_ammo()
+	if state.AutoAmmoMode.value and player.equipment.range and not player.in_combat and not world.in_mog_house then
+		if rema_ranged_weapons:contains(player.equipment.range) and get_item_next_use(player.equipment.range).usable then
+			if count_total_ammo(rema_ranged_weapons_ammo[player.equipment.range]) < ammostock then
+				windower.chat.input('/item "'..player.equipment.range..'" <me>')
+				add_to_chat(217,"You're low on "..rema_ranged_weapons_ammo[player.equipment.range]..", using "..player.equipment.range..".")
+				tickdelay = (framerate * 2)
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function count_available_ammo(ammo_name)
+	local ammo_count = 0
 	
-	if player.main_job == 'NIN' then
-		if not has_two_shadows() and player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 99 and spell_recasts[340] == 0 then
-			windower.chat.input('/ma "Utsusemi: San" <me>')
-			tickdelay = (framerate * 1.8)
-			return true
-		elseif not has_two_shadows() and spell_recasts[339] == 0 then
-			windower.chat.input('/ma "Utsusemi: Ni" <me>')
-			tickdelay = (framerate * 1.8)
-			return true
-		elseif not has_two_shadows() and spell_recasts[338] == 0 then
-			windower.chat.input('/ma "Utsusemi: Ichi" <me>')
-			tickdelay = (framerate * 2)
-			return true
-		else
-			return false
+    for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4",}) do
+		if player[n][ammo_name] then
+			ammo_count = ammo_count + player[n][ammo_name].count
 		end
-	elseif player.sub_job == 'NIN' then
-		if not has_two_shadows() and spell_recasts[339] == 0 then
-			windower.chat.input('/ma "Utsusemi: Ni" <me>')
-			tickdelay = (framerate * 1.8)
-			return true
-		elseif not has_two_shadows() and spell_recasts[338] == 0 then
-			windower.chat.input('/ma "Utsusemi: Ichi" <me>')
-			tickdelay = (framerate * 2)
-			return true
-		else
-			return false
+    end
+
+	add_to_chat(123,''..ammo_name..':'..ammo_count..'')
+	return ammo_count
+end
+
+function count_total_ammo(ammo_name)
+	local ammo_count = 0
+	
+    for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4","satchel","sack","case"}) do
+		if player[n][ammo_name] then
+			ammo_count = ammo_count + player[n][ammo_name].count
 		end
-	elseif not has_shadows() and silent_can_use(679) and spell_recasts[679] == 0 then
-		windower.chat.input('/ma "Occultation" <me>')
-		tickdelay = (framerate * 2)
-		return true
-	elseif not has_shadows() and silent_can_use(53) and spell_recasts[53] == 0 then
-		windower.chat.input('/ma "Blink" <me>')
-		tickdelay = (framerate * 2)
-		return true
-	elseif not has_shadows() and silent_can_use(647) and spell_recasts[647] == 0 then
-		windower.chat.input('/ma "Zephyr Mantle" <me>')
-		tickdelay = (framerate * 2)
+    end
+
+	return ammo_count
+end
+
+function check_shadows()
+	if not state.AutoShadowMode.value or moving or areas.Cities:contains(world.area) then 
+		return false
+	elseif handle_shadows() then
 		return true
 	else
 		return false

@@ -320,6 +320,8 @@ function init_include()
 		state.AutoWSMode:reset()
 		state.AutoNukeMode:reset()
 		useItem = false
+		useItemName = ''
+		useItemSlot = ''
 		if state.DisplayMode.value then update_job_states()	end
 	end)
 
@@ -1922,7 +1924,7 @@ function status_change(newStatus, oldStatus)
     local eventArgs = {handled = false}
     mote_vars.set_breadcrumbs:clear()
 
-	if not (newStatus == 0 or newStatus == 1) then
+	if not (newStatus == 'Idle' or newStatus == 'Engaged') then
 		if state.RngHelper.value then
 			send_command('gs rh clear')
 		end
@@ -1946,10 +1948,13 @@ function status_change(newStatus, oldStatus)
 					windower.send_command('wait 1;put '..useItemName..' satchel')
 				end
 			end
+			add_to_chat(217,"Cancelling using "..useItemName..".")
+			useItemName = ''
+			useItemSlot = ''
 		end
 	end
 	
-    if newStatus == 1 then
+    if newStatus == 'Engaged' then
 		update_combat_form()
 	end
 	

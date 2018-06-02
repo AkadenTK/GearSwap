@@ -18,7 +18,8 @@ function job_setup()
         'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
         'Stonega', 'Waterga', 'Aeroga', 'Firaga', 'Blizzaga', 'Thundaga'}
 		
-    AutoManawellSpells = S{'Impact','Meteor','Thundaja','Blizzaja','Firaja','Thunder VI','Blizzard VI',}
+    AutoManawellSpells = S{'Impact'}
+	AutoManawellOccultSpells = S{'Impact','Meteor','Thundaja','Blizzaja','Firaja','Thunder VI','Blizzard VI',}
 
 	state.DeathMode 	  = M{['description'] = 'Death Mode', 'Off', 'Single', 'Lock'}
 	state.AutoManawell = M(true, 'Auto Manawell Mode')
@@ -40,7 +41,17 @@ function job_filtered_action(spell, eventArgs)
 end
 
 function job_pretarget(spell, spellMap, eventArgs)
+	if spell.action_type == 'Magic' then
+		if state.AutoManawell.value and (AutoManawellSpells:contains(spell.english) or (state.CastingMode.value == 'OccultAcumen' and AutoManawellOccultSpells:contains(spell.english) and actual_cost(spell.english) > player.mp)) then
+			local abil_recasts = windower.ffxi.get_ability_recasts()
 
+			if abil_recasts[35] == 0 and not buffactive['amnesia'] then
+				cancel_spell()
+				send_command('@input /ja "Manawell" <me>;wait 1;input /ma '..spell.english..' '..spell.target.raw..'')
+				return
+			end
+		end
+	end
 end
 
 function job_precast(spell, spellMap, eventArgs)
@@ -56,16 +67,6 @@ function job_precast(spell, spellMap, eventArgs)
 			else
 				gear.default.obi_back = gear.obi_high_nuke_back
 				gear.default.obi_waist = gear.obi_high_nuke_waist
-			end
-		end
-		
-		if state.AutoManawell.value and AutoManawellSpells:contains(spell.english) then
-			local abil_recasts = windower.ffxi.get_ability_recasts()
-
-			if abil_recasts[35] == 0 and not buffactive['amnesia'] then
-				cancel_spell()
-				send_command('@input /ja "Manawell" <me>;wait 1;input /ma '..spell.english..' '..spell.target.raw..'')
-				return
 			end
 		end
 		

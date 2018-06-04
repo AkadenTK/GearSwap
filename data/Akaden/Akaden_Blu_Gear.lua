@@ -4,12 +4,12 @@ function user_setup()
     state.OffenseMode:options('Normal','Acc','FullAcc','None')
 	state.HybridMode:options('Normal','DTLite','PDT','MDT')
     state.WeaponskillMode:options('Match','Normal','Acc','FullAcc','Fodder')
-    state.CastingMode:options('Normal','Resistant','Fodder')
+    state.CastingMode:options('Normal','Resistant','Enmity')
     state.IdleMode:options('Normal', 'DTKite','PDT', 'MDT','DT')
 	state.PhysicalDefenseMode:options('PDT', 'NukeLock')
 	state.MagicalDefenseMode:options('MDT', 'NukeLock')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('Default','SavageBlade','MagicWeapons', 'None')
+	state.Weapons:options('Default','SavageBlade','MagicWeapons','DDClubs', 'None')
 
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'MP','SuppaBrutal', 'DWEarrings','DWMax'}
 
@@ -78,10 +78,22 @@ function init_gear_sets()
 	sets.weapons.Default = {main="Tizona",sub="Colada"}
 	sets.weapons.SavageBlade = {main="Sequence",sub="Colada"}
 	sets.weapons.MagicWeapons = {main="Nibiru Cudgel", sub="Vampirism"}
+	sets.weapons.DDClubs = {main="Nehushtan", sub="Nibiru Cudgel"}
 	-- Precast Sets
 
 	-- Precast sets to enhance JAs
 	sets.precast.JA['Azure Lore'] = {hands="Luh. Bazubands +1"}
+
+	sets.enmity = set_combine(sets.dt, {
+		head="Rabid Visor",
+		body="Shamash Robe",
+		ear1="Friomisi earring",
+		ring1="Begrudging ring",
+		ring2="Petrov ring",
+		legs="Dux Cuisses",
+	})
+
+	sets.precast.JA['Provoke'] = set_combine(sets.enmity, {})
 
 
 	-- Waltz set (chr and vit)
@@ -170,7 +182,7 @@ function init_gear_sets()
 	sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {
         ammo="Jukukik feather",
         head=augmented_gear.Adhemar.Atk.head,
-        body="Assimilator's Jubbah +3",
+        body="Abnoba Kaftan",
         neck="Fotia Gorget",
         ear2="Brutal Earring",
         hands=augmented_gear.Adhemar.Atk.hands,
@@ -250,6 +262,22 @@ function init_gear_sets()
 	sets.precast.WS['Expiacion'].FullAcc = set_combine(sets.precast.WS['Expiacion'], {})
 	sets.precast.WS['Expiacion'].Fodder = set_combine(sets.precast.WS['Expiacion'], {})
 
+
+	sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS, {
+        ammo="Floestone",
+    	head=augmented_gear.Herculean.WSD.STR.head,
+        neck="Caro Necklace",
+        ear2="Ishvara Earring",
+        body="Assimilator's Jubbah +3",
+        hands="jhakri cuffs +2",
+        ring2="Apate ring",
+        ring1="Ifrit ring +1",
+        waist="Prosilio belt",
+        back={ name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10',}},
+        legs=augmented_gear.Herculean.WSD.STR.legs,
+    	feet=augmented_gear.Herculean.WSD.STR.feet,
+    })
+
 	--sets.precast.WS['Sanguine Blade'] = set_combine(sets.midcast['Blue Magic'].Magical, {})
 
 	--sets.precast.WS['Flash Nova'] = {ammo="Pemphredo Tathlum",
@@ -297,7 +325,6 @@ function init_gear_sets()
 
 	sets.midcast['Blue Magic'].PhysicalDex = set_combine(sets.midcast['Blue Magic'].Physical, {
     	hands=augmented_gear.Adhemar.Atk.hands,
-        waist="Chiner's belt +1",
         legs="Hashishin Tayt",
         back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}},
     })
@@ -356,7 +383,7 @@ function init_gear_sets()
         ear2="Regal earring",
         ear1="Dignitary's earring",
         ring1="Stikini ring",
-        ring2="Etana ring",
+        ring2="Weatherspoon ring",
         legs="Assimilator's Shalwar +3",
         feet="Jhakri pigaches +2"
 		})
@@ -446,10 +473,13 @@ function init_gear_sets()
 	sets.midcast['Blue Magic']['Tenebral Crush'] = set_combine(sets.midcast['Blue Magic'].Magical, sets.element.dark)
 	sets.midcast['Blue Magic']['Tenebral Crush'].Resistant = set_combine(sets.midcast['Blue Magic'].Magical.Resistant, {})
 
+	--sets.midcast['Blue Magic']['Blank Gaze'].Enmity = set_combine(sets.midcast['Blue Magic'].Magical.Resistant, sets.enmity)
+
 	--Overwrite certain spells with these peices even if the day matches, because of resource inconsistancies.
 	sets.NonElementalCure = set_combine(sets.midcast.Cure,{})
 
 	sets.midcast['Blue Magic'].SkillBasedBuff = {
+		ammo="Mavi Tathlum",
 		body="Assimilator's jubbah +3",
 		hands="Rawhide gloves",
 		legs="Hashishin tayt +1",
@@ -572,7 +602,7 @@ function init_gear_sets()
             head="Rawhide mask",
             neck="wiglen gorget",
             body="Shamash robe",
-        	hands=augmented_gear.Herculean.Refresh.hands,
+			hands=augmented_gear.Herculean.Refresh.hands,
             hands="Herculean gloves",
             ring1="Warden's ring",
             ring2="Paguroidea ring",
@@ -625,7 +655,7 @@ function init_gear_sets()
 	sets.SuppaBrutal = {ear1="Suppanomimi", ear2="Brutal Earring"}
 	sets.DWEarrings = {ear1="Dudgeon Earring",ear2="Heartseeker Earring"}
 	sets.DWMax = {ear1="Dudgeon Earring",ear2="Heartseeker Earring",body="Adhemar Jacket",waist="Reiki Yotai",legs="Carmine Cuisses +1"}
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt",feet=augmented_gear.Herculean.TH.feet})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands})
 	sets.Assault = {ring1="Balrahn's Ring"}
 
 	sets.Self_Healing = {neck="Phalaina locket"}
@@ -633,9 +663,11 @@ function init_gear_sets()
 	sets.Self_Healing_DWClub = {}
 	sets.Healing_Club = {}
 	sets.Healing_DWClub = {}
+    sets.latent_refresh = {waist="Fucho-no-obi"}
 	sets.Cure_Received = {neck="Phalaina locket"}
 	sets.Self_Refresh = {}
 	sets.MagicBurst = {hands="Amalric Gages",ring1="Mujin Band",ring2="Locus Ring"}
+	sets.midcast['Trust'] = set_combine(sets.midcast.FastRecast, {})
 
 end
 

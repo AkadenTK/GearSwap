@@ -185,16 +185,16 @@ function init_gear_sets()
     sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS, {
         ammo="Jukukik Feather",
         head=augmented_gear.Adhemar.Atk.head,
-        body="Mummu Jacket +1",
+        body="Mummu Jacket +2",
         hands="Meg. Gloves +2",
         legs=augmented_gear.Herculean.CritDMG.DEX.legs,
         feet="Mummu Gamash. +1",
         neck="Fotia Gorget",
         waist="Fotia Belt",
-        left_ear="Ishvara Earring",
+        left_ear="Cessance Earring",
         right_ear="Brutal Earring",
         left_ring="Ilabrat Ring",
-        right_ring="Karieyh Ring",
+        right_ring="Begrudging Ring",
         back="Kayapa Cape",
     })
     sets.precast.WS['Evisceration'].Acc = set_combine(sets.precast.WS['Evisceration'], {})

@@ -2,7 +2,7 @@
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
     state.OffenseMode:options('Normal', 'Acc', 'MegaAcc','Crits')
-    state.RangedMode:options('Normal', 'Acc')
+    state.RangedMode:options('Normal', 'Acc','FullAcc')
     state.WeaponskillMode:options('Match','Normal', 'Acc','Proc')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
@@ -11,6 +11,7 @@ function user_setup()
     state.Weapons:options('ShieldLeaden','ShieldLastStand','DWLeaden','DWLastStand', 'SavageBlade', 'None')
 
     state.LastRoll = 'unknown'
+    ammostock = 99
 
     gear.RAbullet = "Chrono Bullet"
     gear.WSbullet = "Chrono Bullet"
@@ -55,7 +56,6 @@ end
 function init_gear_sets()
     include('augmented_gear.lua')
 
-    sets.Capacity={back="Aptitude Mantle"}
 
     --------------------------------------
     -- Start defining the sets
@@ -76,8 +76,8 @@ function init_gear_sets()
 	sets.precast.JA['Triple Shot'] = {body="Chasseur's Frac +1"}
     sets.precast.JA['Snake Eye'] = {legs="Lanun trews +1"}
     sets.precast.JA['Wild Card'] = {feet="Lanun Bottes +3"}
-    sets.precast.JA['Random Deal'] = {body="Lanun Frac +2"}
-    sets.precast.FoldDoubleBust = {hands="Lanun Gants +1"}
+    sets.precast.JA['Random Deal'] = {body="Lanun Frac +3"}
+    sets.precast.FoldDoubleBust = {hands="Lanun Gants +3"}
     
     sets.precast.CorsairRoll = {
         head="Lanun Tricorne +1",
@@ -113,7 +113,7 @@ function init_gear_sets()
         ring1="Ilabrat ring",
         ring2="Epona's ring",
         back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
-        waist="Chiner's belt +1",
+        waist="Windbuffet belt +1",
         legs="Samnuha tights",
         feet=augmented_gear.Herculean.TA.feet,
     }
@@ -280,7 +280,7 @@ function init_gear_sets()
     sets.precast.WS['Leaden Salute'] = {        
         ammo=gear.MAbullet,
         head="Pixie Hairpin +1",
-        body="Laksamana's frac +3",
+        body="Lanun frac +3",
         hands="Carmine Finger Gauntlets +1",
         legs=augmented_gear.Herculean.WSD.MAB.legs,
         feet="Lanun Bottes +3",
@@ -348,18 +348,22 @@ function init_gear_sets()
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA,{
         ear1="Volley Earring",
         body="Laksamana's frac +3",
+        feet="Meg. Jam. +2"
+    })
+
+    sets.midcast.RA.FullAcc = set_combine(sets.midcast.RA.Acc,{
         hands="Meghanada gloves +2",
         ring1="Hajduk ring",
         waist="Kwahu Kachina belt",
         legs="Meg. Chausses +2",
-        feet="Meg. Jam. +2"
     })
 		
-	sets.buff['Triple Shot'] = {
+	sets.buff['Triple Shot'] = set_combine(sets.midcast.RA, {
         head="Oshosi mask",
+        hands="Lanun gants +3",
         body="Chasseur's Frac +1",
         feet="Oshosi Leggings"
-    }
+    })
 
     sets.buff['Weakness'] = {
         back="Moonbeam cape"
@@ -380,7 +384,7 @@ function init_gear_sets()
     sets.idle = set_combine(sets.engaged, {
         head="Meghanada visor +2",
         body="Laksamana's frac +3",
-        hands=augmented_gear.Herculean.Refresh.hands,
+        --hands=augmented_gear.Herculean.Refresh.hands,
         legs="Meg. Chausses +1",
         feet="Lanun Bottes +3",
         neck="Wiglen Gorget",

@@ -11,7 +11,7 @@ function user_setup()
     state.Weapons:options('ShieldLeaden','ShieldLastStand','DWLeaden','DWLastStand', 'SavageBlade', 'None')
 
     state.LastRoll = 'unknown'
-    ammostock = 99
+    ammostock = 100
 
     gear.RAbullet = "Chrono Bullet"
     gear.WSbullet = "Chrono Bullet"
@@ -288,7 +288,7 @@ function init_gear_sets()
         waist="Svelt. Gouriz +1",
         left_ear="Friomisi Earring",
         right_ear="Moonshade Earring",
-        ring2="Acumen ring",
+        ring2="Ilabrat ring",
         ring1="Archon Ring",
         back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
         --back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','"Mag.Atk.Bns."+10',}},
@@ -302,7 +302,10 @@ function init_gear_sets()
         waist="Kwahu Kachina belt",
         })
 
-    sets.precast.WS['Wildfire'] = set_combine(sets.precast.WS["Leaden Salute"], {})
+    sets.precast.WS['Wildfire'] = set_combine(sets.precast.WS["Leaden Salute"], {
+        head=augmented_gear.Herculean.WSD.MAB.head,
+        ring1="Acumen ring",
+        })
 
     sets.precast.WS['Wildfire'].Acc = set_combine(sets.precast.WS['Wildfire'], {})
 		
@@ -391,7 +394,6 @@ function init_gear_sets()
         waist="Flume Belt",
         left_ear="Ethereal Earring",
         left_ring="Warden's Ring",
-        back="moonbeam cape",
     })
 		
     sets.idle.Refresh = set_combine(sets.idle, {})
@@ -404,7 +406,21 @@ function init_gear_sets()
         legs="Carmine Cuisses +1"})
     
     -- Defense sets
-    sets.defense.PDT = set_combine(sets.idle, {})
+    sets.defense.PDT = set_combine(sets.idle, {
+        head="Meghanada Visor +2",
+        body={ name="Lanun Frac +3", augments={'Enhances "Loaded Deck" effect',}},
+        hands="Meg. Gloves +2",
+        legs="Meg. Chausses +2",
+        feet={ name="Lanun Bottes +3", augments={'Enhances "Wild Card" effect',}},
+        neck="Twilight Torque",
+        waist="Flume Belt",
+        left_ear="Ethereal Earring",
+        right_ear="Brutal Earring",
+        left_ring="Warden's Ring",
+        right_ring="Epona's Ring",
+        back="Moonbeam Cape",})
+
+    sets.idle.PDT = set_combine(sets.defense.PDT, {})
 
     sets.defense.MDT = set_combine(sets.idle, {})
 		

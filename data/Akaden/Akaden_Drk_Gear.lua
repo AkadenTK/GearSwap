@@ -2,12 +2,12 @@ function user_setup()
 	-- Options: Override default values
     state.OffenseMode:options('Normal','SomeAcc','Acc','FullAcc','Fodder')
     state.WeaponskillMode:options('Match','Normal','SomeAcc','Acc','FullAcc','Fodder')
-    state.HybridMode:options('Normal')
+    state.HybridMode:options('Normal', 'DTLite')
     state.PhysicalDefenseMode:options('PDT', 'PDTReraise')
     state.MagicalDefenseMode:options('MDT', 'MDTReraise')
 	state.ResistDefenseMode:options('MEVA')
 	state.IdleMode:options('Normal', 'PDT','Refresh','Reraise')
-	state.Weapons:options('Montante','Misanthropy')
+    state.Weapons:options('Algol','DDScythe', 'None')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None'}
 	state.Passive = M{['description'] = 'Passive Mode','None','MP','Twilight'}
 
@@ -25,6 +25,10 @@ function init_gear_sets()
     include('augmented_gear.lua')
 
     sets.Capacity={back="Aptitude Mantle"}
+
+    sets.weapons = {}
+    sets.weapons.Algol = {main='Raetic Algol +1', sub="Utu Grip"}
+    sets.weapons.DDScythe = {main='Deathbane', sub="Utu Grip"}
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------
@@ -33,7 +37,7 @@ function init_gear_sets()
 	sets.precast.JA['Diabolic Eye'] = {}
 	sets.precast.JA['Arcane Circle'] = {}
 	sets.precast.JA['Souleater'] = {}
-	sets.precast.JA['Weapon Bash'] = {}
+	sets.precast.JA['Weapon Bash'] = {hands="Ignominy gauntlets +2"}
 	sets.precast.JA['Nether Void'] = {}
 	sets.precast.JA['Blood Weapon'] = {}
 	sets.precast.JA['Dark Seal'] = {head="Fallen's burgeonet"}
@@ -152,7 +156,7 @@ function init_gear_sets()
 		ring2="Ifrit Ring +1",
     	back={ name="Ankou's Mantle", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}},
 		waist="Fotia Belt",
-		legs="Sulevia's Cuisses +1",
+		legs="Ignominy Flanchard +3",
 		feet="Sulevia's leggings +2"}
 
 	sets.precast.WS.SomeAcc = set_combine(sets.precast.WS, {})
@@ -169,6 +173,7 @@ function init_gear_sets()
 	
     sets.precast.WS['Torcleaver'] = set_combine(sets.precast.WS, {
     	head=augmented_gear.Valorous.WSD.VIT.head,
+    	body="Ignominy cuirass +2",
     	Ring1="Petrov Ring",
     	ring2="Titan ring",
     	ear2="Ishvara Earring",
@@ -188,7 +193,12 @@ function init_gear_sets()
     	feet="Flamma gambieras +2",
     	back={ name="Ankou's Mantle", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}},
 	})
-    sets.precast.WS['Resolution'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {})
+    sets.precast.WS['Resolution'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {
+    	ammo="Seething Bomblet",
+    	ear2="Cessance Earring",
+    	ring1="Begrudging ring",
+
+    	})
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS.Acc, {})
     sets.precast.WS['Resolution'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Resolution'].Fodder = set_combine(sets.precast.WS.Fodder, {})     
@@ -218,12 +228,12 @@ function init_gear_sets()
 	    head="Flam. Zucchetto +2",
 	    body=augmented_gear.Valorous.TP.body,
 	    hands="Sulev. Gauntlets +2",
-	    legs={ name="Odyssean Cuisses", augments={'Accuracy+23 Attack+23','Weapon Skill Acc.+3','STR+6','Accuracy+15','Attack+3',}},
+	    legs="Ignominy Flanchard +3",
 	    feet="Flamma Gambieras +2",
-	    neck="Lissome Necklace",
+	    neck="Asperity Necklace",
 	    waist="Ioskeha Belt",
-	    left_ear="Cessance Earring",
-	    right_ear="Telos Earring",
+	    left_ear="Telos Earring",
+	    right_ear="Brutal Earring",
 	    left_ring="Petrov Ring",
 	    right_ring="Flamma Ring",
 	    back={ name="Ankou's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}},
@@ -234,6 +244,13 @@ function init_gear_sets()
 		ear2="Telos earring",
 	})
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc,{})
+
+    sets.engaged.DTLite = set_combine(sets.engaged, {
+    	head="Sulevia's mask +1",
+    	neck="Twilight Torque",
+    	body="Sulevia's platemail +1",
+	    legs="Sulevi. Cuisses +1",
+	})
 
     sets.dt = {
 	    head="Sulevia's Mask +1",
@@ -326,8 +343,6 @@ function init_gear_sets()
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
 	
 	-- Weapons sets
-	sets.weapons.Montante = {main="Montante +1",sub="Utu Grip"}
-	sets.weapons.Misanthropy = {main="Misanthropy",sub="Utu Grip"}
 	
     end
 	
@@ -335,4 +350,13 @@ function init_gear_sets()
 function select_default_macro_book()
     -- Default macro set/book
     set_macro_page(1, 7)
+end
+
+
+function user_job_self_command(commandArgs, eventArgs)
+	if commandArgs[1]:lower() == "setgs" and state.Weapons.value ~= "Algol" then
+		windower.send_command("gs c set Weapons Algol")
+	elseif commandArgs[1]:lower() == "setscythe" and state.Weapons.value ~= "DDScythe" then
+		windower.send_command("gs c set Weapons DDScythe")
+	end
 end

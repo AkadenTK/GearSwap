@@ -59,18 +59,24 @@ function handle_set(cmdParams)
         return
     end
     
+	local toggleset
+	if cmdParams[1]:lower() == 'toggle' then
+		toggleset = true
+		table.remove(cmdParams, 1)
+	end
+	
     local state_var = get_state(cmdParams[1])
     
     if state_var then
         local oldVal = state_var.value
         state_var:set(cmdParams[2])
         local newVal = state_var.value
-
-		if state_var ~= state.DefenseMode and newVal == oldVal and not newVal == 'Single' then
+		
+		if toggleset and newVal == oldVal and newVal ~= 'Single' then
 			handle_reset(cmdParams)
 			return
 		end
-        
+		
         local descrip = state_var.description or cmdParams[1]
         if state_change then
             state_change(descrip, newVal, oldVal)
@@ -355,13 +361,12 @@ function equip_weaponset(cmdParams)
 		add_to_chat(123,'Error: A weapons set for ['..cmdParams..'] does not exist.')
 	end
 	if state.Weapons.value ~= 'None' then
-		if player.main_job == 'BRD' then
-			disable('main','sub')
-		else
-			disable('main','sub','range')
-			if sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].ammo then
-				disable('ammo')
-			end
+		disable('main','sub')
+		if sets.weapons[state.Weapons.value] and (sets.weapons[state.Weapons.value].range or sets.weapons[state.Weapons.value].ranged) then
+			disable('range')
+		end
+		if sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].ammo then
+			disable('ammo')
 		end
 	end
 end
@@ -415,7 +420,7 @@ function handle_forceequip(cmdParams)
 			disable(equipslot)
 		end
 	else
-		add_to_chat(122,'Syntax error with ForceEquip command - Use: gs c ForceEquip setname (slot or set).')
+		handle_equipping_gear(player.status)
 	end
 end
 
@@ -450,15 +455,15 @@ end
 function handle_shadows()
 	local spell_recasts = windower.ffxi.get_spell_recasts()
 	if player.main_job == 'NIN' then
-		if not has_two_shadows() and player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 99 and spell_recasts[340] == 0 then
+		if has_shadows() < 3 and player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 99 and spell_recasts[340] == 0 then
 			windower.chat.input('/ma "Utsusemi: San" <me>')
 			tickdelay = (framerate * 1.8)
 			return true
-		elseif not has_two_shadows() and spell_recasts[339] == 0 then
+		elseif has_shadows() < 2 and spell_recasts[339] == 0 then
 			windower.chat.input('/ma "Utsusemi: Ni" <me>')
 			tickdelay = (framerate * 1.8)
 			return true
-		elseif not has_two_shadows() and spell_recasts[338] == 0 then
+		elseif has_shadows() < 2 and spell_recasts[338] == 0 then
 			windower.chat.input('/ma "Utsusemi: Ichi" <me>')
 			tickdelay = (framerate * 2)
 			return true
@@ -466,11 +471,11 @@ function handle_shadows()
 			return false
 		end
 	elseif player.sub_job == 'NIN' then
-		if not has_two_shadows() and spell_recasts[339] == 0 then
+		if has_shadows() < 2 and spell_recasts[339] == 0 then
 			windower.chat.input('/ma "Utsusemi: Ni" <me>')
 			tickdelay = (framerate * 1.8)
 			return true
-		elseif not has_two_shadows() and spell_recasts[338] == 0 then
+		elseif has_shadows() < 2 and spell_recasts[338] == 0 then
 			windower.chat.input('/ma "Utsusemi: Ichi" <me>')
 			tickdelay = (framerate * 2)
 			return true
@@ -752,22 +757,7 @@ function handle_mount(cmdParams)
 	end
 end
 
-function handle_moving(cmdParams)
-	if not midaction() and not pet_midaction() then
-		handle_equipping_gear(player.status)
-	end
-	
-	if state.RngHelper.value then
-		send_command('gs rh clear')
-	end
-end
-
-function handle_stopping(cmdParams)
-	if not midaction() and not pet_midaction() then
-		handle_equipping_gear(player.status)
-	end
-end
--------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
 -- Get the state var that matches the requested name.
 -- Only returns mode vars.
@@ -968,8 +958,6 @@ selfCommandMaps = {
     ['naked']    		= handle_naked,
 	['weapons']  		= handle_weapons,
 	['showset']  		= handle_showset,
-	['moving']   		= handle_moving,
-	['stopping'] 		= handle_stopping,
     ['help']     		= handle_help,
     ['forceequip']  	= handle_forceequip,
 	['useitem']			= handle_useitem,

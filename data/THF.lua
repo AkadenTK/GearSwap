@@ -66,7 +66,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 		end
 	end
 	
-	if spell.english == 'Aeolian Edge' or spell.english == 'Cyclone' and state.TreasureMode.value ~= 'None' then
+	if (spell.english == 'Aeolian Edge' or spell.english == 'Cyclone') and state.TreasureMode.value ~= 'None' then
         equip(sets.TreasureHunter)
     elseif spell.english == 'Sneak Attack' or spell.english == 'Trick Attack' or spell.type == 'WeaponSkill' then
         if state.TreasureMode.value == 'SATA' or state.TreasureMode.value == 'Fulltime' then
@@ -146,9 +146,6 @@ end
 
 -- Called any time we attempt to handle automatic gear equips (ie: engaged or idle gear).
 function job_handle_equipping_gear(playerStatus, eventArgs)
-    -- Check that ranged slot is locked, if necessary
-    check_range_lock()
-
     -- Check for SATA when equipping gear.  If either is active, equip
     -- that gear specifically, and block equipping default gear.
     check_buff('Sneak Attack', eventArgs)
@@ -248,15 +245,6 @@ function check_buff(buff_name, eventArgs)
             equip(sets.TreasureHunter)
         end
         eventArgs.handled = true
-    end
-end
-
--- Function to lock the ranged slot if we have a ranged weapon equipped.
-function check_range_lock()
-    if player.equipment.range ~= 'empty' then
-        disable('range', 'ammo')
-    else
-        enable('range', 'ammo')
     end
 end
 

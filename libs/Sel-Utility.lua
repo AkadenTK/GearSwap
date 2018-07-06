@@ -1119,11 +1119,12 @@ function check_recast(spell, spellMap, eventArgs)
 end
 
 function check_cost(spell, spellMap, eventArgs)
-	if spell.action_type == 'Magic' and player.mp < actual_cost(spell) then
-		add_to_chat(123,'Abort: '..spell.english..' costs more MP. ('..player.mp..'/'..actual_cost(spell)..')')
+	local spellCost = actual_cost(spell)
+	if spell.action_type == 'Magic' and player.mp < spellCost then
+		add_to_chat(123,'Abort: '..spell.english..' costs more MP. ('..player.mp..'/'..spellCost..')')
 		eventArgs.cancel = true
-	elseif spell.type:startswith('BloodPact') and player.mp < actual_cost(spell) then
-		add_to_chat(123,'Abort: '..spell.english..' costs more MP. ('..player.mp..'/'..actual_cost(spell)..')')
+	elseif spell.type:startswith('BloodPact') and not buffactive['Astral Conduit'] and player.mp < spellCost then
+		add_to_chat(123,'Abort: '..spell.english..' costs more MP. ('..player.mp..'/'..spellCost..')')
 		eventArgs.cancel = true
 	else
 		return false
@@ -1388,7 +1389,7 @@ function check_cleanup()
 			if player.inventory['Guide Beret'] then send_command('put "Guide Beret" satchel') moveditem = true end
 		end
 		
-		if moveditem then tickdelay = 100 return true end
+		if moveditem then tickdelay = (framerate * 2.3) return true end
 		
 		local shard_name = {'C. Ygg. Shard ','Z. Ygg. Shard ','A. Ygg. Shard ','P. Ygg. Shard '}
 		
@@ -1750,18 +1751,16 @@ function is_defensive()
 end
 
 function has_shadows()
-	if buffactive.Blink or buffactive["Copy Image"] or buffactive["Copy Image (2)"] or buffactive["Copy Image (3)"] or buffactive["Copy Image (4+)"] then
-		return true
+	if  buffactive["Copy Image (4+)"] then
+		return 4
+	elseif buffactive["Copy Image (3)"] then
+		return 3
+	elseif buffactive["Copy Image (2)"] then
+		return 2
+	elseif buffactive.Blink or buffactive["Copy Image"] then
+		return 1
 	else
-		return false
-	end
-end
-
-function has_two_shadows()
-	if buffactive["Copy Image (2)"] or buffactive["Copy Image (3)"] or buffactive["Copy Image (4+)"] then
-		return true
-	else
-		return false
+		return 0
 	end
 end
 
@@ -2085,37 +2084,25 @@ function arts_active()
 end
 
 -- Movement Handling
-mov = {counter=0}
+lastlocation = 'fff':pack(0,0,0)
 moving = false
+wasmoving = false
 
-if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-	mov.x = windower.ffxi.get_mob_by_index(player.index).x
-	mov.y = windower.ffxi.get_mob_by_index(player.index).y
-	mov.z = windower.ffxi.get_mob_by_index(player.index).z
-end
-
-windower.raw_register_event('prerender',function()
-	mov.counter = mov.counter + 1;
-	if mov.counter > 20 then
-		local pl = windower.ffxi.get_mob_by_index(player.index)
-		if pl and pl.x and mov.x then
-			dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-			if dist > .1 and not moving then
-				send_command('gs c moving')
-				moving = true
-			elseif dist < .1 and moving then
-				send_command('gs c stopping')
-				moving = false
-			end
-		end
-		if pl and pl.x then
-			mov.x = pl.x
+windower.register_event('outgoing chunk',function(id,data,modified,is_injected,is_blocked)
+    if id == 0x015 then
+        moving = lastlocation ~= modified:sub(5, 16)
+        lastlocation = modified:sub(5, 16)
 		
-		mov.y = pl.y
-			mov.z = pl.z
+		if wasmoving ~= moving and not (midaction() or pet_midaction()) then
+			send_command('gs c forceequip')
 		end
-		mov.counter = 0
-	end
+		
+		if moving and state.RngHelper.value then
+			send_command('gs rh clear')
+		end
+		
+		wasmoving = moving
+    end
 end)
 		
 -- Uninterruptible Handling

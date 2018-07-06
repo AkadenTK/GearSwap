@@ -21,8 +21,8 @@ function job_setup()
 
 	autows = 'Realmrazer'
 	autofood = 'Miso Ramen'
-	indispell = 'Torpor'
-	geospell = 'Frailty'
+	autoindi = 'Torpor'
+	autogeo = 'Frailty'
 	last_indi = ''
 	last_geo = ''
 	
@@ -48,7 +48,7 @@ function job_filter_precast(spell, spellMap, eventArgs)
 
 	if spell.english:startswith('Geo-') and pet.isvalid then
 		eventArgs.cancel = true
-		windower.chat.input('/ja "Full-Circle" <me>')
+		windower.chat.input('/ja "Full Circle" <me>')
 		windower.chat.input:schedule(2,'/ma "'..spell.english..'" '..spell.target.raw..'')
 	end
 
@@ -98,6 +98,9 @@ function job_precast(spell, spellMap, eventArgs)
         if state.CastingMode.value == 'Proc' then
             classes.CustomClass = 'Proc'
         end
+	elseif buffactive.Bolster and (spell.english == 'Blaze of Glory' or spell.english == 'Ecliptic Attrition') then
+		eventArgs.cancel = true
+		add_to_chat(123,'Abort: Bolster maxes the strength of bubbles.')
     end
 end
 
@@ -108,7 +111,13 @@ end
 function job_post_midcast(spell, spellMap, eventArgs)
 
 	if spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-        if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
+		if state.MagicBurstMode.value ~= 'Off' then
+			if state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
+				equip(sets.ResistantMagicBurst)
+			else
+				equip(sets.MagicBurst)
+			end
+		end
 		if spell.element == world.weather_element or spell.element == world.day_element then
 			if state.CastingMode.value == 'Fodder' then
 				-- if item_available('Twilight Cape') and not LowTierNukes:contains(spell.english) and not state.Capacity.value then
@@ -129,9 +138,13 @@ function job_post_midcast(spell, spellMap, eventArgs)
 		end
 
 		if state.RecoverMode.value ~= 'Never' and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
-			if state.MagicBurstMode.value ~= 'Off' and sets.RecoverBurst then
-				equip(sets.RecoverBurst)
-			else
+			if state.MagicBurstMode.value ~= 'Off' then
+				if state.CastingMode.value:contains('Resistant') and sets.ResistantRecoverBurst then
+					equip(sets.ResistantRecoverBurst)
+				elseif sets.RecoverBurst then
+					equip(sets.RecoverBurst)
+				end
+			elseif sets.RecoverMP then
 				equip(sets.RecoverMP)
 			end
 		end
@@ -261,12 +274,12 @@ end
 
 function job_self_command(commandArgs, eventArgs)
 		if commandArgs[1] == 'autoindi' and commandArgs[2] then
-			indispell = commandArgs[2]:ucfirst()
-			add_to_chat(122,'Your Auto Indi- spell is set to '..indispell..'.')
+			autoindi = commandArgs[2]:ucfirst()
+			add_to_chat(122,'Your Auto Indi- spell is set to '..autoindi..'.')
 			if state.DisplayMode.value then update_job_states()	end
 		elseif commandArgs[1] == 'autogeo' and commandArgs[2] then
-			geospell = commandArgs[2]:ucfirst()
-			add_to_chat(122,'Your Auto Geo- spell is set to '..geospell..'.')
+			autogeo = commandArgs[2]:ucfirst()
+			add_to_chat(122,'Your Auto Geo- spell is set to '..autogeo..'.')
 			if state.DisplayMode.value then update_job_states()	end
 		elseif commandArgs[1]:lower() == 'elemental' then
 			handle_elemental(commandArgs)
@@ -393,8 +406,8 @@ end
 
 function check_geo()
 	if state.AutoBuffMode.value and not moving and not areas.Cities:contains(world.area) then
-		if not player.indi and indispell ~= 'None' then
-			windower.chat.input('/ma "Indi-'..indispell..'" <me>')
+		if not player.indi and autoindi ~= 'None' then
+			windower.chat.input('/ma "Indi-'..autoindi..'" <me>')
 			tickdelay = (framerate * 2.1)
 			return true
 		elseif pet.isvalid then
@@ -406,8 +419,8 @@ function check_geo()
 			else
 				return false
 			end
-		elseif not pet.isvalid and geospell ~= 'None' and (windower.ffxi.get_mob_by_target('bt') or geo_buffs:contains(geospell)) then
-			windower.chat.input('/ma "Geo-'..geospell..'" <bt>')
+		elseif not pet.isvalid and autogeo ~= 'None' and (windower.ffxi.get_mob_by_target('bt') or geo_buffs:contains(autogeo)) then
+			windower.chat.input('/ma "Geo-'..autogeo..'" <bt>')
 			tickdelay = (framerate * 2)
 			return true
 		else
@@ -455,7 +468,7 @@ windower.raw_register_event('prerender', function()
         luopan_txtbox = luopan_txtbox..'\\cs(0,255,0)'..last_geo..':\\cs(255,255,255)\n'
         for i,v in pairs(windower.ffxi.get_mob_array()) do
             local DistanceBetween = ((myluopan.x - v.x)*(myluopan.x-v.x) + (myluopan.y-v.y)*(myluopan.y-v.y)):sqrt()
-            if DistanceBetween < (6 + v.model_size) and (v.status == 1 or v.status == 0) and v.name ~= "" and v.name ~= nil and v.name ~= "Luopan" and v.valid_target and v.model_size > 0 then 
+            if DistanceBetween < (6 + v.model_size) and not (v.status == 2 or v.status == 3) and v.name ~= "" and v.name ~= nil and v.name ~= "Luopan" and v.valid_target and v.model_size > 0 then 
                 if buff_list:contains(last_geo) and v.in_party then
                     luopan_txtbox = luopan_txtbox..v.name.." "..string.format("%.2f",DistanceBetween).."\n"
                     geo_count = geo_count + 1
@@ -489,7 +502,7 @@ windower.raw_register_event('prerender', function()
     end
      
     luopan.value = luopan_txtbox
-    if state.ShowDistance.value and ((myluopan and geo_count ~= 0) or (buffactive['Colure Active'] and indi_count ~= 0)) then 
+    if state.ShowDistance and state.ShowDistance.value and ((myluopan and geo_count ~= 0) or (buffactive['Colure Active'] and indi_count ~= 0)) then 
         luopan:visible(true)
     else
         luopan:visible(false)

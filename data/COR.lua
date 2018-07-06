@@ -185,11 +185,11 @@ function job_post_precast(spell, spellMap, eventArgs)
 					equip(sets.MaxTP)
 			end
 		end
-	elseif spell.type == 'CorsairShot' then
+	elseif spell.type == 'CorsairShot' and not (spell.english == 'Light Shot' or spell.english == 'Dark Shot') then
 		if state.WeaponskillMode.value == "Proc" and sets.precast.CorsairShot.Proc then
 			equip(sets.precast.CorsairShot.Proc)
-		elseif state.CastingMode.value == 'Resistant' then
-			classes.CustomClass = 'Acc'
+		elseif state.CastingMode.value == 'Fodder' and sets.precast.CorsairShot.Damage then
+			equip(sets.precast.CorsairShot.Damage)
 		end
 	elseif spell.action_type == 'Ranged Attack' and sets.precast.RA and buffactive.Flurry then
 		if sets.precast.RA.Flurry and lastflurry == 1 then
@@ -245,6 +245,8 @@ function define_roll_values()
         ["Miser's Roll"]     = {lucky=5, unlucky=7, bonus="Save TP"},
         ["Companion's Roll"] = {lucky=2, unlucky=10, bonus="Pet Regain and Regen"},
         ["Avenger's Roll"]   = {lucky=4, unlucky=8, bonus="Counter Rate"},
+		["Naturalist's Roll"]   = {lucky=3, unlucky=7, bonus="Enhancing Duration"},
+		["Runeist's Roll"]   = {lucky=4, unlucky=8, bonus="Magic Evasion"},
     }
 end
 

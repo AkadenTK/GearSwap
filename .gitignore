@@ -24,5 +24,6 @@ libs/rev1/*
 *-Items.lua
 data/export/*
 sounds/*
+data/common/*
 libs/closetCleaner.lua
 data/Lordhelmet/

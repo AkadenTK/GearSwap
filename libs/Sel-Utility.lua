@@ -1219,63 +1219,13 @@ function check_abilities(spell, spellMap, eventArgs)
 end
 
 function stepdown(spell, eventArgs)
-	if spell.english == "Aspir III" then 
+	if spell_stepdown[spell.english] then
 		eventArgs.cancel = true
-		windower.chat.input('/ma "Aspir II" "'..spell.target.raw..'"')
-		return true
-	elseif spell.english == "Aspir II" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Aspir" "'..spell.target.raw..'"')
-		return true
-	elseif spell.english == "Sleepga II" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Sleepga" "'..spell.target.raw..'"')
-		return true
-	elseif spell.english == "Sleep II" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Sleep" "'..spell.target.raw..'"')
-		return true
-	elseif spell.english == "Arise" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Raise III" "'..spell.target.raw..'"')
-		return true
-	elseif spell.english == "Raise III" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Raise II" "'..spell.target.raw..'"')
-		return true
-	elseif spell.english == "Raise II" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Raise" "'..spell.target.raw..'"')
-		return true
-	elseif spell.english == "Reraise IV" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Reraise III" <me>')
-		return true
-	elseif spell.english == "Reraise III" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Reraise II" <me>')
-		return true
-	elseif spell.english == "Reraise II" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Reraise" <me>')
-		return true
-	elseif spell.english == "Gravity II" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Gravity" "'..spell.target.raw..'"')
-		return true
-	elseif spell.english == "Horde Lullaby II" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Horde Lullaby" "'..spell.target.raw..'"')
-		return true
-	elseif spell.english == "Foe Lullaby II" then 
-		eventArgs.cancel = true
-		windower.chat.input('/ma "Foe Lullaby" "'..spell.target.raw..'"')
+		windower.chat.input('/ma "'..spell_stepdown[spell.english]..'" '..spell.target.raw..'')
 		return true
 	else
 		return false
 	end
-
-	return false
 end
 
 function actual_cost(spell)
@@ -1304,7 +1254,7 @@ end
 
 function check_nuke()
 	if state.AutoNukeMode.value and player.target.type == "MONSTER" then
-		windower.send_command('input /ma '..autonuke..' <t>')
+		windower.chat.input('/ma '..autonuke..' <t>')
 		tickdelay = (framerate * 1.5)
 		return true
 	else
@@ -1318,11 +1268,11 @@ function check_sub()
 			local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
 			
 			if available_ws:contains(190) then
-				windower.send_command('input /ws Myrkr <me>')
+				windower.chat.input('/ws Myrkr <me>')
 				tickdelay = (framerate * 1.5)
 				return true
 			elseif available_ws:contains(173) then
-				windower.send_command('input /ws Dagan <me>')
+				windower.chat.input('/ws Dagan <me>')
 				tickdelay = (framerate * 1.5)
 				return true
 			end
@@ -1330,11 +1280,11 @@ function check_sub()
 		if (player.main_job == 'SCH' or player.sub_job == 'SCH') and not buffactive['Refresh'] then
 			local abil_recasts = windower.ffxi.get_ability_recasts()
 			if (not (buffactive['Sublimation: Activated'] or buffactive['Sublimation: Complete'])) and abil_recasts[234] == 0 then
-				windower.send_command('input /ja Sublimation <me>')
+				windower.chat.input('/ja Sublimation <me>')
 				tickdelay = (framerate * 1.5)
 				return true
 			elseif buffactive['Sublimation: Complete'] and player.mpp < 70 and abil_recasts[234] == 0 then
-				windower.send_command('input /ja Sublimation <me>')
+				windower.chat.input('/ja Sublimation <me>')
 				tickdelay = (framerate * 1.5)
 				return true
 			else
@@ -1417,27 +1367,27 @@ function check_trust()
 			local spell_recasts = windower.ffxi.get_spell_recasts()
 		
 			if spell_recasts[979] == 0 and not have_trust("Selh'teus") then
-				windower.send_command('input /ma "Selh\'teus" <me>')
+				windower.chat.input('/ma "Selh\'teus" <me>')
 				tickdelay = (framerate * 4.5)
 				return true
 			elseif spell_recasts[1012] == 0 and not have_trust("Nashmeira") then
-				windower.send_command('input /ma "Nashmeira II" <me>')
+				windower.chat.input('/ma "Nashmeira II" <me>')
 				tickdelay = (framerate * 4.5)
 				return true
 			elseif spell_recasts[1018] == 0 and not have_trust("Iroha") then
-				windower.send_command('input /ma "Iroha II" <me>')
+				windower.chat.input('/ma "Iroha II" <me>')
 				tickdelay = (framerate * 4.5)
 				return true
 			elseif spell_recasts[1017] == 0 and not have_trust("Arciela") then
-				windower.send_command('input /ma "Arciela II" <me>')
+				windower.chat.input('/ma "Arciela II" <me>')
 				tickdelay = (framerate * 4.5)
 				return true
 			elseif spell_recasts[947] == 0 and not have_trust("UkaTotlihn") then
-				windower.send_command('input /ma "Uka Totlihn" <me>')
+				windower.chat.input('/ma "Uka Totlihn" <me>')
 				tickdelay = (framerate * 4.5)
 				return true
 			elseif spell_recasts[1013] == 0 and not have_trust("Lilisette") then
-				windower.send_command('input /ma "Lilisette II" <me>')
+				windower.chat.input('/ma "Lilisette II" <me>')
 				tickdelay = (framerate * 4.5)
 				return true
 			else
@@ -1452,15 +1402,15 @@ end
 function check_auto_tank_ws()
 	if state.AutoWSMode.value and state.AutoTankMode.value and player.target.type == "MONSTER" and not moving and player.status == 'Engaged' and not silent_check_amnesia() then
 		if player.tp > 999 and relic_weapons:contains(player.equipment.main) and state.RelicAftermath and (not buffactive['Aftermath']) then
-			windower.send_command('input /ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
+			windower.chat.input('/ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		elseif player.tp > 999 and (buffactive['Aftermath: Lv.3'] or  not mythic_weapons:contains(player.equipment.main)) then
-			windower.send_command('input /ws "'..autows..'" <t>')
+			windower.chat.input('/ws "'..autows..'" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		elseif player.tp == 3000 then
-			windower.send_command('input /ws "'..data.weaponskills.mythic[player.equipment.main]..'" <t>')
+			windower.chat.input('/ws "'..data.weaponskills.mythic[player.equipment.main]..'" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		else
@@ -1543,33 +1493,33 @@ function check_ws()
 	local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
 		
 		if player.hpp < 41 and available_ws:contains(47) and player.target.distance < (3.2 + player.target.model_size) then
-			windower.send_command('input /ws "Sanguine Blade" <t>')
+			windower.chat.input('/ws "Sanguine Blade" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		elseif player.hpp < 41 and available_ws:contains(105) and player.target.distance < (3.2 + player.target.model_size) then
-			windower.send_command('input /ws "Catastrophe" <t>')
+			windower.chat.input('/ws "Catastrophe" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		elseif player.mpp < 21 and available_ws:contains(109) and player.target.distance < (3.2 + player.target.model_size) then
-			windower.send_command('input /ws "Entropy" <t>')
+			windower.chat.input('/ws "Entropy" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		elseif player.mpp < 21 and available_ws:contains(171) and player.target.distance < (3.2 + player.target.model_size) then
-			windower.send_command('input /ws "Mystic Boon" <t>')
+			windower.chat.input('/ws "Mystic Boon" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		elseif player.target.distance > (3.2 + player.target.model_size) and not data.weaponskills.ranged:contains(autows) then
 			return false
 		elseif player.tp > 999 and relic_weapons:contains(player.equipment.main) and state.RelicAftermath and (not buffactive['Aftermath']) then
-			windower.send_command('input /ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
+			windower.chat.input('/ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		elseif (buffactive['Aftermath: Lv.3'] or not mythic_weapons:contains(player.equipment.main)) and player.tp >= autowstp then
-			windower.send_command('input /ws "'..autows..'" <t>')
+			windower.chat.input('/ws "'..autows..'" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		elseif player.tp == 3000 then
-			windower.send_command('input /ws "'..data.weaponskills.mythic[player.equipment.main]..'" <t>')
+			windower.chat.input('/ws "'..data.weaponskills.mythic[player.equipment.main]..'" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
 		else
@@ -1611,7 +1561,7 @@ end
 function get_item_next_use(name)--returns time that you can use the item again
     for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4"}) do
         for _,v in pairs(gearswap.items[n]) do
-            if type(v) == "table" and v.id ~= 0 and res.items[v.id].english == name then
+            if type(v) == "table" and v.id ~= 0 and res.items[v.id].english:lower() == name:lower() then
                 return extdata.decode(v)
             end
         end

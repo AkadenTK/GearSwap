@@ -1,10 +1,15 @@
 --Place you can overwrite specific functions and settings with your preferences.
 --Extra user functions to change how gearswap functions across jobs.
 
---Time Related Settings (Currently trying to automatically generate offset.)
---Set time_test to true to see and test time settings, change offset to change the settings, requires a capacity ring with uses,
---You want the cap ring offset to be 899 or 900 the MOMENT after using your Capacity ring.
---time_offset = -39601
+--Time Related Settings
+--To determine your offset the first time, uncomment time_offset and set time_test
+--Equip to ring1 and use a "Capacity Ring", your time_offset should appear in chat.
+--You must not have the commitment buff before doing this.
+--Set time_offset to the number mentioned in your chat and reload.
+--If the number spammed in your chat matches up with the seconds remaining on
+--your Capacity Ring's recast, your time_offset is correct, set time_test to false and reload.
+
+--time_offset = 0
 --time_test = true
 --framerate = 75
 
@@ -72,8 +77,6 @@ send_command('bind ^@!f12 gs reload') --Reloads gearswap.
 send_command('bind pause gs c update user') --Runs a quick check to make sure you have the right gear on and checks variables.
 send_command('bind ^@!pause gs org') --Runs organizer.
 send_command('bind ^@!backspace gs c buffup') --Buffup macro because buffs are love.
---send_command('bind ^- gs c toggle selectnpctargets') --Change targets automatically.
---send_command('bind ^= gs c cycle pctargetmode') --Change targets automatically.
 send_command('bind ^r gs c weapons Default') --Requips weapons and gear.
 send_command('bind ^z gs c toggle Capacity') --Keeps capacity mantle on and uses capacity rings.
 send_command('bind ^y gs c toggle AutoCleanupMode') --Uses certain items and tries to clean up inventory.

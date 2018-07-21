@@ -50,9 +50,9 @@ function init_gear_sets()
         back=gear.enmity_jse_back,waist="Creed Baudrier",legs="Souv. Diechlings +1",feet="Eschite Greaves"}
 		
     sets.Enmity.SIRD = {main="Mafic Cudgel",ammo="Staunch Tathlum",
-		head="Souveran Schaller +1",neck="Loricate Torque +1",ear1="Nourish. Earring",ear2="Nourish. Earring +1",
-		body="Jumalik Mail",hands="Macabre Gaunt. +1",ring1="Defending Ring",ring2="Moonbeam Ring",
-		back="Solemnity Cape",waist="Creed Baudrier",legs="Founder's Hose",feet="Odyssean Greaves"}
+		head="Souveran Schaller +1",neck="Loricate Torque +1",ear1="Friomisi Earring",ear2="Trux Earring",
+		body="Souv. Cuirass +1",hands="Macabre Gaunt. +1",ring1="Defending Ring",ring2="Moonbeam Ring",
+		back=gear.enmity_jse_back,waist="Rumination Sash",legs="Founder's Hose",feet="Odyssean Greaves"}
 		
     sets.Enmity.DT = {main="Mafic Cudgel",ammo="Staunch Tathlum",
         head="Souv. Schaller +1",neck="Loricate Torque +1",ear1="Odnowa Earring +1",ear2="Odnowa Earring",
@@ -215,6 +215,7 @@ function init_gear_sets()
 	sets.midcast.Stun.SIRD = set_combine(sets.Enmity.SIRD, {})
 	sets.midcast['Blue Magic'] = set_combine(sets.Enmity, {})
 	sets.midcast['Blue Magic'].SIRD = set_combine(sets.Enmity.SIRD, {})
+	sets.midcast.Cocoon = set_combine(sets.Enmity.SIRD, {})
 
     sets.midcast.Cure = {main="Deacon Sword",ammo="Staunch Tathlum",
 		head="Loess Barbuta +1",neck="Loricate Torque +1",ear1="Nourish. Earring",ear2="Nourish. Earring +1",
@@ -347,11 +348,6 @@ function init_gear_sets()
 	sets.weapons.SequenceAegis = {main="Sequence",sub="Aegis Shield"}
 	sets.weapons.DualWeapons = {main="Sequence",sub="Demersal Degen +1"}
     
-    -- If EquipShield toggle is on (Win+F10 or Win+F11), equip the weapon/shield combos here
-    -- when activating or changing defense mode:
-    sets.PhysicalShield = {sub="Ochain"}
-    sets.MagicalShield = {sub="Aegis"}
-	
     sets.defense.PDT = {main="Mafic Cudgel",sub="Ochain",ammo="Staunch Tathlum",
 		head="Chev. Armet +1",neck="Diemer Gorget",ear1="Creed Earring",ear2="Thureous Earring",
 		body="Tartarus Platemail",hands="Souv. Handsch. +1",ring1="Defending Ring",ring2="Warden's Ring",

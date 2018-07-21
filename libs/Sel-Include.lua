@@ -996,7 +996,19 @@ function default_post_pet_midcast(spell, spellMap, eventArgs)
 end
 
 function default_aftercast(spell, spellMap, eventArgs)
-
+	
+	if spell.action_type == 'Magic' then
+		tickdelay = (framerate * 2.7)
+	elseif spell.action_type == 'Ability' then
+		tickdelay = (framerate * .5)
+	elseif spell.type == 'WeaponSkill' then
+		tickdelay = (framerate * 1.9)
+	elseif 	spell.action_type == 'Item' then
+		tickdelay = (framerate * 1.1)
+	elseif spell.action_type == 'Ranged Attack' then
+		tickdelay = (framerate * 1.1)
+	end
+	
 	if not spell.interrupted then
 		if state.TreasureMode.value ~= 'None' and state.DefenseMode.value == 'None' and spell.target.type == 'MONSTER' and not info.tagged_mobs[spell.target.id] then
 			info.tagged_mobs[spell.target.id] = os.time()
@@ -1042,6 +1054,7 @@ function default_aftercast(spell, spellMap, eventArgs)
 			useItemName = ''
 			useItemSlot = ''
 		end
+	else
 	end
 
 	if not eventArgs.handled then

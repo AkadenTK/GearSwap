@@ -1254,9 +1254,15 @@ end
 
 function check_nuke()
 	if state.AutoNukeMode.value and player.target.type == "MONSTER" then
-		windower.chat.input('/ma '..autonuke..' <t>')
-		tickdelay = (framerate * 1.5)
-		return true
+		local spell = res.spells:with('name',autonuke)
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+		if spell_recasts[spell.id] == 0 then
+			windower.chat.input('/ma '..autonuke..' <t>')
+			tickdelay = (framerate * 1.5)
+			return true
+		else
+			return false
+		end
 	else
 		return false
 	end
@@ -1302,11 +1308,11 @@ function check_cleanup()
 	if state.AutoCleanupMode.value then
 		if player.inventory['Bead Pouch'] then
 			send_command('input /item "Bead Pouch" <me>')
-			tickdelay = (framerate * 2.3)
+			tickdelay = (framerate * 2)
 			return true
 		elseif player.inventory['Silt Pouch'] then
 			send_command('input /item "Silt Pouch" <me>')
-			tickdelay = (framerate * 2.3)
+			tickdelay = (framerate * 2)
 			return true
 		end
 

@@ -168,6 +168,7 @@ function init_gear_sets()
 
     sets.engaged.DW.Hybrid = set_combine(sets.engaged.Hybrid, {})
 
+    gear.CorsairShot = {}
     gear.CorsairShot.Augment = {feet="Chasseur's bottes +1",}
     sets.precast.CorsairShot = {
         head=augmented_gear.Herculean.WSD.MAB.head,

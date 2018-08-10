@@ -232,13 +232,13 @@ function init_gear_sets()
     sets.midcast['Elemental Magic'].Resistant = set_combine(sets.midcast['Elemental Magic'], {
         sub="Enki Strap",
         head=augmented_gear.Merlinic.Accuracy.head,
-        neck="Sanctity Necklace",
+        neck="Baetyl pendant",
         ear2="Dignitary's Earring",
         body=augmented_gear.Merlinic.Accuracy.body,
         ring1="Sangoma ring",
         ring2="Stikini ring",
         legs=augmented_gear.Merlinic.Accuracy.legs,
-        feet=augmented_gear.Merlinic.Accuracy.feet,
+        feet="Merlinic Crackows",
     })
 		
     sets.midcast['Elemental Magic'].Fodder = set_combine(sets.midcast['Elemental Magic'], {})
@@ -251,7 +251,7 @@ function init_gear_sets()
 	sets.midcast.Helix.Resistant = set_combine(sets.midcast['Elemental Magic'].Resistant, {})
 		
 		-- Minimal damage gear, maximum recast gear for procs.
-    sets.midcast['Elemental Magic'].Proc = set_combine(sets.midcast['Elemental Magic'], {})
+    sets.midcast['Elemental Magic'].Proc = {main="Earth Staff",sub=empty,ranged=empty,ammo=empty,head=empty,neck=empty,ear1=empty,ear2=empty,body="Spaekona's Coat +2",hand=empty,ring1=empty,ring2=empty,back=empty,waist=empty,legs=empty,feet=empty,}
 
 		
 	sets.midcast.Impact = set_combine(sets.midcast['Elemental Magic'].Resistant, {head=empty, body="Twilight Cloak"})

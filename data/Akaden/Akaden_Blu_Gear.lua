@@ -9,7 +9,8 @@ function user_setup()
 	state.PhysicalDefenseMode:options('PDT', 'NukeLock')
 	state.MagicalDefenseMode:options('MDT', 'NukeLock')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('Default','SavageBlade','MagicWeapons','DDClubs', 'None')
+	--state.Weapons:options('Default','SavageBlade','MagicWeapons','DDClubs', 'None')
+	state.Weapons:options('Default','MagicWeapons','DDClubs','None')
 
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'MP','SuppaBrutal', 'DWEarrings','DWMax'}
 
@@ -63,22 +64,22 @@ function init_gear_sets()
 
     sets.dt = {
     	head="Ayanmo Zucchetto +2",
-    	neck="Twilight Torque",
+    	neck="Loricate Torque",
     	ear1="Ethereal Earring",
     	body="Ayanmo corazza +2",
     	hands="Ayanmo manopolas +1",
     	ring1="Ayanmo ring",
-    	back="Moonbeam cape",
+    	back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
     	waist="Flume belt",		
     	legs="ayanmo cosciales +2",
     	feet="Ayanmo gambieras +2"
 	}
 
 	sets.weapons = {}
-	sets.weapons.Default = {main="Tizona",sub="Colada"}
-	sets.weapons.SavageBlade = {main="Sequence",sub="Colada"}
-	sets.weapons.MagicWeapons = {main="Nibiru Cudgel", sub="Vampirism"}
-	sets.weapons.DDClubs = {main="Nehushtan", sub="Nibiru Cudgel"}
+	sets.weapons.Default = {main="Tizona",sub="Sequence"}
+	--sets.weapons.SavageBlade = {main="Sequence",sub="Colada"}
+	sets.weapons.MagicWeapons = {main="Nibiru Cudgel", sub="Colada"}
+	sets.weapons.DDClubs = {main="Nehushtan", sub="Sequence"}
 	-- Precast Sets
 
 	-- Precast sets to enhance JAs
@@ -368,7 +369,7 @@ function init_gear_sets()
         hands="Jhakri cuffs +2",
         ring1="Acumen ring",
         ring2="Shiva Ring +1",
-        waist="Salire belt",
+        waist="Eschan Stone",
         legs="Amalric Slops",
         feet="Jhakri pigaches +2",
     	back={ name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','System: 1 ID: 1155 Val: 4',}},
@@ -508,7 +509,7 @@ function init_gear_sets()
 	sets.NightIdle = {}
 
 	-- Gear for learning spells: +skill and AF hands.
-	sets.Learning = {body="Assimilator's Jubbah +3",hands="Assim. Bazu. +1",legs="Hashishin tayt +1", feet="Luhlaza charuqs"}
+	sets.Learning = set_combine(sets.midcast['Blue Magic'].SkillBasedBuff, {hands="Assim. Bazu. +1"})
 
 	-- Engaged sets
 
@@ -558,15 +559,25 @@ function init_gear_sets()
 
 	sets.engaged.DTLite = set_combine(sets.engaged, {
     	head="Ayanmo Zucchetto +2",
-    	neck="Twilight Torque",
+    	neck="Loricate Torque",
     	body="Ayanmo corazza +2",
     	ring1="Ayanmo ring",
+	})
+
+	sets.engaged.DTMid = set_combine(sets.engaged, {
+    	head="Ayanmo Zucchetto +2",
+    	neck="Loricate Torque",
+    	body="Ayanmo corazza +2",
+    	ring1="Ayanmo ring",
+		ring2="Warden's ring",
+		waist="Flume belt",
+        legs="Ayanmo cosciales +2",
+		feet="Ayanmo gambieras +2",
 	})
 
 	--sets.engaged.DTLite.AM = set_combine(sets.engaged, {})
 
 	sets.engaged.PDT = set_combine(sets.dt, {
-		neck="wiglen gorget",
 		body="Shamash robe",
 		waist="Flume belt",
 		ring2="Warden's ring"
@@ -664,7 +675,7 @@ function init_gear_sets()
 	sets.Healing_Club = {}
 	sets.Healing_DWClub = {}
     sets.latent_refresh = {waist="Fucho-no-obi"}
-	sets.Cure_Received = {neck="Phalaina locket"}
+	sets.Cure_Received = {neck="Phalaina Locket",hands="Buremte Gloves",ring2="Kunaji Ring",waist="Gishdubar Sash"}
 	sets.Self_Refresh = {}
 	sets.MagicBurst = {hands="Amalric Gages",ring1="Mujin Band",ring2="Locus Ring"}
 	sets.midcast['Trust'] = set_combine(sets.midcast.FastRecast, {})
@@ -674,6 +685,12 @@ end
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
 	set_macro_page(1, 18)
+
+	if player.sub_job == 'RDM' then
+		windower.chat.input('/lockstyleset 7')
+	else
+		windower.chat.input('/lockstyleset 8')
+	end
 end
 
 --Job Specific Trust Overwrite

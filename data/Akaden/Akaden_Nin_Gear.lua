@@ -86,9 +86,9 @@ function init_gear_sets()
         ring1="Ilabrat ring",
         ring2="Epona's ring",
         back="Atheling Mantle",
-        waist="Chiner's belt +1",
+        waist="Windbuffet belt +1",
         legs="Samnuha tights",
-        feet=augmented_gear.Herculean.TA,
+        feet=augmented_gear.Herculean.TA.feet,
     }
     sets.engaged.Acc = {
         head=augmented_gear.Adhemar.Acc.head,
@@ -242,7 +242,7 @@ function init_gear_sets()
 	sets.DWMax = {}
 	sets.Weapons = {}
 	sets.MagicWeapons = {}
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands})
 	sets.Skillchain = {}
 	
 	sets.RedProcDagger = {}

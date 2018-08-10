@@ -2,10 +2,11 @@ function user_setup()
 	-- Options: Override default values
     state.OffenseMode:options('Normal','SomeAcc','Acc','FullAcc','Fodder')
     state.WeaponskillMode:options('Match','Normal','SomeAcc','Acc','FullAcc','Fodder')
-    state.HybridMode:options('Normal', 'DTLite')
+    state.HybridMode:options('Normal', 'DTLite', 'MoreDT')
     state.PhysicalDefenseMode:options('PDT', 'PDTReraise')
     state.MagicalDefenseMode:options('MDT', 'MDTReraise')
 	state.ResistDefenseMode:options('MEVA')
+    state.CastingMode:options('Normal','Resistant')
 	state.IdleMode:options('Normal', 'PDT','Refresh','Reraise')
     state.Weapons:options('Algol','DDScythe', 'None')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None'}
@@ -59,7 +60,7 @@ function init_gear_sets()
 	-- Fast cast sets for spells
 
 	sets.precast.FC = {
-	    head="Flam. Zucchetto +2",
+	    head="Carmine Mask",
 	    body={ name="Odyss. Chestplate", augments={'"Fast Cast"+5','VIT+7','"Mag.Atk.Bns."+6',}},
 	    hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
 	    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
@@ -71,6 +72,7 @@ function init_gear_sets()
 	}
 
 	sets.precast.FC.Impact = set_combine(sets.precast.FC, {})
+	--sets.precast.FC['Dark Magic'] = set_combine(sets.precast.FC, {head="Fallen's Burgeonet"})
 		
 	-- Midcast Sets
 	sets.midcast.FastRecast = set_combine(sets.precast.FC,{})
@@ -83,9 +85,9 @@ function init_gear_sets()
 	    body="Flamma Korazin +1",
 	    hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
 	    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
-	    feet="Flam. Gambieras +1",
+	    feet="Flam. Gambieras +2",
 	    neck="Erra Pendant",
-	    waist="Salire Belt",
+	    waist="Eschan Stone",
 	    left_ear="Hermetic Earring",
 	    right_ear="Digni. Earring",
 	    right_ring="Sangoma Ring",	
@@ -95,7 +97,6 @@ function init_gear_sets()
 		body="Carmine Scale Mail",
 	    hands={ name="Fall. Fin. Gaunt. +1", augments={'Enhances "Diabolic Eye" effect',}},
 	    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
-	    feet="Flam. Gambieras +1",
 	    neck="Erra Pendant",
 	    left_ring="Stikini Ring",
 	    back={ name="Niht Mantle", augments={'Attack+14','Dark magic skill +6','"Drain" and "Aspir" potency +24',}},
@@ -118,7 +119,14 @@ function init_gear_sets()
 	    right_ring="Etana Ring",
 	    back="Moonbeam Cape",
     })
-	sets.midcast.Absorb = set_combine(sets.midcast['Dark Magic'], {back="Ankou Mantle",right_ring="Kishar Ring"})
+	sets.midcast.Absorb = set_combine(sets.midcast['Dark Magic'], {
+		back="Chuparrosa Mantle",
+		right_ring="Kishar Ring"})
+	sets.midcast.Absorb.Resistant = set_combine(sets.midcast.Absorb, {
+		back={ name="Ankou's Mantle", augments={'Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10',}},
+		hands="Ratri gadlings",
+		legs="Flamma Dirs +1"
+	})
            
 	sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'],{})
                    
@@ -130,6 +138,7 @@ function init_gear_sets()
 	    neck="Erra Pendant",
 	    left_ring="Archon Ring",
 	    right_ring="Evanescence Ring",
+	    waist="Fucho-no-Obi",
     })
                    
 	sets.midcast.Aspir = sets.midcast.Drain
@@ -138,8 +147,8 @@ function init_gear_sets()
 	
 	sets.midcast.Cure = {}
 	
-	sets.Self_Healing = {neck="Phalaina Locket",hands="Buremte Gloves",ring2="Kunaji Ring",waist="Gishdubar Sash"}
-	sets.Cure_Received = {neck="Phalaina Locket",hands="Buremte Gloves",ring2="Kunaji Ring",waist="Gishdubar Sash"}
+	sets.Self_Healing = {neck="Phalaina Locket",hands="Buremte Gloves",ring2="Kunaji Ring",waist="Gishdubar Sash", legs="Flamma dirs +1"}
+	sets.Cure_Received = {neck="Phalaina Locket",hands="Buremte Gloves",ring2="Kunaji Ring",waist="Gishdubar Sash", legs="Flamma dirs +1"}
 	sets.Self_Refresh = {waist="Gishdubar Sash"}
 						                   
 	-- Weaponskill sets
@@ -150,7 +159,7 @@ function init_gear_sets()
 		neck="Fotia Gorget",
 		ear1="Moonshade Earring",
 		ear2="Brutal earring",
-		body="Sulevia's Platemail +1",
+    	body="Ignominy cuirass +3",
 		hands="Sulev. Gauntlets +2",
 		ring1="Hetairoi Ring",
 		ring2="Ifrit Ring +1",
@@ -173,14 +182,21 @@ function init_gear_sets()
 	
     sets.precast.WS['Torcleaver'] = set_combine(sets.precast.WS, {
     	head=augmented_gear.Valorous.WSD.VIT.head,
-    	body="Ignominy cuirass +2",
     	Ring1="Petrov Ring",
     	ring2="Titan ring",
     	ear2="Ishvara Earring",
-		back={ name="Ankou's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','Weapon skill damage +10'}},
+		back={ name="Ankou's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10'}},
     })
-    sets.precast.WS['Torcleaver'].Acc = set_combine(sets.precast.WS['Torcleaver'], {})
-    sets.precast.WS['Torcleaver'].FullAcc = set_combine(sets.precast.WS['Torcleaver'].Acc, {})
+    sets.precast.WS['Torcleaver'].Acc = set_combine(sets.precast.WS['Torcleaver'], {
+    	ammo="Seething Bomblet",
+    	head="Sulevia's mask +2",
+    	ear2="Telos Earring",
+    	ring1="Begrudging ring",
+    	})
+    sets.precast.WS['Torcleaver'].FullAcc = set_combine(sets.precast.WS['Torcleaver'].Acc, {
+    	ear1="Dignitary's earring",
+    	ring2="Flamma ring",
+    	})
 
     sets.precast.WS['Entropy'] = set_combine(sets.precast.WS, {})
     sets.precast.WS['Entropy'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {})
@@ -189,8 +205,8 @@ function init_gear_sets()
     sets.precast.WS['Entropy'].Fodder = set_combine(sets.precast.WS.Fodder, {})
      
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {
-    	body="Argosy Hauberk",
-    	feet="Flamma gambieras +2",
+    	head="Argosy Celata +1",
+    	feet="Argosy Sollerets +1",
     	back={ name="Ankou's Mantle", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}},
 	})
     sets.precast.WS['Resolution'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {
@@ -225,40 +241,46 @@ function init_gear_sets()
 	-- Engaged sets
 	sets.engaged = {
 	    ammo="Ginsen",
-	    head="Flam. Zucchetto +2",
+	    head="Argosy celata +1",
 	    body=augmented_gear.Valorous.TP.body,
-	    hands="Sulev. Gauntlets +2",
+	    hands="Argosy mufflers +1",
 	    legs="Ignominy Flanchard +3",
 	    feet="Flamma Gambieras +2",
 	    neck="Asperity Necklace",
 	    waist="Ioskeha Belt",
-	    left_ear="Telos Earring",
+	    left_ear="Cessance Earring",
 	    right_ear="Brutal Earring",
 	    left_ring="Petrov Ring",
 	    right_ring="Flamma Ring",
-	    back={ name="Ankou's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}},
+	    back={ name="Ankou's Mantle", augments={'DEX+20','Accuracy+20 Attack+20', 'Accuracy+10','"Store TP"+10','Damage taken-5%',}},
 	}
 	sets.engaged.Acc = set_combine(sets.engaged,{
+		neck="Lissome Necklace",
 		ammo="Seething Bomblet",
-		ear1="Dignitary's earring",
+		ear1="Dignitary's earring",})
+    sets.engaged.FullAcc = set_combine(sets.engaged.Acc,{
 		ear2="Telos earring",
+		hands="Ignominy gauntlets +2",
 	})
-    sets.engaged.FullAcc = set_combine(sets.engaged.Acc,{})
 
     sets.engaged.DTLite = set_combine(sets.engaged, {
-    	head="Sulevia's mask +1",
-    	neck="Twilight Torque",
-    	body="Sulevia's platemail +1",
+    	head="Sulevia's Mask +2",
+    	neck="Loricate Torque",
 	    legs="Sulevi. Cuisses +1",
 	})
 
+    sets.engaged.MoreDT = set_combine(sets.engaged.DTLite, {
+    	body="Sulevia's platemail +1",
+    	feet="Sulevia's Leggings +2",
+	})
+
     sets.dt = {
-	    head="Sulevia's Mask +1",
+	    head="Sulevia's Mask +2",
 	    body="Sulevia's Plate. +1",
 	    hands="Sulev. Gauntlets +2",
 	    legs="Sulevi. Cuisses +1",
 	    feet="Sulev. Leggings +2",
-	    neck="Twilight Torque",
+	    neck="Loricate Torque",
 	    waist="Flume Belt",
 	    right_ear="Ethereal Earring",
 	    left_ring="Yacuruna Ring",
@@ -276,12 +298,12 @@ function init_gear_sets()
 		
     sets.idle.PDT = {
 	    ammo="Knobkierrie",
-	    head="Sulevia's Mask +1",
+	    head="Sulevia's Mask +2",
 	    body="Sulevia's Plate. +1",
 	    hands="Sulev. Gauntlets +2",
 	    legs="Sulevi. Cuisses +1",
 	    feet="Sulev. Leggings +2",
-	    neck="Twilight Torque",
+	    neck="Loricate Torque",
 	    waist="Flume Belt",
 	    right_ear="Ethereal Earring",
 	    left_ring="Yacuruna Ring",
@@ -289,19 +311,19 @@ function init_gear_sets()
 	    back="Moonbeam Cape",
 	}
 
-	sets.idle.Weak = set_combine(sets.idle, {head="Twilight Helm",body="Twilight Mail"})
+	--sets.idle.Weak = set_combine(sets.idle, {head="Twilight Helm",body="Twilight Mail"})
 		
-	sets.idle.Reraise = set_combine(sets.idle, {head="Twilight Helm",body="Twilight Mail"})
+	--sets.idle.Reraise = set_combine(sets.idle, {head="Twilight Helm",body="Twilight Mail"})
            
     -- Defense sets
 	sets.defense.PDT = {
 	    ammo="Knobkierrie",
-	    head="Sulevia's Mask +1",
+	    head="Sulevia's Mask +2",
 	    body="Sulevia's Plate. +1",
 	    hands="Sulev. Gauntlets +2",
 	    legs="Sulevi. Cuisses +1",
 	    feet="Sulev. Leggings +2",
-	    neck="Twilight Torque",
+	    neck="Loricate Torque",
 	    waist="Flume Belt",
 	    right_ear="Ethereal Earring",
 	    left_ring="Yacuruna Ring",
@@ -313,12 +335,12 @@ function init_gear_sets()
 
 	sets.defense.MDT = {
 	    ammo="Knobkierrie",
-	    head="Sulevia's Mask +1",
+	    head="Sulevia's Mask +2",
 	    body="Sulevia's Plate. +1",
 	    hands="Sulev. Gauntlets +2",
 	    legs="Sulevi. Cuisses +1",
 	    feet="Sulev. Leggings +2",
-	    neck="Twilight Torque",
+	    neck="Loricate Torque",
 	    waist="Flume Belt",
 	    right_ear="Ethereal Earring",
 	    left_ring="Yacuruna Ring",
@@ -333,7 +355,7 @@ function init_gear_sets()
 	sets.Kiting = {legs="Carmine Cuisses +1"}
 	sets.passive.Reraise = {head="Twilight Helm",body="Twilight Mail"}
 	sets.buff.Doom = set_combine(sets.buff.Doom, {})
-	sets.buff.Sleep = {head="Frenzy Sallet"}
+	sets.buff.Sleep = {head="Berserker's Torque"}
 	--Extra Special Sets
 	
 	sets.buff.Souleater = {}
@@ -350,6 +372,8 @@ function init_gear_sets()
 function select_default_macro_book()
     -- Default macro set/book
     set_macro_page(1, 7)
+    
+    windower.chat.input('/lockstyleset 5')
 end
 
 

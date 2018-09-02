@@ -7,16 +7,51 @@ function user_setup()
 	state.IdleMode:options('Normal','PDT','Refresh')
 	state.Weapons:options('None','Godhands','PetWeapons')
 
-    -- Default maneuvers 1, 2, 3 and 4 for each pet mode.
-    defaultManeuvers = {
-        ['Melee'] = {'Fire Maneuver','Thunder Maneuver','Wind Maneuver','Light Maneuver'},
-        ['Ranged'] = {'Wind Maneuver','Fire Maneuver','Light Maneuver','Thunder Maneuver'},
-        ['Tank'] = {'Earth Maneuver','Light Maneuver','Dark Maneuver','Fire Maneuver',},
-		['LightTank'] = {'Earth Maneuver','Fire Maneuver','Light Maneuver','Dark Maneuver'},
-        ['Magic'] = {'Ice Maneuver','Light Maneuver','Dark Maneuver','Earth Maneuver'},
-        ['Heal'] = {'Light Maneuver','Dark Maneuver','Water Maneuver','Earth Maneuver'},
-        ['Nuke'] = {'Ice Maneuver','Dark Maneuver', 'Light Maneuver','Earth Maneuver'}
-    }
+    -- Default/Automatic maneuvers for each pet mode.  Define at least 3.
+	defaultManeuvers = {
+		Melee = {
+			{Name='Fire Maneuver', 	  Amount=1},
+			{Name='Thunder Maneuver', Amount=1},
+			{Name='Wind Maneuver', 	  Amount=1},
+			{Name='Light Maneuver',	  Amount=0},
+		},
+		Ranged = {
+			{Name='Wind Maneuver', 	  Amount=1},
+			{Name='Fire Maneuver',	  Amount=1},
+			{Name='Light Maneuver',	  Amount=1},
+			{Name='Thunder Maneuver', Amount=0},
+		},
+		Tank = {
+			{Name='Earth Maneuver',	  Amount=1},
+			{Name='Fire Maneuver',	  Amount=1},
+			{Name='Light Maneuver',	  Amount=1},
+			{Name='Dark Maneuver',	  Amount=0},
+		},
+		LightTank = {
+			{Name='Earth Maneuver',	  Amount=1},
+			{Name='Fire Maneuver',	  Amount=1},
+			{Name='Light Maneuver',	  Amount=1},
+			{Name='Dark Maneuver',	  Amount=0},
+		},
+		Magic = {
+			{Name='Light Maneuver',	  Amount=1},
+			{Name='Ice Maneuver',	  Amount=1},
+			{Name='Dark Maneuver',	  Amount=1},
+			{Name='Earth Maneuver',	  Amount=0},
+		},
+		Heal = {
+			{Name='Light Maneuver',	  Amount=2},
+			{Name='Dark Maneuver',	  Amount=1},
+			{Name='Water Maneuver',	  Amount=0},
+			{Name='Earth Maneuver',	  Amount=0},
+		},
+		Nuke = {
+			{Name='Ice Maneuver',	  Amount=2},
+			{Name='Dark Maneuver',	  Amount=1},
+			{Name='Water Maneuver',	  Amount=0},
+			{Name='Earth Maneuver',	  Amount=0},
+		},
+	}
 
 	deactivatehpp = 85
 	
@@ -195,7 +230,7 @@ function init_gear_sets()
     sets.idle.Pet.Engaged = {
         head="Anwig Salade",neck="Shulmanu Collar",ear1="Enmerkar Earring",ear2="Domesticator's Earring",
         body="Taeon Tabard",hands="Regimen Mittens",ring1="Varar Ring",ring2="Varar Ring",
-        back="Visucius's Mantle",waist="Klouskap Sash",legs="Tali'ah Sera. +2",feet="Tali'ah Crackows +1"}
+        back="Visucius's Mantle",waist="Klouskap Sash",legs="Tali'ah Sera. +2",feet="Tali'ah Crackows +2"}
 
     sets.idle.Pet.Engaged.Ranged = set_combine(sets.idle.Pet.Engaged, {})
 	sets.idle.Pet.Engaged.Melee = set_combine(sets.idle.Pet.Engaged, {})

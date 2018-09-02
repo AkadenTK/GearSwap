@@ -21,6 +21,7 @@ function job_setup()
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 	state.Buff['Valiance'] = buffactive['Valiance'] or false
 	state.Buff['Vallation'] = buffactive['Vallation'] or false
+	state.Buff['Embolden'] = buffactive['Embolden'] or false
     state.Buff.Hasso = buffactive.Hasso or false
     state.Buff.Seigan = buffactive.Seigan or false
 	state.Stance = M{['description']='Stance','Hasso','Seigan','None'}
@@ -32,7 +33,7 @@ function job_setup()
 	autofood = 'Miso Ramen'
 	
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoTankMode","AutoWSMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"Weapons","OffenseMode","WeaponskillMode","Stance","IdleMode","Passive","RuneElement","PhysicalDefenseMode","MagicalDefenseMode","ResistDefenseMode","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoTankMode","AutoWSMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","Stance","IdleMode","Passive","RuneElement","PhysicalDefenseMode","MagicalDefenseMode","ResistDefenseMode","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -109,7 +110,9 @@ end
 -- Run after the default midcast() is done.
 -- eventArgs is the same one used in job_midcast, in case information needs to be persisted.
 function job_post_midcast(spell, spellMap, eventArgs)
-
+    if spell.skill == 'Enhancing Magic' and state.Buff.Embolden and sets.buff.Embolden then
+        equip(sets.buff.Embolden)
+    end
 end
 
 

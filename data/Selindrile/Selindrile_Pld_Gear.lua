@@ -61,7 +61,7 @@ function init_gear_sets()
 		
     -- Precast sets to enhance JAs
     sets.precast.JA['Invincible'] = set_combine(sets.Enmity,{legs="Cab. Breeches +1"})
-    sets.precast.JA['Holy Circle'] = set_combine(sets.Enmity,{feet="Rev. Leggings +1"})
+    sets.precast.JA['Holy Circle'] = set_combine(sets.Enmity,{feet="Rev. Leggings +3"})
     sets.precast.JA['Sentinel'] = set_combine(sets.Enmity,{feet="Cab. Leggings +1"})
     sets.precast.JA['Rampart'] = set_combine(sets.Enmity,{}) --head="Valor Coronet" (Also Vit?)
     sets.precast.JA['Fealty'] = set_combine(sets.Enmity,{body="Cab. Surcoat +1"})
@@ -69,7 +69,7 @@ function init_gear_sets()
     sets.precast.JA['Cover'] = set_combine(sets.Enmity, {body="Cab. Surcoat +1"}) --head="Rev. Coronet +1",
 	
     sets.precast.JA['Invincible'].DT = set_combine(sets.Enmity.DT,{legs="Cab. Breeches +1"})
-    sets.precast.JA['Holy Circle'].DT = set_combine(sets.Enmity.DT,{feet="Rev. Leggings +1"})
+    sets.precast.JA['Holy Circle'].DT = set_combine(sets.Enmity.DT,{feet="Rev. Leggings +3"})
     sets.precast.JA['Sentinel'].DT = set_combine(sets.Enmity.DT,{feet="Cab. Leggings +1"})
     sets.precast.JA['Rampart'].DT = set_combine(sets.Enmity.DT,{}) --head="Valor Coronet" (Also Vit?)
     sets.precast.JA['Fealty'].DT = set_combine(sets.Enmity.DT,{body="Cab. Surcoat +1"})
@@ -345,7 +345,7 @@ function init_gear_sets()
 	-- Weapons sets
 	sets.weapons.DeaconAegis = {main="Deacon Sword",sub="Aegis"}
 	sets.weapons.SequenceBlurred = {main="Sequence",sub="Blurred Shield"}
-	sets.weapons.SequenceAegis = {main="Sequence",sub="Aegis Shield"}
+	sets.weapons.SequenceAegis = {main="Sequence",sub="Aegis"}
 	sets.weapons.DualWeapons = {main="Sequence",sub="Demersal Degen +1"}
     
     sets.defense.PDT = {main="Mafic Cudgel",sub="Ochain",ammo="Staunch Tathlum",
@@ -405,22 +405,22 @@ function init_gear_sets()
 		
 		-- To cap MDT with Shell IV (52/256), need 76/256 in gear.
     -- Shellra V can provide 75/256, which would need another 53/256 in gear.
-    sets.defense.OchainMDT = {ammo="Staunch Tathlum",
+    sets.defense.OchainMDT = {sub="Aegis",ammo="Staunch Tathlum",
 		head="Founder's Corona",neck="Warder's Charm +1",ear1="Odnowa Earring +1",ear2="Sanare Earring",
 		body="Tartarus Platemail",hands="Souv. Handsch. +1",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Engulfer Cape +1",waist="Creed Baudrier",legs="Chev. Cuisses +1",feet="Chev. Sabatons +1"}
 		
-    sets.defense.OchainNoShellMDT = {ammo="Staunch Tathlum",
+    sets.defense.OchainNoShellMDT = {sub="Aegis",ammo="Staunch Tathlum",
 		head="Founder's Corona",neck="Warder's Charm +1",ear1="Odnowa Earring +1",ear2="Sanare Earring",
 		body="Tartarus Platemail",hands="Souv. Handsch. +1",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Engulfer Cape +1",waist="Flax Sash",legs="Sulev. Cuisses +2",feet="Chev. Sabatons +1"}
 		
-    sets.defense.AegisMDT = {ammo="Staunch Tathlum",
+    sets.defense.AegisMDT = {sub="Aegis",ammo="Staunch Tathlum",
 		head="Founder's Corona",neck="Warder's Charm +1",ear1="Odnowa Earring +1",ear2="Sanare Earring",
 		body="Tartarus Platemail",hands="Leyline Gloves",ring1="Defending Ring",ring2="Shadow Ring",
 		back=gear.fastcast_jse_back,waist="Asklepian Belt",legs=gear.odyssean_fc_legs,feet="Odyssean Greaves"}
 		
-    sets.defense.AegisNoShellMDT = {ammo="Staunch Tathlum",
+    sets.defense.AegisNoShellMDT = {sub="Aegis",ammo="Staunch Tathlum",
 		head="Founder's Corona",neck="Warder's Charm +1",ear1="Odnowa Earring +1",ear2="Sanare Earring",
 		body="Tartarus Platemail",hands="Souv. Handsch. +1",ring1="Defending Ring",ring2="Shadow Ring",
 		back=gear.fastcast_jse_back,waist="Asklepian Belt",legs="Sulev. Cuisses +2",feet="Amm Greaves"}		

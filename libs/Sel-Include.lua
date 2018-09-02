@@ -96,6 +96,7 @@ function init_include()
 	
 	state.RuneElement 		  = M{['description'] = 'Rune Element','Ignis','Gelus','Flabra','Tellus','Sulpor','Unda','Lux','Tenebrae'}
 	state.ElementalMode 	  = M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
+	state.AutoSambaMode 	  = M{['description']= 'Auto Samba Mode', 'Off', 'Haste Samba', 'Aspir Samba', 'Drain Samba II'}
 
 	state.MagicBurstMode 	  = M{['description'] = 'Magic Burst Mode', 'Off', 'Single', 'Lock'}
 	state.SkillchainMode 	  = M{['description'] = 'Skillchain Mode', 'Off', 'Single', 'Lock'}
@@ -1184,6 +1185,7 @@ function default_tick()
 	if check_sub() then return true end
 	if check_food() then return true end
 	if check_ws() then return true end
+	if check_samba() then return true end
 	if check_cpring_buff() then return true end
 	if check_cleanup() then return true end
 	if check_nuke() then return true end
@@ -2097,7 +2099,7 @@ function buff_change(buff, gain)
 	end
 	
     if S{'Commitment','Dedication'}:contains(buff) then
-        if gain and cprings:contains(player.equipment.left_ring) then
+        if gain and (cprings:contains(player.equipment.left_ring) or xprings:contains(player.equipment.left_ring)) then
             enable("left_ring")
 			
 			if time_test and player.equipment.left_ring == 'Capacity Ring' then
@@ -2111,20 +2113,20 @@ function buff_change(buff, gain)
 				local NegativeCapacityOffsetPlus =  NegativeCapacityOffset + 900
 				local NegativeCapacityOffsetMinus = NegativeCapacityOffset - 900
 				if ((get_item_next_use('Capacity Ring').next_use_time) - (CurrentTime + CapacityOffsetPlus)) > 895 and ((get_item_next_use('Capacity Ring').next_use_time) - (CurrentTime + CapacityOffsetPlus)) < 905 then
-					windower.add_to_chat(123,"Capacity Ring Used: Your offset is "..CapacityOffsetPlus.."")
+					windower.add_to_chat(123,"Capacity Ring Used: Your offset is: "..CapacityOffsetPlus.."")
 				elseif ((get_item_next_use('Capacity Ring').next_use_time) - (CurrentTime + CapacityOffsetMinus)) > 895 and ((get_item_next_use('Capacity Ring').next_use_time) - (CurrentTime + CapacityOffsetMinus)) < 905 then
-					windower.add_to_chat(123,"Capacity Ring Used: Your offset is "..CapacityOffsetMinus.."")
+					windower.add_to_chat(123,"Capacity Ring Used: Your offset is: "..CapacityOffsetMinus.."")
 				elseif ((get_item_next_use('Capacity Ring').next_use_time) - (CurrentTime + NegativeCapacityOffsetPlus)) > 895 and ((get_item_next_use('Capacity Ring').next_use_time) - (CurrentTime + NegativeCapacityOffsetPlus)) < 905 then
-					windower.add_to_chat(123,"Capacity Ring Used: Your offset is "..NegativeCapacityOffsetPlus.."")
+					windower.add_to_chat(123,"Capacity Ring Used: Your offset is: "..NegativeCapacityOffsetPlus.."")
 				elseif ((get_item_next_use('Capacity Ring').next_use_time) - (CurrentTime + NegativeCapacityOffsetMinus)) > 895 and ((get_item_next_use('Capacity Ring').next_use_time) - (CurrentTime + NegativeCapacityOffsetMinus)) < 905 then
-					windower.add_to_chat(123,"Capacity Ring Used: Your offset is "..CapacityOffsetPlus.."")
+					windower.add_to_chat(123,"Capacity Ring Used: Your offset is: "..CapacityOffsetPlus.."")
 				else
 					windower.add_to_chat(123,"Unable to automatically determine your offset")
 					time_test = true
 				end
 			end
 			
-		elseif gain and player.equipment.head == "Guide Beret" then
+		elseif gain and (player.equipment.head == "Guide Beret" or player.equipment.head == "Sprout Beret") then
 			enable("head")
         end
     end

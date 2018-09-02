@@ -267,6 +267,7 @@ function init_gear_sets()
     	head="Sulevia's Mask +2",
     	neck="Loricate Torque",
 	    legs="Sulevi. Cuisses +1",
+	    ring1="Defending Ring",
 	})
 
     sets.engaged.MoreDT = set_combine(sets.engaged.DTLite, {
@@ -283,7 +284,7 @@ function init_gear_sets()
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
 	    right_ear="Ethereal Earring",
-	    left_ring="Yacuruna Ring",
+	    ring1="Defending Ring",
 	    right_ring="Warden's Ring",
 	    back="Moonbeam Cape",
 	}
@@ -294,6 +295,7 @@ function init_gear_sets()
     	head=empty,
     	body="Lugra Cloak +1",
     	neck="Coatl gorget +1",
+	    ring1="Defending Ring",
     	})
 		
     sets.idle.PDT = {
@@ -306,7 +308,7 @@ function init_gear_sets()
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
 	    right_ear="Ethereal Earring",
-	    left_ring="Yacuruna Ring",
+	    ring1="Defending Ring",
 	    right_ring="Warden's Ring",
 	    back="Moonbeam Cape",
 	}
@@ -326,7 +328,7 @@ function init_gear_sets()
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
 	    right_ear="Ethereal Earring",
-	    left_ring="Yacuruna Ring",
+	    ring1="Defending Ring",
 	    right_ring="Warden's Ring",
 	    back="Moonbeam Cape",
 	}
@@ -343,8 +345,8 @@ function init_gear_sets()
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
 	    right_ear="Ethereal Earring",
-	    left_ring="Yacuruna Ring",
-	    right_ring="Warden's Ring",
+	    ring1="Yacuruna Ring",
+	    ring2="Defending Ring",
 	    back="Moonbeam Cape",
 	}
 		

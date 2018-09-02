@@ -3,6 +3,7 @@
 function user_setup()
     state.OffenseMode:options('Normal', 'Acc', 'FullAcc','Crits')
     state.RangedMode:options('Normal', 'Acc','FullAcc','Crits')
+    state.HybridMode:options('Normal','DTLite','PDT','MDT')
     state.WeaponskillMode:options('Match','Normal', 'Acc','FullAcc')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
@@ -13,11 +14,11 @@ function user_setup()
     state.QuickDrawAug = false
 
     state.LastRoll = 'unknown'
-    ammostock = 100
+    ammostock = 99
 
     gear.RAbullet = "Chrono Bullet"
     gear.WSbullet = "Chrono Bullet"
-    gear.MAbullet = "Orichalcum Bullet" --For MAB WS, do not put single-use bullets here.
+    gear.MAbullet = "Living Bullet" --For MAB WS, do not put single-use bullets here.
     gear.QDbullet = "Animikii Bullet"
     options.ammo_warning_limit = 15
 
@@ -63,8 +64,8 @@ function init_gear_sets()
     -- Start defining the sets
     --------------------------------------
     sets.weapons = {}
-    sets.weapons.ShieldLeaden = {main='Fettering Blade', sub="Nusku Shield", range="Fomalhaut"}
-    sets.weapons.DWLeaden = {main='Fettering Blade', sub="Hepatizon rapier", range="Fomalhaut"}
+    sets.weapons.ShieldLeaden = {main='Fettering Blade', sub="Nusku Shield", range="Death Penalty"}
+    sets.weapons.DWLeaden = {main='Fettering Blade', sub="Hepatizon rapier", range="Death Penalty"}
     sets.weapons.ShieldLastStand = {main='Kustawi +1', sub="Nusku Shield", range="Fomalhaut"}
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Anarchy +2"}
@@ -155,8 +156,10 @@ function init_gear_sets()
         feet="Mummu Gamashes +1"
     })
 
-    sets.engaged.Hybrid = set_combine(sets.engaged,{
+    sets.engaged.DTLite = set_combine(sets.engaged,{
+        head="Meghanada visor +2",
         neck="Loricate Torque",
+        ring1="Defending ring",
         waist="Flume Belt",
     })
 
@@ -458,7 +461,7 @@ function init_gear_sets()
         neck="Wiglen Gorget",
         waist="Flume Belt",
         left_ear="Ethereal Earring",
-        left_ring="Warden's Ring",
+        ring1="Defending ring",
     })
 		
     sets.idle.Refresh = set_combine(sets.idle, {})
@@ -525,6 +528,20 @@ function user_job_pretarget(spell, spellMap, eventArgs)
 end
 
 function user_job_post_precast(spell, spellMap, eventArgs)
+
+    --if spell.type == 'WeaponSkill' then
+    --    -- Replace Moonshade Earring if we're at cap TP
+    --    if (player.tp >= 2950 and moonshade_ws:contains(spell.english)) or
+    --       (player.tp >= 2450 and moonshade_ws:contains(spell.english)) and ) then
+    --        if check_ws_acc():contains('Acc') then
+    --            if sets.AccMaxTP then
+    --                equip(sets.AccMaxTP)
+    --            end
+    --        elseif sets.MaxTP then
+    --                equip(sets.MaxTP)
+    --        end
+    --    end
+    -- end   
     if spell.type == "CorsairRoll" and not buffactive[spell.english] then
         state.LastRoll = spell.english
     end

@@ -523,7 +523,7 @@ function init_gear_sets()
     	hands=augmented_gear.Adhemar.Atk.hands,
         ring1="Hetairoi ring",
         ring2="Epona's ring",
-    	back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+    	back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
         waist="Windbuffet belt +1",
         legs="Samnuha tights",
     	feet=augmented_gear.Herculean.TA.feet,
@@ -561,15 +561,11 @@ function init_gear_sets()
     	head="Ayanmo Zucchetto +2",
     	neck="Loricate Torque",
     	body="Ayanmo corazza +2",
-    	ring1="Ayanmo ring",
+    	ring1="Defending Ring"
 	})
 
-	sets.engaged.DTMid = set_combine(sets.engaged, {
-    	head="Ayanmo Zucchetto +2",
-    	neck="Loricate Torque",
-    	body="Ayanmo corazza +2",
-    	ring1="Ayanmo ring",
-		ring2="Warden's ring",
+	sets.engaged.DTMid = set_combine(sets.engaged.DTLite, {
+    	ring2="Ayanmo ring",
 		waist="Flume belt",
         legs="Ayanmo cosciales +2",
 		feet="Ayanmo gambieras +2",
@@ -577,10 +573,9 @@ function init_gear_sets()
 
 	--sets.engaged.DTLite.AM = set_combine(sets.engaged, {})
 
-	sets.engaged.PDT = set_combine(sets.dt, {
-		body="Shamash robe",
+	sets.engaged.PDT = set_combine(sets.engaged.DTLite, {
 		waist="Flume belt",
-		ring2="Warden's ring"
+        legs="Ayanmo cosciales +2",
 		})
 
 
@@ -615,9 +610,8 @@ function init_gear_sets()
             body="Shamash robe",
 			hands=augmented_gear.Herculean.Refresh.hands,
             hands="Herculean gloves",
-            ring1="Warden's ring",
+            ring1="Defending ring",
             ring2="Paguroidea ring",
-            back="moonbeam cape",
             legs="Carmine Cuisses +1",
             feet=augmented_gear.Herculean.Refresh.feet,
         })

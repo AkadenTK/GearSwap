@@ -1910,7 +1910,15 @@ end
 function check_ammo()
 	if state.AutoAmmoMode.value and player.equipment.range and not player.in_combat and not world.in_mog_house then
 		if rema_ranged_weapons:contains(player.equipment.range) and get_item_next_use(player.equipment.range).usable then
-			if count_total_ammo(rema_ranged_weapons_ammo[player.equipment.range]) < ammostock then
+            local current_ammo = count_total_ammo(rema_ranged_weapons_ammo[player.equipment.range])
+            if ammostock[rema_ranged_weapons_ammo[player.equipment.range]] then
+                if current_ammo < ammostock[rema_ranged_weapons_ammo[player.equipment.range]] then
+                    windower.chat.input('/item "'..player.equipment.range..'" <me>')
+                    add_to_chat(217,"You're low on "..rema_ranged_weapons_ammo[player.equipment.range]..", using "..player.equipment.range..".")
+                    tickdelay = (framerate * 2)
+                    return true
+                end
+			elseif current_ammo < ammostock then
 				windower.chat.input('/item "'..player.equipment.range..'" <me>')
 				add_to_chat(217,"You're low on "..rema_ranged_weapons_ammo[player.equipment.range]..", using "..player.equipment.range..".")
 				tickdelay = (framerate * 2)

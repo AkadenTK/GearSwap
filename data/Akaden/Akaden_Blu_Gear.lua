@@ -67,7 +67,7 @@ function init_gear_sets()
     	neck="Loricate Torque",
     	ear1="Ethereal Earring",
     	body="Ayanmo corazza +2",
-    	hands="Ayanmo manopolas +1",
+    	hands="Ayanmo manopolas +2",
     	ring1="Ayanmo ring",
     	back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
     	waist="Flume belt",		
@@ -370,7 +370,7 @@ function init_gear_sets()
         ring1="Acumen ring",
         ring2="Shiva Ring +1",
         waist="Eschan Stone",
-        legs="Amalric Slops",
+        legs="Jhakri Slops +2",
         feet="Jhakri pigaches +2",
     	back={ name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','System: 1 ID: 1155 Val: 4',}},
     }
@@ -634,7 +634,7 @@ function init_gear_sets()
 
 	-- Defense sets
 	sets.defense.PDT = set_combine(sets.dt, {
-		neck="wiglen gorget",
+		neck="Loricate Torque",
 		body="Shamash robe",
 		ring2="Warden's ring",
 		})
@@ -681,9 +681,9 @@ function select_default_macro_book()
 	set_macro_page(1, 18)
 
 	if player.sub_job == 'RDM' then
-		windower.chat.input('/lockstyleset 7')
+		windower.chat.input:schedule(1,'/lockstyleset 7')
 	else
-		windower.chat.input('/lockstyleset 8')
+		windower.chat.input:schedule(1,'/lockstyleset 8')
 	end
 end
 

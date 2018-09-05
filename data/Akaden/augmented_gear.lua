@@ -62,6 +62,9 @@ augmented_gear.Herculean.CritDMG.DEX = {
 augmented_gear.Herculean.TA = {
     feet={ name="Herculean Boots", augments={'Accuracy+28','"Triple Atk."+4','STR+3',}},
 }
+augmented_gear.Herculean.Phalanx = {
+    legs={ name="Herculean Trousers", augments={'Enmity+1','"Mag.Atk.Bns."+19','Phalanx +4','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
+}
 
 augmented_gear.Herculean.TH = {
     hands={ name="Herculean Gloves", augments={'"Fast Cast"+3','INT+3','"Treasure Hunter"+2','Accuracy+10 Attack+10',}},

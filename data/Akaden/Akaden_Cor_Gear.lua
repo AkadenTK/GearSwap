@@ -14,7 +14,9 @@ function user_setup()
     state.QuickDrawAug = false
 
     state.LastRoll = 'unknown'
-    ammostock = 99
+    ammostock = {}
+    ammostock['Chrono Bullet'] = 100
+    ammostock['Living Bullet'] = 30
 
     gear.RAbullet = "Chrono Bullet"
     gear.WSbullet = "Chrono Bullet"
@@ -374,7 +376,7 @@ function init_gear_sets()
     sets.precast.WS['Burning Blade'] = {}
 
 	-- Swap to these on Moonshade using WS if at 3000 TP
-	sets.MaxTP = {}
+	sets.MaxTP = {ear2="Ishvara Earring"}
 	sets.AccMaxTP = {}
         
     -- Midcast Sets
@@ -458,7 +460,7 @@ function init_gear_sets()
         --hands=augmented_gear.Herculean.Refresh.hands,
         legs="Meg. Chausses +1",
         feet="Lanun Bottes +3",
-        neck="Wiglen Gorget",
+        neck="Loricate Torque",
         waist="Flume Belt",
         left_ear="Ethereal Earring",
         ring1="Defending ring",
@@ -503,9 +505,9 @@ function init_gear_sets()
 end
 
 function user_job_self_command(commandArgs, eventArgs)
-    if commandArgs[1] == 'CorsairShotAug' then
+    if commandArgs[1]:lower() == 'corsairshotaug' then
         state.QuickDrawAug = true
-        job_self_command({'','elemental','quickdraw'}, eventargs)
+        job_self_command({'elemental','quickdraw'}, eventArgs)
     end
 end
 
@@ -513,7 +515,7 @@ end
 function select_default_macro_book()
     set_macro_page(1, 15)
     
-    windower.chat.input('/lockstyleset 18')
+    windower.chat.input:schedule(1,'/lockstyleset 18')
 end
 
 function user_job_pretarget(spell, spellMap, eventArgs)

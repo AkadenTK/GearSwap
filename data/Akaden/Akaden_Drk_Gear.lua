@@ -113,10 +113,10 @@ function init_gear_sets()
 	    feet="Ratri Sollerets",
 	    neck="Sanctity Necklace",
 	    waist="Oneiros Belt",
-	    left_ear="Ethereal Earring",
-	    right_ear="Cassie Earring",
-	    left_ring="Praan Ring",
-	    right_ring="Etana Ring",
+	    ear1="Cassie Earring",
+	    ear2="Upsurge Earring",
+	    ring1="Praan Ring",
+	    ring2="Moonbeam Ring",
 	    back="Moonbeam Cape",
     })
 	sets.midcast.Absorb = set_combine(sets.midcast['Dark Magic'], {
@@ -291,11 +291,13 @@ function init_gear_sets()
      
     -- Idle sets
            
-    sets.idle = set_combine(sets.dt,{
+    sets.idle = set_combine(sets.engaged,{
+    	ammo="Staunch Tathlum",
     	head=empty,
-    	body="Lugra Cloak +1",
     	neck="Coatl gorget +1",
+    	body="Lugra Cloak +1",
 	    ring1="Defending Ring",
+	    ring2="Paguroidea ring",
     	})
 		
     sets.idle.PDT = {

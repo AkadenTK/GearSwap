@@ -18,24 +18,24 @@ function user_setup()
 	gear.da_jse_back = {name="Ogma's cape",augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}}
 
 	-- Additional local binds
-	send_command('bind !` gs c SubJobEnmity')
-	send_command('bind @` gs c cycle RuneElement')
-	send_command('bind ^` gs c RuneElement')
-	send_command('bind @pause gs c toggle AutoRuneMode')
-	send_command('bind ^delete input /ja "Provoke" <stnpc>')
-	send_command('bind !delete input /ma "Cure IV" <stal>')
-	send_command('bind @delete input /ma "Flash" <stnpc>')
-    send_command('bind !f11 gs c cycle ExtraDefenseMode')
-	send_command('bind ^\\\\ input /ma "Protect IV" <t>')
-	send_command('bind @\\\\ input /ma "Shell V" <t>')
-	send_command('bind !\\\\ input /ma "Crusade" <me>')
-	send_command('bind ^backspace input /ja "Lunge" <t>')
-	send_command('bind @backspace input /ja "Gambit" <t>')
-	send_command('bind !backspace input /ja "Rayke" <t>')
-	send_command('bind @f8 gs c toggle AutoTankMode')
-	send_command('bind @f10 gs c toggle TankAutoDefense')
-	send_command('bind ^@!` gs c cycle SkillchainMode')
-	send_command('bind !r gs c weapons Lionheart;gs c update')
+	--send_command('bind !` gs c SubJobEnmity')
+	--send_command('bind @` gs c cycle RuneElement')
+	--send_command('bind ^` gs c RuneElement')
+	--send_command('bind @pause gs c toggle AutoRuneMode')
+	--send_command('bind ^delete input /ja "Provoke" <stnpc>')
+	--send_command('bind !delete input /ma "Cure IV" <stal>')
+	--send_command('bind @delete input /ma "Flash" <stnpc>')
+    --send_command('bind !f11 gs c cycle ExtraDefenseMode')
+	--send_command('bind ^\\\\ input /ma "Protect IV" <t>')
+	--send_command('bind @\\\\ input /ma "Shell V" <t>')
+	--send_command('bind !\\\\ input /ma "Crusade" <me>')
+	--send_command('bind ^backspace input /ja "Lunge" <t>')
+	--send_command('bind @backspace input /ja "Gambit" <t>')
+	--send_command('bind !backspace input /ja "Rayke" <t>')
+	--send_command('bind @f8 gs c toggle AutoTankMode')
+	--send_command('bind @f10 gs c toggle TankAutoDefense')
+	--send_command('bind ^@!` gs c cycle SkillchainMode')
+	--send_command('bind !r gs c weapons Lionheart;gs c update')
 	
 	select_default_macro_book()
 end
@@ -58,7 +58,7 @@ function init_gear_sets()
 	    legs="Erilaz Leg Guards +1",
 	    feet="Rager Ledel. +1",
 	    ear1="Friomisi Earring",
-	    ear2="Cassie Earring",
+	    ear2="Upsurge Earring",
 	    ring1="Petrov Ring",
 	    ring2="Moonbeam Ring",
 	    back="Moonbeam cape"
@@ -90,10 +90,10 @@ function init_gear_sets()
     sets.precast.JA['Valiance'] = sets.precast.JA['Vallation']
     sets.precast.JA['Pflug'] = set_combine(sets.Enmity,{feet="Runeist's Boots +1"})
     sets.precast.JA['Battuta'] = set_combine(sets.Enmity,{head="Futhark Bandeau +1"})
-    sets.precast.JA['Liement'] = set_combine(sets.Enmity,{body="Futhark Coat"})
+    sets.precast.JA['Liement'] = set_combine(sets.Enmity,{body="Futhark Coat +1"})
     sets.precast.JA['Gambit'] = set_combine(sets.Enmity,{hands="Runeist's Mitons +1"})
     sets.precast.JA['Rayke'] = set_combine(sets.Enmity,{feet="Futhark Boots"})
-    sets.precast.JA['Elemental Sforzo'] = set_combine(sets.Enmity,{body="Futhark Coat"})
+    sets.precast.JA['Elemental Sforzo'] = set_combine(sets.Enmity,{body="Futhark Coat +1"})
     sets.precast.JA['Swordplay'] = set_combine(sets.Enmity,{hands="Futhark Mitons"})
     sets.precast.JA['Embolden'] = set_combine(sets.Enmity,{})
     sets.precast.JA['One For All'] = set_combine(sets.Enmity,{})
@@ -109,10 +109,10 @@ function init_gear_sets()
     sets.precast.JA['Valiance'].DT = sets.precast.JA['Vallation'].DT
     sets.precast.JA['Pflug'].DT = set_combine(sets.Enmity.DT,{feet="Runeist's Boots +1"})
     sets.precast.JA['Battuta'].DT = set_combine(sets.Enmity.DT,{head="Futhark Bandeau +1"})
-    sets.precast.JA['Liement'].DT = set_combine(sets.Enmity.DT,{body="Futhark Coat"})
+    sets.precast.JA['Liement'].DT = set_combine(sets.Enmity.DT,{body="Futhark Coat +1"})
     sets.precast.JA['Gambit'].DT = set_combine(sets.Enmity.DT,{hands="Runeist's Mitons +1"})
     sets.precast.JA['Rayke'].DT = set_combine(sets.Enmity.DT,{feet="Futhark Boots"})
-    sets.precast.JA['Elemental Sforzo'].DT = set_combine(sets.Enmity.DT,{body="Futhark Coat"})
+    sets.precast.JA['Elemental Sforzo'].DT = set_combine(sets.Enmity.DT,{body="Futhark Coat +1"})
     sets.precast.JA['Swordplay'].DT = set_combine(sets.Enmity.DT,{hands="Futhark Mitons"})
     sets.precast.JA['Embolden'].DT = set_combine(sets.Enmity.DT,{})
     sets.precast.JA['One For All'].DT = set_combine(sets.Enmity.DT,{})
@@ -173,14 +173,15 @@ function init_gear_sets()
 	    ammo="Impatiens",
 	    head="Rune. Bandeau +2",
 	    body="Runeist's Coat +2",
+	    --body="Dread Jupon",
 	    hands="Leyline Gloves",
 	    legs="Aya. Cosciales +2",
-	    feet="Carmine greaves",
+	    feet="Carmine greaves +1",
 	    neck="Baetyl Pendant",
-	    ear2="Cassie earring",
-	    waist="Ioskeha Belt",
+	    ear2="Upsurge Earring",
+	    waist="Kasiri Belt",
 	    ring1="Kishar Ring",
-	    ring2="Moonbeam Ring",
+	    ring2="Weatherspoon Ring",
 	}
 			
 	sets.precast.FC.DT = {}
@@ -276,32 +277,34 @@ function init_gear_sets()
 	    feet="Meghanada Jambeaux +2",
 	    neck="Sanctity Necklace",
 	    waist="Flume Belt",
-	    ear1="Ethereal Earring",
-	    ear2="Cassie Earring",
+	    ear1="Cassie Earring",
+	    ear2="Upsurge Earring",
 	    ring1="Defending Ring",
-	    ring2="Paguroidea Ring",
+	    ring2="Moonbeam Ring",
 	    back="Moonbeam Cape",}
 		
     sets.idle.Sphere = set_combine(sets.idle,{body="Mekosu. Harness"})
 			
 	sets.idle.Tank = {
-    	ammo="Staunch Tathlum",
-	    head="Futhark Bandeau +1",
+    	back="Moonbeam Cape",
 	    body="Runeist's Coat +2",
+	    head="Ayanmo zucchetto +2",
+	    ring2="Moonbeam Ring",
+	    ear2="Upsurge Earring",
+		ear1="Cassie Earring",
+    	ammo="Staunch Tathlum",
 	    hands="Meghanada gloves +2",
 	    legs="Erilaz Leg Guards +1",
 	    feet="Erilaz Greaves +1",
-	    neck="Loricate Torque",
+	    neck="Loricate Torque +1",
 	    waist="Flume Belt",
 	    ring1="Defending ring",
-	    ring2="Moonbeam Ring",
-	    ear1="Ethereal Earring",
-	    ear2="Cassie Earring",
-    	back="Moonbeam Cape",
     }
 		
 	sets.idle.KiteTank = set_combine(sets.idle.Tank, {
-		body="Ayanmo corazza +2",
+		head="Futhark Bandeau +1",
+		ear1="Cassie Earring",
+		body="Futhark Coat +1",
 		hands="Meghanada gloves +2",
 		legs="Carmine Cuisses +1",
 	})
@@ -329,17 +332,17 @@ function init_gear_sets()
 	
 	sets.defense.PDT = {
 		ammo="Staunch Tathlum",
-	    head="Futhark Bandeau +1",
+	    head="Ayanmo Zucchetto +2",
 	    body="Erilaz Surcoat +1",
 	    hands="Meghanada gloves +2",
 	    legs="Erilaz Leg Guards +1",
 	    feet="Erilaz Greaves +1",
-	    neck="Loricate Torque",
+	    neck="Loricate Torque +1",
 	    waist="Flume Belt",
 	    ring1="Defending ring",
 	    ring2="Moonbeam Ring",
-	    ear1="Ethereal Earring",
-	    ear2="Cassie Earring",
+	    ear1="Cassie Earring",
+	    ear2="Upsurge Earring",
 	    back="Moonbeam cape",}
 	sets.defense.PDT_HP = {}
 		
@@ -350,12 +353,12 @@ function init_gear_sets()
 	    hands="Erilaz Gauntlets +1",
 	    legs="Erilaz Leg Guards +1",
 	    feet="Erilaz Greaves +1",
-	    neck="Loricate Torque",
+	    neck="Loricate Torque +1",
 	    waist="Flume Belt",
 	    ring1="Defending ring",
 	    ring2="Moonbeam Ring",
 	    ear1="Ethereal Earring",
-	    ear2="Cassie Earring",
+	    ear2="Upsurge Earring",
 	    back="Moonbeam cape",}
 	sets.defense.MDT_HP = {}
 	
@@ -364,11 +367,11 @@ function init_gear_sets()
 	
 	sets.defense.MEVA = set_combine(sets.defense.MDT,{
 	    head="Runeist's Bandeau +2",
+	    ear1="Cassie Earring",
 	    body="Runeist's Coat +2",
 	    hands="Erilaz Gauntlets +1",
 	    legs="Rune. Trousers +2",
 	    feet="Adhemar Gamashes",
-	    ear2="Cassie Earring",
 	    back=augmented_gear.capes.Tank,})
 	sets.defense.MEVA_HP = {}
 		
@@ -417,7 +420,7 @@ function init_gear_sets()
 	})
     sets.engaged.DTLite = set_combine(sets.engaged, {
     	head="Ayanmo Zucchetto +2",
-    	neck="Loricate Torque",
+    	neck="Loricate Torque +1",
     	body="Ayanmo Corazza +2",
     	ring1="Defending ring",
     	back="Moonbeam cape",
@@ -472,12 +475,16 @@ function user_job_tick()
 				windower.chat.input('/ma "Crusade" <me>')
 				tickdelay = 200
 				return true
+			elseif not buffactive.Refresh and spell_recasts [109] == 0 then
+				windower.chat.input('/ma "Refresh" <me>')
+				tickdelay = 200
+				return true
 			elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
 				windower.chat.input('/ma "Aquaveil" <me>')
 				tickdelay = 200
 				return true
-			elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-				windower.chat.input('/ma "Refresh" <me>')
+			elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 and player.mpp > 50 then
+				send_command('input /ma "Shock Spikes" <me>')
 				tickdelay = 200
 				return true
 			end

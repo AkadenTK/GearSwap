@@ -27,19 +27,19 @@ function user_setup()
 	--send_command('bind ^` input /ja "Chain Affinity" <me>')
 	--send_command('bind @` input /ja "Efflux" <me>')
 	--send_command('bind !` input /ja "Burst Affinity" <me>')
-	send_command('bind ^@!` gs c cycle SkillchainMode')
-	--send_command('bind ^backspace input /ja "Unbridled Learning" <me>;wait 1;input /ja "Diffusion" <me>;wait 2;input /ma "Mighty Guard" <me>')
-	--send_command('bind !backspace input /ja "Unbridled Learning" <me>;wait 1;input /ja "Diffusion" <me>;wait 2;input /ma "Carcharian Verve" <me>')
-	send_command('bind @backspace input /ja "Convergence" <me>')
-    send_command('bind !f11 gs c cycle ExtraMeleeMode')
-	send_command('bind @f10 gs c toggle LearningMode')
-	send_command('bind ^@!` gs c cycle MagicBurstMode')
-	send_command('bind @f8 gs c toggle AutoNukeMode')
-	send_command('bind !@^f7 gs c toggle AutoWSMode')
-	--send_command('bind !r gs c weapons MagicWeapons;gs c update')
-	send_command('bind @q gs c weapons MaccWeapons;gs c update')
-	send_command('bind ^q gs c weapons Almace;gs c update')
-	send_command('bind !q gs c weapons HybridWeapons;gs c update')
+	--send_command('bind ^@!` gs c cycle SkillchainMode')
+	----send_command('bind ^backspace input /ja "Unbridled Learning" <me>;wait 1;input /ja "Diffusion" <me>;wait 2;input /ma "Mighty Guard" <me>')
+	----send_command('bind !backspace input /ja "Unbridled Learning" <me>;wait 1;input /ja "Diffusion" <me>;wait 2;input /ma "Carcharian Verve" <me>')
+	--send_command('bind @backspace input /ja "Convergence" <me>')
+    --send_command('bind !f11 gs c cycle ExtraMeleeMode')
+	--send_command('bind @f10 gs c toggle LearningMode')
+	--send_command('bind ^@!` gs c cycle MagicBurstMode')
+	--send_command('bind @f8 gs c toggle AutoNukeMode')
+	--send_command('bind !@^f7 gs c toggle AutoWSMode')
+	----send_command('bind !r gs c weapons MagicWeapons;gs c update')
+	--send_command('bind @q gs c weapons MaccWeapons;gs c update')
+	--send_command('bind ^q gs c weapons Almace;gs c update')
+	--send_command('bind !q gs c weapons HybridWeapons;gs c update')
 
 	update_combat_form()
 	select_default_macro_book()
@@ -63,13 +63,15 @@ function init_gear_sets()
 	sets.HPDown = {}
 
     sets.dt = {
+    	ammo="Staunch Tathlum",
     	head="Ayanmo Zucchetto +2",
-    	neck="Loricate Torque",
+    	neck="Loricate Torque +1",
     	ear1="Ethereal Earring",
     	body="Ayanmo corazza +2",
     	hands="Ayanmo manopolas +2",
-    	ring1="Ayanmo ring",
-    	back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+    	ring1="Defending ring",
+    	ring2="Ayanmo ring",
+    	back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
     	waist="Flume belt",		
     	legs="ayanmo cosciales +2",
     	feet="Ayanmo gambieras +2"
@@ -111,14 +113,14 @@ function init_gear_sets()
 
 	sets.precast.FC = set_combine(sets.engaged, {
         legs="Psycloth lappas",
-        feet="Amalric nails",
+        feet="Carmine Greaves +1",
         ear1="Halasz earring", -- mp
         ear2="Gifted earring", -- mp
         ring2="Lebeche ring",
         head="Carmine mask",
 		ammo="Impatiens",
         neck="Baetyl pendant", 
-        body="Samnuha coat",
+        body="Dread Jupon",
         hands="Leyline gloves",
         ring1="Kishar ring",
         ring2="Weatherspoon ring",
@@ -559,7 +561,7 @@ function init_gear_sets()
 
 	sets.engaged.DTLite = set_combine(sets.engaged, {
     	head="Ayanmo Zucchetto +2",
-    	neck="Loricate Torque",
+    	neck="Loricate Torque +1",
     	body="Ayanmo corazza +2",
     	ring1="Defending Ring"
 	})
@@ -574,6 +576,7 @@ function init_gear_sets()
 	--sets.engaged.DTLite.AM = set_combine(sets.engaged, {})
 
 	sets.engaged.PDT = set_combine(sets.engaged.DTLite, {
+		ammo="Staunch Tathlum",
 		waist="Flume belt",
         legs="Ayanmo cosciales +2",
 		})
@@ -606,7 +609,7 @@ function init_gear_sets()
 	-- Idle sets
 	sets.idle = set_combine(sets.engaged, {
             head="Rawhide mask",
-            neck="wiglen gorget",
+            neck="Loricate Torque +1",
             body="Shamash robe",
 			hands=augmented_gear.Herculean.Refresh.hands,
             hands="Herculean gloves",
@@ -629,15 +632,12 @@ function init_gear_sets()
 	sets.idle.DT = set_combine(sets.dt, {})
 
 	sets.idle.DTKite = set_combine(sets.dt, {
+
 		legs="Carmine Cuisses +1"
 		})
 
 	-- Defense sets
-	sets.defense.PDT = set_combine(sets.dt, {
-		neck="Loricate Torque",
-		body="Shamash robe",
-		ring2="Warden's ring",
-		})
+	sets.defense.PDT = set_combine(sets.dt, {})
 
 	sets.defense.MDT = set_combine(sets.dt, {
 		ring2="Yacuruna ring",

@@ -9,7 +9,7 @@ function user_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
-    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade', 'ShieldLeaden','ShieldLastStand','None')
+    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade', 'ShieldLeaden','ShieldLastStand','OneShot','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
 
@@ -32,27 +32,27 @@ function user_setup()
 	gear.str_wsd_jse_back = {name="Camulus's Mantle",augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
 
     -- Additional local binds
-	send_command('bind !f11 gs c cycle ExtraMeleeMode')
-	send_command('bind ^` gs c cycle ElementalMode')
-	send_command('bind !` gs c elemental quickdraw')
-	
-	send_command('bind ^backspace input /ja "Double-up" <me>')
-	send_command('bind @backspace input /ja "Snake Eye" <me>')
-	send_command('bind !backspace input /ja "Fold" <me>')
-	send_command('bind ^@!backspace input /ja "Crooked Cards" <me>')
-	
-	send_command('bind ^\\\\ input /ja "Random Deal" <me>')
-    send_command('bind !\\\\ input /ja "Bolter\'s Roll" <me>')
-	send_command('bind ^@!\\\\ gs c toggle LuzafRing')
-	send_command('bind @f7 gs c toggle RngHelper')
-
-	send_command('bind !r gs c weapons SingleWeapon;gs c update')
-	send_command('bind @q gs c weapons MaccWeapons;gs c update')
-	send_command('bind ^q gs c weapons DualRangedWeapons;gs c update')
-	send_command('bind !q gs c weapons SavageWeapons;gs c update')
-	send_command('bind @pause roller roll')
-
-    send_command('gs rh set')
+	--send_command('bind !f11 gs c cycle ExtraMeleeMode')
+	--send_command('bind ^` gs c cycle ElementalMode')
+	--send_command('bind !` gs c elemental quickdraw')
+	--
+	--send_command('bind ^backspace input /ja "Double-up" <me>')
+	--send_command('bind @backspace input /ja "Snake Eye" <me>')
+	--send_command('bind !backspace input /ja "Fold" <me>')
+	--send_command('bind ^@!backspace input /ja "Crooked Cards" <me>')
+	--
+	--send_command('bind ^\\\\ input /ja "Random Deal" <me>')
+    --send_command('bind !\\\\ input /ja "Bolter\'s Roll" <me>')
+	--send_command('bind ^@!\\\\ gs c toggle LuzafRing')
+	--send_command('bind @f7 gs c toggle RngHelper')
+--
+	--send_command('bind !r gs c weapons SingleWeapon;gs c update')
+	--send_command('bind @q gs c weapons MaccWeapons;gs c update')
+	--send_command('bind ^q gs c weapons DualRangedWeapons;gs c update')
+	--send_command('bind !q gs c weapons SavageWeapons;gs c update')
+	--send_command('bind @pause roller roll')
+--
+    --send_command('gs rh set')
 
     select_default_macro_book()
 end
@@ -71,6 +71,7 @@ function init_gear_sets()
     sets.weapons.ShieldLastStand = {main='Kustawi +1', sub="Nusku Shield", range="Fomalhaut"}
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Anarchy +2"}
+    sets.weapons.OneShot = {main='Fettering Blade', sub="Hepatizon rapier", range="Fomalhaut"}
 
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt", feet=augmented_gear.Herculean.TH.feet})
     
@@ -105,7 +106,7 @@ function init_gear_sets()
         hands="Meg. Gloves +2",
         legs="Meg. Chausses +2",
         feet={ name="Lanun Bottes +3", augments={'Enhances "Wild Card" effect',}},
-        neck="Loricate Torque",
+        neck="Loricate Torque +1",
         waist="Flume Belt",
         left_ear="Ethereal Earring",
         left_ring="Warden's Ring",
@@ -160,7 +161,7 @@ function init_gear_sets()
 
     sets.engaged.DTLite = set_combine(sets.engaged,{
         head="Meghanada visor +2",
-        neck="Loricate Torque",
+        neck="Loricate Torque +1",
         ring1="Defending ring",
         waist="Flume Belt",
     })
@@ -239,6 +240,7 @@ function init_gear_sets()
         ring1="Kishar ring",
         ring2="Weatherspoon ring",
         legs="Carmine Cuisses +1", --interruption down
+        feet="Carmine Greaves +1",
         ear1="Halasz earring", -- interruption down
     })
 
@@ -460,7 +462,7 @@ function init_gear_sets()
         --hands=augmented_gear.Herculean.Refresh.hands,
         legs="Meg. Chausses +1",
         feet="Lanun Bottes +3",
-        neck="Loricate Torque",
+        neck="Loricate Torque +1",
         waist="Flume Belt",
         left_ear="Ethereal Earring",
         ring1="Defending ring",
@@ -482,7 +484,7 @@ function init_gear_sets()
         hands="Meg. Gloves +2",
         legs="Meg. Chausses +2",
         feet={ name="Lanun Bottes +3", augments={'Enhances "Wild Card" effect',}},
-        neck="Loricate Torque",
+        neck="Loricate Torque +1",
         waist="Flume Belt",
         left_ear="Ethereal Earring",
         right_ear="Brutal Earring",

@@ -51,22 +51,22 @@ function init_gear_sets()
 
     sets.Enmity = {
 	    head="Rabid Visor",
-	    neck="Invidia Torque",
-	    body="Runeist's coat +2",
+	    neck="Moonbeam Necklace",
+	    body="Emet Harness +1",
 	    hands="Futhark Mitons",
 	    waist="Kasiri Belt",
 	    legs="Erilaz Leg Guards +1",
 	    feet="Rager Ledel. +1",
-	    ear1="Friomisi Earring",
-	    ear2="Upsurge Earring",
-	    ring1="Petrov Ring",
+	    ear1="Odnowa Earring",
+	    ear2="Odnowa Earring +1",
+	    ring1="Eihwaz Ring",
 	    ring2="Moonbeam Ring",
-	    back="Moonbeam cape"
+	    back=augmented_gear.capes.Tank,
 	}
 		 
     sets.Enmity.SIRD = set_combine(sets.Enmity, {
     	ammo="Staunch Tathlum",
-    	ear1="Halasz earring",
+    	body="Futhark Coat +1";
     	hands="Rawhide gloves",
     	ring1="Evanescence ring",
     	waist="Rumination Sash",
@@ -95,7 +95,7 @@ function init_gear_sets()
     sets.precast.JA['Rayke'] = set_combine(sets.Enmity,{feet="Futhark Boots"})
     sets.precast.JA['Elemental Sforzo'] = set_combine(sets.Enmity,{body="Futhark Coat +1"})
     sets.precast.JA['Swordplay'] = set_combine(sets.Enmity,{hands="Futhark Mitons"})
-    sets.precast.JA['Embolden'] = set_combine(sets.Enmity,{})
+    sets.precast.JA['Embolden'] = set_combine(sets.Enmity,{back="Evasionist's cape"})
     sets.precast.JA['One For All'] = set_combine(sets.Enmity,{})
     sets.precast.JA['Provoke'] = set_combine(sets.Enmity, {})
 	sets.precast.JA['Warcry'] = set_combine(sets.Enmity, {})
@@ -114,7 +114,7 @@ function init_gear_sets()
     sets.precast.JA['Rayke'].DT = set_combine(sets.Enmity.DT,{feet="Futhark Boots"})
     sets.precast.JA['Elemental Sforzo'].DT = set_combine(sets.Enmity.DT,{body="Futhark Coat +1"})
     sets.precast.JA['Swordplay'].DT = set_combine(sets.Enmity.DT,{hands="Futhark Mitons"})
-    sets.precast.JA['Embolden'].DT = set_combine(sets.Enmity.DT,{})
+    sets.precast.JA['Embolden'].DT = set_combine(sets.Enmity.DT,{back="Evasionist's cape"})
     sets.precast.JA['One For All'].DT = set_combine(sets.Enmity.DT,{})
     sets.precast.JA['Provoke'].DT = set_combine(sets.Enmity.DT, {})
 	sets.precast.JA['Warcry'].DT = set_combine(sets.Enmity.DT, {})
@@ -178,7 +178,7 @@ function init_gear_sets()
 	    legs="Aya. Cosciales +2",
 	    feet="Carmine greaves +1",
 	    neck="Baetyl Pendant",
-	    ear2="Upsurge Earring",
+	    ear2="Odnowa Earring +1",
 	    waist="Kasiri Belt",
 	    ring1="Kishar Ring",
 	    ring2="Weatherspoon Ring",
@@ -221,6 +221,11 @@ function init_gear_sets()
     	back="Kayapa cape",
     	legs="Lustratio Subligar",
     })
+    sets.precast.WS['Dimidiation'].Tank = set_combine(sets.precast.WS['Dimidiation'], {
+    	ear2="Odnowa earring +1",
+    	ear1="Odnowa earring",
+    	back="Moonbeam Cape",
+    	})
     sets.precast.WS['Dimidiation'].Acc = set_combine(sets.precast.WS['Dimidiation'],{head="Lilitu Headpiece",legs=gear.herculean_wsd_legs,feet=gear.herculean_wsd_feet})
 	sets.precast.WS['Dimidiation'].FullAcc = set_combine(sets.precast.WS['Dimidiation'].Acc,{})
 	
@@ -235,9 +240,9 @@ function init_gear_sets()
 	-- Midcast sets
 	--------------------------------------
 	
-    sets.midcast.FastRecast = {}
+    sets.midcast.FastRecast = set_combine(sets.precast.FC, {})
 			
-	sets.midcast.FastRecast.DT = {}
+	sets.midcast.FastRecast.DT = set_combine(sets.midcast.FastRecast,{})
 
     sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.FastRecast,{head="Erilaz Galea +1",neck="Incanter's Torque",ear1="Andoaa Earring",hands="Runeist's Mitons +1",back="Merciful Cape",waist="Olympus Sash",legs="Futhark Trousers +1"})
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{head="Futhark Bandeau +1",legs=augmented_gear.Herculean.Phalanx.legs,feet=gear.herculean_nuke_feet})
@@ -277,8 +282,8 @@ function init_gear_sets()
 	    feet="Meghanada Jambeaux +2",
 	    neck="Sanctity Necklace",
 	    waist="Flume Belt",
-	    ear1="Cassie Earring",
-	    ear2="Upsurge Earring",
+	    ear1="Odnowa Earring",
+	    ear2="Odnowa Earring +1",
 	    ring1="Defending Ring",
 	    ring2="Moonbeam Ring",
 	    back="Moonbeam Cape",}
@@ -290,8 +295,8 @@ function init_gear_sets()
 	    body="Runeist's Coat +2",
 	    head="Ayanmo zucchetto +2",
 	    ring2="Moonbeam Ring",
-	    ear2="Upsurge Earring",
-		ear1="Cassie Earring",
+	    ear2="Odnowa Earring +1",
+		ear1="Odnowa Earring",
     	ammo="Staunch Tathlum",
 	    hands="Meghanada gloves +2",
 	    legs="Erilaz Leg Guards +1",
@@ -303,7 +308,7 @@ function init_gear_sets()
 		
 	sets.idle.KiteTank = set_combine(sets.idle.Tank, {
 		head="Futhark Bandeau +1",
-		ear1="Cassie Earring",
+		ear1="Odnowa Earring",
 		body="Futhark Coat +1",
 		hands="Meghanada gloves +2",
 		legs="Carmine Cuisses +1",
@@ -341,8 +346,8 @@ function init_gear_sets()
 	    waist="Flume Belt",
 	    ring1="Defending ring",
 	    ring2="Moonbeam Ring",
-	    ear1="Cassie Earring",
-	    ear2="Upsurge Earring",
+	    ear1="Odnowa Earring",
+	    ear2="Odnowa Earring +1",
 	    back="Moonbeam cape",}
 	sets.defense.PDT_HP = {}
 		
@@ -358,7 +363,7 @@ function init_gear_sets()
 	    ring1="Defending ring",
 	    ring2="Moonbeam Ring",
 	    ear1="Ethereal Earring",
-	    ear2="Upsurge Earring",
+	    ear2="Odnowa Earring +1",
 	    back="Moonbeam cape",}
 	sets.defense.MDT_HP = {}
 	
@@ -367,7 +372,8 @@ function init_gear_sets()
 	
 	sets.defense.MEVA = set_combine(sets.defense.MDT,{
 	    head="Runeist's Bandeau +2",
-	    ear1="Cassie Earring",
+	    neck="Warder's Charm +1",
+	    ear1="Odnowa Earring",
 	    body="Runeist's Coat +2",
 	    hands="Erilaz Gauntlets +1",
 	    legs="Rune. Trousers +2",
@@ -375,7 +381,7 @@ function init_gear_sets()
 	    back=augmented_gear.capes.Tank,})
 	sets.defense.MEVA_HP = {}
 		
-	sets.defense.Death = {}
+	sets.defense.Death = {ring1="Eihwaz ring"}
 
 	sets.defense.DTCharm = {}
 		
@@ -483,6 +489,10 @@ function user_job_tick()
 				windower.chat.input('/ma "Aquaveil" <me>')
 				tickdelay = 200
 				return true
+			elseif not buffactive.Regen and spell_recasts [477] == 0 then
+				send_command('input /ma "Regen IV" <me>')
+				tickdelay = 200
+				return true
 			elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 and player.mpp > 50 then
 				send_command('input /ma "Shock Spikes" <me>')
 				tickdelay = 200
@@ -552,19 +562,40 @@ function user_job_self_command(commandArgs, eventArgs)
 
 		elseif player.sub_job == 'DRK' then
 
-            if not buffactive.Phalanx and spell_recasts[106] == 0 then
-				send_command('input /ma "Phalanx" <me>')
-			elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
-				send_command('input /ma "Aquaveil" <me>')
-			elseif not buffactive.Regen and spell_recasts [477] == 0 then
-				send_command('input /ma "Regen IV" <me>')
-			elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-				send_command('input /ma "Refresh" <me>')
-			elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 then
-				send_command('input /ma "Shock Spikes" <me>')
-			else add_to_chat(123,'All buffs are applied.')
+			if state.BuffMode.value == 'Tank' then
+	            if not buffactive.Phalanx and spell_recasts[106] == 0 then
+					send_command('input /ma "Phalanx" <me>')
+				elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
+					send_command('input /ma "Aquaveil" <me>')
+				elseif not buffactive.Regen and spell_recasts [477] == 0 then
+					send_command('input /ma "Regen IV" <me>')
+				elseif not buffactive.Refresh and spell_recasts [109] == 0 then
+					send_command('input /ma "Refresh" <me>')
+				elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 then
+					send_command('input /ma "Shock Spikes" <me>')
+				else add_to_chat(123,'All buffs are applied.')
+				end
+			elseif state.BuffMode.value == 'Hybrid' then
+				--if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
+				--	windower.chat.input('/ma "Temper" <me>')
+	            --elseif not buffactive.Phalanx and spell_recasts[106] == 0 then
+	            if not buffactive.Phalanx and spell_recasts[106] == 0 then
+					send_command('input /ma "Phalanx" <me>')
+				elseif not buffactive.Regen and spell_recasts [477] == 0 then
+					send_command('input /ma "Regen IV" <me>')
+				elseif not buffactive.Refresh and spell_recasts [109] == 0 then
+					send_command('input /ma "Refresh" <me>')
+				else add_to_chat(123,'All buffs are applied.')
+				end
+			elseif state.BuffMode.value == 'DD' then
+				--if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
+				--	windower.chat.input('/ma "Temper" <me>')
+				--elseif not buffactive.Refresh and spell_recasts [109] == 0 then
+				if not buffactive.Refresh and spell_recasts [109] == 0 then
+					send_command('input /ma "Refresh" <me>')
+				else add_to_chat(123,'All buffs are applied.')
+				end
 			end
-
 		else
 
             if not buffactive.Phalanx and spell_recasts[106] == 0 then
@@ -590,15 +621,15 @@ function user_job_self_command(commandArgs, eventArgs)
 			add_to_chat(123,'Abort: You are not targeting a monster.')
 			return
 		elseif spell_recasts[112] == 0 then
-			send_command('input /ma "Flash" <t>')
+			send_command('input /ma "Flash" <stnpc>')
 		elseif spell_recasts[575] == 0 and player.sub_job == "BLU" then
-			send_command('input /ma "Jettatura" <t>')
+			send_command('input /ma "Jettatura" <stnpc>')
 		elseif spell_recasts[592] == 0 and player.sub_job == "BLU" then
-			send_command('input /ma "Blank Gaze" <t>')
+			send_command('input /ma "Blank Gaze" <stnpc>')
 		elseif spell_recasts[252] == 0 and player.sub_job == "DRK" then
-			send_command('input /ma "Stun" <t>')
+			send_command('input /ma "Stun" <stnpc>')
 		elseif ability_recasts[5] == 0 and player.sub_job == "WAR" then
-			send_command('input /ja "Provoke" <t>')
+			send_command('input /ja "Provoke" <stnpc>')
 		elseif not check_auto_tank_ws() then
 			if not state.AutoTankMode.value then add_to_chat(123,'All Enmity spells on cooldown.') end
 		end
@@ -606,16 +637,16 @@ function user_job_self_command(commandArgs, eventArgs)
 	elseif commandArgs[1] == 'AoEnmity' then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		if spell_recasts[225] == 0 and player.sub_job == "DRK" then
-			send_command('input /ma "Poisonga" <t>')
+			send_command('input /ma "Poisonga" <stnpc>')
 		elseif player.sub_job == "BLU" then
 			if spell_recasts[584] == 0 then
-				send_command('input /ma "Sheep Song" <t>')
+				send_command('input /ma "Sheep Song" <stnpc>')
 			elseif  spell_recasts[605] == 0 then
-				send_command('input /ma "Geist Wall" <t>')
+				send_command('input /ma "Geist Wall" <stnpc>')
 			elseif  spell_recasts[598] == 0 then
-				send_command('input /ma "Soporific" <t>')
+				send_command('input /ma "Soporific" <stnpc>')
 			elseif  spell_recasts[537] == 0 then
-				send_command('input /ma "Stinking Gas" <t>')
+				send_command('input /ma "Stinking Gas" <stnpc>')
 			else
 				add_to_chat(123,'All Enmity spells on cooldown.')
 			end

@@ -121,7 +121,7 @@ function init_gear_sets()
         ring1="Ilabrat ring",
         ring2="Epona's ring",
         back="Atheling Mantle",
-        waist="Chiner's belt +1",
+        waist="Windbuffet belt +1",
         legs="Samnuha tights",
         feet=augmented_gear.Herculean.TA.feet,
     }

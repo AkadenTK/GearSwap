@@ -174,6 +174,8 @@ function init_gear_sets()
 
     sets.engaged.DW.Hybrid = set_combine(sets.engaged.Hybrid, {})
 
+    sets.engaged.DW.DTLite = set_combine(sets.engaged.DTLite, {})
+
     gear.CorsairShot = {}
     gear.CorsairShot.Augment = {feet="Chasseur's bottes +1",}
     sets.precast.CorsairShot = {
@@ -567,6 +569,11 @@ function user_job_buff_change(buff, gain)
         state.LastRoll = nil
     elseif not gain and state.LastRoll == buff then
         state.LastRoll = nil
+    end
+    if gain and buff == "Aurorastorm" then
+        send_command('cancel 184')
+        send_command('cancel 595')
+        add_to_chat(123,'Auto-canceled Aurorastorm')
     end
 end
 function check_weakness()

@@ -261,6 +261,7 @@ end
 function select_default_macro_book()
     -- Default macro set/book
     set_macro_page(1, 3)
+    windower.chat.input:schedule(1,'/lockstyleset 6')
 end
 
 --Dynamis Trust Overwrite

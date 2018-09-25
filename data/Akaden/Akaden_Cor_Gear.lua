@@ -250,19 +250,25 @@ function init_gear_sets()
 	
 	sets.precast.FC.Cure = set_combine(sets.precast.FC, {})
 
-    sets.precast.RA = {
+    sets.precast.RA = { -- s69 r56
         ammo=gear.RAbullet,
         head={ name="Taeon Chapeau", augments={'Accuracy+14 Attack+14','"Snapshot"+5','"Snapshot"+5',}}, -- s10
         body="Oshosi Vest", --s12
         hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}}, -- s8 r11
-        back="Navarch's Mantle", -- s7
-        waist="Impulse belt", -- s3
+        back={ name="Camulus's Mantle", augments={'"Snapshot"+10',}}, -- s10
+        waist="Yameya belt", -- r5
         legs=augmented_gear.Adhemar.D.legs, --s9 r10
         feet="Meghanada Jambeaux +2" -- s10
     }
 		
-	sets.precast.RA.Flurry = set_combine(sets.precast.RA, {body="Laksamana's frac +3", waist="Yemaya belt"})
-	sets.precast.RA.Flurry2 = set_combine(sets.precast.RA.Flurry, {head="Chasseur's tricorne +1", waist="Impulse Belt", feet="Pursuer's Gaiters"})
+	sets.precast.RA.Flurry = set_combine(sets.precast.RA, { -- s70 r71
+        body="Laksamana's frac +3", --r20
+        waist="Impulse Belt",  --s3
+    })
+	sets.precast.RA.Flurry2 = set_combine(sets.precast.RA.Flurry, { --s65 r95
+        head="Chasseur's tricorne +1", --r14
+        feet="Pursuer's Gaiters", --r10
+    })
 
        
     -- Weaponskill sets
@@ -319,11 +325,12 @@ function init_gear_sets()
 
     sets.precast.WS['Last Stand'].Acc = set_combine(sets.precast.WS['Last Stand'],{
         right_ear="Telos Earring",
-        left_ring="Hajduk Ring",
+        left_ring="Cacoethic Ring",
         feet="Meghanada Jambeaux +2"
         })
 
     sets.precast.WS['Last Stand'].FullAcc = set_combine(sets.precast.WS['Last Stand'].Acc,{
+        ring2="Cacoethic Ring +2",
         })
 		
     sets.precast.WS['Detonator'] = set_combine(sets.precast.WS['Last Stand'], {})
@@ -405,7 +412,7 @@ function init_gear_sets()
         body="Oshosi vest",
         hands=augmented_gear.Adhemar.Rng.hands,
         ring1="Ilabrat ring",
-        ring2="Hajduk ring +1",
+        ring2="Cacoethic ring +1",
         back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10',}},
         waist="Yemaya belt",
         legs=augmented_gear.Adhemar.Rng.legs,
@@ -430,7 +437,7 @@ function init_gear_sets()
 
     sets.midcast.RA.FullAcc = set_combine(sets.midcast.RA.Acc,{
         hands="Meghanada gloves +2",
-        ring1="Hajduk ring",
+        ring1="Cacoethic ring",
         waist="Kwahu Kachina belt",
         legs="Meg. Chausses +2",
     })

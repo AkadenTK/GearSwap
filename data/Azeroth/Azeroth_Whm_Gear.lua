@@ -52,8 +52,12 @@ function init_gear_sets()
     sets.precast.FC = {
     	head="Haruspex hat", 
     	neck="Orison locket",
+    	hands="Fanatic Gloves",
+    	ring1="Kishar Ring",
     	waist="Witful Belt",
-    	feet="Regal pumps +1"
+    	legs="Kaykaus Tights",
+    	feet="Regal pumps +1",
+    	back={ name="Alaunus's Cape", augments={'"Fast Cast"+10',}},
     }
 		
     sets.precast.FC.DT = set_combine(sets.precast.FC, {})
@@ -201,7 +205,8 @@ function init_gear_sets()
 	sets.midcast.Cursna = set_combine(sets.midcast.StatusRemoval, {
 		ring1="Ephedra ring",
 		ring2="Haoma's ring",
-		back="Mending Cape",
+		hands="Fanatic gloves",
+		back="Alaunus's Cape",
 		legs="Theophany Pantaloons +1",
 		feet="Gendewitha Galoshes +1",})
 
@@ -226,7 +231,7 @@ function init_gear_sets()
 
 	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {main="Vadose Rod",sub="Ammurapi Shield",hands="Regal Cuffs",waist="Emphatikos Rope",legs="Shedir Seraweels"})
 
-	sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {body="Piety Briault +1", hands="Ebers Mitts",legs="Theophany Pantaloons +1",})
+	sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {head="Inyanga Tiara +2", body="Piety Briault +1", hands="Ebers Mitts",legs="Theophany Pantaloons +1",})
 	
 	sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring",feet="Piety Duckbills +1",ear1="Gifted Earring",waist="Sekhmet Corset"})
 	sets.midcast.Protectra = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring",feet="Piety Duckbills +1",ear1="Gifted Earring",waist="Sekhmet Corset"})
@@ -343,4 +348,273 @@ end
 function select_default_macro_book()
 	set_macro_page(1, 6)
     windower.chat.input:schedule(1,'/lockstyleset 5')
+end
+function user_job_precast(spell, spellMap, eventArgs)
+	if state.smartcure and spell.english:lower() == 'cure' then
+		state.smartcure = false
+		eventArgs.cancel = true
+		smartcure_target(spell.target.name)		
+	end
+	state.smartcure = false
+end
+
+function smartcure_target(target)
+	local curaga_info = get_best_curaga_info(target)
+	if curaga_info and curaga_info.member_count > 1 and curaga_info['avg_missing_hp'] >= 300 then
+		-- do curaga
+
+		local curaga_spell = get_curaga_by_info(curaga_info)
+		if curaga_spell then
+			local downgraded_curaga = downgrade_curaga_by_recast_and_cost(curaga_spell)
+			if downgraded_curaga then
+				if downgraded_curaga ~= curaga_spell then
+					add_to_chat(123,'Alert: Curaga changed due to recast times or MP.')
+				end
+				send_command('@input /ma "'..downgraded_curaga..'" '..target)
+				return
+			else
+				add_to_chat(123,'Alert: Appropriate Curagas are on cooldown or MP not sufficient.')
+			end
+		end
+	end
+	-- do single-target
+	local missingHP
+	local missingHPP
+	if target == player.name then
+		missingHP = player.max_hp - player.hp
+		missingHPP = 100 - player.hpp
+	else
+		local ally_member = find_player_in_alliance(target)
+		if ally_member == nil then
+			local mob = windower.ffxi.get_mob_by_name(target)
+			if mob ~= nil then
+				missingHPP = 100 - mob.hpp
+			end
+		else
+			missingHP = (ally_member.hp / (ally_member.hpp/100)) - ally_member.hp
+			missingHPP = 100 - ally_member.hpp
+		end
+	end
+
+	add_to_chat(8,'SmartCure: Trying to cure '..target..' for '..tostring(math.floor(missingHP))..' ('..tostring(missingHPP)..'%)')
+
+	local cure_spell = get_cure_by_hp(missingHP, missingHPP)
+	if cure_spell then
+		add_to_chat(123,'Cure chosen: '..cure_spell)
+		local downgraded_cure = downgrade_cure_by_recast_and_cost(cure_spell)
+		if downgraded_cure then
+			if downgraded_cure ~= cure_spell then
+				add_to_chat(8,'Alert: Cure changed due to recast times or MP.')
+			end
+			send_command('@input /ma "'..downgraded_cure..'" '..target)
+		else
+			add_to_chat(123,'Abort: Appropriate cures are on cooldown or MP not sufficient.')
+		end
+	else
+		add_to_chat(123,'Abort: SmartCure not necessary.')
+	end
+end
+
+function get_cure_by_hp(missingHP,missingHPP)
+	if missingHP then
+		local mod = get_cure_mod()
+
+		-- don't bother casting if missing hpp is too low, unless it's an inordinate amount or total HP is really low
+		if missingHPP >= 15 or (missingHP > 400 * mod) or (missingHP / (missingHPP/100) < 1300) then
+			if missingHP > 1700 * mod then
+				return "Cure VI"
+			elseif missingHP > 1300 * mod then
+				return "Cure V"
+			elseif missingHP > 1000 * mod then
+				return "Cure IV"
+			else
+				return "Cure III"
+			end
+		end
+		return nil
+	else
+		if missingHPP > 75 then
+			return "Cure V"
+		elseif missingHPP > 45 then
+			return "Cure IV"
+		else 
+			return	"Cure III"
+		end
+	end
+end
+
+function downgrade_cure_by_recast_and_cost(cure)
+	local spell_recasts = windower.ffxi.get_spell_recasts()
+
+	if cure == "Cure VI" and (spell_recasts[6] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		cure = "Cure V"
+	end
+	if cure == "Cure V" and (spell_recasts[5] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		cure = "Cure IV"
+	end
+	if cure == "Cure IV" and (spell_recasts[4] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		-- maybe try upgrade?
+		cure = "Cure V"
+	end
+	if cure == "Cure V" and (spell_recasts[5] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		-- nope, fuck.
+		cure = "Cure III"
+	end
+	if cure == "Cure III" and (spell_recasts[3] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		-- maybe try upgrade?
+		cure = "Cure IV"
+	end
+	if cure == "Cure IV" and (spell_recasts[4] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		-- nope, fuck.
+		cure = "Cure II"
+	end
+	if cure == "Cure II" and (spell_recasts[2] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		-- nothing's ready and no MP. Fuck it.
+		cure = nil
+	end
+
+	return cure
+end
+
+function get_curaga_by_info(curaga_info)
+	local missingHP = curaga_info['avg_missing_hp']
+	if curaga_info['danger_count'] > 2 then
+		missingHP = curaga_info['max_missing_hp']
+	end
+	local mod = get_cure_mod()
+
+	if missingHP > 1750 * mod then
+		return "Curaga V"
+	elseif missingHP > 1300 * mod then
+		return "Curaga IV"
+	elseif missingHP > 700 * mod then
+		return "Curaga III"
+	else
+		return "Curaga II"
+	end
+end
+
+function get_cure_mod()
+	local mod = 1
+	if world.day_element == 'Light' then
+		mod = mod + 0.1
+	elseif world.day_element == 'Dark' then
+		mod = mod - 0.1
+	end
+	if world.weather_element == 'Light' then 
+		mod = mod + 0.15
+	elseif world.weather_element == 'Dark' then 
+		mod = mod - 0.15
+	end
+	add_to_chat(8,'SmartCure: Cure Mod: '..mod)
+	return mod
+end
+
+function downgrade_curaga_by_recast_and_cost(cure)
+	local spell_recasts = windower.ffxi.get_spell_recasts()
+
+	if cure == "Curaga V" and (spell_recasts[11] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		cure = "Curaga IV"
+	end
+	if cure == "Curaga IV" and (spell_recasts[10] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		cure = "Curaga III"
+	end
+	if cure == "Curaga III" and (spell_recasts[9] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		-- maybe try upgrade?
+		cure = "Curaga IV"
+	end
+	if cure == "Curaga IV" and (spell_recasts[10] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		-- nope, fuck.
+		cure = "Curaga II"
+	end
+	if cure == "Curaga II" and (spell_recasts[8] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		-- maybe try upgrade?
+		cure = "Curaga III"
+	end
+	if cure == "Curaga III" and (spell_recasts[9] > 0 or actual_cost(get_spell_table_by_name(cure)) > player.mp) then
+		-- nope, fuck. Give up
+		cure = nil
+	end
+
+	return cure
+end
+
+function get_best_curaga_info(target)
+	local target_info = find_player_in_alliance(target)
+	local best_curaga_info
+	for i = 1,6 do
+		if party[i] then
+			local dist = get_dist(target_info.mob, party[i].mob)
+			-- ignore any curaga target that doesn't include the specified one
+		    if dist <= 10 then 
+		    	local curaga_info = get_curaga_info(party[i])
+		    	if best_curaga_info == nil or compare_curaga(best_curaga_info, curaga_info) > 0 then
+		    		best_curaga_info = curaga_info
+		    	end
+		    end
+		end
+	end
+
+	return best_curaga_info
+end
+
+function get_dist(mob1, mob2)
+	if mob1 == nil or mob2 == nil then
+		return 50
+	end
+	local dx = mob1.x - mob2.x
+	local dy = mob1.y - mob2.y
+	return math.sqrt((dx^2)+(dy^2))
+end
+
+function get_curaga_info(target_info)
+	local info = {members = {}, member_count = 0, total_heal = 0, danger_count = 0, avg_missing_hp = 0, max_missing_hp = 0}
+	for i = 1,6 do
+		local member = party[i]
+		if member and get_dist(target_info.mob, member.mob) <= 10 and member.hpp < 90 then
+			local member_missing_hp = (member.hp / (member.hpp/100)) - member.hp
+			info['total_heal'] = info['total_heal'] + member_missing_hp
+			if member.hpp < 65 then 
+				info['danger_count'] = info['danger_count'] + 1 
+			end
+			info['avg_missing_hp'] = (info['avg_missing_hp'] * info['member_count'] + member_missing_hp) / (info['member_count'] + 1)
+			info['members'][info['member_count']] = member
+			info['member_count'] = info['member_count'] + 1
+			if member_missing_hp > info['max_missing_hp'] then 
+				info['max_missing_hp'] = member_missing_hp 
+			end
+		end
+	end
+	return info
+end
+
+function compare_curaga(info1, info2)
+	local r = info2['danger_count'] - info1['danger_count']
+
+	if r==0 then
+		r = info2['total_heal'] - info1['total_heal']
+	end
+
+	return r
+end
+
+function user_job_self_command(commandArgs, eventArgs)
+    if commandArgs[1]:lower() == 'smartcure' then
+		eventArgs.handled = true
+		local targetType = commandArgs[2]:lower()
+
+		if targetType == 'me' or (targetType == nil and (player.target.type == 'NONE' or player.target.type == 'SELF')) then
+			-- smartcure self if: arg2 is 'me', or arg2 is nil and target = self or none
+			smartcure_target(player.name)
+		elseif (targetType == 't' or targetType == nil) and player.target.type ~= 'NONE' then
+			-- smartcure target if: arg2 is 't' or nil and player.target isn't none
+			smartcure_target(player.target.name)
+		elseif targetType ~= nil then
+			eventArgs.handled = true
+			state.smartcure = true
+			windower.chat.input('/ma "Cure" <'..targetType..'>')
+		else 
+			add_to_chat(123,'Abort SmartCure: target invalid.')		
+		end
+	end
 end

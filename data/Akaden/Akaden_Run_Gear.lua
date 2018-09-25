@@ -1,7 +1,7 @@
 function user_setup()
 
 	state.OffenseMode:options('Normal','SomeAcc','Acc','HighAcc','FullAcc')
-	state.HybridMode:options('Normal','DTLite','Tank')
+	state.HybridMode:options('Normal','DTLite','Tank', 'TankLite')
 	state.WeaponskillMode:options('Match','Normal','Acc','FullAcc')
 	state.CastingMode:options('Normal','SIRD','Resistant')
 	state.PhysicalDefenseMode:options('PDT', 'PDT_HP')
@@ -47,10 +47,11 @@ function init_gear_sets()
     augmented_gear.capes={
     	STP_PDT={ name="Ogma's cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}},
     	Tank={ name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
+    	DA_STR={ name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
 	}
 
     sets.Enmity = {
-	    head="Rabid Visor",
+	    head="Halitus Helm",
 	    neck="Moonbeam Necklace",
 	    body="Emet Harness +1",
 	    hands="Futhark Mitons",
@@ -195,8 +196,8 @@ function init_gear_sets()
 	    ammo="Knobkierrie",
     	head=augmented_gear.Herculean.WSD.STR.head,
 	    neck="Fotia Gorget",
-	    ear1="Cessance Earring",
-	    ear2="Brutal Earring",
+	    ear1="Sherida Earring",
+	    ear2="Moonshade Earring",
 	    body="Ayanmo Corazza +2",
 	    hands="Meg. Gloves +2",
 	    ring1="Ifrit Ring +1",
@@ -204,12 +205,15 @@ function init_gear_sets()
 	    waist="Fotia Belt",
         legs=augmented_gear.Herculean.WSD.STR.legs,
     	feet=augmented_gear.Herculean.WSD.STR.feet,
-    	back="Atheling Mantle",
+    	back=augmented_gear.capes.DA_STR,
 	}
 	sets.precast.WS.Acc = set_combine(sets.precast.WS,{})
 	sets.precast.WS.FullAcc = set_combine(sets.precast.WS,{})
 
-    sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{})
+    sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
+    	head=augmented_gear.Adhemar.Atk.head,
+    	body=augmented_gear.Adhemar.Atk.body,
+    	})
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'],{})
 	sets.precast.WS['Resolution'].FullAcc = set_combine(sets.precast.WS['Resolution'].Acc,{})
 
@@ -229,7 +233,10 @@ function init_gear_sets()
     sets.precast.WS['Dimidiation'].Acc = set_combine(sets.precast.WS['Dimidiation'],{head="Lilitu Headpiece",legs=gear.herculean_wsd_legs,feet=gear.herculean_wsd_feet})
 	sets.precast.WS['Dimidiation'].FullAcc = set_combine(sets.precast.WS['Dimidiation'].Acc,{})
 	
-    sets.precast.WS['Ground Strike'] = set_combine(sets.precast.WS,{})
+    sets.precast.WS['Ground Strike'] = set_combine(sets.precast.WS,{
+    	head="Meghanada visor +2",
+    	legs="Meghanada chausses +2"
+    	})
     sets.precast.WS['Ground Strike'].Acc = set_combine(sets.precast.WS.Acc,{})
 	sets.precast.WS['Ground Strike'].FullAcc = set_combine(sets.precast.WS.FullAcc,{})
 		
@@ -277,40 +284,26 @@ function init_gear_sets()
 	    ammo="Staunch Tathlum",
 	    head="Meghanada Visor +2",
 	    body="Runeist's Coat +2",
-	    hands="Meg. Gloves +2",
-	    legs="Meg. chausses +2",
-	    feet="Meghanada Jambeaux +2",
+	    hands="Turms Mittens +1",
+	    legs="Turms Subligar",
+	    feet="Turms Leggings",
 	    neck="Sanctity Necklace",
 	    waist="Flume Belt",
 	    ear1="Odnowa Earring",
 	    ear2="Odnowa Earring +1",
 	    ring1="Defending Ring",
 	    ring2="Moonbeam Ring",
-	    back="Moonbeam Cape",}
+	    back=augmented_gear.capes.Tank,}
 		
     sets.idle.Sphere = set_combine(sets.idle,{body="Mekosu. Harness"})
 			
-	sets.idle.Tank = {
-    	back="Moonbeam Cape",
-	    body="Runeist's Coat +2",
-	    head="Ayanmo zucchetto +2",
-	    ring2="Moonbeam Ring",
-	    ear2="Odnowa Earring +1",
-		ear1="Odnowa Earring",
-    	ammo="Staunch Tathlum",
-	    hands="Meghanada gloves +2",
-	    legs="Erilaz Leg Guards +1",
-	    feet="Erilaz Greaves +1",
-	    neck="Loricate Torque +1",
-	    waist="Flume Belt",
-	    ring1="Defending ring",
-    }
+	sets.idle.Tank = set_combine(sets.idle, {
+		hands="Meghanada Gloves +2",
+		feet="Erilaz Greaves +1"
+    })
 		
 	sets.idle.KiteTank = set_combine(sets.idle.Tank, {
-		head="Futhark Bandeau +1",
-		ear1="Odnowa Earring",
 		body="Futhark Coat +1",
-		hands="Meghanada gloves +2",
 		legs="Carmine Cuisses +1",
 	})
 
@@ -397,7 +390,7 @@ function init_gear_sets()
 
     sets.engaged = {
     	sub="Utu Grip",
-	    ammo="Ginsen",
+	    ammo="Yamarang",
         head=augmented_gear.Adhemar.Atk.head,
 	    neck="Anu Torque",
 	    ear1="Sherida Earring",
@@ -429,21 +422,26 @@ function init_gear_sets()
     	neck="Loricate Torque +1",
     	body="Ayanmo Corazza +2",
     	ring1="Defending ring",
-    	back="Moonbeam cape",
-    	})
+    	waist="Flume Belt",
+    })
 	sets.engaged.Acc.DTLite = set_combine(sets.engaged.Acc, {})
 	sets.engaged.FullAcc.DTLite =set_combine(sets.engaged.FullAcc,  {})
+	sets.engaged.TankLite = set_combine(sets.engaged, {
+    	hands="Turms mittens +1",
+    	feet="Turms Leggings",		
+	})
 	
-    sets.engaged.Tank = set_combine(sets.idle.Tank,{})
+    sets.engaged.Tank = set_combine(sets.idle.Tank,{
+    	neck="Loricate Torque +1",
+    	body="Erilaz Surcoat +1",
+    	hands="Turms mittens +1",
+    	legs="Erilaz Leg Guards +1",
+    	feet="Turms Leggings",
+    	})
 	sets.engaged.Acc.Tank = set_combine(sets.engaged.Tank,{
-		ammo="Falcon Eye",
-		ear2="Telos earring",
-    	hands=augmented_gear.Adhemar.Acc.hands,
     	legs="Ayanmo cosciales +2",
-    	feet="Ayanmo Gambieras +2"
 	})
 	sets.engaged.FullAcc.Tank = set_combine(sets.engaged.Acc.Tank, {
-		ear1="Dignitary's earring",
 	})
 	
 	--------------------------------------
@@ -502,14 +500,18 @@ function user_job_tick()
 		elseif state.BuffMode.value == 'Hybrid' then
 				local spell_recasts = windower.ffxi.get_spell_recasts()
 
-			if not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
-					windower.chat.input('/ma "Crusade" <me>')
-					tickdelay = 200
-					  return true
-			elseif not buffactive.Phalanx and spell_recasts[106] == 0 then
+			if not buffactive.Phalanx and spell_recasts[106] == 0 then
 				   windower.chat.input('/ma "Phalanx" <me>')
 				   tickdelay = 200
 				   return true
+			elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
+					windower.chat.input('/ma "Crusade" <me>')
+					tickdelay = 200
+					  return true
+			elseif not buffactive.Refresh and spell_recasts [109] == 0 then
+				windower.chat.input('/ma "Refresh" <me>')
+				tickdelay = 200
+				return true
 			--elseif not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
 			--				windower.chat.input('/ma "Temper" <me>')
 			--				tickdelay = 200

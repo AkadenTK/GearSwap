@@ -19,10 +19,11 @@ end
 
 -- Define sets and vars used by this job file.
 function init_gear_sets()
+    include('organizer-lib')
     sets.Capacity = {back="Aptitude Mantle"}
     sets.staves = {
-        magicbp = "Grioavlr",
-        magicaccbp = "Grioavlr",
+        magicbp = "Grioavolr",
+        magicaccbp = "Grioavolr",
         physicalbp = "Gridarvor",
         smnskill = { name="Espiritus", augments={'Summoning magic skill +15','Pet: Mag. Acc.+30','System: 2 ID: 153 Val: 3',}},
         perp = "Gridarvor",
@@ -31,11 +32,9 @@ function init_gear_sets()
     gada={ name="Gada", augments={'Enh. Mag. eff. dur. +5','Mag. Acc.+4',}}
 
     --[#2 Augmented Items & JSE Cape ]--
-    conveyance ="Conveyance Cape"
-    conveyanceskill="Conveyance Cape"
     sets.campestres = {
         magic = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20',}},
-        atk = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20',}},
+        atk = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: Attack+10 Pet: Rng.Atk.+10',}},
         --atk = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Accuracy+20 Attack+20','Accuracy+10','Pet: Haste+10',}},
         idle = { name="Campestres's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10',}},
         fc = { name="Campestres's Cape", augments={'MP+60','MP+18','"Fast Cast"+10',}}
@@ -85,33 +84,6 @@ function init_gear_sets()
     elan_strap = "Elan Strap"
     sancus_sachet = "Sancus Sachet"
 
-    sets.enticers = {
-        --legs={ name="Enticer's Pants", augments={'MP+20','Pet: Mag. Acc.+4',}}
-        legs={ name="Enticer's Pants", augments={'MP+45','Pet: Accuracy+14 Pet: Rng. Acc.+14','Pet: Mag. Acc.+13','Pet: Damage taken -3%',}},
-    }
-    enticers = { name="Enticer's Pants", augments={'MP+45','Pet: Accuracy+14 Pet: Rng. Acc.+14','Pet: Mag. Acc.+13','Pet: Damage taken -3%',}}
-
-    sets.healingaugmented = {
-        main={ name="Serenity", augments={'MP+5','Enha.mag. skill +5',}},
-        head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
-        body={ name="Vanya Robe", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
-        legs={ name="Vanya Slops", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
-        feet={ name="Vanya Clogs", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
-    }
-    sets.psycloth = {
-        legs={ name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}},
-    }
-    glyphichorn={ name="Glyphic Horn", augments={'Enhances "Astral Flow" effect',}}
-    glypchicbracers={ name="Glyphic Bracers +1", augments={'Inc. Sp. "Blood Pact" magic burst dmg.',}}
-    glyphicspats={ name="Glyphic Spats +1", augments={'Increases Sp. "Blood Pact" accuracy',}}
-    selenian={ name="Selenian Cap", augments={'Attack+3','Pet: Damage taken -10%','Accuracy+3','Pet: Haste+5',}}
-
-    telch_head={ name="Telchine Cap", augments={'"Elemental Siphon"+30','Enh. Mag. eff. dur. +10',}}
-    telch_body={ name="Telchine Chas.", augments={'"Elemental Siphon"+30','Enh. Mag. eff. dur. +10',}}
-    telch_hands={ name="Telchine Gloves", augments={'"Elemental Siphon"+30','Enh. Mag. eff. dur. +9',}}
-    telch_legs={ name="Telchine Braconi", augments={'"Elemental Siphon"+30','Enh. Mag. eff. dur. +9',}}
-    telch_feet={ name="Telchine Pigaches", augments={'Enh. Mag. eff. dur. +10',}}
-
     merlinic_head_fc="Merlinic Hood"
     merlinic_head_mab={ name="Merlinic Hood", augments={'Mag. Acc.+23 "Mag.Atk.Bns."+23','Mag. Acc.+12','"Mag.Atk.Bns."+10',}}
     merlinic_body_mab={ name="Merlinic Jubbah", augments={'Mag. Acc.+25 "Mag.Atk.Bns."+25','"Fast Cast"+1','MND+7','Mag. Acc.+10','"Mag.Atk.Bns."+15',}}
@@ -142,11 +114,11 @@ sets.smnskill = {
     feet=sets.apogee.magical.feet,
     neck="Melic Torque",
     waist="Lucidity Sash",
-    left_ear="Summoning earring",
-    right_ear="Andoaa earring",
-    left_ring="Globidonta Ring",
-    right_ring="Evoker's ring",
-    back=conveyanceskill
+    ear1="Summoning earring",
+    ear2="Andoaa earring",
+    ring1="Globidonta Ring",
+    ring2="Evoker's ring",
+    back="Conveyance Cape"
     --ammo="Seraphicaller",
     --head="Convoker's Horn +2",
 }
@@ -171,11 +143,11 @@ sets.smnskill = {
         feet=sets.beckoner.feet,
         neck="Melic Torque",
         waist="Lucidity Sash",
-        left_ear="Summoning earring",
-        right_ear="Andoaa earring",
-        left_ring="Zodiac Ring",--use on all but light or darks day
-        right_ring="Evoker's Ring",
-        back=conveyance
+        ear1="Summoning earring",
+        ear2="Andoaa earring",
+        ring1="Zodiac Ring",--use on all but light or darks day
+        ring2="Evoker's Ring",
+        back="Conveyance Cape"
     }
 
     sets.precast.JA['Mana Cede'] = {hands="Caller's Bracers +2"}
@@ -189,8 +161,8 @@ sets.smnskill = {
         hands=sets.glyphic.hands,--6
         legs=sets.glyphic.legs,
         feet=sets.glyphic.feet,
-        left_ear="Evans Earring",--2
-        back=conveyance --II -3
+        ear1="Evans Earring",--2
+        back="Conveyance Cape" --II -3
     }
 
     sets.precast.BloodPactRage = set_combine(sets.precast.BloodPactWard, {})
@@ -203,8 +175,8 @@ sets.smnskill = {
         head="Merlinic Hood",
         hands="Amalric gages",
         body="Merlinic Jubbah", --13
-        left_ring={name="Mephitas's Ring +1",priority=3},
-        right_ring={name="Mephitas's Ring",priority=3},
+        ring1={name="Mephitas's Ring +1",priority=3},
+        ring2={name="Mephitas's Ring",priority=3},
         waist="Channeler's stone", --3
         legs="Psycloth Lappas", --7
         feet="Amalric Nails",
@@ -236,12 +208,12 @@ sets.smnskill = {
         feet=sets.apogee.magical.feet,
         neck="Sanctity Necklace",
         waist="Shinjutsu-no-Obi +1",
-        left_ear="Etiolation Earring",
-        right_ear=moonshade,
-        left_ring={name="Mephitas's Ring +1",priority=3},
-        right_ring={name="Mephitas's Ring",priority=3},
-        back={ name="Conveyance Cape", augments={'Summoning magic skill +4','Blood Pact Dmg.+4','Blood Pact ab. del. II -3',}},
-        --left_ear="Evans Earring",
+        ear1="Etiolation Earring",
+        ear2=moonshade,
+        ring1={name="Mephitas's Ring +1",priority=3},
+        ring2={name="Mephitas's Ring",priority=3},
+        back="Conveyance Cape"
+        --ear1="Evans Earring",
         --ammo="Seraphicaller",
     }
 
@@ -258,11 +230,11 @@ sets.smnskill = {
         body="Vanya robe",
         hands="Telchine gloves",
         legs="Gyve trousers",
-        left_ear="Mendicant's earring",--5%
+        ear1="Mendicant's earring",--5%
         neck="Nodens Gorget",--5%
         waist="Witful Belt",
         back="Solemnity Cape",
-        --right_ring="Sirona's Ring",
+        --ring2="Sirona's Ring",
         --back="Thaumaturge's Cape",
     }
 		
@@ -300,7 +272,7 @@ sets.smnskill = {
 	sets.midcast.Bio = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 	sets.midcast['Bio II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 		
-	sets.midcast['Enhancing Magic'] = {}
+    sets.midcast['Enhancing Magic'] = {head="Telchine Cap",body="Telchine Chasuble",hands="Telchine Gloves",legs="Telchine Braconi",feet="Telchine Pigaches"}
 		
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {})
 	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {})
@@ -330,14 +302,14 @@ sets.smnskill = {
         neck="Shulmanu collar",
         --waist="Mujin Obi",
         waist="Regal Belt",
-        left_ear="Gelos Earring",
-        right_ear="Esper earring",
-        left_ring={name="Varar Ring",priority=3},
-        right_ring={name="Varar Ring",priority=3},
+        ear1="Gelos Earring",
+        ear2="Esper earring",
+        ring1={name="Varar Ring",priority=3},
+        ring2={name="Varar Ring",priority=3},
         back=sets.campestres.atk,
         feet=sets.apogee.physical.feet,
-        --back=conveyance,
-        --right_ring="Evoker's ring",
+        --back="Conveyance Cape",
+        --ring2="Evoker's ring",
         --ammo="Seraphicaller",
     }
 		
@@ -357,10 +329,10 @@ sets.smnskill = {
         --neck="Deino Collar",
         neck="Adad Amulet",
         waist="Regal Belt",
-        left_ear="Gelos Earring",
-        right_ear="Esper earring",
-        left_ring="Varar Ring",
-        right_ring="Varar Ring",
+        ear1="Gelos Earring",
+        ear2="Esper earring",
+        ring1="Varar Ring",
+        ring2="Varar Ring",
         back=sets.campestres.magic,
     }
 
@@ -403,20 +375,12 @@ sets.smnskill = {
         legs="Assiduity pants +1",
         feet="Serpentese Sabots",
         neck="Loricate Torque +1",
-        waist="Shinjutsu-no-obi +1",
-        left_ear="Etiolation Earring",
-        right_ear="Evans earring",
-        left_ring={name="Mephitas's Ring +1",priority=4},
-        right_ring={name="Mephitas's Ring",priority=4},
-        back=conveyance,
-        --ammo="Seraphicaller",
-        --body="Shomonjijoe +1",
-        --left_ear="Evans Earring",
-        --left_ear="Etiolation Earring",
-        --right_ear="Odnowa Earring +1",
-        --left_ring="Defending Ring",
-        --right_ring="Gelatinous Ring +1",
-        --back="Solemnity Cape",--4
+        waist="Fucho-no-obi",
+        ear1="Ethereal Earring",
+        ear2="Halasz earring",
+        ring1={name="Mephitas's Ring +1",priority=4},
+        ring2="Defending Ring",
+        back="Conveyance Cape",
     }
 
     sets.idle.PDT = set_combine(sets.idle, {})
@@ -455,8 +419,8 @@ sets.smnskill = {
         neck="Caller's Pendant",
         ammo=sancus_sachet,
         waist="Lucidity sash",
-        left_ring={name="Mephitas's Ring +1",priority=3},
-        right_ring="Evoker's ring"
+        ring1={name="Mephitas's Ring +1",priority=3},
+        ring2="Evoker's ring"
     }
 		
     sets.idle.PDT.Avatar = set_combine(sets.idle.Avatar, {})
@@ -522,4 +486,5 @@ function select_default_macro_book(reset)
     
     -- Default macro set/book
     set_macro_page(1, 5)
+    windower.chat.input:schedule(1,'/lockstyleset 6')
 end

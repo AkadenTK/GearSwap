@@ -115,7 +115,7 @@ function init_gear_sets()
         head={ name="Adhemar Bonnet", augments={'DEX+10','AGI+10','Accuracy+15',}},
         body="Pillager's Vest +2",
         hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
-        legs="Meghanada Chausses +1",
+        legs="Samnuha tights",
         feet={ name="Plun. Poulaines +1", augments={'Enhances "Assassin\'s Charge" effect',}},
         neck="Agasaya's Collar",
         waist="Chiner's Belt +1",

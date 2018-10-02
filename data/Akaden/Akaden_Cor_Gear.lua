@@ -108,9 +108,9 @@ function init_gear_sets()
         feet={ name="Lanun Bottes +3", augments={'Enhances "Wild Card" effect',}},
         neck="Loricate Torque +1",
         waist="Flume Belt",
-        left_ear="Ethereal Earring",
-        left_ring="Warden's Ring",
-        right_ring="Yacuruna Ring",
+        ear1="Ethereal Earring",
+        ring1="Warden's Ring",
+        ring2="Yacuruna Ring",
         back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},    
     }    
 
@@ -290,8 +290,8 @@ function init_gear_sets()
         ear2="Ishvara Earring",
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
-        ring1="Ifrit ring +1",
-        ring2="Ilabrat ring",
+        ring1="Ilabrat ring",
+        ring2="Ifrit ring +1",
         back={ name="Camulus's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}},
         waist="Prosilio belt",
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -316,21 +316,21 @@ function init_gear_sets()
         feet="Lanun Bottes +3",
         neck="Fotia Gorget",
         waist="Fotia Belt",
-        left_ear="Moonshade Earring",
-        right_ear="Ishvara Earring",
-        left_ring="Dingir Ring",
-        right_ring="Garuda ring",
+        ear1="Moonshade Earring",
+        ear2="Ishvara Earring",
+        ring1="Ilabrat ring",
+        ring2= "Dingir Ring",
         back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}},
     }
 
     sets.precast.WS['Last Stand'].Acc = set_combine(sets.precast.WS['Last Stand'],{
-        right_ear="Telos Earring",
-        left_ring="Cacoethic Ring",
+        ear2="Telos Earring",
+        ring1="Cacoethic Ring +1",
         feet="Meghanada Jambeaux +2"
         })
 
     sets.precast.WS['Last Stand'].FullAcc = set_combine(sets.precast.WS['Last Stand'].Acc,{
-        ring2="Cacoethic Ring +2",
+        ring2="Cacoethic Ring",
         })
 		
     sets.precast.WS['Detonator'] = set_combine(sets.precast.WS['Last Stand'], {})
@@ -353,18 +353,18 @@ function init_gear_sets()
         feet="Lanun Bottes +3",
         neck="Baetyl pendant",
         waist="Svelt. Gouriz +1",
-        left_ear="Friomisi Earring",
-        right_ear="Moonshade Earring",
-        ring2="Dingir ring",
+        ear1="Friomisi Earring",
+        ear2="Moonshade Earring",
         ring1="Archon Ring",
+        ring2="Dingir ring",
         back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
         --back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','"Mag.Atk.Bns."+10',}},
     }
 
     sets.precast.WS['Leaden Salute'].Acc = set_combine(sets.precast.WS['Leaden Salute'],{
         neck="Sanctity necklace",
-        left_ear="Hermetic Earring",
-        right_ear="Dignitary's Earring",
+        ear1="Hermetic Earring",
+        ear2="Dignitary's Earring",
         body="Mummu Jacket +2",
         waist="Eschan Stone",
         })
@@ -473,7 +473,7 @@ function init_gear_sets()
         feet="Lanun Bottes +3",
         neck="Loricate Torque +1",
         waist="Flume Belt",
-        left_ear="Ethereal Earring",
+        ear1="Ethereal Earring",
         ring1="Defending ring",
     })
 		
@@ -495,10 +495,10 @@ function init_gear_sets()
         feet={ name="Lanun Bottes +3", augments={'Enhances "Wild Card" effect',}},
         neck="Loricate Torque +1",
         waist="Flume Belt",
-        left_ear="Ethereal Earring",
-        right_ear="Brutal Earring",
-        left_ring="Warden's Ring",
-        right_ring="Epona's Ring",
+        ear1="Ethereal Earring",
+        ear2="Brutal Earring",
+        ring1="Warden's Ring",
+        ring2="Epona's Ring",
         back="Moonbeam Cape",})
 
     sets.idle.PDT = set_combine(sets.defense.PDT, {})

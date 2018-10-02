@@ -14,7 +14,7 @@ augmented_gear.Merlinic.Damage = {
 }
 
 augmented_gear.Merlinic.Burst = { 
-    head= { name="Merlinic Hood", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Magic burst mdg.+4%','Mag. Acc.+8',}},
+    head={ name="Merlinic Hood", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Magic burst dmg.+4%','Mag. Acc.+8',}},
     body= augmented_gear.Merlinic.Damage.Body,
     --hands= ,
     legs= { name="Merlinic Shalwar", augments={'Mag. Acc.+25 "Mag.Atk.Bns."+25','Magic burst mdg.+4%','Mag. Acc.+10','"Mag.Atk.Bns."+5',}},

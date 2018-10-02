@@ -1,4 +1,5 @@
-function user_setup()
+
+    function user_setup()
 	-- Options: Override default values
 	state.CastingMode:options('Normal', 'Resistant', 'Fodder', 'Proc')
 	state.OffenseMode:options('None', 'Normal')
@@ -32,6 +33,8 @@ end
 function init_gear_sets()
 
     include('augmented_gear.lua')
+    include('organizer-lib')
+
     --------------------------------------
     -- Start defining the sets
     --------------------------------------
@@ -52,9 +55,12 @@ function init_gear_sets()
     -- Fast cast sets for spells
 
     sets.precast.FC = {
+        ammo="Impatiens",
         head="Nahtirah hat",
         body="Anhur Robe",
-        waist="Channeler's Stone",
+        ring1="Kishar Ring",
+        ring2="Weatherspoon Ring",
+        waist="Witful Belt",
         legs="Psycloth lappas",
         feet="Amalric nails"
     }
@@ -132,7 +138,7 @@ function init_gear_sets()
 	
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {})
 
-	sets.midcast['Enhancing Magic'] = {}
+	sets.midcast['Enhancing Magic'] = {head="Telchine Cap",body="Telchine Chasuble",hands="Telchine Gloves",legs="Telchine Braconi",feet="Telchine Pigaches"}
     
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {neck="Nodens Gorget",waist="Siegel Sash"})
 	
@@ -193,15 +199,6 @@ function init_gear_sets()
     sets.midcast.Aspir = set_combine(sets.midcast.Drain, {})
 	
 	sets.midcast.Aspir.Death = set_combine(sets.midcast.Drain, {})
-	
-	sets.midcast.Death = set_combine(sets.midcast['Elemental Magic'], {
-            head="Pixie Hairpin +1",
-            ring1="Sangoma ring",
-            ring2="Mephitas's ring +1",
-            body="Amalric doublet",
-            legs="Amalric slops",
-            ear2="Dignitary's Earring"
-    })
 
     sets.midcast.Stun = set_combine(sets.midcast['Enfeebling Magic'], {})
 		
@@ -220,13 +217,13 @@ function init_gear_sets()
         ear1="Barkarole earring",
         ear2="Friomisi Earring",
         body=augmented_gear.Merlinic.Damage.body,
-        hands="Amalric gages",
+        hands="Jhakri Cuffs +2",
         ring1="Acumen Ring",
         ring2="Strendu Ring",
         back="Taranus's cape",
         waist="Refoccilation Stone",
         legs=augmented_gear.Merlinic.Damage.legs,
-        feet=augmented_gear.Merlinic.Damage.feet,
+        feet="Jhakri Pigaches +2",
     }
 
     sets.midcast['Elemental Magic'].Resistant = set_combine(sets.midcast['Elemental Magic'], {
@@ -238,7 +235,6 @@ function init_gear_sets()
         ring1="Sangoma ring",
         ring2="Stikini ring",
         legs=augmented_gear.Merlinic.Accuracy.legs,
-        feet="Merlinic Crackows",
     })
 		
     sets.midcast['Elemental Magic'].Fodder = set_combine(sets.midcast['Elemental Magic'], {})
@@ -272,10 +268,14 @@ function init_gear_sets()
     
     -- Normal refresh idle set
     sets.idle = set_combine(sets.midcast['Elemental Magic'], {
+        ammo="Staunch Tathlum",
         head="Befouled Crown",
         body="Shamash Robe",
-        neck="Wiglen Gorget",
+        neck="Loricate Torque +1",
         hands="Serpentes cuffs",
+        ear1="Ethereal Earring",
+        ear2="Halasz earring",
+        ring1="Defending Ring",
         ring2="Paguroidea Ring",
         back="Solemnity cape",
         waist="Fucho-no-obi",
@@ -366,6 +366,7 @@ end
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
     set_macro_page(1, 3)
+    windower.chat.input:schedule(1,'/lockstyleset 2')
 end
 
 function user_job_precast(spell, spellMap, eventArgs)

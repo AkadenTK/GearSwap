@@ -129,7 +129,7 @@ function init_gear_sets()
 	    ammo="Plumose Sachet",
 	    head="Vanya Hood",
 	    body="Ebers Bliaud",
-	    hands="Theo. Mitts +1",
+	    hands="Theo. Mitts +2",
 	    legs="Ebers Pantaloons",
 	    feet="Vanya Clogs",
 	    neck="Phrenic torque",
@@ -195,7 +195,7 @@ function init_gear_sets()
 	    sub="Sors Shield",
 		head="Ebers Cap",
 	    body="Ebers Bliaud",
-	    hands="Theo. Mitts +1",
+	    hands="Theo. Mitts +2",
 	    legs="Ebers Pantaloons",
 	    feet="Healer's Duckbills",
 	    ear1="Orison Earring",
@@ -207,7 +207,7 @@ function init_gear_sets()
 		ring2="Haoma's ring",
 		hands="Fanatic gloves",
 		back="Alaunus's Cape",
-		legs="Theophany Pantaloons +1",
+		legs="Theophany Pantaloons +2",
 		feet="Gendewitha Galoshes +1",})
 
 
@@ -222,7 +222,7 @@ function init_gear_sets()
 		back="Mending Cape",
 		waist="Cascade Belt",
 		legs="Telchine Braconi",
-		feet="Theophany duckbills +1",
+		feet="Theophany duckbills +2",
 	}
 
 	sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {neck="Nodens Gorget",ear2="Earthcry Earring",waist="Siegel Sash",legs="Shedir Seraweels"})

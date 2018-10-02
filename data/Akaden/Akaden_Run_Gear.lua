@@ -578,10 +578,9 @@ function user_job_self_command(commandArgs, eventArgs)
 				else add_to_chat(123,'All buffs are applied.')
 				end
 			elseif state.BuffMode.value == 'Hybrid' then
-				--if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
-				--	windower.chat.input('/ma "Temper" <me>')
-	            --elseif not buffactive.Phalanx and spell_recasts[106] == 0 then
-	            if not buffactive.Phalanx and spell_recasts[106] == 0 then
+				if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
+					windower.chat.input('/ma "Temper" <me>')
+	            elseif not buffactive.Phalanx and spell_recasts[106] == 0 then
 					send_command('input /ma "Phalanx" <me>')
 				elseif not buffactive.Regen and spell_recasts [477] == 0 then
 					send_command('input /ma "Regen IV" <me>')
@@ -590,10 +589,9 @@ function user_job_self_command(commandArgs, eventArgs)
 				else add_to_chat(123,'All buffs are applied.')
 				end
 			elseif state.BuffMode.value == 'DD' then
-				--if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
-				--	windower.chat.input('/ma "Temper" <me>')
-				--elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-				if not buffactive.Refresh and spell_recasts [109] == 0 then
+				if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
+					windower.chat.input('/ma "Temper" <me>')
+				elseif not buffactive.Refresh and spell_recasts [109] == 0 then
 					send_command('input /ma "Refresh" <me>')
 				else add_to_chat(123,'All buffs are applied.')
 				end

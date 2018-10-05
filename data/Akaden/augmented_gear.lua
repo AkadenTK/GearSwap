@@ -38,7 +38,7 @@ augmented_gear.Herculean.WSD = {}
 augmented_gear.Herculean.WSD.MAB = {
     hands={ name="Herculean Gloves", augments={'Pet: Accuracy+4 Pet: Rng. Acc.+4','"Dual Wield"+1','Weapon skill damage +8%','Mag. Acc.+12 "Mag.Atk.Bns."+12',}},
     head={ name="Herculean Helm", augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','Weapon skill damage +1%','MND+2','Mag. Acc.+3','"Mag.Atk.Bns."+10',}},
-    legs={ name="Herculean Trousers", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Weapon skill damage +2%','STR+2','"Mag.Atk.Bns."+13',}},
+    legs={ name="Herculean Trousers", augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','Weapon skill damage +2%','STR+5','Mag. Acc.+11','"Mag.Atk.Bns."+11',}},
     feet={ name="Herculean Boots", augments={'"Mag.Atk.Bns."+24','Weapon skill damage +3%','INT+5','Mag. Acc.+13',}},
 }
 

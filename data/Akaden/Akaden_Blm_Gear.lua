@@ -107,7 +107,7 @@ function init_gear_sets()
         body="Amalric Doublet",
         hands="Telchine gloves",
         ring2="Sangoma ring",
-        back="Bane Cape",
+        back="Tempered cape +1",
         waist="Fucho-no-obi",
         legs="Amalric Slops",
         feet="Amalric Nails"

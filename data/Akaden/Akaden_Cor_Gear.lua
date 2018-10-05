@@ -9,7 +9,7 @@ function user_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
-    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade', 'ShieldLeaden','ShieldLastStand','OneShot','None')
+    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade', 'ShieldLeaden','ShieldLastStand','OneShot','MeleeLeaden','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
 
@@ -72,6 +72,7 @@ function init_gear_sets()
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Anarchy +2"}
     sets.weapons.OneShot = {main='Fettering Blade', sub="Hepatizon rapier", range="Fomalhaut"}
+    sets.weapons.MeleeLeaden = {main='Fettering Blade', sub="Blurred Knife +1", range="Death Penalty"}
 
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt", feet=augmented_gear.Herculean.TH.feet})
     

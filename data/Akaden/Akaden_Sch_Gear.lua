@@ -1,3 +1,5 @@
+
+    include('smartcure.lua')
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
     state.OffenseMode:options('None', 'Normal')
@@ -29,6 +31,8 @@ function user_setup()
 	send_command('bind ^\\\\ input /ma "Protect V" <t>')
 	send_command('bind @\\\\ input /ma "Shell V" <t>')
 	send_command('bind !\\\\ input /ma "Reraise III" <me>')
+
+	smart_cure_potencies = {['Cure'] = 150, ['Cure II'] = 350, ['Cure III'] = 650, ['Cure IV'] = 1000, ['Cure V'] = 1300, ['Cure VI'] = 1700, ['Curaga'] = 200, ['Curaga II'] = 400, ['Curaga III'] = 700, ['Curaga IV'] = 1300, ['Curaga V'] = 1750}
 	
     select_default_macro_book()
 end
@@ -36,6 +40,8 @@ end
 -- Define sets and vars used by this job file.
 function init_gear_sets()
 
+    include('organizer-lib')
+    include('augmented_gear.lua')
 	sets.Weapons = {main="Akademos",sub="Niobid Strap"}
     --------------------------------------
     -- Start defining the sets
@@ -50,7 +56,16 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
 
-    sets.precast.FC = {}
+    sets.precast.FC = {
+        ammo="Impatiens",
+        head="Nahtirah hat",
+        body="Anhur Robe",
+        ring1="Kishar Ring",
+        ring2="Weatherspoon Ring",
+        waist="Witful Belt",
+        legs="Psycloth lappas",
+        feet="Amalric nails"
+    }
 
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
 
@@ -64,7 +79,20 @@ function init_gear_sets()
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
-    sets.precast.WS['Myrkr'] = {}
+    sets.precast.WS['Myrkr'] = {
+     	ammo="Pemphredo Tathlum",
+        head="Nahtirah Hat",
+        neck="Sanctity necklace",
+        ear1="Gifted Earring",
+        ear2="Halasz Earring",
+        body="Amalric Doublet",
+        hands="Telchine gloves",
+        ring2="Sangoma ring",
+        back="Tempered cap +1",
+        waist="Fucho-no-obi",
+        legs="Amalric Slops",
+        feet="Amalric Nails"
+	}
 
     -- Midcast Sets
 
@@ -83,31 +111,37 @@ function init_gear_sets()
 
     sets.midcast.FastRecast = {}
 		
-    sets.midcast.Cure = {}
+    sets.midcast.Cure = {
+        neck="Nodens gorget",
+        body="Vanya robe",
+        hands='Telchine gloves',
+        ear2="Mendicant's earring",
+        back="Solemnity cape",
+        legs="Gyve trousers"}
 
-    sets.midcast.LightWeatherCure = {}
+    sets.midcast.LightWeatherCure = set_combine(sets.midcast.Cure, {})
 		
-    sets.midcast.LightDayCure = {}
+    sets.midcast.LightDayCure = set_combine(sets.midcast.Cure, {})
 
-    sets.midcast.Curaga = sets.midcast.Cure
+    sets.midcast.Curaga = set_combine(sets.midcast.Cure, {})
 
 	sets.Self_Healing = {neck="Phalaina Locket",ring1="Kunaji Ring",ring2="Asklepian Ring",waist="Gishdubar Sash"}
 	sets.Cure_Received = {neck="Phalaina Locket",ring1="Kunaji Ring",ring2="Asklepian Ring",waist="Gishdubar Sash"}
 	sets.Self_Refresh = {back="Grapevine Cape",waist="Gishdubar Sash",feet="Inspirited Boots"}
 	
-	sets.midcast.Cursna = {}
+	sets.midcast.Cursna = set_combine(sets.midcast.Cure, {})
 		
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {main="Oranyan",sub="Clemency Grip"})
 
-	sets.midcast['Enhancing Magic'] = {}
+	sets.midcast['Enhancing Magic'] = {head="Telchine Cap",body="Telchine Chasuble",hands="Telchine Gloves",legs="Telchine Braconi",feet="Telchine Pigaches"}
 
-    sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {main="Bolelabunga",sub="Genmei Shield",head="Arbatel Bonnet +1"})
+    sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {main="Bolelabunga",sub="Genbu's Shield",head="Arbatel Bonnet +1"})
 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {neck="Nodens Gorget",ear2="Earthcry Earring",waist="Siegel Sash",legs="Shedir Seraweels"})
 	
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif"})
 	
-	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {main="Vadose Rod",sub="Genmei Shield",head="Amalric Coif",hands="Regal Cuffs",waist="Emphatikos Rope",legs="Shedir Seraweels"})
+	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {main="Vadose Rod",sub="Genbu's Shield",head="Amalric Coif",hands="Regal Cuffs",waist="Emphatikos Rope",legs="Shedir Seraweels"})
 	
 	sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {legs="Shedir Seraweels"})
 
@@ -121,19 +155,6 @@ function init_gear_sets()
 
 
     -- Custom spell classes
-
-	sets.midcast['Enfeebling Magic'] = {}
-	
-	sets.midcast['Enfeebling Magic'].Resistant = {}
-		
-    sets.midcast.ElementalEnfeeble = set_combine(sets.midcast['Enfeebling Magic'], {head="Amalric Coif",ear2="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
-    sets.midcast.ElementalEnfeeble.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {head="Amalric Coif",ear2="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
-	
-	sets.midcast.IntEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {head="Amalric Coif",ear1="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
-	sets.midcast.IntEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {head="Amalric Coif",ear2="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
-
-	sets.midcast.MndEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {ring1="Stikini Ring"})
-	sets.midcast.MndEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {ring1="Stikini Ring"})
 	
 	sets.midcast.Dia = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 	sets.midcast.Diaga = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
@@ -145,29 +166,60 @@ function init_gear_sets()
 
     sets.midcast['Dark Magic'] = {}
 
-    sets.midcast.Kaustra = {}
-		
-    sets.midcast.Kaustra.Resistant = {}
-
-    sets.midcast.Drain = {}
-		
-    sets.midcast.Drain.Resistant = {}
-
-    sets.midcast.Aspir = sets.midcast.Drain
-	sets.midcast.Aspir.Resistant = sets.midcast.Drain.Resistant
-
-    sets.midcast.Stun = {}
-
-    sets.midcast.Stun.Resistant = {}
-
     -- Elemental Magic sets are default for handling low-tier nukes.
-    sets.midcast['Elemental Magic'] = {}
+    sets.midcast['Elemental Magic'] = {
+   		main="Akademos",
+        sub="Niobid strap",
+        ammo="Pemphredo Tathlum",
+        head=augmented_gear.Merlinic.Damage.head,
+        neck="Saevus pendant +1",
+        ear1="Barkarole earring",
+        ear2="Friomisi Earring",
+        body=augmented_gear.Merlinic.Damage.body,
+        hands="Jhakri Cuffs +2",
+        ring1="Acumen Ring",
+        ring2="Strendu Ring",
+        back="Taranus's cape",
+        waist="Refoccilation Stone",
+        legs=augmented_gear.Merlinic.Damage.legs,
+        feet="Jhakri Pigaches +2",
+	}
 
-    sets.midcast['Elemental Magic'].Resistant = {}
+    sets.midcast['Elemental Magic'].Resistant = set_combine(sets.midcast['Elemental Magic'], {})
 		
-    sets.midcast['Elemental Magic'].Fodder = {}
+    sets.midcast['Elemental Magic'].Fodder = set_combine(sets.midcast['Elemental Magic'], {})
 		
-    sets.midcast['Elemental Magic'].Proc = {}
+    sets.midcast['Elemental Magic'].Proc = set_combine(sets.midcast['Elemental Magic'], {})
+
+    sets.midcast.Stun = set_combine(sets.midcast['Elemental Magic'], {})
+
+    sets.midcast.Stun.Resistant = set_combine(sets.midcast.Stun, {})
+
+    sets.midcast.Drain = set_combine(sets.midcast['Elemental Magic'].Resistant, {
+        head="Pixie Hairpin +1",
+        ear1="Halasz earring",
+        ring1="Evanescence ring",
+        ring2="Excelsis Ring",
+        waist="Fucho-no-obi",
+        feet="Merlinic Crackows"})
+		
+    sets.midcast.Drain.Resistant = set_combine(sets.midcast.Drain, {})
+
+    sets.midcast.Aspir = set_combine(sets.midcast.Drain, {})
+	sets.midcast.Aspir.Resistant = set_combine(sets.midcast.Aspir, {})
+
+	sets.midcast['Enfeebling Magic'] = set_combine(sets.midcast['Elemental Magic'].Resistant, {})
+	
+	sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {})
+		
+    sets.midcast.ElementalEnfeeble = set_combine(sets.midcast['Enfeebling Magic'], {head="Amalric Coif",ear2="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
+    sets.midcast.ElementalEnfeeble.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {head="Amalric Coif",ear2="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
+	
+	sets.midcast.IntEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {head="Amalric Coif",ear1="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
+	sets.midcast.IntEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {head="Amalric Coif",ear2="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
+
+	sets.midcast.MndEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {ring1="Stikini Ring"})
+	sets.midcast.MndEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {ring1="Stikini Ring"})
 		
     -- Custom refinements for certain nuke tiers
 	sets.midcast['Elemental Magic'].HighTierNuke = set_combine(sets.midcast['Elemental Magic'], {main="Akademos",sub="Niobid Strap",ammo="Pemphredo Tathlum",ear1="Regal Earring",ear2="Barkaro. Earring",hands="Amalric Gages"})
@@ -176,9 +228,13 @@ function init_gear_sets()
 
 	sets.midcast.Helix = set_combine(sets.midcast['Elemental Magic'], {})
 	
-	sets.midcast.Helix.Resistant = {}
+	sets.midcast.Helix.Resistant = set_combine(sets.midcast.Helix, {})
 		
-	sets.midcast.Helix.Proc = {}
+	sets.midcast.Helix.Proc = set_combine(sets.midcast.Helix, {})
+
+    sets.midcast.Kaustra = set_combine(sets.midcast.Helix, {})
+		
+    sets.midcast.Kaustra.Resistant = set_combine(sets.midcast.Kaustra, {})
 
 	sets.midcast.Impact = {}
 
@@ -191,7 +247,21 @@ function init_gear_sets()
 
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 
-    sets.idle = {}
+    sets.idle = {
+	    ammo="Homiliary",
+	    head="Befouled Crown",
+	    body="Shamash Robe",
+	    hands="Serpentes Cuffs",
+	    legs="Assid. Pants +1",
+	    feet="Serpentes Sabots",
+	    neck="Loricate Torque +1",
+	    waist="Fucho-no-Obi",
+	    ear1="Ethereal Earring",
+	    ear2="Gifted Earring",
+	    ring1="Defending Ring",
+	    ring2="Paguroidea Ring",
+	    back="Solemnity Cape",
+	}
 
     sets.idle.PDT = {}
 		
@@ -241,7 +311,7 @@ function init_gear_sets()
 	
 	sets.buff.Doom = set_combine(sets.buff.Doom, {})
 
-    sets.buff.FullSublimation = {}
+    sets.buff.FullSublimation = {head="Academic's mortarboard +1", ear2="Savant's earring"}
     sets.buff.PDTSublimation = {}
 	
 end
@@ -249,13 +319,43 @@ end
 -- Select default macro book on initial load or subjob change.
 -- Default macro set/book
 function select_default_macro_book()
-	if player.sub_job == 'RDM' then
-		set_macro_page(1, 18)
-	elseif player.sub_job == 'BLM' then
-		set_macro_page(1, 18)
-	elseif player.sub_job == 'WHM' then
-		set_macro_page(1, 18)
-	else
-		set_macro_page(1, 18)
+	set_macro_page(1, 20)
+
+    windower.chat.input:schedule(1,'/lockstyleset 9')
+end
+
+function user_job_precast(spell, spellMap, eventArgs)
+	if spell.english:lower() == "refresh" and spell.target.name == player.name then
+		eventArgs.cancel = true
+		windower.chat.input('/ja sublimation <me>')
+		return
+	end
+
+	if state.smartcure and spell.english:lower() == 'cure' then
+		state.smartcure = false
+		eventArgs.cancel = true
+		smartcure_target(spell.target.name)		
+	end
+	state.smartcure = false
+end
+
+function user_job_self_command(commandArgs, eventArgs)
+    if commandArgs[1]:lower() == 'smartcure' then
+		eventArgs.handled = true
+		local targetType = commandArgs[2]:lower()
+
+		if targetType == 'me' or (targetType == nil and (player.target.type == 'NONE' or player.target.type == 'SELF')) then
+			-- smartcure self if: arg2 is 'me', or arg2 is nil and target = self or none
+			smartcure_target(player.name)
+		elseif (targetType == 't' or targetType == nil) and player.target.type ~= 'NONE' then
+			-- smartcure target if: arg2 is 't' or nil and player.target isn't none
+			smartcure_target(player.target.name)
+		elseif targetType ~= nil then
+			eventArgs.handled = true
+			state.smartcure = true
+			windower.chat.input('/ma "Cure" <'..targetType..'>')
+		else 
+			add_to_chat(123,'Abort SmartCure: target invalid.')		
+		end
 	end
 end

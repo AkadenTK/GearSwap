@@ -115,7 +115,6 @@ function init_gear_sets()
         legs="Psycloth lappas",
         feet="Carmine Greaves +1",
         ear1="Halasz earring", -- mp
-        ear2="Gifted earring", -- mp
         ring2="Lebeche ring",
         head="Carmine mask",
 		ammo="Impatiens",
@@ -671,7 +670,7 @@ function init_gear_sets()
     sets.latent_refresh = {waist="Fucho-no-obi"}
 	sets.Cure_Received = {neck="Phalaina Locket",hands="Buremte Gloves",ring2="Kunaji Ring",waist="Gishdubar Sash"}
 	sets.Self_Refresh = {}
-	sets.MagicBurst = {hands="Amalric Gages",ring1="Mujin Band",ring2="Locus Ring"}
+	--sets.MagicBurst = {hands="Amalric Gages",ring1="Mujin Band",ring2="Locus Ring"}
 	sets.midcast['Trust'] = set_combine(sets.midcast.FastRecast, {})
 
 end

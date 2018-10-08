@@ -29,7 +29,7 @@ function init_gear_sets()
 
     sets.weapons = {}
     sets.weapons.Algol = {main='Raetic Algol +1', sub="Utu Grip"}
-    sets.weapons.DDScythe = {main='Deathbane', sub="Utu Grip"}
+    sets.weapons.DDScythe = {main='Anguta', sub="Utu Grip"}
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------

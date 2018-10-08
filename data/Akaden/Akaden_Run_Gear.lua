@@ -10,6 +10,7 @@ function user_setup()
 	state.IdleMode:options('Normal','Tank','KiteTank','Sphere')
 	state.Weapons:options('Aettir','Lionheart')
 	state.BuffMode = M{['description']='Buff Mode', 'Tank', 'Hybrid', 'DD'}
+	state.DowngradeFlash = M(true,'Downgrade Flash')
 	
 	state.ExtraDefenseMode = M{['description']='Extra Defense Mode','None','MP'}
 
@@ -211,8 +212,9 @@ function init_gear_sets()
 	sets.precast.WS.FullAcc = set_combine(sets.precast.WS,{})
 
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
-    	head=augmented_gear.Adhemar.Atk.head,
-    	body=augmented_gear.Adhemar.Atk.body,
+    	body="Ayanmo Corazza +2",
+    	legs="Samnuha Tights",
+    	ring2="Epona's ring",
     	})
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'],{})
 	sets.precast.WS['Resolution'].FullAcc = set_combine(sets.precast.WS['Resolution'].Acc,{})
@@ -324,7 +326,7 @@ function init_gear_sets()
 	
 	-- Weapons sets
 	sets.weapons.Aettir = {main="Aettir",sub="Utu Grip"}
-	sets.weapons.Lionheart = {main="Lionheart",sub="Utu Grip"}
+	sets.weapons.Lionheart = {main="Montante",sub="Utu Grip"}
 	
 	-- Defense Sets
 	
@@ -453,6 +455,169 @@ function init_gear_sets()
 	
 end
 
+function user_job_precast(spell, spellMap, eventArgs)
+	if state.DowngradeFlash.value then
+		if spell.english:lower() == 'flash' then
+
+			local spell_recasts = windower.ffxi.get_spell_recasts()
+			local ability_recasts = windower.ffxi.get_ability_recasts()
+
+			local tagged = info.hate_mobs[target.id]
+			local rune_up = is_rune_active()
+
+			if spell_recasts[112] == 0 then 
+				-- Cast Flash :D
+			elseif tagged and spell_recasts[840] == 0 then
+				eventArgs.cancel = true
+				change_spell(player, 'Foil')
+			elseif spell_recasts[575] == 0 and player.sub_job == "BLU" then
+				eventArgs.cancel = true
+				change_spell(spell.target, 'Jettatura')
+			elseif spell_recasts[592] == 0 and player.sub_job == "BLU" then
+				eventArgs.cancel = true
+				change_spell(spell.target, 'Blank Gaze')
+			elseif spell_recasts[252] == 0 and player.sub_job == "DRK" then
+				eventArgs.cancel = true
+				change_spell(spell.target, 'Stun')
+			elseif ability_recasts[5] == 0 and player.sub_job == "WAR" then
+				eventArgs.cancel = true
+				change_spell(spell.target, 'Provoke')
+			elseif tagged and rune_up and ability_recasts[113] == 0 then
+				eventArgs.cancel = true
+				change_spell(player, 'Valiance')
+			elseif tagged and rune_up and ability_recasts[59] == 0 then
+				eventArgs.cancel = true
+				change_spell(player, 'Pflug')
+			elseif tagged and rune_up and ability_recasts[23] == 0 then
+				eventArgs.cancel = true
+				change_spell(player, 'Vallation')
+			elseif not check_auto_tank_ws() then
+				if not state.AutoTankMode.value then add_to_chat(123,'All Enmity spells on cooldown.') end
+			end
+		elseif spell.english:lower() == 'poisonga' or spell.english:lower() == 'sheep song' then
+
+			local spell_recasts = windower.ffxi.get_spell_recasts()
+			local ability_recasts = windower.ffxi.get_ability_recasts()
+
+			local tagged = targets_in_range_are_tagged(spell.target, 10)
+			local rune_up = is_rune_active()
+			if tagged and spell_recasts[840] == 0 then
+				eventArgs.cancel = true
+				change_spell(player, 'Foil')
+			elseif tagged and rune_up and ability_recasts[113] == 0 then
+				eventArgs.cancel = true
+				change_spell(player, 'Valiance')
+			elseif tagged and rune_up and ability_recasts[59] == 0 then
+				eventArgs.cancel = true
+				change_spell(player, 'Pflug')
+			elseif tagged and rune_up and ability_recasts[23] == 0 then
+				eventArgs.cancel = true
+				change_spell(player, 'Vallation')
+			elseif player.sub_job == "BLU" then
+				if spell_recasts[584] == 0 then
+					if not spell.english:lower() == 'sheep song' then
+						eventArgs.cancel = true
+						change_spell(spell.target, 'Sheep Song')
+					end
+				elseif  spell_recasts[605] == 0 then
+					eventArgs.cancel = true
+					change_spell(spell.target, 'Geist Wall')
+				elseif  spell_recasts[598] == 0 then
+					eventArgs.cancel = true
+					change_spell(spell.target, 'Soporific')
+				elseif  spell_recasts[537] == 0 then
+					eventArgs.cancel = true
+					change_spell(spell.target, 'Stinking Gas')
+				else
+					add_to_chat(123,'All Enmity spells on cooldown.')
+					eventArgs.cancel = true
+				end
+			elseif player.sub_job == "DRK" and spell_recasts[225] == 0 then
+				if not spell.english:lower() == 'poisonga' then
+					eventArgs.cancel = true
+					change_spell(spell.target, 'Poisonga')
+				end
+			else
+				add_to_chat(123,'All Enmity spells on cooldown.')
+				eventArgs.cancel = true
+			end
+		end
+	end
+end
+
+function is_rune_active()
+	for _,r in pairs(elements.rune_of) do
+		if buffactive[r] then
+			return true
+		end
+	end
+	return false
+end
+
+function targets_in_range_are_tagged(target, range)
+	local mobs = windower.ffxi.get_mob_array()
+	for i,mob in ipairs(mobs) do
+		if mob.is_npc then 
+			local dX = target.x - mob.x
+			local dY = target.y - mob.y
+			if target.id == mob.id or (dY * dY) + (dX * dX) <= (range * range) then
+				-- target is in range
+				if not info.hate_mobs[target.id] then
+					return false
+				end
+			end
+		end
+	end
+	return true
+end
+
+function check_recast(spell, spellMap, eventArgs)
+	if (spell.english:lower() == 'flash' or spell.english:lower() == 'poisonga' or spell.english:lower() == 'sheep song') and state.DowngradeFlash.value then
+		return
+	end
+        if spell.action_type == 'Ability' and spell.type ~= 'WeaponSkill' then
+			if spell.recast_id == 231 or spell.recast_id == 255 or spell.recast_id == 102 or spell.recast_id == 195 then return false end
+            local abil_recasts = windower.ffxi.get_ability_recasts()
+			if not abil_recasts[spell.recast_id] then
+				add_to_chat(123,"Abort: You don't have access to ["..spell.english.."].")
+				eventArgs.cancel = true
+				return true
+            elseif abil_recasts[spell.recast_id] > 0 then
+				if spell.english == "Lunge" and abil_recasts[241] == 0 then
+					eventArgs.cancel = true
+					windower.send_command('@input /ja "Swipe" <t>')
+					return true
+				else
+					add_to_chat(123,'Abort: ['..spell.english..'] waiting on recast. ('..seconds_to_clock(abil_recasts[spell.recast_id])..')')
+					eventArgs.cancel = true
+					return true
+				end
+			else
+				return false
+            end
+        elseif spell.action_type == 'Magic' then
+            local spell_recasts = windower.ffxi.get_spell_recasts()
+            if spell_recasts[spell.recast_id] > 0 then
+				if stepdown(spell, eventArgs) then 
+					return true
+				else
+                add_to_chat(123,'Abort: ['..spell.english..'] waiting on recast. ('..seconds_to_clock(spell_recasts[spell.recast_id]/60)..')')
+                eventArgs.cancel = true
+                return true
+				end
+			else
+				return false
+            end
+		else
+			return false
+        end
+
+end
+
+function change_spell(target, spell_name)
+	windower.chat.input('/ma "'..spell_name..'" '..target.id)
+end
+
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
 	-- Default macro set/book
@@ -463,164 +628,98 @@ end
 
 function user_job_tick()
     if state.AutoBuffMode.value then
-			--Tank
-		if state.BuffMode.value == 'Tank' then
-			local spell_recasts = windower.ffxi.get_spell_recasts()
-
-			if not buffactive.Phalanx and spell_recasts[106] == 0 then
-				windower.chat.input('/ma "Phalanx" <me>')
-				tickdelay = 200
-				return true
-			elseif not buffactive['Defense Boost'] and not buffactive['Defense Down'] and spell_recasts [547] == 0 and player.sub_job == 'BLU' then
-				windower.chat.input('/ma "Cocoon" <me>')
-				tickdelay = 200
-				return true
-			elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
-				windower.chat.input('/ma "Crusade" <me>')
-				tickdelay = 200
-				return true
-			elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-				windower.chat.input('/ma "Refresh" <me>')
-				tickdelay = 200
-				return true
-			elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
-				windower.chat.input('/ma "Aquaveil" <me>')
-				tickdelay = 200
-				return true
-			elseif not buffactive.Regen and spell_recasts [477] == 0 then
-				send_command('input /ma "Regen IV" <me>')
-				tickdelay = 200
-				return true
-			elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 and player.mpp > 50 then
-				send_command('input /ma "Shock Spikes" <me>')
-				tickdelay = 200
-				return true
-			end
-
-		elseif state.BuffMode.value == 'Hybrid' then
-				local spell_recasts = windower.ffxi.get_spell_recasts()
-
-			if not buffactive.Phalanx and spell_recasts[106] == 0 then
-				   windower.chat.input('/ma "Phalanx" <me>')
-				   tickdelay = 200
-				   return true
-			elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
-					windower.chat.input('/ma "Crusade" <me>')
-					tickdelay = 200
-					  return true
-			elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-				windower.chat.input('/ma "Refresh" <me>')
-				tickdelay = 200
-				return true
-			--elseif not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
-			--				windower.chat.input('/ma "Temper" <me>')
-			--				tickdelay = 200
-			--				return true
-			elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
-							windower.chat.input('/ma "Aquaveil" <me>')
-							tickdelay = 200
-							return true
-			end
-
-		elseif state.BuffMode.value == 'DD' then
-	        local spell_recasts = windower.ffxi.get_spell_recasts()
-			--if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
-			--		windower.chat.input('/ma "Temper" <me>')
-			--		tickdelay = 200
-			--		return true
-			--end
-		end
+    	local d = check_buffs()
+    	if d > 0 then
+    		tickdelay = d
+    		return true
+    	end
 	end
 
     return false
+end
+function check_buffs()
+    local spell_recasts = windower.ffxi.get_spell_recasts()
+	local ability_recasts = windower.ffxi.get_ability_recasts()
+		--Tank
+	if state.BuffMode.value == 'Tank' then
+		if not buffactive.Phalanx and spell_recasts[106] == 0 then
+			windower.chat.input('/ma "Phalanx" <me>')
+			return 200
+		elseif not buffactive['Defense Boost'] and not buffactive['Defense Down'] and spell_recasts [547] == 0 and player.sub_job == 'BLU' then
+			windower.chat.input('/ma "Cocoon" <me>')
+			return 200
+		elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
+			windower.chat.input('/ma "Crusade" <me>')
+			return 200
+		elseif player.sub_job == 'BLU' and not buffactive.Haste and spell_recasts [530] == 0 then
+			windower.chat.input('/ma "Refueling" <me>')
+			return 200
+		elseif not buffactive.Refresh and spell_recasts [109] == 0 then
+			windower.chat.input('/ma "Refresh" <me>')
+			return 200
+		elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
+			windower.chat.input('/ma "Aquaveil" <me>')
+			return 200
+		elseif not buffactive.Regen and spell_recasts [477] == 0 then
+			send_command('input /ma "Regen IV" <me>')
+			return 200
+		elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 and player.mpp > 50 then
+			send_command('input /ma "Shock Spikes" <me>')
+			return 200
+		else
+			add_to_chat(123,'All buffs applied.')
+		end
+
+	elseif state.BuffMode.value == 'Hybrid' then
+		if not buffactive.Phalanx and spell_recasts[106] == 0 then
+		   windower.chat.input('/ma "Phalanx" <me>')
+		   return 200
+		elseif not buffactive['Defense Boost'] and not buffactive['Defense Down'] and spell_recasts [547] == 0 and player.sub_job == 'BLU' then
+			windower.chat.input('/ma "Cocoon" <me>')
+			return 200
+		elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
+			windower.chat.input('/ma "Crusade" <me>')
+			return 200
+		elseif player.sub_job == 'BLU' and not buffactive.Haste and spell_recasts [530] == 0 then
+			windower.chat.input('/ma "Refueling" <me>')
+			return 200
+		elseif not buffactive.Refresh and spell_recasts [109] == 0 then
+			windower.chat.input('/ma "Refresh" <me>')
+			return 200
+		elseif not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
+			windower.chat.input('/ma "Temper" <me>')
+			return 200
+		else
+			add_to_chat(123,'All buffs applied.')
+		end
+
+	elseif state.BuffMode.value == 'DD' then
+		if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
+			windower.chat.input('/ma "Temper" <me>')
+			return 200
+		elseif player.sub_job == 'BLU' and not buffactive.Haste and spell_recasts [530] == 0 then
+			windower.chat.input('/ma "Refueling" <me>')
+			return 200
+		elseif player.sub_job == 'DRK' and not buffactive['Last Resort'] and ability_recasts[87] == 0 then
+			windower.chat.input('/ja "Last Resort" <me>')
+			return 200
+		else
+			add_to_chat(123,'All buffs applied.')
+		end
+	end
+
+	return -1
 end
 
 function user_job_self_command(commandArgs, eventArgs)
 	if commandArgs[1] == 'Buff' then
 
-		local spell_recasts = windower.ffxi.get_spell_recasts()
-		local ability_recasts = windower.ffxi.get_ability_recasts()
-		if player.sub_job == 'BLU' then
-
-
-            if not buffactive.Phalanx and spell_recasts[106] == 0 then
-				send_command('input /ma "Phalanx" <me>')
-			elseif not buffactive['Defense Boost'] and not buffactive['Defense Down'] and spell_recasts [547] == 0 then
-				send_command('input /ma "Cocoon" <me>')
-			elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
-				send_command('input /ma "Crusade" <me>')
-			elseif not buffactive.Haste and spell_recasts [530] == 0 then
-				send_command('input /ma "Refueling" <me>')
-			elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
-				send_command('input /ma "Aquaveil" <me>')
-			elseif not buffactive.Regen and spell_recasts [477] == 0 then
-				send_command('input /ma "Regen IV" <me>')
-			elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-				send_command('input /ma "Refresh" <me>')
-			elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 then
-				send_command('input /ma "Shock Spikes" <me>')
-			else add_to_chat(123,'All buffs are applied.')
-			end
-
-		elseif player.sub_job == 'DRK' then
-
-			if state.BuffMode.value == 'Tank' then
-	            if not buffactive.Phalanx and spell_recasts[106] == 0 then
-					send_command('input /ma "Phalanx" <me>')
-				elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
-					send_command('input /ma "Aquaveil" <me>')
-				elseif not buffactive.Regen and spell_recasts [477] == 0 then
-					send_command('input /ma "Regen IV" <me>')
-				elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-					send_command('input /ma "Refresh" <me>')
-				elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 then
-					send_command('input /ma "Shock Spikes" <me>')
-				else add_to_chat(123,'All buffs are applied.')
-				end
-			elseif state.BuffMode.value == 'Hybrid' then
-				if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
-					windower.chat.input('/ma "Temper" <me>')
-	            elseif not buffactive.Phalanx and spell_recasts[106] == 0 then
-					send_command('input /ma "Phalanx" <me>')
-				elseif not buffactive.Regen and spell_recasts [477] == 0 then
-					send_command('input /ma "Regen IV" <me>')
-				elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-					send_command('input /ma "Refresh" <me>')
-				else add_to_chat(123,'All buffs are applied.')
-				end
-			elseif state.BuffMode.value == 'DD' then
-				if not buffactive['Multi Strikes'] and spell_recasts[493] == 0 then
-					windower.chat.input('/ma "Temper" <me>')
-				elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-					send_command('input /ma "Refresh" <me>')
-				else add_to_chat(123,'All buffs are applied.')
-				end
-			end
-		else
-
-            if not buffactive.Phalanx and spell_recasts[106] == 0 then
-				send_command('input /ma "Phalanx" <me>')
-			elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
-				send_command('input /ma "Crusade" <me>')
-			elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
-				send_command('input /ma "Aquaveil" <me>')
-			elseif not buffactive.Regen and spell_recasts [477] == 0 then
-				send_command('input /ma "Regen IV" <me>')
-			elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-				send_command('input /ma "Refresh" <me>')
-			elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 then
-				send_command('input /ma "Shock Spikes" <me>')
-			else add_to_chat(123,'All buffs are applied.')
-			end
-		end
+		check_buffs()
 
 	elseif commandArgs[1] == 'Provoke' then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		local ability_recasts = windower.ffxi.get_ability_recasts()
-		if player.target.type ~= "MONSTER" then
-			add_to_chat(123,'Abort: You are not targeting a monster.')
-			return
-		elseif spell_recasts[112] == 0 then
+		if spell_recasts[112] == 0 then
 			send_command('input /ma "Flash" <stnpc>')
 		elseif spell_recasts[575] == 0 and player.sub_job == "BLU" then
 			send_command('input /ma "Jettatura" <stnpc>')

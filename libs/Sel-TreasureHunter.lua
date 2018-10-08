@@ -54,6 +54,7 @@ end
 
 -- Tracking vars for TH.
 info.tagged_mobs = T{}
+info.hate_mobs = T{}
 info.last_player_target_index = 0
 state.th_gear_is_locked = false
 
@@ -202,6 +203,12 @@ function on_action_for_th(action)
             end
         end
     end
+
+    if action.actor_id == player.id then
+        for index,target in pairs(action.targets) do
+            info.hate_mobs[target.id] = os.time()
+        end
+    end
     
     cleanup_tagged_mobs()
 end
@@ -250,6 +257,9 @@ function on_incoming_chunk_for_th(id, data, modified, injected, blocked)
                 if _settings.debug_mode then add_to_chat(123,'Mob '..target_id..' died. Removing from tagged mobs table.') end
                 info.tagged_mobs[target_id] = nil
             end
+            if info.hate_mobs[target_id] then
+                info.hate_mobs[target_id] = nil
+            end
         end
     end
 end
@@ -259,6 +269,7 @@ end
 function on_zone_change_for_th(new_zone, old_zone)
     if _settings.debug_mode then add_to_chat(123,'Zoning. Clearing tagged mobs table.') end
     info.tagged_mobs:clear()
+    info.hate_mobs:clear()
 end
 
 
@@ -303,7 +314,7 @@ function cleanup_tagged_mobs()
     local current_time = os.time()
     local remove_mobs = S{}
     -- Search list and flag old entries.
-    for target_id,action_time in pairs(info.tagged_mobs) do
+    for target_id,action_time in pairs(info.hate_mobs) do
         local time_since_last_action = current_time - action_time
         if time_since_last_action > 180 then
             remove_mobs:add(target_id)
@@ -313,6 +324,7 @@ function cleanup_tagged_mobs()
     -- Clean out mobs flagged for removal.
     for mob_id,_ in pairs(remove_mobs) do
         info.tagged_mobs[mob_id] = nil
+        info.hate_mobs[mob_id] = nil
     end
 end
 

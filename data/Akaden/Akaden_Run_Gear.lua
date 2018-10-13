@@ -462,7 +462,7 @@ function user_job_precast(spell, spellMap, eventArgs)
 			local spell_recasts = windower.ffxi.get_spell_recasts()
 			local ability_recasts = windower.ffxi.get_ability_recasts()
 
-			local tagged = info.hate_mobs[target.id]
+			local tagged = info.hate_mobs[spell.target.id]
 			local rune_up = is_rune_active()
 
 			if spell_recasts[112] == 0 then 
@@ -492,7 +492,10 @@ function user_job_precast(spell, spellMap, eventArgs)
 				eventArgs.cancel = true
 				change_spell(player, 'Vallation')
 			elseif not check_auto_tank_ws() then
-				if not state.AutoTankMode.value then add_to_chat(123,'All Enmity spells on cooldown.') end
+				if not state.AutoTankMode.value then 
+					add_to_chat(123,'All Enmity spells on cooldown.') 
+					eventArgs.cancel = true
+				end
 			end
 		elseif spell.english:lower() == 'poisonga' or spell.english:lower() == 'sheep song' then
 

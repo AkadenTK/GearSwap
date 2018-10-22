@@ -49,6 +49,8 @@ function init_gear_sets()
     	STP_PDT={ name="Ogma's cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}},
     	Tank={ name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
     	DA_STR={ name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
+    	WSD_DEX={ name="Ogma's cape", augments={'DEX+20','Accuracy+20 Attack+20', 'DEX+10','Weapon skill damage +10','Phys. dmg. taken-10%',}},
+    	FC={ name="Ogma's cape", augments={'HP+60','HP+20','"Fast Cast"+10',}}
 	}
 
     sets.Enmity = {
@@ -184,6 +186,7 @@ function init_gear_sets()
 	    waist="Kasiri Belt",
 	    ring1="Kishar Ring",
 	    ring2="Weatherspoon Ring",
+	    back=augmented_gear.capes.FC,
 	}
 			
 	sets.precast.FC.DT = {}
@@ -201,7 +204,7 @@ function init_gear_sets()
 	    ear2="Moonshade Earring",
 	    body="Ayanmo Corazza +2",
 	    hands="Meg. Gloves +2",
-	    ring1="Ifrit Ring +1",
+	    ring1="Regal Ring",
 	    ring2="Ayanmo Ring",
 	    waist="Fotia Belt",
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -212,9 +215,11 @@ function init_gear_sets()
 	sets.precast.WS.FullAcc = set_combine(sets.precast.WS,{})
 
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
-    	body="Ayanmo Corazza +2",
+    	head=augmented_gear.Lustratio.STR.head,
+    	body=augmented_gear.Lustratio.STR.body,
     	legs="Samnuha Tights",
-    	ring2="Epona's ring",
+    	ring2="Niqmaddu ring",
+    	back=augmented_gear.capes.DA_STR,
     	})
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'],{})
 	sets.precast.WS['Resolution'].FullAcc = set_combine(sets.precast.WS['Resolution'].Acc,{})
@@ -223,7 +228,7 @@ function init_gear_sets()
     	ear1="Sherida earring",
     	ear2="Moonshade Earring",
     	ring1="Ilabrat ring",
-    	ring2="Apate Ring",
+    	ring2="Regal Ring",
     	back="Kayapa cape",
     	legs="Lustratio Subligar",
     })
@@ -559,7 +564,7 @@ end
 
 function targets_in_range_are_tagged(target, range)
 	local mobs = windower.ffxi.get_mob_array()
-	for i,mob in ipairs(mobs) do
+	for _,mob in pairs(mobs) do
 		if mob.is_npc then 
 			local dX = target.x - mob.x
 			local dY = target.y - mob.y

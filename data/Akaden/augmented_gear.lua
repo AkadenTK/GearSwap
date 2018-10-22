@@ -114,3 +114,20 @@ augmented_gear.Adhemar.D = {
     legs={ name="Adhemar Kecks", augments={'AGI+10','"Rapid Shot"+10','Enmity-5',}}, 
     feet={ name="Adhemar Gamashes", augments={'HP+50','"Store TP"+6','"Snapshot"+8',}},
 }
+augmented_gear.Lustratio = {}
+augments.Lustratio = {}
+augments.Lustratio.NQ = {
+    A={'Attack+15','STR+5','"Dbl.Atk."+2',},
+    B={'Accuracy+15','DEX+5','Crit. hit rate+2%',},
+}
+augments.Lustratio.HQ = {
+    A={'Attack+20','STR+8','"Dbl.Atk."+3',},
+    B={'Accuracy+20','DEX+8','Crit. hit rate+3%',},
+}
+augmented_gear.Lustratio.STR = {
+    head={ name="Lustratio Cap +1", augments=augments.Lustratio.HQ.A},
+    body={ name="Lustratio Harness +1", augments=augments.Lustratio.HQ.A},
+}
+augmented_gear.Lustratio.DEX = {
+    legs={ name="Lustratio Subligar", augments=augments.Lustratio.NQ.B},
+}

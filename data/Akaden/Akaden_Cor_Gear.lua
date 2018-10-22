@@ -125,7 +125,7 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {
         head=augmented_gear.Adhemar.Atk.head,
-        neck="Asperity Necklace",
+        neck="Iskur gorget",
         ear1='Suppanomimi',
         ear2="Brutal Earring",
         body=augmented_gear.Adhemar.Atk.body,
@@ -292,7 +292,7 @@ function init_gear_sets()
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
         ring1="Ilabrat ring",
-        ring2="Ifrit ring +1",
+        ring2="Regal Ring",
         back={ name="Camulus's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}},
         waist="Prosilio belt",
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -319,8 +319,8 @@ function init_gear_sets()
         waist="Fotia Belt",
         ear1="Moonshade Earring",
         ear2="Ishvara Earring",
-        ring1="Ilabrat ring",
-        ring2= "Dingir Ring",
+        ring1="Dingir ring",
+        ring2= "Regal Ring",
         back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}},
     }
 
@@ -356,8 +356,8 @@ function init_gear_sets()
         waist="Svelt. Gouriz +1",
         ear1="Friomisi Earring",
         ear2="Moonshade Earring",
-        ring1="Archon Ring",
-        ring2="Dingir ring",
+        ring1="Dingir Ring",
+        ring2="Archon ring",
         back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
         --back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','"Mag.Atk.Bns."+10',}},
     }

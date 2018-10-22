@@ -161,8 +161,8 @@ function init_gear_sets()
 		ear2="Brutal earring",
     	body="Ignominy cuirass +3",
 		hands="Sulev. Gauntlets +2",
-		ring1="Hetairoi Ring",
-		ring2="Ifrit Ring +1",
+    	ring1="Niqmaddu ring",
+		ring2="Regal Ring",
     	back={ name="Ankou's Mantle", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}},
 		waist="Fotia Belt",
 		legs="Ignominy Flanchard +3",
@@ -182,8 +182,6 @@ function init_gear_sets()
 	
     sets.precast.WS['Torcleaver'] = set_combine(sets.precast.WS, {
     	head=augmented_gear.Valorous.WSD.VIT.head,
-    	Ring1="Petrov Ring",
-    	ring2="Titan ring",
     	ear2="Ishvara Earring",
 		back={ name="Ankou's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10'}},
     })
@@ -191,7 +189,6 @@ function init_gear_sets()
     	ammo="Seething Bomblet",
     	head="Sulevia's mask +2",
     	ear2="Telos Earring",
-    	ring1="Begrudging ring",
     	})
     sets.precast.WS['Torcleaver'].FullAcc = set_combine(sets.precast.WS['Torcleaver'].Acc, {
     	ear1="Dignitary's earring",
@@ -212,7 +209,6 @@ function init_gear_sets()
     sets.precast.WS['Resolution'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {
     	ammo="Seething Bomblet",
     	ear2="Cessance Earring",
-    	ring1="Begrudging ring",
 
     	})
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS.Acc, {})

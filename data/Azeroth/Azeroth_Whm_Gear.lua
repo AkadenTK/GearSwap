@@ -54,6 +54,8 @@ function init_gear_sets()
     -- Fast cast sets for spells
     sets.precast.FC = {
     	head="Haruspex hat", 
+    	neck="Voltsurge Torque",
+    	body="Inyanga jubbah +2",
     	neck="Orison locket",
     	hands="Fanatic Gloves",
     	ring1="Kishar Ring",
@@ -65,11 +67,11 @@ function init_gear_sets()
 		
     sets.precast.FC.DT = set_combine(sets.precast.FC, {})
 
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
+    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {}) --waist="Siegel Sash"
 	
     sets.precast.FC.Stoneskin = set_combine(sets.precast.FC['Enhancing Magic'], {})
 
-    sets.precast.FC['Healing Magic'] = set_combine(sets.precast.FC, {legs="Ebers Pantaloons"})
+    sets.precast.FC['Healing Magic'] = set_combine(sets.precast.FC, {legs="Ebers Pantaloons +1"})
 
     sets.precast.FC.StatusRemoval = sets.precast.FC['Healing Magic']
 	
@@ -102,8 +104,8 @@ function init_gear_sets()
 
     sets.Kiting = {feet="Herald's Gaiters"}
     sets.latent_refresh = {waist="Fucho-no-obi"}
-	sets.DayIdle = {}
-	sets.NightIdle = {back="Umbra Cape"}
+	--sets.DayIdle = {}
+	--sets.NightIdle = {back="Umbra Cape"}
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {feet=gear.chironic_treasure_feet})
 	
 	--Situational sets: Gear that is equipped on certain targets
@@ -131,9 +133,9 @@ function init_gear_sets()
 	    sub="Sors Shield",
 	    ammo="Plumose Sachet",
 	    head="Vanya Hood",
-	    body="Ebers Bliaud",
+	    body="Ebers Bliaud +1",
 	    hands="Theo. Mitts +2",
-	    legs="Ebers Pantaloons",
+	    legs="Ebers Pantaloons +1",
 	    feet="Vanya Clogs",
 	    neck="Phrenic torque",
 	    waist="Cleric's Belt",
@@ -196,10 +198,10 @@ function init_gear_sets()
 	sets.midcast.StatusRemoval = {
 		main="Queller Rod",
 	    sub="Sors Shield",
-		head="Ebers Cap",
-	    body="Ebers Bliaud",
+		head="Ebers Cap +1",
+	    body="Ebers Bliaud +1",
 	    hands="Theo. Mitts +2",
-	    legs="Ebers Pantaloons",
+	    legs="Ebers Pantaloons +1",
 	    feet="Healer's Duckbills",
 	    ear1="Orison Earring",
 	    ring1="Sirona's Ring",
@@ -213,6 +215,7 @@ function init_gear_sets()
 		legs="Theophany Pantaloons +2",
 		feet="Gendewitha Galoshes +1",})
 
+	sets.midcast.Erase = set_combine(sets.midcast.StatusRemoval, {neck="Cleric's torque"})
 
     -- 110 total Enhancing Magic Skill; caps even without Light Arts
 	sets.midcast['Enhancing Magic'] = {
@@ -244,8 +247,8 @@ function init_gear_sets()
 	sets.midcast.BarElement = set_combine(sets.midcast['Enhancing Magic'], {
 		main="Beneficus",
 		sub="Sors Shield",
-		head="Ebers cap",
-		body="Ebers bliaud",
+		head="Ebers cap +1",
+		body="Ebers Bliaud +1",
 		hands="Ebers mits",
 		legs="Piety Pantaloons +1",
 		feet="Orison duckbills +1"
@@ -299,7 +302,15 @@ function init_gear_sets()
 	sets.resting = {}
 
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
-	sets.idle = set_combine(sets.midcast.Cure, {ammo="Homiliary", body="Piety Briault +1", legs="Assiduity pants +1"})
+	sets.idle = set_combine(sets.midcast.Cure, {ammo="Homiliary", 
+		head="Inyanga tiara +2", 
+		neck="Twilight Torque",
+		body="Piety Briault +1", 
+		hands="Inyanga Dastanas +2",
+		ring2="Inyanga ring",
+		back="Alaunus's cape",
+		legs="Assiduity pants +1",
+		feet="Inyanga Crackows +2"})
 
 	sets.idle.PDT = {}
 		

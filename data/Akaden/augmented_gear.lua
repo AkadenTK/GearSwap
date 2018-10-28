@@ -17,7 +17,7 @@ augmented_gear.Merlinic.Burst = {
     head={ name="Merlinic Hood", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Magic burst dmg.+4%','Mag. Acc.+8',}},
     body= augmented_gear.Merlinic.Damage.Body,
     --hands= ,
-    legs= { name="Merlinic Shalwar", augments={'Mag. Acc.+25 "Mag.Atk.Bns."+25','Magic burst mdg.+4%','Mag. Acc.+10','"Mag.Atk.Bns."+5',}},
+    legs={ name="Merlinic Shalwar", augments={'Mag. Acc.+25 "Mag.Atk.Bns."+25','Magic burst dmg.+4%','Mag. Acc.+10','"Mag.Atk.Bns."+5',}},
     feet= augmented_gear.Merlinic.Damage.Feet,
 }
 
@@ -102,7 +102,7 @@ augmented_gear.Adhemar.Acc = {
 }
 augmented_gear.Adhemar.Atk = {
     head={ name="Adhemar Bonnet +1", augments=augments.Adhemar.HQ.B},
-    body={ name="Adhemar Jacket", augments=augments.Adhemar.NQ.A},
+    body={ name="Adhemar Jacket +1", augments=augments.Adhemar.HQ.B},
     hands={ name="Adhemar Wristbands +1", augments=augments.Adhemar.HQ.B},
 }
 augmented_gear.Adhemar.Rng = {

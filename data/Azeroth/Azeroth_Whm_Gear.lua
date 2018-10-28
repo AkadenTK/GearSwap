@@ -237,7 +237,7 @@ function init_gear_sets()
 
 	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {main="Vadose Rod",sub="Ammurapi Shield",hands="Regal Cuffs",waist="Emphatikos Rope",legs="Shedir Seraweels"})
 
-	sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {head="Inyanga Tiara +2", body="Piety Briault +1", hands="Ebers Mitts",legs="Theophany Pantaloons +1",})
+	sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {head="Inyanga Tiara +2", body="Piety Briault +1", hands="Ebers mitts +1",legs="Theophany Pantaloons +1",})
 	
 	sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring",feet="Piety Duckbills +1",ear1="Gifted Earring",waist="Sekhmet Corset"})
 	sets.midcast.Protectra = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring",feet="Piety Duckbills +1",ear1="Gifted Earring",waist="Sekhmet Corset"})
@@ -249,7 +249,7 @@ function init_gear_sets()
 		sub="Sors Shield",
 		head="Ebers cap +1",
 		body="Ebers Bliaud +1",
-		hands="Ebers mits",
+		hands="Ebers mitts +1",
 		legs="Piety Pantaloons +1",
 		feet="Orison duckbills +1"
 	})
@@ -316,7 +316,7 @@ function init_gear_sets()
 		
     sets.idle.TPEat = set_combine(sets.idle, {neck="Chrys. Torque"})
 
-	sets.idle.Weak = {}
+	sets.idle.Weak = set_combine(sets.idle, {})
 
     -- Defense sets
 

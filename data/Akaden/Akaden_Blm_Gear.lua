@@ -72,7 +72,8 @@ function init_gear_sets()
     sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC, {
         head="Goetia Petasos +2",
         ear="Barkarole earring",
-        neck="Stoicheion Medal"})
+        neck="Stoicheion Medal",
+        hands="MAllquis cuffs +1"})
 
 	sets.precast.FC.Cure = set_combine(sets.precast.FC, {})
 
@@ -330,7 +331,7 @@ function init_gear_sets()
         hands="Amalric Gages",
         ring1="Mujin Band",
         legs=augmented_gear.Merlinic.Burst.legs,
-        feet=augmented_gear.Merlinic.Burst.feet}
+        feet="Jhakri Pigaches +2"}
 	sets.RecoverBurst = {
         head=augmented_gear.Merlinic.Burst.head,
         neck="Mizu. Kubikazari",

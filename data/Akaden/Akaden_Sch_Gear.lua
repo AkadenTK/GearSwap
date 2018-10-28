@@ -69,7 +69,7 @@ function init_gear_sets()
 
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
 
-    sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC, {ear1="Barkaro. Earring"})
+    sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC, {ear1="Barkaro. Earring", hands="Mallquis cuffs +1"})
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC, {main="Serenity",sub="Clerisy Strap +1",body="Heka's Kalasiris"})
 
@@ -102,7 +102,14 @@ function init_gear_sets()
 	sets.RecoverMP = {body="Seidr Cotehardie"}
 	
 	-- Gear for Magic Burst mode.
-    sets.MagicBurst = {neck="Mizu. Kubikazari",hands="Amalric Gages",ring1="Mujin Band",ring2="Locus Ring",feet="Jhakri Pigaches +2"}
+    sets.MagicBurst = {
+        head=augmented_gear.Merlinic.Burst.head, --4
+        neck="Mizu. Kubikazari",				 --10
+        hands="Amalric Gages",					 --II 5
+        ring1="Mujin Band",						 --II 5
+        ring2="Locus Ring",						 -- 5
+        legs=augmented_gear.Merlinic.Burst.legs, --4
+        feet="Jhakri Pigaches +2"}				 --8
 	
 	-- Gear for specific elemental nukes.
 	sets.element.Wind = {}
@@ -135,7 +142,7 @@ function init_gear_sets()
 
 	sets.midcast['Enhancing Magic'] = {head="Telchine Cap",body="Telchine Chasuble",hands="Telchine Gloves",legs="Telchine Braconi",feet="Telchine Pigaches"}
 
-    sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {main="Bolelabunga",sub="Genbu's Shield",head="Arbatel Bonnet +1"})
+    sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {main="Bolelabunga",sub="Genbu's Shield",head="Arbatel Bonnet +1", back="Lugh's cape"})
 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {neck="Nodens Gorget",ear2="Earthcry Earring",waist="Siegel Sash",legs="Shedir Seraweels"})
 	

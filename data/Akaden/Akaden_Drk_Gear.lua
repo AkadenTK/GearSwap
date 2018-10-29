@@ -8,7 +8,7 @@ function user_setup()
 	state.ResistDefenseMode:options('MEVA')
     state.CastingMode:options('Normal','Resistant')
 	state.IdleMode:options('Normal', 'PDT','Refresh','Reraise')
-    state.Weapons:options('Algol','DDScythe', 'None')
+    state.Weapons:options('DDScythe', 'Algol','None')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None'}
 	state.Passive = M{['description'] = 'Passive Mode','None','MP','Twilight'}
 
@@ -65,10 +65,10 @@ function init_gear_sets()
 	    hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
 	    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
 	    neck="Baetyl Pendant",
-	    left_ear="Cessance Earring",
-	    right_ear="Brutal Earring",
-	    left_ring="Kishar Ring",
-	    right_ring="Weather. Ring",
+	    ear1="Cessance Earring",
+	    ear2="Brutal Earring",
+	    ring1="Kishar Ring",
+	    ring2="Weather. Ring",
 	}
 
 	sets.precast.FC.Impact = set_combine(sets.precast.FC, {})
@@ -88,9 +88,9 @@ function init_gear_sets()
 	    feet="Flam. Gambieras +2",
 	    neck="Erra Pendant",
 	    waist="Eschan Stone",
-	    left_ear="Hermetic Earring",
-	    right_ear="Digni. Earring",
-	    right_ring="Sangoma Ring",	
+	    ear1="Hermetic Earring",
+	    ear2="Digni. Earring",
+	    ring2="Sangoma Ring",	
 	}
  
 	sets.midcast['Dark Magic'] = set_combine(sets.MagicAccuracy, {
@@ -98,8 +98,9 @@ function init_gear_sets()
 	    hands={ name="Fall. Fin. Gaunt. +1", augments={'Enhances "Diabolic Eye" effect',}},
 	    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
 	    neck="Erra Pendant",
-	    left_ring="Stikini Ring",
+	    ring1="Stikini Ring",
 	    back={ name="Niht Mantle", augments={'Attack+14','Dark magic skill +6','"Drain" and "Aspir" potency +24',}},
+	    feet="Ratri Sollerets",
 	})
            
 	sets.midcast['Enfeebling Magic'] = {}
@@ -121,7 +122,7 @@ function init_gear_sets()
     })
 	sets.midcast.Absorb = set_combine(sets.midcast['Dark Magic'], {
 		back="Chuparrosa Mantle",
-		right_ring="Kishar Ring"})
+		ring2="Kishar Ring",})
 	sets.midcast.Absorb.Resistant = set_combine(sets.midcast.Absorb, {
 		back={ name="Ankou's Mantle", augments={'Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10',}},
 		hands="Ratri gadlings",
@@ -136,8 +137,8 @@ function init_gear_sets()
 	    hands={ name="Fall. Fin. Gaunt. +1", augments={'Enhances "Diabolic Eye" effect',}},
 	    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
 	    neck="Erra Pendant",
-	    left_ring="Archon Ring",
-	    right_ring="Evanescence Ring",
+	    ring1="Archon Ring",
+	    ring2="Evanescence Ring",
 	    waist="Fucho-no-Obi",
     })
                    
@@ -195,7 +196,11 @@ function init_gear_sets()
     	ring2="Flamma ring",
     	})
 
-    sets.precast.WS['Entropy'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Entropy'] = set_combine(sets.precast.WS, {
+    	head="Ratri Sallet",
+    	hands="Ratri Gadlings",
+    	ring1="Shiva ring +1",
+    	})
     sets.precast.WS['Entropy'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {})
     sets.precast.WS['Entropy'].Acc = set_combine(sets.precast.WS.Acc, {})
     sets.precast.WS['Entropy'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
@@ -209,7 +214,6 @@ function init_gear_sets()
     sets.precast.WS['Resolution'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {
     	ammo="Seething Bomblet",
     	ear2="Cessance Earring",
-
     	})
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS.Acc, {})
     sets.precast.WS['Resolution'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
@@ -244,10 +248,10 @@ function init_gear_sets()
 	    feet="Flamma Gambieras +2",
 	    neck="Asperity Necklace",
 	    waist="Ioskeha Belt",
-	    left_ear="Cessance Earring",
-	    right_ear="Brutal Earring",
-	    left_ring="Petrov Ring",
-	    right_ring="Flamma Ring",
+	    ear1="Cessance Earring",
+	    ear2="Brutal Earring",
+	    ring1="Niqmaddu Ring",
+	    ring2="Flamma Ring",
 	    back={ name="Ankou's Mantle", augments={'DEX+20','Accuracy+20 Attack+20', 'Accuracy+10','"Store TP"+10','Damage taken-5%',}},
 	}
 	sets.engaged.Acc = set_combine(sets.engaged,{
@@ -279,9 +283,9 @@ function init_gear_sets()
 	    feet="Sulev. Leggings +2",
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
-	    right_ear="Ethereal Earring",
+	    ear2="Ethereal Earring",
 	    ring1="Defending Ring",
-	    right_ring="Warden's Ring",
+	    ring2="Warden's Ring",
 	    back="Moonbeam Cape",
 	}
      
@@ -305,9 +309,9 @@ function init_gear_sets()
 	    feet="Sulev. Leggings +2",
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
-	    right_ear="Ethereal Earring",
+	    ear2="Ethereal Earring",
 	    ring1="Defending Ring",
-	    right_ring="Warden's Ring",
+	    ring2="Warden's Ring",
 	    back="Moonbeam Cape",
 	}
 
@@ -325,9 +329,9 @@ function init_gear_sets()
 	    feet="Sulev. Leggings +2",
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
-	    right_ear="Ethereal Earring",
+	    ear2="Ethereal Earring",
 	    ring1="Defending Ring",
-	    right_ring="Warden's Ring",
+	    ring2="Warden's Ring",
 	    back="Moonbeam Cape",
 	}
 		
@@ -342,7 +346,7 @@ function init_gear_sets()
 	    feet="Sulev. Leggings +2",
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
-	    right_ear="Ethereal Earring",
+	    ear2="Ethereal Earring",
 	    ring1="Yacuruna Ring",
 	    ring2="Defending Ring",
 	    back="Moonbeam Cape",

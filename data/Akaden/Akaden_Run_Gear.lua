@@ -80,7 +80,7 @@ function init_gear_sets()
 
     sets.Enmity.DT = {ammo="Staunch Tathlum",
         head="Fu. Bandeau +1",neck="Loricate Torque +1",ear1="Odnowa Earring +1",ear2="Odnowa Earring",
-        body="Runeist's Coat +2",hands=gear.herculean_dt_hands,ring1="Moonbeam Ring",ring2="Moonbeam Ring",
+        body="Runeist's Coat +3",hands=gear.herculean_dt_hands,ring1="Moonbeam Ring",ring2="Moonbeam Ring",
         back="Moonlight Cape",waist="Flume Belt",legs="Eri. Leg Guards +1",feet="Erilaz Greaves +1"}
 
 	--------------------------------------
@@ -90,7 +90,7 @@ function init_gear_sets()
 	-- Item sets.
 
 	-- Precast sets to enhance JAs
-    sets.precast.JA['Vallation'] = set_combine(sets.Enmity,{body="Runeist's Coat +2",legs="Futhark Trousers +1"})
+    sets.precast.JA['Vallation'] = set_combine(sets.Enmity,{body="Runeist's Coat +3",legs="Futhark Trousers +1"})
     sets.precast.JA['Valiance'] = sets.precast.JA['Vallation']
     sets.precast.JA['Pflug'] = set_combine(sets.Enmity,{feet="Runeist's Boots +1"})
     sets.precast.JA['Battuta'] = set_combine(sets.Enmity,{head="Futhark Bandeau +1"})
@@ -109,7 +109,7 @@ function init_gear_sets()
 	sets.precast.JA['Aggressor'] = set_combine(sets.Enmity, {})
 	sets.precast.JA['Animated Flourish'] = set_combine(sets.Enmity, {})
 
-    sets.precast.JA['Vallation'].DT = set_combine(sets.Enmity.DT,{body="Runeist's Coat +2", legs="Futhark Trousers +1"})
+    sets.precast.JA['Vallation'].DT = set_combine(sets.Enmity.DT,{body="Runeist's Coat +3", legs="Futhark Trousers +1"})
     sets.precast.JA['Valiance'].DT = sets.precast.JA['Vallation'].DT
     sets.precast.JA['Pflug'].DT = set_combine(sets.Enmity.DT,{feet="Runeist's Boots +1"})
     sets.precast.JA['Battuta'].DT = set_combine(sets.Enmity.DT,{head="Futhark Bandeau +1"})
@@ -176,7 +176,7 @@ function init_gear_sets()
     sets.precast.FC = {
 	    ammo="Impatiens",
 	    head="Rune. Bandeau +2",
-	    body="Runeist's Coat +2",
+	    body="Runeist's Coat +3",
 	    --body="Dread Jupon",
 	    hands="Leyline Gloves",
 	    legs="Aya. Cosciales +2",
@@ -290,7 +290,7 @@ function init_gear_sets()
     sets.idle = {
 	    ammo="Staunch Tathlum",
 	    head="Meghanada Visor +2",
-	    body="Runeist's Coat +2",
+	    body="Runeist's Coat +3",
 	    hands="Turms Mittens +1",
 	    legs="Turms Subligar",
 	    feet="Turms Leggings",
@@ -354,7 +354,7 @@ function init_gear_sets()
 	sets.defense.MDT = {
 		ammo="Staunch Tathlum",
 	    head="Erilaz Galea +1",
-	    body="Runeist's Coat +2",
+	    body="Runeist's Coat +3",
 	    hands="Erilaz Gauntlets +1",
 	    legs="Erilaz Leg Guards +1",
 	    feet="Erilaz Greaves +1",
@@ -374,7 +374,7 @@ function init_gear_sets()
 	    head="Runeist's Bandeau +2",
 	    neck="Warder's Charm +1",
 	    ear1="Odnowa Earring",
-	    body="Runeist's Coat +2",
+	    body="Runeist's Coat +3",
 	    hands="Erilaz Gauntlets +1",
 	    legs="Rune. Trousers +2",
 	    feet="Adhemar Gamashes",
@@ -710,6 +710,12 @@ function check_buffs()
 			return 200
 		elseif player.sub_job == 'DRK' and not buffactive['Last Resort'] and ability_recasts[87] == 0 then
 			windower.chat.input('/ja "Last Resort" <me>')
+			return 200
+		elseif not buffactive['Swordplay'] and ability_recasts[24] == 0 then
+			windower.chat.input('/ja "Swordplay" <me>')
+			return 200
+		elseif player.mpp < 70 and spell_recasts[109] == 0 then
+			windower.chat.input('/ma "Refresh" <me>')
 			return 200
 		else
 			add_to_chat(123,'All buffs applied.')

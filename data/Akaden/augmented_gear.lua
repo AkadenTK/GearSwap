@@ -97,8 +97,8 @@ augments.Adhemar.HQ = {
 }
 augmented_gear.Adhemar.Acc = {
     head={ name="Adhemar Bonnet", augments=augments.Adhemar.NQ.A},
-    body={ name="Adhemar Jacket", augments=augments.Adhemar.NQ.A},
-    hands={ name="Adhemar Wristbands", augments=augments.Adhemar.NQ.A},
+    body={ name="Adhemar Jacket +1", augments=augments.Adhemar.HQ.B},
+    hands={ name="Adhemar Wristbands +1", augments=augments.Adhemar.HQ.B},
 }
 augmented_gear.Adhemar.Atk = {
     head={ name="Adhemar Bonnet +1", augments=augments.Adhemar.HQ.B},

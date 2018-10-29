@@ -141,7 +141,7 @@ function init_gear_sets()
     sets.engaged.Acc = set_combine(sets.engaged, {
         head=augmented_gear.Adhemar.Acc.head,
         neck="Ej necklace",
-        ear2="Dignitary's earring",
+        ear2="Telos earring",
         body=augmented_gear.Adhemar.Acc.body,
         hands=augmented_gear.Adhemar.Acc.hands,
         waist="kentarch belt +1",
@@ -167,6 +167,20 @@ function init_gear_sets()
         waist="Flume Belt",
     })
 
+    sets.engaged.Acc.DTLite = set_combine(sets.engaged.Acc, {
+        head="Meghanada visor +2",
+        neck="Loricate Torque +1",
+        ring1="Defending ring",
+        waist="Flume Belt",        
+    })
+
+    sets.engaged.FullAcc.DTLite = set_combine(sets.engaged.FullAcc, {
+        head="Meghanada visor +2",
+        neck="Loricate Torque +1",
+        ring1="Defending ring",
+        waist="Flume Belt",        
+    })
+
     sets.engaged.DW = set_combine(sets.engaged, {})
     
     sets.engaged.DW.Acc = set_combine(sets.engaged.Acc, {})
@@ -177,9 +191,14 @@ function init_gear_sets()
 
     sets.engaged.DW.DTLite = set_combine(sets.engaged.DTLite, {})
 
+    sets.engaged.DW.Acc.DTLite = set_combine(sets.engaged.Acc.DTLite, {})
+
+    sets.engaged.DW.FullAcc.DTLite = set_combine(sets.engaged.FullAcc.DTLite, {})
+
     gear.CorsairShot = {}
     gear.CorsairShot.Augment = {feet="Chasseur's bottes +1",}
     sets.precast.CorsairShot = {
+        ammo=gear.MAbullet,
         head=augmented_gear.Herculean.WSD.MAB.head,
         neck="Baetyl pendant",
         ear1="Friomisi Earring",

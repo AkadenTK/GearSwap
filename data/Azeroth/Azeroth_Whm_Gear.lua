@@ -208,6 +208,7 @@ function init_gear_sets()
 	    }
 
 	sets.midcast.Cursna = set_combine(sets.midcast.StatusRemoval, {
+		neck="Malison medallion",
 		ring1="Ephedra ring",
 		ring2="Haoma's ring",
 		hands="Fanatic gloves",

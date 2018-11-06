@@ -74,7 +74,7 @@ function init_gear_sets()
     -- Precast sets to enhance JAs
     sets.precast.JA['Collaborator'] = {} --head="Skulker's Bonnet"
     sets.precast.JA['Accomplice'] = {} --head="Skulker's Bonnet"
-    sets.precast.JA['Flee'] = {} --feet="Pillager's Poulaines +1"
+    sets.precast.JA['Flee'] = {feet="Rogue's poulaines"} --feet="Pillager's Poulaines +1"
     sets.precast.JA['Hide'] = {} --body="Pillager's Vest +1"
     sets.precast.JA['Conspirator'] = {} --body="Skulker's Vest"
     sets.precast.JA['Steal'] = {hands="Pill. Armlets +1"}
@@ -117,9 +117,9 @@ function init_gear_sets()
         hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
         legs="Samnuha tights",
         feet={ name="Plun. Poulaines +1", augments={'Enhances "Assassin\'s Charge" effect',}},
-        neck="Agasaya's Collar",
+        neck="Anu torque",
         waist="Chiner's Belt +1",
-        left_ear="Brutal Earring",
+        left_ear="Sherida Earring",
         right_ear="Suppanomimi",
         left_ring="Epona's Ring",
         right_ring="Petrov Ring",

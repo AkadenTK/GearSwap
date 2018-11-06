@@ -81,7 +81,7 @@ function init_gear_sets()
     -- Precast sets to enhance JAs
 	
 	sets.precast.JA['Triple Shot'] = {body="Chasseur's Frac +1"}
-    sets.precast.JA['Snake Eye'] = {legs="Lanun trews +1"}
+    sets.precast.JA['Snake Eye'] = {legs="Lanun trews"}
     sets.precast.JA['Wild Card'] = {feet="Lanun Bottes +3"}
     sets.precast.JA['Random Deal'] = {body="Lanun Frac +3"}
     sets.precast.FoldDoubleBust = {hands="Lanun Gants +3"}
@@ -90,14 +90,13 @@ function init_gear_sets()
         head="Lanun Tricorne +1",
         neck="Regal necklace",
         hands="Chasseur's Gants +1",
-        back="Camulus's Mantle",
-        Ring2="Luzaf's Ring"}
+        back="Camulus's Mantle",}
 		
     sets.precast.LuzafRing = {ring2="Luzaf's Ring"}
     
     sets.precast.CorsairRoll["Caster's Roll"] = set_combine(sets.precast.CorsairRoll, {legs="Chas. Culottes +1"})
     sets.precast.CorsairRoll["Courser's Roll"] = set_combine(sets.precast.CorsairRoll, {feet="Chass. Bottes +1"})
-    sets.precast.CorsairRoll["Blitzer's Roll"] = set_combine(sets.precast.CorsairRoll, {head="Chass. Tricorne"})
+    sets.precast.CorsairRoll["Blitzer's Roll"] = set_combine(sets.precast.CorsairRoll, {head="Chass. Tricorne +1"})
     sets.precast.CorsairRoll["Tactician's Roll"] = set_combine(sets.precast.CorsairRoll, {body="Chasseur's Frac +1"})
     sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, {hands="Chasseur's Gants +1"})
     
@@ -528,8 +527,6 @@ function init_gear_sets()
     sets.defense.MEVA = set_combine(sets.idle, {})
 
     sets.Kiting = {legs="Carmine Cuisses +1"}
-	
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt"})
 	
 	sets.DWMax = {}
 

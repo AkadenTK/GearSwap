@@ -1113,7 +1113,11 @@ function filter_midcast(spell, spellMap, eventArgs)
 	
 	-- Default base equipment layer of fast recast, needs to come before job-midcast.
 	if spell.action_type == 'Magic' and sets.midcast and sets.midcast.FastRecast then
-		equip(sets.midcast.FastRecast)
+        if classes.CustomClass and sets.midcast.FastRecast[classes.CustomClass] then
+			equip(sets.midcast.FastRecast[classes.CustomClass])
+        else
+			equip(sets.midcast.FastRecast)
+		end
 	end
 end
 

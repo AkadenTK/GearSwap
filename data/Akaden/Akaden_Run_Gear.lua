@@ -173,27 +173,56 @@ function init_gear_sets()
 	sets.precast.JA['Violent Flourish'] = {}
 		
 	-- Fast cast sets for spells
-    sets.precast.FC = {
-	    ammo="Impatiens",
-	    head="Rune. Bandeau +2",
-	    body="Runeist's Coat +3",
-	    --body="Dread Jupon",
-	    hands="Leyline Gloves",
-	    legs="Aya. Cosciales +2",
-	    feet="Carmine greaves +1",
-	    neck="Baetyl Pendant",
-	    ear2="Odnowa Earring +1",
-	    waist="Kasiri Belt",
-	    ring1="Kishar Ring",
-	    ring2="Weatherspoon Ring",
-	    back=augmented_gear.capes.FC,
+    sets.precast.FC = {					
+    	-- fc 64%, occ. 5%, hp ~2650
+	    ammo="Impatiens",				-- occ. 2%
+	    head="Rune. Bandeau +2",		-- fc 12%
+	    body="Dread Jupon",				-- fc 7%
+	    hands="Leyline Gloves",			-- fc 8%
+	    legs="Aya. Cosciales +2",		-- fc 6%
+	    feet="Carmine greaves +1",		-- fc 8%
+	    neck="Baetyl Pendant",			-- fc 4%
+	    --ear1="Odnowa Earring",		-- hp 100
+	    --ear2="Odnowa Earring +1",		-- hp 110
+	    --waist="Kasiri Belt",			-- hp 30
+	    ring1="Kishar Ring",			-- fc 4%
+	    ring2="Weatherspoon Ring",		-- fc 5%, occ 3%
+	    back=augmented_gear.capes.FC,	-- fc 10%
 	}
 			
 	sets.precast.FC.DT = {}
 			
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash", legs="Futhark Trousers +1"})
+    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {
+    	waist="Siegel Sash", 
+    	legs="Futhark Trousers +1"})
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck='Magoraga beads', back="Mujin Mantle"})
 	sets.precast.FC.Cure = set_combine(sets.precast.FC, {})
+
+	sets.precast.FC.inspiration4 = { 
+		-- fc 35% +48% inspiration > 80%, occ 7%, hp ~2900
+	    ammo="Impatiens",				-- occ. 2%
+	    head="Rune. Bandeau +2",		-- fc 12%
+    	hands="Rawhide gloves",			-- sird 15%
+	    legs="Carmine cuisses +1",		-- sird 20%
+	    feet="Carmine greaves +1",		-- fc 8%
+		neck="Moonbeam Necklace",		-- sird 10%
+	    ring1="Lebeche ring",			-- occ. 2%
+	    ring2="Weatherspoon Ring",		-- fc 5%, occ 3%
+	    back=augmented_gear.capes.FC,	-- fc 10%
+	}
+    sets.precast.FC['Enhancing Magic'].inspiration4 = {
+    	-- fc 36% + 48% inspiration > 80%, occ 7%, hp ~2900
+	    ammo="Impatiens",				-- occ. 2%
+    	hands="Rawhide gloves",			-- sird 15%
+    	legs="Futhark Trousers +1", 	-- enh. fc 13%
+		neck="Moonbeam Necklace",		-- sird 10%
+	    ring1="Lebeche ring",			-- occ. 2%
+	    ring2="Weatherspoon Ring",		-- fc 5%, occ 3%
+    	waist="Siegel Sash", 			-- enh. fc 8%
+	    back=augmented_gear.capes.FC,	-- fc 10%
+    }
+    sets.precast.FC.Utsusemi.inspiration4 = set_combine(sets.precast.FC.inspiration4, {neck='Magoraga beads', back="Mujin Mantle"})
+	sets.precast.FC.Cure.inspiration4 = set_combine(sets.precast.FC.inspiration4, {})
 
 	-- Weaponskill sets
 	sets.precast.WS = {
@@ -255,10 +284,11 @@ function init_gear_sets()
 	--------------------------------------
 	
     sets.midcast.FastRecast = set_combine(sets.precast.FC, {})
+    sets.midcast.FastRecast.inspiration4 = set_combine(sets.precast.FC.inspiration4, {})
 			
 	sets.midcast.FastRecast.DT = set_combine(sets.midcast.FastRecast,{})
 
-    sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.FastRecast,{head="Erilaz Galea +1",neck="Incanter's Torque",ear1="Andoaa Earring",hands="Runeist's Mitons +1",back="Merciful Cape",waist="Olympus Sash",legs="Futhark Trousers +1"})
+    sets.midcast['Enhancing Magic'] = {head="Erilaz Galea +1",hands="Runeist Mitons +1",legs="Futhark Trousers +1"}
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{head="Futhark Bandeau +1",legs=augmented_gear.Herculean.Phalanx.legs,feet=gear.herculean_nuke_feet})
     sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'],{head="Rune. Bandeau +2"}) 
 	sets.midcast['Refresh'] = set_combine(sets.midcast['Enhancing Magic'],{head="Erilaz Galea +1"}) 
@@ -552,6 +582,36 @@ function user_job_precast(spell, spellMap, eventArgs)
 		end
 	end
 end
+
+--function user_job_precast(spell, spellMap, eventArgs)
+--	just_cast_val = nil
+--	if (spell.en == "Valiance" or spell.en == "Vallation") and player.merits.inspiration > 0 then
+--		add_to_chat(123,"precast: "..spell.en.." inspiration: "..player.merits.inspiration)
+--		just_cast_val = {spell= spell.en, fc= player.merits.inspiration}
+--	elseif spell.type:lower():contains('magic') and state.fc then
+--		add_to_chat(123,"Equipping inspiration FC set")
+--		classes.CustomClass = 'inspiration'..state.fc
+--	end
+--end
+--
+--function user_job_buff_change(buff, gain)
+--	if buff == "Fast Cast"  then
+--		if gain then
+--			add_to_chat(123,"Gained buff: Fast Cast")
+--			if just_cast_val then
+--				add_to_chat(123,"Inspiration level = ".. just_cast_val.fc)
+--				state.fc = just_cast_val.fc
+--			else
+--				add_to_chat(123,"Unknown inspiration")
+--				just_cast_val = nil
+--				state.fc = 3
+--			end
+--		else
+--			add_to_chat(123,"Lost buff: Fast Cast")
+--			state.fc = nil
+--		end
+--	end
+--end
 
 function is_rune_active()
 	for _,r in pairs(elements.rune_of) do

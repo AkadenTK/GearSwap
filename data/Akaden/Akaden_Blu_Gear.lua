@@ -186,7 +186,7 @@ function init_gear_sets()
         head=augmented_gear.Adhemar.Atk.head,
         body="Abnoba Kaftan",
         neck="Fotia Gorget",
-        ear2="Brutal Earring",
+        ear2="Mache Earring +1",
         hands=augmented_gear.Adhemar.Atk.hands,
         back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20', 'DEX+10','Crit.hit rate+10',}},
         waist="Fotia Belt",

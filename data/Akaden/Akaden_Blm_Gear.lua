@@ -73,7 +73,7 @@ function init_gear_sets()
         head="Goetia Petasos +2",
         ear="Barkarole earring",
         neck="Stoicheion Medal",
-        hands="MAllquis cuffs +1"})
+        hands="Mallquis cuffs +1"})
 
 	sets.precast.FC.Cure = set_combine(sets.precast.FC, {})
 

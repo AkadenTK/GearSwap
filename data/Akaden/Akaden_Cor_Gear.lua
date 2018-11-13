@@ -111,7 +111,7 @@ function init_gear_sets()
         ear1="Ethereal Earring",
         ring1="Warden's Ring",
         ring2="Yacuruna Ring",
-        back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},    
+        back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},    
     }    
 
     -- Engaged sets
@@ -131,7 +131,7 @@ function init_gear_sets()
         hands=augmented_gear.Adhemar.Atk.hands,
         ring1="Ilabrat ring",
         ring2="Epona's ring",
-        back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+        back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
         waist="Windbuffet belt +1",
         legs="Samnuha tights",
         feet=augmented_gear.Herculean.TA.feet,
@@ -486,9 +486,9 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = set_combine(sets.engaged, {
         head="Meghanada visor +2",
-        body="Laksamana's frac +3",
-        --hands=augmented_gear.Herculean.Refresh.hands,
-        legs="Meg. Chausses +1",
+        body="Lanun frac +3",
+        hands="Meghanada Gloves +2",
+        legs="Meg. Chausses +2",
         feet="Lanun Bottes +3",
         neck="Loricate Torque +1",
         waist="Flume Belt",
@@ -500,9 +500,6 @@ function init_gear_sets()
 
     sets.idle.Town = set_combine(sets.idle, {
         neck="Regal Necklace", 
-        hands="Carmine Finger Gauntlets +1",
-        ring1="Ilabrat ring",
-        waist="Yemaya belt",
         legs="Carmine Cuisses +1"})
     
     -- Defense sets

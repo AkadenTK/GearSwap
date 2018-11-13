@@ -56,8 +56,9 @@ function init_gear_sets()
     sets.Enmity = {
 	    head="Halitus Helm",
 	    neck="Moonbeam Necklace",
-	    body="Emet Harness +1",
-	    hands="Futhark Mitons",
+	    --body="Emet Harness +1",
+	    body="Runeist's Coat +3",
+	    hands="Kurys gloves",
 	    waist="Kasiri Belt",
 	    legs="Erilaz Leg Guards +1",
 	    feet="Rager Ledel. +1",

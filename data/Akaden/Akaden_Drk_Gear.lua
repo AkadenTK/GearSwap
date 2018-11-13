@@ -99,6 +99,7 @@ function init_gear_sets()
 	    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
 	    neck="Erra Pendant",
 	    ring1="Stikini Ring",
+	    ring2="Kishar ring",
 	    back={ name="Niht Mantle", augments={'Attack+14','Dark magic skill +6','"Drain" and "Aspir" potency +24',}},
 	    feet="Ratri Sollerets",
 	})
@@ -220,8 +221,10 @@ function init_gear_sets()
     sets.precast.WS['Resolution'].Fodder = set_combine(sets.precast.WS.Fodder, {})     
      
     sets.precast.WS['Cross Reaper'] = set_combine(sets.precast.WS, {
-    	feet="Flamma gambieras +2",
-    	back={ name="Ankou's Mantle", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}},
+    	head="Ratri Sallet",
+    	hands="Ratri Gadlings",
+    	ear2="Ishvara earring",
+        back={ name="Ankou's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}},
 	})
     sets.precast.WS['Cross Reaper'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {})
     sets.precast.WS['Cross Reaper'].Acc = set_combine(sets.precast.WS.Acc, {})
@@ -252,7 +255,7 @@ function init_gear_sets()
 	    ear2="Brutal Earring",
 	    ring1="Niqmaddu Ring",
 	    ring2="Flamma Ring",
-	    back={ name="Ankou's Mantle", augments={'DEX+20','Accuracy+20 Attack+20', 'Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+    	back={ name="Ankou's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
 	}
 	sets.engaged.Acc = set_combine(sets.engaged,{
 		neck="Lissome Necklace",
@@ -266,7 +269,7 @@ function init_gear_sets()
     sets.engaged.DTLite = set_combine(sets.engaged, {
     	head="Sulevia's Mask +2",
     	neck="Loricate Torque",
-	    legs="Sulevi. Cuisses +1",
+	    legs="Sulev. Cuisses +2",
 	    ring1="Defending Ring",
 	})
 
@@ -279,7 +282,7 @@ function init_gear_sets()
 	    head="Sulevia's Mask +2",
 	    body="Sulevia's Plate. +1",
 	    hands="Sulev. Gauntlets +2",
-	    legs="Sulevi. Cuisses +1",
+	    legs="Sulev. Cuisses +2",
 	    feet="Sulev. Leggings +2",
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
@@ -296,8 +299,12 @@ function init_gear_sets()
     	head=empty,
     	neck="Coatl gorget +1",
     	body="Lugra Cloak +1",
+    	hands="Sulev. Gauntlets +2",
 	    ring1="Defending Ring",
 	    ring2="Paguroidea ring",
+	    waist="Flume Belt",
+	    legs="Sulev. Cuisses +2",
+	    feet="Sulev. Leggings +2",
     	})
 		
     sets.idle.PDT = {
@@ -305,7 +312,7 @@ function init_gear_sets()
 	    head="Sulevia's Mask +2",
 	    body="Sulevia's Plate. +1",
 	    hands="Sulev. Gauntlets +2",
-	    legs="Sulevi. Cuisses +1",
+	    legs="Sulev. Cuisses +2",
 	    feet="Sulev. Leggings +2",
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
@@ -325,7 +332,7 @@ function init_gear_sets()
 	    head="Sulevia's Mask +2",
 	    body="Sulevia's Plate. +1",
 	    hands="Sulev. Gauntlets +2",
-	    legs="Sulevi. Cuisses +1",
+	    legs="Sulev. Cuisses +2",
 	    feet="Sulev. Leggings +2",
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
@@ -342,7 +349,7 @@ function init_gear_sets()
 	    head="Sulevia's Mask +2",
 	    body="Sulevia's Plate. +1",
 	    hands="Sulev. Gauntlets +2",
-	    legs="Sulevi. Cuisses +1",
+	    legs="Sulev. Cuisses +2",
 	    feet="Sulev. Leggings +2",
 	    neck="Loricate Torque",
 	    waist="Flume Belt",

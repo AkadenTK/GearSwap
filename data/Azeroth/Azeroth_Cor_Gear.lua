@@ -20,7 +20,7 @@ function user_setup()
 
     gear.RAbullet = "Adlivun Bullet"
     gear.WSbullet = "Adlivun Bullet"
-    gear.MAbullet = "Orichalcum Bullet" --For MAB WS, do not put single-use bullets here.
+    gear.MAbullet = "Orichalc. Bullet" --For MAB WS, do not put single-use bullets here.
     gear.QDbullet = "Animikii Bullet"
     options.ammo_warning_limit = 15
 
@@ -186,6 +186,8 @@ function init_gear_sets()
         hands="Meghanada gloves +2",
         legs=augmented_gear.Herculean.WSD.STR.legs,
         feet=augmented_gear.Herculean.WSD.STR.feet,
+        neck="Fotia Gorget",
+        waist="Fotia belt",
         ear1="Moonshade earring",
         ear2="Ishvara earring",
         ring2="Karieyh ring",
@@ -212,7 +214,7 @@ function init_gear_sets()
         ammo=gear.MABullet,
         head="Pixie Hairpin +1",
         body="Samnuha coat",
-        hands="Meghanada gloves +2",
+        hands="Carmine Finger Gauntlets +1",
         legs=augmented_gear.Herculean.WSD.MAB.legs,
         feet=augmented_gear.Herculean.WSD.MAB.feet,
         neck="Stoicheion medal",
@@ -344,7 +346,6 @@ function user_job_post_precast(spell, spellMap, eventArgs)
 end
 
 function user_job_buff_change(buff, gain)
-    check_weakness()
     if gain and buff == "Bust" and state.LastRoll ~= nil then
         lastRoll = state.LastRoll
         state.LastRoll = nil
@@ -357,20 +358,7 @@ function user_job_buff_change(buff, gain)
         add_to_chat(123,'Auto-canceled Aurorastorm')
     end
 end
-function check_weakness()
-    if buffactive["Weakness"] then
-        equip(sets.buff["Weakness"])
-        for slot, piece in pairs(sets.buff['Weakness']) do
-            disable(slot)
-        end
-    else
-        for slot, piece in pairs(sets.buff['Weakness']) do
-            enable(slot)
-        end
-    end
-end
 
 windower.register_event('zone change', function()
     state.LastRoll = nil
-    check_weakness()
 end)

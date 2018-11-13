@@ -30,7 +30,7 @@ augmented_gear.Merlinic.Accuracy = {
 }
 augmented_gear.Herculean = {}
 augmented_gear.Herculean.Refresh = {
-    hands={ name="Herculean Gloves", augments={'CHR+3','STR+1','"Refresh"+1',}},
+    legs={ name="Herculean Trousers", augments={'Weapon skill damage +2%','"Store TP"+3','"Refresh"+2','Mag. Acc.+10 "Mag.Atk.Bns."+10',}},
     feet={ name="Herculean Boots", augments={'Attack+10','Weapon skill damage +2%','"Refresh"+2','Mag. Acc.+9 "Mag.Atk.Bns."+9',}},
 }
 

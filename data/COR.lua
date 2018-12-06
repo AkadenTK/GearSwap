@@ -39,6 +39,8 @@ function job_setup()
 	ammostock = 198
 
     define_roll_values()
+
+    sets.Compensator = {range="Compensator"}
 	
 	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","RngHelper","AutoStunMode","AutoDefenseMode","LuzafRing","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","RangedMode","WeaponskillMode","ElementalMode","IdleMode","Passive","RuneElement","CompensatorMode","TreasureMode",})
 end
@@ -51,7 +53,17 @@ end
 -- Set eventArgs.useMidcastGear to true if we want midcast gear equipped on precast.
 
 function job_filtered_action(spell, eventArgs)
-
+    if spell.type == 'WeaponSkill' then
+        local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+        -- WS 160 is Shining Strike, meaning a club is equipped.
+        if available_ws:contains(16) then
+            if spell.english == "Savage Blade" then
+                send_command('@input /ws "Evisceration" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            end
+        end
+    end
 end
 
 function job_pretarget(spell, spellMap, eventArgs)
@@ -124,13 +136,21 @@ function job_aftercast(spell, spellMap, eventArgs)
     if spell.type == 'CorsairRoll' and not spell.interrupted then
 		if state.CompensatorMode.value ~= 'Never' then
 			if player.equipment.range and player.equipment.range == 'Compensator' and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].range and sets.weapons[state.Weapons.value].range ~= 'Compensator' then
-				enable('range')
-				equip({range=sets.weapons[state.Weapons.value].range})
-				disable('range')
+				for slot,piece in pairs(sets.Compensator) do
+                    enable(slot)
+                    local s = {}
+                    s[slot] = sets.weapons[state.Weapons.Value][slot]
+                    equip(s)
+                    disable(slot)
+                end
 			elseif player.equipment.ranged and player.equipment.ranged == 'Compensator' and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].ranged and sets.weapons[state.Weapons.value].ranged ~= 'Compensator' then
-				enable('ranged')
-				equip({range=sets.weapons[state.Weapons.value].ranged})
-				disable('ranged')
+				for slot,piece in pairs(sets.Compensator) do
+                    enable(slot)
+                    local s = {}
+                    s[slot] = sets.weapons[state.Weapons.Value][slot]
+                    equip(s)
+                    disable(slot)
+                end
 			end
 		end
         display_roll_info(spell)
@@ -202,8 +222,12 @@ function job_post_precast(spell, spellMap, eventArgs)
 			equip(sets.precast.LuzafRing)
 		end
 		if spell.type == 'CorsairRoll' and item_available("Compensator") and state.CompensatorMode.value ~= 'Never' and (state.CompensatorMode.value == 'Always' or tonumber(state.CompensatorMode.value) > player.tp) then
-			enable('range')
-			equip({range="Compensator"})
+			for slot,piece in pairs(sets.Compensator) do
+                enable(slot)
+                local s = {}
+                s[slot] = piece
+                equip(s)
+            end
 		end
     elseif spell.english == 'Fold' and buffactive['Bust'] == 2 and sets.precast.FoldDoubleBust then
 		equip(sets.precast.FoldDoubleBust)

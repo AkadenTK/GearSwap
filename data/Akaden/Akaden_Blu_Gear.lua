@@ -621,7 +621,7 @@ function init_gear_sets()
             head="Rawhide mask",
             neck="Loricate Torque +1",
             body="Shamash robe",
-			hands="Assimilator's Bazubands +3",
+			hands=augmented_gear.Herculean.Refresh.hands,
             ring1="Defending ring",
             ring2="Paguroidea ring",
 			legs=augmented_gear.Herculean.Refresh.legs,

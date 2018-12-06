@@ -30,6 +30,7 @@ augmented_gear.Merlinic.Accuracy = {
 }
 augmented_gear.Herculean = {}
 augmented_gear.Herculean.Refresh = {
+    hands={ name="Herculean Gloves", augments={'CHR+3','STR+1','"Refresh"+1',}},
     legs={ name="Herculean Trousers", augments={'Weapon skill damage +2%','"Store TP"+3','"Refresh"+2','Mag. Acc.+10 "Mag.Atk.Bns."+10',}},
     feet={ name="Herculean Boots", augments={'Attack+10','Weapon skill damage +2%','"Refresh"+2','Mag. Acc.+9 "Mag.Atk.Bns."+9',}},
 }
@@ -111,7 +112,7 @@ augmented_gear.Adhemar.Rng = {
     feet={ name="Adhemar gamashes", augments=augments.Adhemar.NQ.D},
 }
 augmented_gear.Adhemar.D = {
-    legs={ name="Adhemar Kecks", augments={'AGI+10','"Rapid Shot"+10','Enmity-5',}}, 
+    legs={ name="Adhemar Kecks +1", augments={'AGI+12','"Rapid Shot"+13','Enmity-6',}}, 
     feet={ name="Adhemar Gamashes", augments={'HP+50','"Store TP"+6','"Snapshot"+8',}},
 }
 augmented_gear.Lustratio = {}

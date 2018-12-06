@@ -49,7 +49,7 @@ function init_gear_sets()
     	STP_PDT={ name="Ogma's cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}},
     	Tank={ name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
     	DA_STR={ name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
-    	WSD_DEX={ name="Ogma's cape", augments={'DEX+20','Accuracy+20 Attack+20', 'DEX+10','Weapon skill damage +10','Phys. dmg. taken-10%',}},
+    	WSD_DEX={ name="Ogma's cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+5','Weapon skill damage +10%',}},
     	FC={ name="Ogma's cape", augments={'HP+60','HP+20','"Fast Cast"+10',}}
 	}
 
@@ -177,8 +177,9 @@ function init_gear_sets()
     sets.precast.FC = {					
     	-- fc 64%, occ. 5%, hp ~2650
 	    ammo="Impatiens",				-- occ. 2%
-	    head="Rune. Bandeau +2",		-- fc 12%
-	    body="Dread Jupon",				-- fc 7%
+	    head="Rune. Bandeau +3",		-- fc 12%
+	    --body="Dread Jupon",				-- fc 7%
+	    body="Runeist's coat +3",
 	    hands="Leyline Gloves",			-- fc 8%
 	    legs="Aya. Cosciales +2",		-- fc 6%
 	    feet="Carmine greaves +1",		-- fc 8%
@@ -202,7 +203,7 @@ function init_gear_sets()
 	sets.precast.FC.inspiration4 = { 
 		-- fc 35% +48% inspiration > 80%, occ 7%, hp ~2900
 	    ammo="Impatiens",				-- occ. 2%
-	    head="Rune. Bandeau +2",		-- fc 12%
+	    head="Rune. Bandeau +3",		-- fc 12%
     	hands="Rawhide gloves",			-- sird 15%
 	    legs="Carmine cuisses +1",		-- sird 20%
 	    feet="Carmine greaves +1",		-- fc 8%
@@ -245,13 +246,16 @@ function init_gear_sets()
 	sets.precast.WS.FullAcc = set_combine(sets.precast.WS,{})
 
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
-    	head=augmented_gear.Lustratio.STR.head,
-    	body=augmented_gear.Lustratio.STR.body,
+        head=augmented_gear.Adhemar.Atk.head,
+        body=augmented_gear.Adhemar.Atk.body,
+        hands=augmented_gear.Adhemar.Atk.hands,
     	legs="Samnuha Tights",
     	ring2="Niqmaddu ring",
     	back=augmented_gear.capes.DA_STR,
     	})
-    sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'],{})
+    sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'],{
+    	head="Rune. Bandeau +3",
+    	})
 	sets.precast.WS['Resolution'].FullAcc = set_combine(sets.precast.WS['Resolution'].Acc,{})
 
     sets.precast.WS['Dimidiation'] = set_combine(sets.precast.WS, {
@@ -259,7 +263,7 @@ function init_gear_sets()
     	ear2="Moonshade Earring",
     	ring1="Ilabrat ring",
     	ring2="Regal Ring",
-    	back="Kayapa cape",
+    	back=augmented_gear.capes.WSD_DEX,
     	legs="Lustratio Subligar",
     })
     sets.precast.WS['Dimidiation'].Tank = set_combine(sets.precast.WS['Dimidiation'], {
@@ -291,7 +295,7 @@ function init_gear_sets()
 
     sets.midcast['Enhancing Magic'] = {head="Erilaz Galea +1",hands="Runeist Mitons +1",legs="Futhark Trousers +1"}
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{head="Futhark Bandeau +1",legs=augmented_gear.Herculean.Phalanx.legs,feet=gear.herculean_nuke_feet})
-    sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'],{head="Rune. Bandeau +2"}) 
+    sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'],{head="Rune. Bandeau +3"}) 
 	sets.midcast['Refresh'] = set_combine(sets.midcast['Enhancing Magic'],{head="Erilaz Galea +1"}) 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {ear2="Earthcry Earring",waist="Siegel Sash"})
 	sets.midcast.Flash = set_combine(sets.Enmity, {})
@@ -311,6 +315,7 @@ function init_gear_sets()
 	
     sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
     sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
+    
 
 	--------------------------------------
 	-- Idle/resting/defense/etc sets
@@ -318,20 +323,20 @@ function init_gear_sets()
 
 	sets.resting = {}
 
-    sets.idle = {
+    sets.idle = set_combine(sets.engaged, {
 	    ammo="Staunch Tathlum",
 	    head="Meghanada Visor +2",
-	    body="Runeist's Coat +3",
+	    --body="Runeist's Coat +3",
 	    hands="Turms Mittens +1",
 	    legs="Turms Subligar",
 	    feet="Turms Leggings",
 	    neck="Sanctity Necklace",
 	    waist="Flume Belt",
-	    ear1="Odnowa Earring",
-	    ear2="Odnowa Earring +1",
+	    --ear1="Odnowa Earring",
+	    --ear2="Odnowa Earring +1",
 	    ring1="Defending Ring",
 	    ring2="Moonbeam Ring",
-	    back=augmented_gear.capes.Tank,}
+	    back=augmented_gear.capes.Tank,})
 		
     sets.idle.Sphere = set_combine(sets.idle,{body="Mekosu. Harness"})
 			
@@ -427,15 +432,14 @@ function init_gear_sets()
 	--------------------------------------
 
     sets.engaged = {
-    	sub="Utu Grip",
-	    ammo="Yamarang",
+    	ammo="Ginsen",
         head=augmented_gear.Adhemar.Atk.head,
 	    neck="Anu Torque",
 	    ear1="Sherida Earring",
 	    ear2="Brutal Earring",
         body=augmented_gear.Adhemar.Atk.body,
     	hands=augmented_gear.Adhemar.Atk.hands,
-	    ring1="Ilabrat Ring",
+	    ring1="Niqmaddu Ring",
 	    ring2="Epona's Ring",
 	    legs="Samnuha Tights",
     	feet=augmented_gear.Herculean.TA.feet,
@@ -443,16 +447,16 @@ function init_gear_sets()
 	    back=augmented_gear.capes.STP_PDT,
 	}
 	sets.engaged.Acc = set_combine(sets.engaged, {
+	    ammo="Yamarang",
 	    head="Aya. Zucchetto +2",
+    	waist="Kentarch belt +1",
 		ear2="Telos earring",
 	})
 	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
-		ammo="Falcon eye",
 		neck="Lissome Necklace",
 		ear1="Dignitary's earring",
 	    body="Ayanmo Corazza +2",
-    	ring2="Ayanmo ring",
-    	waist="Eschan stone",
+    	ring1="Cacoethic ring +1",
     	legs="Ayanmo cosciales +2",
 	})
     sets.engaged.DTLite = set_combine(sets.engaged, {

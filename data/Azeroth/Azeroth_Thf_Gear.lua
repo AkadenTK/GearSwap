@@ -34,6 +34,8 @@ end
 
 -- Define sets and vars used by this job file.
 function init_gear_sets()
+
+    include('augmented_gear.lua')
     --------------------------------------
     -- Special sets (required by rules)
     --------------------------------------
@@ -156,10 +158,11 @@ function init_gear_sets()
 	sets.precast.WS.FullAcc = set_combine(sets.precast.WS, {})
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
-    sets.precast.WS["Rudra's Storm"] = set_combine(sets.precast.WS, {
+    sets.precast.WS['Rudra\'s Storm'] = set_combine(sets.precast.WS, {
         ammo="Jukukik feather",
         ring1="Ramuh ring",
         waist="Artful belt +1",
+        legs=augmented_gear.Herculean.WSD.STR.legs,
         feet="Lustratio Leggings",
     })
     sets.precast.WS["Rudra's Storm"].Acc = set_combine(sets.precast.WS["Rudra's Storm"], {})

@@ -20,7 +20,7 @@ function user_setup()
 
     gear.RAbullet = "Adlivun Bullet"
     gear.WSbullet = "Adlivun Bullet"
-    gear.MAbullet = "Orichalc. Bullet" --For MAB WS, do not put single-use bullets here.
+    gear.MAbullet = "Orichalcum bullet" --For MAB WS, do not put single-use bullets here.
     gear.QDbullet = "Animikii Bullet"
     options.ammo_warning_limit = 15
 
@@ -63,8 +63,8 @@ function init_gear_sets()
     include('augmented_gear.lua')
     augmented_gear.capes={
         stp={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}},
-        str_wsd={},
-        mab_wsd={},
+        str_wsd={ name="Camulus's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}},
+        mab_wsd={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','Weapon skill damage +10%',}},
     }
     --------------------------------------
     -- Start defining the sets
@@ -125,7 +125,7 @@ function init_gear_sets()
     } 
     sets.engaged.Acc = set_combine(sets.engaged, {
         head="Meghanada visor +1",
-        legs="Meghanada chausses +1"
+        legs="Meghanada chausses +2"
     })
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {})
     sets.engaged.Crits = set_combine(sets.engaged.FullAcc, {})
@@ -182,7 +182,7 @@ function init_gear_sets()
 	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.engaged, {
         head="Meghanada visor +1",
-        body="Meghanada curie +1",
+        body="Lak. Frac +2",
         hands="Meghanada gloves +2",
         legs=augmented_gear.Herculean.WSD.STR.legs,
         feet=augmented_gear.Herculean.WSD.STR.feet,
@@ -191,6 +191,7 @@ function init_gear_sets()
         ear1="Moonshade earring",
         ear2="Ishvara earring",
         ring2="Karieyh ring",
+        back=augmented_gear.capes.str_wsd,
     })
     sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast['Savage Blade'], {})
     sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS['Savage Blade'].Acc, {})
@@ -211,7 +212,6 @@ function init_gear_sets()
     sets.precast.WS['Split Shot'].Acc = set_combine(sets.precast.WS['Last Stand'].Acc, {})
 	
     sets.precast.WS['Leaden Salute'] = {   
-        ammo=gear.MABullet,
         head="Pixie Hairpin +1",
         body="Samnuha coat",
         hands="Carmine Finger Gauntlets +1",
@@ -222,7 +222,9 @@ function init_gear_sets()
         ear2="Friomisi earring",   
         ring1="Acumen ring",  
         ring2="Karieyh ring",
-        waist="Sveltesse gouriz"
+        waist="Sveltesse gouriz",
+        back=augmented_gear.capes.mab_wsd,
+        ammo=gear.MABullet,
     }
     sets.precast.WS['Leaden Salute'].Acc = set_combine(sets.precast.WS['Leaden Salute'],{})
     sets.precast.WS['Leaden Salute'].FullAcc = set_combine(sets.precast.WS['Leaden Salute'], {})

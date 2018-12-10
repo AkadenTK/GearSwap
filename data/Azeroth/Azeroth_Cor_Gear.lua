@@ -91,6 +91,7 @@ function init_gear_sets()
         --neck="Regal necklace",
         hands="Chasseur's Gants +1",
         back="Camulus's Mantle",
+        legs="Desultor Tassets",
         ring1="Barataria ring"}
 		
     sets.precast.LuzafRing = {ring2="Luzaf's Ring"}

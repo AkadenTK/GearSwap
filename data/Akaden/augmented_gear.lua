@@ -107,7 +107,7 @@ augmented_gear.Adhemar.Atk = {
     hands={ name="Adhemar Wristbands +1", augments=augments.Adhemar.HQ.B},
 }
 augmented_gear.Adhemar.Rng = {
-    hands={ name="Adhemar Wristbands", augments=augments.Adhemar.NQ.C},
+    hands={ name="Adhemar Wristbands +1", augments=augments.Adhemar.HQ.C},
     legs={ name="Adhemar Kecks", augments=augments.Adhemar.NQ.C},
     feet={ name="Adhemar gamashes", augments=augments.Adhemar.NQ.D},
 }

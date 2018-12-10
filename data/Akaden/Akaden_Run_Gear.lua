@@ -293,7 +293,7 @@ function init_gear_sets()
 			
 	sets.midcast.FastRecast.DT = set_combine(sets.midcast.FastRecast,{})
 
-    sets.midcast['Enhancing Magic'] = {head="Erilaz Galea +1",hands="Runeist Mitons +1",legs="Futhark Trousers +1"}
+    sets.midcast['Enhancing Magic'] = {head="Erilaz Galea +1",hands="Regal Gauntlets",legs="Futhark Trousers +1"}
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{head="Futhark Bandeau +1",legs=augmented_gear.Herculean.Phalanx.legs,feet=gear.herculean_nuke_feet})
     sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'],{head="Rune. Bandeau +3"}) 
 	sets.midcast['Refresh'] = set_combine(sets.midcast['Enhancing Magic'],{head="Erilaz Galea +1"}) 
@@ -315,7 +315,7 @@ function init_gear_sets()
 	
     sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
     sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
-    
+
 
 	--------------------------------------
 	-- Idle/resting/defense/etc sets
@@ -327,7 +327,7 @@ function init_gear_sets()
 	    ammo="Staunch Tathlum",
 	    head="Meghanada Visor +2",
 	    --body="Runeist's Coat +3",
-	    hands="Turms Mittens +1",
+	    hands="Regal Gauntlets",
 	    legs="Turms Subligar",
 	    feet="Turms Leggings",
 	    neck="Sanctity Necklace",

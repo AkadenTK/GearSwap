@@ -102,6 +102,7 @@ function init_gear_sets()
         head="Lanun Tricorne +3",
         neck="Regal necklace",
         hands="Chasseur's Gants +1",
+        legs="Desultor Tassets",
         back="Camulus's Mantle",}
 		
     sets.precast.LuzafRing = {ring2="Luzaf's Ring"}
@@ -232,7 +233,8 @@ function init_gear_sets()
     sets.precast.CorsairShot = {
         ammo=gear.MAbullet,
         head=augmented_gear.Herculean.WSD.MAB.head,
-        neck="Baetyl pendant",
+        --neck="Baetyl pendant",
+        neck="Commodore charm +2",
         ear1="Friomisi Earring",
         ear2="Hecate's Earring",
         body="Lanun Frac +3",
@@ -244,12 +246,12 @@ function init_gear_sets()
         legs=augmented_gear.Herculean.WSD.MAB.legs,
         feet="Lunan bottes +3",
     }
-    sets.precast.CorsairShot.StoreTP = set_combine(sets.precast.CorsairShot,{ -- 59 STP
+    sets.precast.CorsairShot.StoreTP = set_combine(sets.precast.CorsairShot,{ -- 68 STP + 25 TP
         neck="Iskur Gorget", --8
         ear1="Dedition earring", --8
         ear2="Telos Earring", -- 5
-        body="Oshosi Vest", -- 7
-        hands="Adhemar Wristbands +1", -- 7
+        body="Oshosi Vest +1", -- 7
+        hands="Schutzen mittens", -- 25 TP
         ring1="Ilabrat Ring", -- 5
         ring2="Petrov Ring", -- 5
         waist="Kentarch belt +1",  -- 1-5
@@ -261,10 +263,11 @@ function init_gear_sets()
 
     sets.precast.CorsairShot.Acc =  set_combine(sets.precast.CorsairShot, {
         head="Laksamana's Tricorne +2",
-        neck="Sanctity necklace",
+        --neck="Sanctity necklace",
+        neck="Commodore charm +2",
         ear1="Dignitary's earring",
         ear2="Hermetic earring",
-        body="Mummu jacket +2",
+        body="Oshosi Vest +1",
         hands="Laksa. gants +2",
         ring1="Stikini ring",
         ring2="Regal ring",
@@ -306,12 +309,12 @@ function init_gear_sets()
 	
 	sets.precast.FC.Cure = set_combine(sets.precast.FC, {})
 
-    sets.precast.RA = { -- s67 r68
+    sets.precast.RA = { -- s69 r68
         ammo=gear.RAbullet,
         --head={ name="Taeon Chapeau", augments={'Accuracy+14 Attack+14','"Snapshot"+5','"Snapshot"+5',}}, -- s10
         head='Chass. Tricorne +1', -- r14
         neck='Commodore Charm +2', -- s4
-        body="Oshosi Vest", --s12
+        body="Oshosi Vest +1", --s14
         hands="Carmine Fin. Ga. +1", -- s8 r11
         back=augmented_gear.capes.snapshot, -- s10
         waist="Impulse belt", -- s3
@@ -423,7 +426,8 @@ function init_gear_sets()
         hands="Carmine Finger Gauntlets +1",
         legs=augmented_gear.Herculean.WSD.MAB.legs,
         feet="Lanun Bottes +3",
-        neck="Baetyl pendant",
+        --neck="Baetyl pendant",
+        neck="Commodore charm +2",
         waist="Svelt. Gouriz +1",
         ear1="Friomisi Earring",
         ear2="Moonshade Earring",
@@ -479,7 +483,7 @@ function init_gear_sets()
         ear2="Telos earring",
         ear1="Dedition earring",
         neck="Iskur Gorget",
-        body="Oshosi vest",
+        body="Oshosi Vest +1",
         hands=augmented_gear.Adhemar.Rng.hands,
         ring1="Ilabrat ring",
         ring2="Cacoethic ring +1",
@@ -491,8 +495,6 @@ function init_gear_sets()
 
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA,{
         ear1="Volley Earring",
-        body="Laksamana's frac +3",
-        ring2="Regal Ring",
         feet="Meg. Jam. +2"
     })
 
@@ -507,8 +509,10 @@ function init_gear_sets()
     })
 
     sets.midcast.RA.FullAcc = set_combine(sets.midcast.RA.Acc,{
+        body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
         ring1="Cacoethic ring +1",
+        ring2="Regal Ring",
         waist="Kwahu Kachina belt",
         legs="Meg. Chausses +2",
     })

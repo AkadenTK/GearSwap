@@ -25,11 +25,11 @@ end
 
 function init_gear_sets()
     include('augmented_gear.lua')
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands, feet=augmented_gear.Herculean.TH.feet})
 	sets.engaged = {
 		ammo="Staunch tathlum",
 	    head={ name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
-	    body={ name="Adhemar Jacket", augments={'DEX+10','AGI+10','Accuracy+15',}},
+	    body={ name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',},},
 	    hands={ name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
 	    legs={ name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
 	    feet={ name="Herculean Boots", augments={'Accuracy+28','"Triple Atk."+4','STR+3',}},

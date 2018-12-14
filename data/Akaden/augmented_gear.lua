@@ -132,3 +132,12 @@ augmented_gear.Lustratio.STR = {
 augmented_gear.Lustratio.DEX = {
     legs={ name="Lustratio Subligar", augments=augments.Lustratio.NQ.B},
 }
+
+augmented_gear.Ryuo = {}
+augments.Ryuo = {}
+augments.Ryuo.NQ = {
+    A={'STR+10','DEX+10','Accuracy+15',},
+}
+augmented_gear.Ryuo.STR = {
+    hands={ name="Ryuo Tekko", augments=augments.Ryuo.NQ.A},
+}

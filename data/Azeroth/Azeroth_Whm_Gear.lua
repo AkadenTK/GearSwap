@@ -308,6 +308,7 @@ function init_gear_sets()
 		neck="Twilight Torque",
 		body="Piety Briault +1", 
 		hands="Inyanga Dastanas +2",
+		ring1="Defending Ring",
 		ring2="Inyanga ring",
 		back="Alaunus's cape",
 		legs="Assiduity pants +1",

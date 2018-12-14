@@ -281,7 +281,7 @@ function init_gear_sets()
 
     sets.Kiting = {legs="Carmine Cuisses +1"}
 
-    sets.idle = set_combine(sets.engaged, {})		
+    sets.idle = set_combine(sets.engaged, {ring1="Defending Ring"})		
     sets.idle.Refresh = set_combine(sets.idle, {})
     sets.idle.Town = set_combine(sets.idle, sets.Kiting, {})
     

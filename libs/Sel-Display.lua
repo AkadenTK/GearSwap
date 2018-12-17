@@ -147,6 +147,7 @@ function update_job_states()
 		PetWSGear = "PetWSGear",
 		DanceStance = "DanceStance",
 		Stance = "Stance",
+		Impetus = "Impetus",
     }
 
     stateBox:clear()
@@ -297,6 +298,10 @@ function update_job_states()
 		elseif n == 'Stance' then
 			if state.Stance.value ~= "None" then
 				stateBox:append(string.format("%sStance: %s%s    ", clr.w, clr.h, state.Stance.value))
+			end
+		elseif n == 'Impetus' then
+			if tonumber(state.Impetus.current) > 0 then
+				stateBox:append(string.format("%sImpetus: %s    ", clr.h, state.Impetus.current))
 			end
 		else
 			stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))

@@ -59,6 +59,9 @@ augmented_gear.Herculean.CritDMG = {}
 augmented_gear.Herculean.CritDMG.DEX = {
     legs={ name="Herculean Trousers", augments={'Accuracy+9','Crit. hit damage +3%','DEX+15','Attack+13',}},
 }
+augmented_gear.Herculean.CritDMG.STR = {
+    feet={ name="Herculean Boots", augments={'Accuracy+10 Attack+10','Crit. hit damage +4%','STR+10',}},
+}
 
 augmented_gear.Herculean.TA = {
     feet={ name="Herculean Boots", augments={'Accuracy+28','"Triple Atk."+4','STR+3',}},

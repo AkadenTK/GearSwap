@@ -7,7 +7,7 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
 	state.IdleMode:options('Normal', 'PDT')
-	state.Weapons:options('Godhands','Verethragna','Staff','Barehanded','None')
+	state.Weapons:options('Godhands','Verethragna','Spharai','Staff','Barehanded','None')
 
 	state.AutoBoost = M(false, 'Auto Boost Mode')
 
@@ -29,6 +29,12 @@ function init_gear_sets()
     include('augmented_gear.lua')
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands, feet=augmented_gear.Herculean.TH.feet})
 
+    sets.Capacity={back="Aptitude mantle"}
+    augmented_gear.capes = {}
+    augmented_gear.capes.tp_da = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
+    augmented_gear.capes.str_crit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
+	augmented_gear.capes.str_wsd = augmented_gear.capes.str_crit
+	augmented_gear.capes.dex_wsd = augmented_gear.capes.tp_da
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------
@@ -41,7 +47,7 @@ function init_gear_sets()
 	sets.precast.JA['Dodge'] = {feet="Anchorite's Gaiters +1"}
 	sets.precast.JA['Focus'] = {head="Anchorite's Crown +1"}
 	sets.precast.JA['Counterstance'] = {feet="Hesychast's Gaiters +1"}
-	sets.precast.JA['Footwork'] = {feet="Shukuyu Sune-Ate"}
+	sets.precast.JA['Footwork'] = {feet="Bhikku gaiters +1"}
 	sets.precast.JA['Formless Strikes'] = {body="Hesychast's Cyclas"}
 	sets.precast.JA['Mantra'] = {feet="Hesychast's Gaiters +1"}
 
@@ -75,8 +81,14 @@ function init_gear_sets()
 	sets.precast.WS = {
 	    ammo="Knobkierrie",
 	    neck="Fotia Gorget",
-	    waist="Fotia Belt",
-    	legs="Hiza. Hizayoroi +1",
+        head=augmented_gear.Adhemar.Atk.head,
+        body=augmented_gear.Adhemar.Atk.body,
+	    ear1="Sherida Earring",
+	    ear2="Moonshade Earring",
+	    waist="Moonbow Belt",
+	    ring1="Regal Ring",
+	    ring2="Niqmaddu Ring",
+    	legs="Hiza. Hizayoroi +2",
 	    feet=augmented_gear.Herculean.WSD.STR.feet,
 
 	}
@@ -89,54 +101,38 @@ function init_gear_sets()
 
 	sets.precast.WS['Raging Fists']    = set_combine(sets.precast.WS, {
 	    head=augmented_gear.Herculean.WSD.STR.head,
-        body=augmented_gear.Adhemar.Atk.body,
     	hands=augmented_gear.Ryuo.STR.hands,
     	neck="Caro Necklace",
     	waist="Prosilio Belt",
-	    ear1="Sherida Earring",
-	    ear2="Moonshade Earring",
-	    ring1="Regal Ring",
-	    ring2="Niqmaddu Ring",
 	    back="Atheling Mantle",
 	})
 	sets.precast.WS['Howling Fist']    = set_combine(sets.precast.WS, {
-		head="Lilitu Headpiece",body=gear.herculean_wsd_body
 	})
 	sets.precast.WS['Asuran Fists']    = set_combine(sets.precast.WS, {
-		waist="Grunfeld Rope"
 	})
 	sets.precast.WS['Ascetic\'s Fury']  = set_combine(sets.precast.WS, {
-        head=augmented_gear.Adhemar.Atk.head,
-        body=augmented_gear.Adhemar.Atk.body,
     	hands=augmented_gear.Ryuo.STR.hands,
-    	legs="Mummu Kecks +2",
-	    ear1="Sherida Earring",
-	    ear2="Moonshade Earring",
-	    ring1="Regal Ring",
 	    ring2="Begrudging Ring",
-	    back="Atheling Mantle",
+	    back=augmented_gear.capes.str_crit,
 	})
 	sets.precast.WS["Victory Smite"]   = set_combine(sets.precast.WS, {
-        head=augmented_gear.Adhemar.Atk.head,
-        body=augmented_gear.Adhemar.Atk.body,
     	hands=augmented_gear.Ryuo.STR.hands,
-	    ear1="Sherida Earring",
-	    ear2="Moonshade Earring",
-	    ring1="Regal Ring",
-	    ring2="Begrudging Ring",
-	    back="Atheling Mantle",
+    	feet=augmented_gear.Herculean.CritDMG.STR.feet,
+	    back=augmented_gear.capes.str_crit,
 	})
 	sets.precast.WS['Shijin Spiral']   = set_combine(sets.precast.WS, {
-		head="Dampening Tam"
+		ammo="Jukukik feather",
+		neck="Caro Necklace",
+		ear2='Mache Earring +1'
 	})
 	sets.precast.WS['Dragon Kick']     = set_combine(sets.precast.WS, {
-		waist="Grunfeld Rope"
+	    back=augmented_gear.capes.str_wsd,
 	})
 	sets.precast.WS['Tornado Kick']    = set_combine(sets.precast.WS, {
-		ring1="Spiral Ring"
+	    back=augmented_gear.capes.str_wsd,
 	})
 	sets.precast.WS['Spinning Attack'] = set_combine(sets.precast.WS, {
-		waist="Grunfeld Rope"
+	    back=augmented_gear.capes.str_wsd,
 	})
 	
 	sets.precast.WS["Raging Fists"].Acc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSAcc)
@@ -190,7 +186,16 @@ function init_gear_sets()
 	
 
 	-- Idle sets
-	sets.idle = {}
+	sets.idle = {
+		ammo="Staunch Tathlum",
+		neck="Loricate Torque +1",
+		ear2="Hearty Earring",
+		body="Hiza. Haramaki +1",
+		ring1="Defending Ring",
+		ring2="Paguroidea ring",
+		legs="Mummu Kecks +2",
+	    back=augmented_gear.capes.tp_da,
+	}
 
 	sets.idle.Weak = set_combine(sets.idle, {})
 
@@ -221,15 +226,15 @@ function init_gear_sets()
         head=augmented_gear.Adhemar.Atk.head,
         body=augmented_gear.Adhemar.Atk.body,
         hands=augmented_gear.Adhemar.Atk.hands,
-	    legs="Bhikku Hose +1",
+	    legs="Samnuha tights",
     	feet=augmented_gear.Herculean.TA.feet,
 	    neck="Moonbeam Nodowa",
-	    waist="Windbuffet Belt +1",
+	    waist="Moonbow Belt",
 	    ear1="Sherida Earring",
 	    ear2="Telos Earring",
 	    ring1="Epona's Ring",
 	    ring2="Niqmaddu Ring",
-	    back="Moonbeam Cape",}
+	    back=augmented_gear.capes.tp_da,}
 	sets.engaged.Acc = set_combine(sets.engaged, {
 	    head="Mummu Bonnet +2",
 	    legs="Mummu Kecks +2",
@@ -240,7 +245,6 @@ function init_gear_sets()
 	    hands="Mummu Wrists +2",
 	    feet="Mummu Gamash. +2",
 	    ear1="Mache Earring +1",
-	    waist="Eschan Stone",
 	    ring1="Ilabrat Ring",
 	})
 
@@ -258,9 +262,6 @@ function init_gear_sets()
 	sets.engaged.Acc.HF = set_combine(sets.engaged.Acc, {})
 	sets.engaged.FullAcc.HF = set_combine(sets.engaged.FullAcc, {})
 
-
-
-
 	sets.buff.Doom = set_combine(sets.buff.Doom, {})
 	sets.buff.Sleep = {head="Frenzy Sallet"}
 	sets.buff.Impetus = {body="Bhikku Cyclas +1"}
@@ -275,10 +276,9 @@ function init_gear_sets()
 	-- Weapons sets
 	sets.weapons.Godhands = {main="Denouements"}
 	sets.weapons.Verethragna = {main="Verethragna"}
+	sets.weapons.Spharai = {main="Jolt Counter"}
 	sets.weapons.Staff = {main="Exalted Staff",sub="Niobid Strap"}
 	sets.weapons.Barehanded = {main=empty}
-
-	sets.idle = set_combine(sets.engaged, {})
 end
 
 -- Select default macro book on initial load or subjob change.

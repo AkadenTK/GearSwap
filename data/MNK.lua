@@ -24,10 +24,10 @@ function job_setup()
 	autows = 'Victory Smite'
 	autofood = 'Soy Ramen'
 	
-    info.impetus_hit_count = 0
+    state.Impetus = {current=0}
     windower.raw_register_event('action', on_action_for_impetus)
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode","Impetus"})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -164,9 +164,9 @@ function on_action_for_impetus(action)
                         -- 16 = JA/weaponskill?
                         -- If action.reaction has bits 1 or 2 set, it missed or was parried. Reset count.
                         if (action.reaction % 4) > 0 then
-                            info.impetus_hit_count = 0
+                            state.Impetus.current = 0
                         else
-                            info.impetus_hit_count = info.impetus_hit_count + 1
+                            state.Impetus.current = state.Impetus.current + 1
                         end
                     end
                 end
@@ -179,9 +179,9 @@ function on_action_for_impetus(action)
                     for _,action in pairs(target.actions) do
                         -- This will only be if the entire weaponskill missed or was parried.
                         if (action.reaction % 4) > 0 then
-                            info.impetus_hit_count = 0
+                            state.Impetus.current = 0
                         else
-                            info.impetus_hit_count = info.impetus_hit_count + 2
+                            state.Impetus.current = state.Impetus.current + 2
                         end
                     end
                 end
@@ -197,9 +197,9 @@ function on_action_for_impetus(action)
                         if action.has_spike_effect then
                             -- spike_effect_message of 592 == missed counter
                             if action.spike_effect_message == 592 then
-                                info.impetus_hit_count = 0
+                                state.Impetus.current = 0
                             elseif action.spike_effect_animation == 63 then
-                                info.impetus_hit_count = info.impetus_hit_count + 1
+                                state.Impetus.current = state.Impetus.current + 1
                             end
                         end
                     end
@@ -207,9 +207,11 @@ function on_action_for_impetus(action)
             end
         end
         
-        --add_to_chat(123,'Current Impetus hit count = ' .. tostring(info.impetus_hit_count))
+        state.Impetus.current = math.min(state.Impetus.current, 50)
+        update_job_states()
+        --add_to_chat(123,'Current Impetus hit count = ' .. tostring(state.Impetus.current))
     else
-        info.impetus_hit_count = 0
+        state.Impetus.current = 0
     end
     
 end

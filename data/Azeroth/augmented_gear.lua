@@ -24,6 +24,7 @@ augmented_gear.Herculean.WSD.MAB = {
 }
 
 augmented_gear.Herculean.WSD.STR = {
+    head={ name="Herculean Helm", augments={'Accuracy+24','Weapon skill damage +4%','AGI+4','Attack+15',}},
     legs={ name="Herculean Trousers", augments={'Attack+29','Weapon skill damage +4%','DEX+7','Accuracy+4',}},
     feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','Weapon skill damage +4%','STR+4','Accuracy+10',}},
 }

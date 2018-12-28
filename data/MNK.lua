@@ -14,7 +14,8 @@ function job_setup()
 
     state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
     state.Buff['Hundred Fists'] = buffactive['Hundred Fists'] or false
-	state.Buff['Impetus'] = buffactive['Impetus'] or false
+    state.Buff['Impetus'] = buffactive['Impetus'] or false
+	state.Buff['Counterstance'] = buffactive['Counterstance'] or false
 	
 	state.AutoBoost = M(true, 'Auto Boost Mode')
 	
@@ -61,12 +62,13 @@ end
 -- Run after the general precast() is done.
 function job_post_precast(spell, spellMap, eventArgs)
     if spell.type == 'WeaponSkill' and state.DefenseMode.current == 'None' then
-        if buffactive.Impetus and (spell.english == "Ascetic's Fury" or spell.english == "Victory Smite") then
-			equip(sets.buff.Impetus)
+        local WSset = get_precast_set(spell, spellMap)
+        if buffactive.Impetus and WSset.Impetus then
+			equip(WSset.Impetus)
         end
         
-		if buffactive.Footwork and (spell.english == "Dragon Kick" or spell.english == "Tornado Kick") then
-            equip(sets.FootworkWS)
+		if buffactive.Footwork and WSset.Footwork then
+            equip(WSset.Footwork)
         end
 		
         -- Replace Moonshade Earring if we're at cap TP
@@ -111,12 +113,16 @@ function job_customize_melee_set(meleeSet)
         meleeSet = set_combine(meleeSet, sets[state.ExtraMeleeMode.value])
     end
 	
-    if buffactive.Impetus and state.DefenseMode.value == 'None' and state.OffenseMode.value ~= 'FullAcc' then
-		meleeSet = set_combine(meleeSet, sets.buff.Impetus)
+    if buffactive.Impetus and meleeSet.Impetus then
+		meleeSet = meleeSet.Impetus
     end
-	
+    
+    if buffactive.Counterstance and state.DefenseMode.value == 'None' and state.OffenseMode.value ~= 'FullAcc' then
+        meleeSet = set_combine(meleeSet, sets.buff.Counterstance)
+    end
+    
     if buffactive.Footwork and state.DefenseMode.value == 'None' and state.OffenseMode.value ~= 'FullAcc' then
-		meleeSet = set_combine(meleeSet, sets.buff.Footwork)
+        meleeSet = set_combine(meleeSet, sets.buff.Footwork)
     end
 	
     return meleeSet

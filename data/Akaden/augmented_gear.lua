@@ -70,6 +70,11 @@ augmented_gear.Herculean.Phalanx = {
     legs={ name="Herculean Trousers", augments={'Enmity+1','"Mag.Atk.Bns."+19','Phalanx +4','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
 }
 
+augmented_gear.Herculean.FC = {
+    legs={ name="Herculean Trousers", augments={'"Mag.Atk.Bns."+20','"Fast Cast"+4','STR+1',}},
+    feet={ name="Herculean Boots", augments={'Mag. Acc.+3','"Fast Cast"+4','"Mag.Atk.Bns."+10',}},
+}
+
 augmented_gear.Herculean.TH = {
     hands={ name="Herculean Gloves", augments={'"Fast Cast"+3','INT+3','"Treasure Hunter"+2','Accuracy+10 Attack+10',}},
     feet={ name="Herculean Boots", augments={'Potency of "Cure" effect received+6%','Magic dmg. taken -4%','"Treasure Hunter"+1','Accuracy+17 Attack+17','Mag. Acc.+3 "Mag.Atk.Bns."+3',}},

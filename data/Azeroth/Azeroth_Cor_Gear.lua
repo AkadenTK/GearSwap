@@ -182,7 +182,7 @@ function init_gear_sets()
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {})
 	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.engaged, {
-        head="Meghanada visor +1",
+        head=augmented_gear.Herculean.WSD.STR.head,
         body="Lak. Frac +2",
         hands="Meghanada gloves +2",
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -213,6 +213,7 @@ function init_gear_sets()
     sets.precast.WS['Split Shot'].Acc = set_combine(sets.precast.WS['Last Stand'].Acc, {})
 	
     sets.precast.WS['Leaden Salute'] = {   
+        ammo=gear.MABullet,
         head="Pixie Hairpin +1",
         body="Samnuha coat",
         hands="Carmine Finger Gauntlets +1",
@@ -221,11 +222,10 @@ function init_gear_sets()
         neck="Stoicheion medal",
         ear1="Moonshade earring",
         ear2="Friomisi earring",   
-        ring1="Acumen ring",  
+        ring1="Dingir ring",  
         ring2="Karieyh ring",
         waist="Sveltesse gouriz",
         back=augmented_gear.capes.mab_wsd,
-        ammo=gear.MABullet,
     }
     sets.precast.WS['Leaden Salute'].Acc = set_combine(sets.precast.WS['Leaden Salute'],{})
     sets.precast.WS['Leaden Salute'].FullAcc = set_combine(sets.precast.WS['Leaden Salute'], {})

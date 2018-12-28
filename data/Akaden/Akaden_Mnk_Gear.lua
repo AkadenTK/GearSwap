@@ -7,7 +7,7 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
 	state.IdleMode:options('Normal', 'PDT')
-	state.Weapons:options('Godhands','Verethragna','Spharai','Staff','Barehanded','None')
+	state.Weapons:options('Verethragna','Godhands','Staff','Barehanded','None')
 
 	state.AutoBoost = M(false, 'Auto Boost Mode')
 
@@ -33,8 +33,8 @@ function init_gear_sets()
     augmented_gear.capes = {}
     augmented_gear.capes.tp_da = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
     augmented_gear.capes.str_crit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
-	augmented_gear.capes.str_wsd = augmented_gear.capes.str_crit
-	augmented_gear.capes.dex_wsd = augmented_gear.capes.tp_da
+	augmented_gear.capes.str_wsd = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}}
+	augmented_gear.capes.dex_wsd = augmented_gear.capes.str_wsd
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------
@@ -71,9 +71,19 @@ function init_gear_sets()
 
 	-- Fast cast sets for spells
 	
-	sets.precast.FC = {}
+	sets.precast.FC = {
+		ammo="Sapience Orb",
+    	head="Herculean Helm",
+		neck="Baetyl Pendant",
+		body="Dread Jupon",
+		hands="Leyline Gloves",
+		ring1="Lebeche Ring",
+		ring2="Weatherspoon Ring",
+		legs=augmented_gear.Herculean.FC.legs,
+		feet=augmented_gear.Herculean.FC.feet,
+	}
 
-	sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads",body="Passion Jacket"})
+	sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
 
        
 	-- Weaponskill sets
@@ -85,6 +95,7 @@ function init_gear_sets()
         body=augmented_gear.Adhemar.Atk.body,
 	    ear1="Sherida Earring",
 	    ear2="Moonshade Earring",
+	    back=augmented_gear.capes.str_wsd,
 	    waist="Moonbow Belt",
 	    ring1="Regal Ring",
 	    ring2="Niqmaddu Ring",
@@ -103,56 +114,82 @@ function init_gear_sets()
 	    head=augmented_gear.Herculean.WSD.STR.head,
     	hands=augmented_gear.Ryuo.STR.hands,
     	neck="Caro Necklace",
-    	waist="Prosilio Belt",
-	    back="Atheling Mantle",
-	})
-	sets.precast.WS['Howling Fist']    = set_combine(sets.precast.WS, {
-	})
-	sets.precast.WS['Asuran Fists']    = set_combine(sets.precast.WS, {
-	})
+    	waist="Prosilio Belt",})
+	sets.precast.WS["Raging Fists"].Acc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSAcc)
+	sets.precast.WS["Raging Fists"].FullAcc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSFullAcc)
+
+
+	sets.precast.WS['Howling Fist']    = set_combine(sets.precast.WS, {})
+	sets.precast.WS["Howling Fist"].Acc = set_combine(sets.precast.WS["Howling Fist"], sets.precast.WSAcc)
+	sets.precast.WS["Howling Fist"].FullAcc = set_combine(sets.precast.WS["Howling Fist"], sets.precast.WSFullAcc)
+
+
+	sets.precast.WS['Asuran Fists']    = set_combine(sets.precast.WS, {})
+	sets.precast.WS["Asuran Fists"].Acc = set_combine(sets.precast.WS["Asuran Fists"], sets.precast.WSAcc)
+	sets.precast.WS["Asuran Fists"].FullAcc = set_combine(sets.precast.WS["Asuran Fists"], sets.precast.WSFullAcc)
+
+
 	sets.precast.WS['Ascetic\'s Fury']  = set_combine(sets.precast.WS, {
     	hands=augmented_gear.Ryuo.STR.hands,
+    	neck="Caro Necklace",
 	    ring2="Begrudging Ring",
 	    back=augmented_gear.capes.str_crit,
 	})
+	sets.precast.WS['Ascetic\'s Fury'].Impetus = set_combine(sets.precast.WS['Ascetic\'s Fury'], {
+		body= "Bhikku's Cyclas +1",})
+	sets.precast.WS["Ascetic's Fury"].Acc = set_combine(sets.precast.WS["Ascetic's Fury"], {
+		feet="Mummu Gamash. +2"})
+	sets.precast.WS['Ascetic\'s Fury'].Acc.Impetus = set_combine(sets.precast.WS['Ascetic\'s Fury'].Acc, {
+		body= "Bhikku's Cyclas +1",})
+	sets.precast.WS["Ascetic's Fury"].FullAcc = set_combine(sets.precast.WS["Ascetic's Fury"], {
+		head="Mummu Bonnet +2",
+		legs="Mummu Kecks +2",
+		})
+	sets.precast.WS['Ascetic\'s Fury'].FullAcc.Impetus = set_combine(sets.precast.WS['Ascetic\'s Fury'].FulAcc, {
+		body= "Bhikku's Cyclas +1",})
+
+
+
 	sets.precast.WS["Victory Smite"]   = set_combine(sets.precast.WS, {
     	hands=augmented_gear.Ryuo.STR.hands,
     	feet=augmented_gear.Herculean.CritDMG.STR.feet,
-	    back=augmented_gear.capes.str_crit,
-	})
+    	neck="Caro Necklace",
+	    back=augmented_gear.capes.str_crit,})
+	sets.precast.WS["Victory Smite"].Impetus = set_combine(sets.precast.WS["Victory Smite"], {
+		body="Bhikku Cyclas +1",})
+	sets.precast.WS["Victory Smite"].Acc = set_combine(sets.precast.WS["Victory Smite"], {
+		feet="Mummu Gamash. +2"})
+	sets.precast.WS["Victory Smite"].Acc.Impetus = set_combine(sets.precast.WS["Victory Smite"].Acc, {
+		body="Bhikku Cyclas +1",})
+	sets.precast.WS["Victory Smite"].FullAcc = set_combine(sets.precast.WS["Victory Smite"], {
+		head="Mummu Bonnet +2",
+		legs="Mummu Kecks +2",})
+	sets.precast.WS["Victory Smite"].FullAcc.Impetus = set_combine(sets.precast.WS["Victory Smite"].FullAcc, {
+		body="Bhikku Cyclas +1",})
+
+
 	sets.precast.WS['Shijin Spiral']   = set_combine(sets.precast.WS, {
 		ammo="Jukukik feather",
 		neck="Caro Necklace",
 		ear2='Mache Earring +1'
 	})
-	sets.precast.WS['Dragon Kick']     = set_combine(sets.precast.WS, {
-	    back=augmented_gear.capes.str_wsd,
-	})
-	sets.precast.WS['Tornado Kick']    = set_combine(sets.precast.WS, {
-	    back=augmented_gear.capes.str_wsd,
-	})
-	sets.precast.WS['Spinning Attack'] = set_combine(sets.precast.WS, {
-	    back=augmented_gear.capes.str_wsd,
-	})
-	
-	sets.precast.WS["Raging Fists"].Acc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSAcc)
-	sets.precast.WS["Howling Fist"].Acc = set_combine(sets.precast.WS["Howling Fist"], sets.precast.WSAcc)
-	sets.precast.WS["Asuran Fists"].Acc = set_combine(sets.precast.WS["Asuran Fists"], sets.precast.WSAcc)
-	sets.precast.WS["Ascetic's Fury"].Acc = set_combine(sets.precast.WS["Ascetic's Fury"], sets.precast.WSAcc, {head="Mummu Bonnet +2",body="Sayadio's Kaftan",hands="Ryuo Tekko",ring2="Begrudging Ring",legs="Mummu Kecks +2",feet="Mummu Gamash. +2"})
-	sets.precast.WS["Victory Smite"].Acc = set_combine(sets.precast.WS["Victory Smite"], sets.precast.WSAcc, {head="Mummu Bonnet +2",ear1="Moonshade Earring",body="Sayadio's Kaftan",hands="Ryuo Tekko",ring2="Begrudging Ring",legs="Mummu Kecks +2",feet="Mummu Gamash. +2"})
 	sets.precast.WS["Shijin Spiral"].Acc = set_combine(sets.precast.WS["Shijin Spiral"], sets.precast.WSAcc)
-	sets.precast.WS["Dragon Kick"].Acc = set_combine(sets.precast.WS["Dragon Kick"], sets.precast.WSAcc)
-	sets.precast.WS["Tornado Kick"].Acc = set_combine(sets.precast.WS["Tornado Kick"], sets.precast.WSAcc)
-
-	sets.precast.WS["Raging Fists"].FullAcc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSFullAcc)
-	sets.precast.WS["Howling Fist"].FullAcc = set_combine(sets.precast.WS["Howling Fist"], sets.precast.WSFullAcc)
-	sets.precast.WS["Asuran Fists"].FullAcc = set_combine(sets.precast.WS["Asuran Fists"], sets.precast.WSFullAcc)
-	sets.precast.WS["Ascetic's Fury"].FullAcc = set_combine(sets.precast.WS["Ascetic's Fury"], sets.precast.WSFullAcc, {head="Mummu Bonnet +2",body="Mummu Jacket +2",hands="Ryuo Tekko",legs="Mummu Kecks +2",feet="Mummu Gamash. +2"})
-	sets.precast.WS["Victory Smite"].FullAcc = set_combine(sets.precast.WS["Victory Smite"], sets.precast.WSFullAcc, {head="Mummu Bonnet +2",body="Mummu Jacket +2",hands="Ryuo Tekko",legs="Mummu Kecks +2",feet="Mummu Gamash. +2"})
 	sets.precast.WS["Shijin Spiral"].FullAcc = set_combine(sets.precast.WS["Shijin Spiral"], sets.precast.WSFullAcc)
+
+
+	sets.precast.WS['Dragon Kick']     = set_combine(sets.precast.WS, {
+	})
+	sets.precast.WS["Dragon Kick"].Acc = set_combine(sets.precast.WS["Dragon Kick"], sets.precast.WSAcc)
 	sets.precast.WS["Dragon Kick"].FullAcc = set_combine(sets.precast.WS["Dragon Kick"], sets.precast.WSFullAcc)
+
+
+	sets.precast.WS['Tornado Kick']    = set_combine(sets.precast.WS, {
+	})
+	sets.precast.WS["Tornado Kick"].Acc = set_combine(sets.precast.WS["Tornado Kick"], sets.precast.WSAcc)
 	sets.precast.WS["Tornado Kick"].FullAcc = set_combine(sets.precast.WS["Tornado Kick"], sets.precast.WSFullAcc)
 
+
+	sets.precast.WS['Spinning Attack'] = set_combine(sets.precast.WS, {})
 
 	sets.precast.WS['Cataclysm'] = {
 	    ammo="Knobkierrie",
@@ -174,7 +211,7 @@ function init_gear_sets()
 	sets.AccMaxTP = {ear1="Zennaroi Earring",ear2="Telos Earring"}
 	
 	-- Midcast Sets
-	sets.midcast.FastRecast = {}
+	sets.midcast.FastRecast = set_combine(sets.precast.FC, {})
 		
 	-- Specific spells
 	sets.midcast.Utsusemi = set_combine(sets.midcast.FastRecast, {})
@@ -190,7 +227,9 @@ function init_gear_sets()
 		ammo="Staunch Tathlum",
 		neck="Loricate Torque +1",
 		ear2="Hearty Earring",
+		head="kendatsuba Jinpachi",
 		body="Hiza. Haramaki +1",
+		hands="Herculean Gloves",
 		ring1="Defending Ring",
 		ring2="Paguroidea ring",
 		legs="Mummu Kecks +2",
@@ -224,7 +263,7 @@ function init_gear_sets()
 	sets.engaged =  {
 		ammo="Ginsen",
         head=augmented_gear.Adhemar.Atk.head,
-        body=augmented_gear.Adhemar.Atk.body,
+        body="kendatsuba Samue",
         hands=augmented_gear.Adhemar.Atk.hands,
 	    legs="Samnuha tights",
     	feet=augmented_gear.Herculean.TA.feet,
@@ -235,10 +274,12 @@ function init_gear_sets()
 	    ring1="Epona's Ring",
 	    ring2="Niqmaddu Ring",
 	    back=augmented_gear.capes.tp_da,}
+	sets.engaged.Impetus = set_combine(sets.engaged, {body="Bhikku Cyclas +1"})
 	sets.engaged.Acc = set_combine(sets.engaged, {
-	    head="Mummu Bonnet +2",
+	    head="kendatsuba Jinpachi",
 	    legs="Mummu Kecks +2",
 	    })
+	sets.engaged.Acc.Impetus = set_combine(sets.engaged.Acc, {body="Bhikku Cyclas +1"})
 	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
 	    ammo="Falcon Eye",
 	    body="Mummu Jacket +2",
@@ -247,6 +288,7 @@ function init_gear_sets()
 	    ear1="Mache Earring +1",
 	    ring1="Ilabrat Ring",
 	})
+	sets.engaged.FullAcc.Impetus = set_combine(sets.engaged.FullAcc, {body="Bhikku Cyclas +1"})
 
 	-- Defensive melee hybrid sets
 	sets.engaged.PDT = {}
@@ -264,7 +306,7 @@ function init_gear_sets()
 
 	sets.buff.Doom = set_combine(sets.buff.Doom, {})
 	sets.buff.Sleep = {head="Frenzy Sallet"}
-	sets.buff.Impetus = {body="Bhikku Cyclas +1"}
+	--sets.buff.Impetus = {body="Bhikku Cyclas +1"}
 	sets.buff.Footwork = {} -- feet="Shukuyu Sune-Ate"
 	
 	sets.FootworkWS = {feet="Shukuyu Sune-Ate"}
@@ -274,7 +316,7 @@ function init_gear_sets()
 	sets.Skillchain = {}
 	
 	-- Weapons sets
-	sets.weapons.Godhands = {main="Denouements"}
+	sets.weapons.Godhands = {main="Jolt Counter"}
 	sets.weapons.Verethragna = {main="Verethragna"}
 	sets.weapons.Spharai = {main="Jolt Counter"}
 	sets.weapons.Staff = {main="Exalted Staff",sub="Niobid Strap"}

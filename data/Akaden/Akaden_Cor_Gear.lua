@@ -9,7 +9,7 @@ function user_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
-    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade','MeleeLeaden','MeleeDynamis', 'ShieldLeaden','ShieldLastStand','None')
+    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade','MeleeLeaden','MeleeDynamis','MeleeLastStand', 'ShieldLeaden','ShieldLastStand','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
 
@@ -81,8 +81,9 @@ function init_gear_sets()
     sets.weapons.ShieldLastStand = {main='Kustawi +1', sub="Nusku Shield", range="Fomalhaut"}
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Anarchy +2"}
-    sets.weapons.MeleeLeaden = {main='Fettering Blade', sub="Blurred Knife +1", range="Death Penalty"}
-    sets.weapons.MeleeDynamis = {main='Rostam', sub="Blurred Knife +1", range="Death Penalty"}
+    sets.weapons.MeleeLeaden = {main='Fettering Blade', sub="Eletta Knife", range="Death Penalty"}
+    sets.weapons.MeleeDynamis = {main='Rostam', sub="Eletta Knife", range="Death Penalty"}
+    sets.weapons.MeleeLastStand = {main='Rostam', sub="Blurred Knife +1", range="Fomalhaut"}
 
     sets.Compensator = {main="Rostam",range="Compensator"}
 
@@ -246,7 +247,8 @@ function init_gear_sets()
         legs=augmented_gear.Herculean.WSD.MAB.legs,
         feet="Lunan bottes +3",
     }
-    sets.precast.CorsairShot.StoreTP = set_combine(sets.precast.CorsairShot,{ -- 68 STP + 25 TP
+    sets.precast.CorsairShot.StoreTP = set_combine(sets.precast.CorsairShot,{ -- 73 STP + 25 TP
+        head="Pursuer's beret", -- 5
         neck="Iskur Gorget", --8
         ear1="Dedition earring", --8
         ear2="Telos Earring", -- 5

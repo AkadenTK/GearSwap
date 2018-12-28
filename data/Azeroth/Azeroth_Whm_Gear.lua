@@ -54,9 +54,8 @@ function init_gear_sets()
     -- Fast cast sets for spells
     sets.precast.FC = {
     	head="Haruspex hat", 
-    	neck="Voltsurge Torque",
+    	neck="Cleric's Torque",
     	body="Inyanga jubbah +2",
-    	neck="Orison locket",
     	hands="Fanatic Gloves",
     	ring1="Kishar Ring",
     	waist="Witful Belt",
@@ -134,23 +133,23 @@ function init_gear_sets()
 	    ammo="Plumose Sachet",
 	    head="Vanya Hood",
 	    body="Ebers Bliaud +1",
-	    hands="Theo. Mitts +2",
+	    hands="Theophany Mitts +2",
 	    legs="Ebers Pantaloons +1",
 	    feet="Vanya Clogs",
-	    neck="Phrenic torque",
+	    neck="Cleric's torque",
 	    waist="Cleric's Belt",
 	    ear1="Glorious Earring",
 	    ear2="Nourishing Earring +1",
 	    ring1="Sirona's Ring",
-	    ring2="Haoma's Ring",
+	    ring2="Kuchekula Ring",
 	    back="Mending Cape",
 	}
 		
-	sets.midcast.CureSolace = set_combine(sets.midcast.Cure, {})
+	sets.midcast.CureSolace = set_combine(sets.midcast.Cure, {back="Alaunus's Cape",})
 
-	sets.midcast.LightWeatherCure = set_combine(sets.midcast.Cure, {main="Chatoyant Staff",sub="Achaq Grip",waist="Korin Obi",back="Twilight Cape"})
+	sets.midcast.LightWeatherCure = set_combine(sets.midcast.Cure, {main="Chatoyant Staff",sub="Achaq Grip",waist="Korin Obi", back="Mending Cape"})
 
-	sets.midcast.LightWeatherCureSolace = set_combine(sets.midcast.LightWeatherCure, {})
+	sets.midcast.LightWeatherCureSolace = set_combine(sets.midcast.LightWeatherCure, {back="Alaunus's Cape",})
 
 	sets.midcast.LightDayCure = set_combine(sets.midcast.LightWeatherCure, {})
 		
@@ -278,9 +277,21 @@ function init_gear_sets()
 
 	sets.midcast.Stun.Resistant = {}
 
-	sets.midcast['Enfeebling Magic'] = {}
+	sets.midcast['Enfeebling Magic'] = {    
+		main="Queller's Rod",
+	    sub="Sors Shield",
+	    ammo="Plumose Sachet",
+	    head="Inyanga Tiara +2",
+	    body="Inyanga Jubbah +2",
+	    hands="Inyan. Dastanas +2",
+	    legs="Th. Pantaloons +2",
+	    feet="Theo. Duckbills +2",
+	    ring1="Stikini Ring",
+	    ring2="Inyanga Ring",
+	    back="Mending Cape",
+	}
 
-	sets.midcast['Enfeebling Magic'].Resistant = {}
+	sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {})
 		
 	sets.midcast.Dia = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 	sets.midcast.Diaga = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)

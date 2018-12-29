@@ -96,6 +96,7 @@ function init_include()
 	state.Contradance		  = M(true, 'Auto Contradance Mode')
 	state.ElementalWheel 	  = M(false, 'Elemental Wheel')
 	state.MaintainDefense 	  = M(false, 'Maintain Defense')
+	state.SkipProcWeapons 	  = M(false, 'Skip Proc Weapons')
 	
 	state.RuneElement 		  = M{['description'] = 'Rune Element','Ignis','Gelus','Flabra','Tellus','Sulpor','Unda','Lux','Tenebrae'}
 	state.ElementalMode 	  = M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
@@ -313,6 +314,14 @@ function init_include()
 				end
 			end
 		end
+		
+		if user_job_target_change then
+			if user_job_target_change(target) then return end
+		end
+		
+		if user_target_change then
+			if user_job_target_change(target) then return end
+		end
 	end
 	windower.register_event('target change', target_change)
 
@@ -332,6 +341,13 @@ function init_include()
 		useItemSlot = ''
 		lastincombat = false
 		being_attacked = false
+		
+		if world.area:contains('Abyssea') or areas.ProcZones:contains(world.area) then
+			state.SkipProcWeapons:set('False')
+		else
+			state.SkipProcWeapons:reset()
+		end
+		
 		if state.DisplayMode.value then update_job_states()	end
 	end)
 
@@ -818,7 +834,9 @@ function default_filtered_action(spell, eventArgs)
 end
 
 function extra_default_filtered_action(spell, eventArgs)
-	if not can_use(spell) then
+	if spell.action_type == 'Item' and world.area == "Mog Garden" then
+		return
+	elseif not can_use(spell) then
 		cancel_spell()
 		eventArgs.cancel = true
 		return		
@@ -1042,7 +1060,7 @@ function default_aftercast(spell, spellMap, eventArgs)
 			if state.DisplayMode.value then update_job_states()	end
 		elseif spell.english:startswith('Utsusemi') then
 			lastshadow = spell.english
-		elseif spell.action_type == 'Item' and useItem and spell.english == useItemName then
+		elseif spell.action_type == 'Item' and useItem and (spell.english == useItemName or useItemSlot == 'set') then
 			useItem = false
 			if useItemSlot == 'item' then
 				windower.send_command('put '..useItemName..' satchel')
@@ -1091,7 +1109,6 @@ function filter_precast(spell, spellMap, eventArgs)
 	if check_midaction(spell, spellMap, eventArgs) then return end
 	if check_disable(spell, spellMap, eventArgs) then return end
 	if check_doom(spell, spellMap, eventArgs) then return end
-	if check_recast(spell, spellMap, eventArgs) then return end
 	
 	if spell.action_type == 'Magic' then
 		if check_silence(spell, spellMap, eventArgs) then return end
@@ -1103,6 +1120,7 @@ function filter_precast(spell, spellMap, eventArgs)
 		if check_abilities(spell, spellMap, eventArgs) then return end
 	end
 
+	if check_recast(spell, spellMap, eventArgs) then return end
 end
 
 function filter_midcast(spell, spellMap, eventArgs)
@@ -2023,9 +2041,16 @@ end
 -- Handle notifications of general state change.
 function state_change(stateField, newValue, oldValue)
     if stateField == 'Weapons' then
-		if (newValue:contains('DW') or newValue:contains('Dual')) and not (dualWieldJobs:contains(player.main_job) or (player.sub_job == 'DNC' or player.sub_job == 'NIN')) then
+		if (newValue:contains('DW') or newValue:contains('Dual')) and not can_dual_wield() then
 			local startindex = state.Weapons.index
-			while (state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual')) and not (dualWieldJobs:contains(player.main_job) or (player.sub_job == 'DNC' or player.sub_job == 'NIN')) do
+			while (state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual')) do
+				state.Weapons:cycle()
+				if startindex == state.Weapons.index then break end
+			end
+			handle_weapons({})
+		elseif newValue:contains('Proc') and state.SkipProcWeapons.value then
+			local startindex = state.Weapons.index
+			while state.Weapons.value:contains('Proc') do
 				state.Weapons:cycle()
 				if startindex == state.Weapons.index then break end
 			end
@@ -2103,12 +2128,14 @@ function buff_change(buff, gain)
     if user_job_buff_change then
         user_job_buff_change(buff, gain, eventArgs)
     end
-
-	if S{'sleep','Lullaby'}:contains(buff) and state.CancelStoneskin.value then
-		send_command('cancel stoneskin')
-	end
 	
-    if S{'Commitment','Dedication'}:contains(buff) then
+	if buff == 'Voidwatcher' then
+		state.SkipProcWeapons:set('False')
+	elseif S{'sleep','Lullaby'}:contains(buff) and state.CancelStoneskin.value then
+		send_command('cancel stoneskin')
+	elseif (S{'Blink','Third Eye'}:contains(buff) or buff:contains('Copy Image')) and not gain then
+		lastshadow = "None"
+    elseif S{'Commitment','Dedication'}:contains(buff) then
         if gain and (cprings:contains(player.equipment.left_ring) or xprings:contains(player.equipment.left_ring)) then
             enable("left_ring")
 			
@@ -2141,10 +2168,6 @@ function buff_change(buff, gain)
         end
     end
 
-	if (S{'Blink','Third Eye'}:contains(buff) or buff:contains('Copy Image')) and not gain then
-		lastshadow = "None"
-	end
-	
 	if not midaction() and not pet_midaction() then
 		handle_equipping_gear(player.status)
 	end

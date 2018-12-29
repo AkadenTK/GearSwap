@@ -135,22 +135,15 @@ end
 function job_aftercast(spell, spellMap, eventArgs)
     if spell.type == 'CorsairRoll' and not spell.interrupted then
 		if state.CompensatorMode.value ~= 'Never' then
-			if player.equipment.range and player.equipment.range == 'Compensator' and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].range and sets.weapons[state.Weapons.value].range ~= 'Compensator' then
-				for slot,piece in pairs(sets.Compensator) do
-                    enable(slot)
-                    local s = {}
-                    s[slot] = sets.weapons[state.Weapons.Value][slot]
-                    equip(s)
-                    disable(slot)
-                end
-			elseif player.equipment.ranged and player.equipment.ranged == 'Compensator' and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].ranged and sets.weapons[state.Weapons.value].ranged ~= 'Compensator' then
-				for slot,piece in pairs(sets.Compensator) do
-                    enable(slot)
-                    local s = {}
-                    s[slot] = sets.weapons[state.Weapons.Value][slot]
-                    equip(s)
-                    disable(slot)
-                end
+			if ((player.equipment.range and player.equipment.range == 'Compensator') or (player.equipment.ranged and player.equipment.ranged == 'Compensator')) and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].range and sets.weapons[state.Weapons.value].range ~= 'Compensator' then
+				enable('range')
+				equip({range=sets.weapons[state.Weapons.value].range})
+				disable('range')
+			end
+			if (player.equipment.main and player.equipment.main == 'Rostam') and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].main and sets.weapons[state.Weapons.value].main ~= 'Rostam' then
+				enable('main')
+				equip({main=sets.weapons[state.Weapons.value].main})
+				disable('main')
 			end
 		end
         display_roll_info(spell)
@@ -173,7 +166,8 @@ end
 
 function job_buff_change(buff, gain)
 	if player.equipment.Ranged and buff:contains('Aftermath') then
-		if (player.equipment.Ranged == 'Death Penalty' and buffactive['Aftermath: Lv.3']) then
+		classes.CustomRangedGroups:clear()
+		if (player.equipment.Ranged == 'Death Penalty' and buffactive['Aftermath: Lv.3']) or (player.equipment.Ranged == 'Armageddon' and (buffactive['Aftermath: Lv.1'] or buffactive['Aftermath: Lv.2'] or buffactive['Aftermath: Lv.3'])) then
 			classes.CustomRangedGroups:append('AM')
 		end
 	end
@@ -221,13 +215,15 @@ function job_post_precast(spell, spellMap, eventArgs)
 		if state.LuzafRing.value and item_available("Luzaf's Ring") then
 			equip(sets.precast.LuzafRing)
 		end
-		if spell.type == 'CorsairRoll' and item_available("Compensator") and state.CompensatorMode.value ~= 'Never' and (state.CompensatorMode.value == 'Always' or tonumber(state.CompensatorMode.value) > player.tp) then
-			for slot,piece in pairs(sets.Compensator) do
-                enable(slot)
-                local s = {}
-                s[slot] = piece
-                equip(s)
-            end
+		if spell.type == 'CorsairRoll' and state.CompensatorMode.value ~= 'Never' and (state.CompensatorMode.value == 'Always' or tonumber(state.CompensatorMode.value) > player.tp) then
+			if item_available("Compensator") then
+				enable('range')
+				equip({range="Compensator"})
+			end
+			if item_available("Rostam") then
+				enable('main')
+				equip({main="Rostam"})
+			end
 		end
     elseif spell.english == 'Fold' and buffactive['Bust'] == 2 and sets.precast.FoldDoubleBust then
 		equip(sets.precast.FoldDoubleBust)

@@ -3,7 +3,6 @@
 
 --Time Related Settings
 --To determine your offset the first time, uncomment time_offset and set time_test to true,
---Also uncomment tickdelay and set to 0 to remove the delay from the clock starting.
 --Once you see delay numbers start spamming your chat, (Must be outside of town.)
 --(Also you can't have Commitment or Dedication Buffs) then Equip to ring1 and use "Capacity Ring",
 --(Not a Trizek or Calibur ring, "specifically Capacity Ring") your time_offset should appear in chat.
@@ -15,7 +14,6 @@
 time_test = false
 framerate = 75
 latency = .75
---tickdelay = 0
 
 --If this is set to true it will prevent you from casting shadows when you have more up than that spell would generate.
 conserveshadows = false
@@ -42,6 +40,7 @@ state.DisplayMode = M(true, 'Display Mode') --Set this to false if you don't wan
 state.ReEquip = M(true, 'ReEquip Mode') --Set this to false if you don't want it to your current Weapon sets (sets.weapons by default) when you aren't wearing any weapons.
 state.AutoArts = M(true, 'AutoArts') --Set this to false if you don't want it to automatically try to keep up Solace/Arts.
 state.CancelStoneskin = M(true, 'Cancel Stone Skin') --Set this to false if you don't want it to automatically cancel stoneskin when you're slept.
+state.SkipProcWeapons = M(true, 'Skip Proc Weapons') --Set this to false if you want to display weapon sets fulltime rather than just Aby/Voidwatch.
 
 --[[Global binds you may want to change.
 	Bind special characters.

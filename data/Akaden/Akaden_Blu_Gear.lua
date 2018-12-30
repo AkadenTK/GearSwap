@@ -80,7 +80,7 @@ function init_gear_sets()
 	sets.weapons = {}
 	sets.weapons.Default = {main="Tizona",sub="Sequence"}
 	--sets.weapons.SavageBlade = {main="Sequence",sub="Colada"}
-	sets.weapons.MagicWeapons = {main="Nibiru Cudgel", sub="Colada"}
+	sets.weapons.MagicWeapons = {main="Nibiru Cudgel", sub="Nibiru Cudgel"}
 	sets.weapons.DDClubs = {main="Nehushtan", sub="Sequence"}
 	-- Precast Sets
 
@@ -618,15 +618,16 @@ function init_gear_sets()
 
 	-- Idle sets
 	sets.idle = set_combine(sets.engaged, {
-            head="Rawhide mask",
-            neck="Loricate Torque +1",
-            body="Shamash robe",
-			hands=augmented_gear.Herculean.Refresh.hands,
-            ring1="Defending ring",
-            ring2="Paguroidea ring",
-			legs=augmented_gear.Herculean.Refresh.legs,
-            feet=augmented_gear.Herculean.Refresh.feet,
-        })
+        head="Rawhide mask",
+        neck="Loricate Torque +1",
+        body="Shamash robe",
+		hands=augmented_gear.Herculean.Refresh.hands,
+        ring1="Defending ring",
+        ring2="Paguroidea ring",
+		--legs=augmented_gear.Herculean.Refresh.legs,
+		legs="Carmine Cuisses +1",
+        feet=augmented_gear.Herculean.Refresh.feet,
+    })
 	sets.idle.Town = set_combine(sets.idle, {
 		legs="Carmine Cuisses +1"})
 

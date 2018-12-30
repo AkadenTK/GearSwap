@@ -204,6 +204,7 @@ function init_gear_sets()
 	    ear2="Friomisi Earring",
 	    ring1="Archon Ring",
 	    ring2="Acumen Ring",
+	    back=augmented_gear.capes.str_wsd,
 	}
 	
 	-- Swap to these on Moonshade using WS if at 3000 TP
@@ -319,7 +320,7 @@ function init_gear_sets()
 	sets.weapons.Godhands = {main="Jolt Counter"}
 	sets.weapons.Verethragna = {main="Verethragna"}
 	sets.weapons.Spharai = {main="Jolt Counter"}
-	sets.weapons.Staff = {main="Exalted Staff",sub="Niobid Strap"}
+	sets.weapons.Staff = {main="Reikikon",sub="Niobid Strap"}
 	sets.weapons.Barehanded = {main=empty}
 end
 

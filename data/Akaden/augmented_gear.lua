@@ -28,6 +28,16 @@ augmented_gear.Merlinic.Accuracy = {
     legs= augmented_gear.Merlinic.Damage.Legs,
     feet= augmented_gear.Merlinic.Damage.Feet,
 }
+
+augmented_gear.Merlinic.Pet = {}
+augmented_gear.Merlinic.Pet.MAB = {
+    hands={ name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+16 Pet: "Mag.Atk.Bns."+16','Blood Pact Dmg.+8','Pet: DEX+4','Pet: "Mag.Atk.Bns."+5',}},
+}
+augmented_gear.Merlinic.Pet.Atk = {
+    
+}
+
+
 augmented_gear.Herculean = {}
 augmented_gear.Herculean.Refresh = {
     hands={ name="Herculean Gloves", augments={'CHR+3','STR+1','"Refresh"+1',}},
@@ -149,3 +159,24 @@ augments.Ryuo.NQ = {
 augmented_gear.Ryuo.STR = {
     hands={ name="Ryuo Tekko", augments=augments.Ryuo.NQ.A},
 }
+
+augments.Apogee = {}
+augments.Apogee.NQ = {
+    A={'MP+60','Pet: "Mag.Atk.Bns."+30','Blood Pact Dmg.+7',},
+    B={'MP+60','Pet: Attack+30','Blood Pact Dmg.+7',},
+}
+augments.Apogee.HQ = {
+    A={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',},
+    B={'MP+80','Pet: Attack+35','Blood Pact Dmg.+8',}
+}
+augmented_gear.Apogee = {}
+augmented_gear.Apogee.Magic={
+    head={ name="Apogee Crown", augments=augments.Apogee.NQ.A},
+    legs={ name="Apogee Slacks", augments=augments.Apogee.NQ.A},
+    feet={ name="Apogee Pumps", augments=augments.Apogee.NQ.A},
+}
+augmented_gear.Apogee.Physical = set_combine(augmented_gear.Apogee.Magic, {
+    head={ name="Apogee Crown +1", augments=augments.Apogee.HQ.B},
+    hands = { name= "Apogee Mitts", augments=augments.Apogee.NQ.B},
+    feet = { name= "Apogee Pumps", augments=augments.Apogee.NQ.B},
+})

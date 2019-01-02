@@ -152,6 +152,7 @@ function init_gear_sets()
 
 	sets.precast.WS["Victory Smite"]   = set_combine(sets.precast.WS, {
     	hands=augmented_gear.Ryuo.STR.hands,
+    	body="Kendatsuba Samue",
 	    legs="Hesychast's Hose +3",
     	feet=augmented_gear.Herculean.CritDMG.STR.feet,
     	neck="Caro Necklace",

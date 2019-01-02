@@ -156,8 +156,11 @@ augments.Ryuo = {}
 augments.Ryuo.NQ = {
     A={'STR+10','DEX+10','Accuracy+15',},
 }
+augments.Ryuo.HQ = {
+    A={'STR+12','DEX+12','Accuracy+20',},
+}
 augmented_gear.Ryuo.STR = {
-    hands={ name="Ryuo Tekko", augments=augments.Ryuo.NQ.A},
+    hands={ name="Ryuo Tekko", augments=augments.Ryuo.HQ.A},
 }
 
 augments.Apogee = {}

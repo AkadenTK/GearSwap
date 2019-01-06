@@ -177,9 +177,9 @@ function init_gear_sets()
     sets.precast.FC = {					
     	-- fc 64%, occ. 5%, hp ~2650
 	    ammo="Impatiens",				-- occ. 2%
-	    head="Rune. Bandeau +3",		-- fc 12%
-	    --body="Dread Jupon",				-- fc 7%
-	    body="Runeist's coat +3",
+	    head="Rune. Bandeau +3",		-- fc 14%
+	    body=augmented_gear.Adhemar.D.body,	-- fc 7%
+	    --body="Runeist's coat +3",
 	    hands="Leyline Gloves",			-- fc 8%
 	    legs="Aya. Cosciales +2",		-- fc 6%
 	    feet="Carmine greaves +1",		-- fc 8%
@@ -294,7 +294,7 @@ function init_gear_sets()
 	sets.midcast.FastRecast.DT = set_combine(sets.midcast.FastRecast,{})
 
     sets.midcast['Enhancing Magic'] = {head="Erilaz Galea +1",hands="Regal Gauntlets",legs="Futhark Trousers +1"}
-    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{head="Futhark Bandeau +1",legs=augmented_gear.Herculean.Phalanx.legs,feet=gear.herculean_nuke_feet})
+    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{head="Futhark Bandeau +1",legs=augmented_gear.Herculean.Phalanx.legs})
     sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'],{head="Rune. Bandeau +3"}) 
 	sets.midcast['Refresh'] = set_combine(sets.midcast['Enhancing Magic'],{head="Erilaz Galea +1"}) 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {ear2="Earthcry Earring",waist="Siegel Sash"})
@@ -332,8 +332,8 @@ function init_gear_sets()
 	    feet="Turms Leggings",
 	    neck="Sanctity Necklace",
 	    waist="Flume Belt",
-	    --ear1="Odnowa Earring",
-	    --ear2="Odnowa Earring +1",
+	    ear1="Odnowa Earring",
+	    ear2="Odnowa Earring +1",
 	    ring1="Defending Ring",
 	    ring2="Moonbeam Ring",
 	    back=augmented_gear.capes.Tank,})
@@ -363,7 +363,7 @@ function init_gear_sets()
     -- Extra defense sets.  Apply these on top of melee or defense sets.
     sets.Knockback = {}
     sets.MP = {ear2="Ethereal Earring",waist="Flume Belt"}
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
 	
 	-- Weapons sets
 	sets.weapons.Aettir = {main="Aettir",sub="Utu Grip"}

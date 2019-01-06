@@ -27,14 +27,15 @@ end
 
 function init_gear_sets()
     include('augmented_gear.lua')
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands, feet=augmented_gear.Herculean.TH.feet})
 
-    sets.Capacity={back="Aptitude mantle"}
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
+
     augmented_gear.capes = {}
     augmented_gear.capes.tp_da = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
     augmented_gear.capes.str_crit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
 	augmented_gear.capes.str_wsd = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}}
 	augmented_gear.capes.dex_wsd = augmented_gear.capes.str_wsd
+	augmented_gear.capes.dex_da = augmented_gear.capes.tp_da
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------
@@ -44,7 +45,7 @@ function init_gear_sets()
 	-- Precast sets to enhance JAs on use
 	sets.precast.JA['Hundred Fists'] = {legs="Hesychast's Hose +3"}
 	sets.precast.JA['Boost'] = {hands="Anchorite's Gloves +1"}
-	sets.precast.JA['Dodge'] = {feet="Anchorite's Gaiters +1"}
+	sets.precast.JA['Dodge'] = {feet="Anchorite's Gaiters +2"}
 	sets.precast.JA['Focus'] = {head="Anchorite's Crown +1"}
 	sets.precast.JA['Counterstance'] = {feet="Hesychast's Gaiters +1"}
 	sets.precast.JA['Footwork'] = {feet="Bhikku gaiters +1"}
@@ -75,7 +76,7 @@ function init_gear_sets()
 		ammo="Sapience Orb",
     	head="Herculean Helm",
 		neck="Baetyl Pendant",
-		body="Dread Jupon",
+		body=augmented_gear.Adhemar.D.body,
 		hands="Leyline Gloves",
 		ring1="Lebeche Ring",
 		ring2="Weatherspoon Ring",
@@ -93,6 +94,7 @@ function init_gear_sets()
 	    neck="Fotia Gorget",
         head=augmented_gear.Adhemar.Atk.head,
         body=augmented_gear.Adhemar.Atk.body,
+        hands=augmented_gear.Adhemar.Atk.hands,
 	    ear1="Sherida Earring",
 	    ear2="Moonshade Earring",
 	    back=augmented_gear.capes.str_wsd,
@@ -170,9 +172,10 @@ function init_gear_sets()
 
 
 	sets.precast.WS['Shijin Spiral']   = set_combine(sets.precast.WS, {
-		ammo="Jukukik feather",
 		neck="Caro Necklace",
-		ear2='Mache Earring +1'
+	    legs="Hesychast's Hose +3",
+		ear2='Mache Earring +1',
+	    back=augmented_gear.capes.dex_da,
 	})
 	sets.precast.WS["Shijin Spiral"].Acc = set_combine(sets.precast.WS["Shijin Spiral"], sets.precast.WSAcc)
 	sets.precast.WS["Shijin Spiral"].FullAcc = set_combine(sets.precast.WS["Shijin Spiral"], sets.precast.WSFullAcc)
@@ -228,10 +231,11 @@ function init_gear_sets()
 	sets.idle = {
 		ammo="Staunch Tathlum",
 		neck="Loricate Torque +1",
+		ear1="Odnowa earring +1",
 		ear2="Hearty Earring",
 		head="kendatsuba Jinpachi",
-		body="Hiza. Haramaki +1",
-		hands="Herculean Gloves",
+		body="Hiza. Haramaki +2",
+		hands="Kurys gloves",
 		ring1="Defending Ring",
 		ring2="Paguroidea ring",
 		legs="Mummu Kecks +2",

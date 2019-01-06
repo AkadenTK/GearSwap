@@ -34,7 +34,7 @@ augmented_gear.Merlinic.Pet.MAB = {
     hands={ name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+16 Pet: "Mag.Atk.Bns."+16','Blood Pact Dmg.+8','Pet: DEX+4','Pet: "Mag.Atk.Bns."+5',}},
 }
 augmented_gear.Merlinic.Pet.Atk = {
-    
+    hands={ name="Merlinic Dastanas", augments={'Pet: Accuracy+28 Pet: Rng. Acc.+28','Blood Pact Dmg.+5','Pet: DEX+7','Pet: Mag. Acc.+10',}},
 }
 
 
@@ -130,6 +130,7 @@ augmented_gear.Adhemar.Rng = {
     feet={ name="Adhemar gamashes", augments=augments.Adhemar.NQ.D},
 }
 augmented_gear.Adhemar.D = {
+    body={ name="Adhemar Jacket", augments={'HP+80','"Fast Cast"+7','Magic dmg. taken -3',}},
     legs={ name="Adhemar Kecks +1", augments={'AGI+12','"Rapid Shot"+13','Enmity-6',}}, 
     feet={ name="Adhemar Gamashes", augments={'HP+50','"Store TP"+6','"Snapshot"+8',}},
 }

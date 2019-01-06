@@ -82,12 +82,12 @@ function init_gear_sets()
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Anarchy +2"}
     sets.weapons.MeleeLeaden = {main='Fettering Blade', sub="Eletta Knife", range="Death Penalty"}
-    sets.weapons.MeleeDynamis = {main='Rostam', sub="Eletta Knife", range="Death Penalty"}
+    sets.weapons.MeleeDynamis = {main='Rostam', sub="Blurred knife +1", range="Death Penalty"}
     sets.weapons.MeleeLastStand = {main='Rostam', sub="Blurred Knife +1", range="Fomalhaut"}
 
     sets.Compensator = {main="Rostam",range="Compensator"}
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
 
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt", feet=augmented_gear.Herculean.TH.feet})
     
     -- Precast Sets
 
@@ -152,8 +152,9 @@ function init_gear_sets()
     }
 
     sets.engaged.Acc = set_combine(sets.engaged, {
-        head=augmented_gear.Adhemar.Acc.head,
+        head="Dampening Tam",
         neck="Ej necklace",
+        ear1="Mache earring +1",
         ear2="Telos earring",
         body=augmented_gear.Adhemar.Acc.body,
         hands=augmented_gear.Adhemar.Acc.hands,
@@ -161,14 +162,15 @@ function init_gear_sets()
     })
 
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
-        head="Meghanada visor +2",
-        legs="Meghanada chausses +2",
+        head="Carmine Mask +1",
+        legs="Carmine Cuisses +1",
+        ring2="Cacoethic ring +1",
     })
 
     sets.engaged.Crits = set_combine(sets.engaged.FullAcc, {
         head="Mummu bonnet +1",
         body="Mummu Jacket +2",
-        hands="Mummu Wrists +1",
+        hands="Mummu Wrists +2",
         legs="Mummu Kecks +2",
         feet="Mummu Gamashes +2"
     })
@@ -295,9 +297,9 @@ function init_gear_sets()
     
     sets.precast.FC = set_combine(sets.engaged, {
         ring2="Lebeche ring",
-        head="Carmine mask",
+        head="Carmine Mask +1",
         neck="Baetyl pendant", 
-        body="Samnuha coat",
+        body=augmented_gear.Adhemar.D.body,
         hands="Leyline gloves",
         ring1="Kishar ring",
         ring2="Weatherspoon ring",

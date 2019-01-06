@@ -33,7 +33,8 @@ function init_gear_sets()
     --------------------------------------
 
     sets.Enmity = {}
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt", feet=augmented_gear.Herculean.TH.feet})
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
+    
 	
     -- Precast sets to enhance JAs
     sets.precast.JA['Mijin Gakure'] = {} --legs="Mochizuki Hakama"

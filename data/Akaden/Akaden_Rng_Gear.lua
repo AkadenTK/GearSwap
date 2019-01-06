@@ -41,7 +41,8 @@ function init_gear_sets()
 	
 	
 	-- Precast sets to enhance JAs
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
+	
 	sets.precast.JA['Bounty Shot'] = set_combine(sets.TreasureHunter, {hands="Sylvan Glovettes +1"})
 	sets.precast.JA['Camouflage'] = {body="Orion Jerkin +1"}
 	sets.precast.JA['Scavenge'] = {feet="Orion Socks +1"}

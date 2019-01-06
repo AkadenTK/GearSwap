@@ -116,10 +116,10 @@ function init_gear_sets()
         legs="Psycloth lappas",
         feet="Carmine Greaves +1",
         ear1="Halasz earring", -- mp
-        head="Carmine mask",
+        head="Carmine Mask +1",
 		ammo="Impatiens",
         neck="Baetyl pendant", 
-        body="Dread Jupon",
+        body=augmented_gear.Adhemar.D.body,
         hands="Leyline gloves",
         ring1="Kishar ring",
         ring2="Weatherspoon ring",
@@ -675,7 +675,7 @@ function init_gear_sets()
 	sets.SuppaBrutal = {ear1="Suppanomimi", ear2="Brutal Earring"}
 	sets.DWEarrings = {ear1="Dudgeon Earring",ear2="Heartseeker Earring"}
 	sets.DWMax = {ear1="Dudgeon Earring",ear2="Heartseeker Earring",body="Adhemar Jacket",waist="Reiki Yotai",legs="Carmine Cuisses +1"}
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
 	sets.Assault = {ring1="Balrahn's Ring"}
 
 	sets.Self_Healing = {neck="Phalaina locket"}

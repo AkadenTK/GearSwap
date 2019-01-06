@@ -60,7 +60,7 @@ function init_gear_sets()
 	-- Fast cast sets for spells
 
 	sets.precast.FC = {
-	    head="Carmine Mask",
+	    head="Carmine Mask +1",
 	    body={ name="Odyss. Chestplate", augments={'"Fast Cast"+5','VIT+7','"Mag.Atk.Bns."+6',}},
 	    hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
 	    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},

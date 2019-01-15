@@ -246,15 +246,18 @@ function init_gear_sets()
 	sets.precast.WS.FullAcc = set_combine(sets.precast.WS,{})
 
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
-        head=augmented_gear.Adhemar.Atk.head,
-        body=augmented_gear.Adhemar.Atk.body,
-        hands=augmented_gear.Adhemar.Atk.hands,
-    	legs="Samnuha Tights",
+        head=augmented_gear.Lustratio.STR.head,
+        body=augmented_gear.Lustratio.STR.body,
+        hands="Meghanada gloves +2",
+    	--legs="Samnuha Tights",
     	ring2="Niqmaddu ring",
     	back=augmented_gear.capes.DA_STR,
     	})
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'],{
-    	head="Rune. Bandeau +3",
+    	--head="Rune. Bandeau +3",
+        head=augmented_gear.Adhemar.Atk.head,
+        body=augmented_gear.Adhemar.Atk.body,
+        hands=augmented_gear.Adhemar.Atk.hands,
     	})
 	sets.precast.WS['Resolution'].FullAcc = set_combine(sets.precast.WS['Resolution'].Acc,{})
 
@@ -367,7 +370,7 @@ function init_gear_sets()
 	
 	-- Weapons sets
 	sets.weapons.Aettir = {main="Aettir",sub="Utu Grip"}
-	sets.weapons.Lionheart = {main="Montante",sub="Utu Grip"}
+	sets.weapons.Lionheart = {main="Lionheart",sub="Utu Grip"}
 	
 	-- Defense Sets
 	

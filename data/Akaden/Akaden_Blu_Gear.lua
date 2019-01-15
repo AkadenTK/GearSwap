@@ -10,7 +10,7 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT', 'NukeLock')
 	state.ResistDefenseMode:options('MEVA')
 	--state.Weapons:options('Default','SavageBlade','MagicWeapons','DDClubs', 'None')
-	state.Weapons:options('Default','MagicWeapons','DDClubs','None')
+	state.Weapons:options('Default','TPBonus','MagicWeapons','DDClubs','None')
 
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'MP','SuppaBrutal', 'DWEarrings','DWMax'}
 
@@ -79,6 +79,7 @@ function init_gear_sets()
 
 	sets.weapons = {}
 	sets.weapons.Default = {main="Tizona",sub="Sequence"}
+	sets.weapons.TPBonus = {main="Tizona",sub="Thibron"}
 	--sets.weapons.SavageBlade = {main="Sequence",sub="Colada"}
 	sets.weapons.MagicWeapons = {main="Nibiru Cudgel", sub="Nibiru Cudgel"}
 	sets.weapons.DDClubs = {main="Nehushtan", sub="Sequence"}
@@ -558,9 +559,9 @@ function init_gear_sets()
 	sets.engaged.Acc.AM = set_combine(sets.engaged.Acc, {neck="Lissome Necklace"})
 
 	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
-        head="Ayanmo Zucchetto +2",
+        head="Carmine Mask +1",
         ear1="Dignitary's earring",
-        legs="Ayanmo cosciales +2",
+        legs="Carmine Cuisses +1",
 		feet="Ayanmo gambieras +2",})
 
 	sets.engaged.FullAcc.AM = set_combine(sets.engaged.FullAcc, {})

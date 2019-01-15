@@ -7,7 +7,7 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
 	state.IdleMode:options('Normal', 'PDT')
-	state.Weapons:options('Verethragna','Godhands','Staff','Barehanded','None')
+	state.Weapons:options('Verethragna','JoltCounters','Staff','Barehanded','None')
 
 	state.AutoBoost = M(false, 'Auto Boost Mode')
 
@@ -36,6 +36,7 @@ function init_gear_sets()
 	augmented_gear.capes.str_wsd = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}}
 	augmented_gear.capes.dex_wsd = augmented_gear.capes.str_wsd
 	augmented_gear.capes.dex_da = augmented_gear.capes.tp_da
+	augmented_gear.capes.tp_counter = augmented_gear.capes.tp_da
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------
@@ -45,7 +46,7 @@ function init_gear_sets()
 	-- Precast sets to enhance JAs on use
 	sets.precast.JA['Hundred Fists'] = {legs="Hesychast's Hose +3"}
 	sets.precast.JA['Boost'] = {hands="Anchorite's Gloves +1"}
-	sets.precast.JA['Dodge'] = {feet="Anchorite's Gaiters +2"}
+	sets.precast.JA['Dodge'] = {feet="Anchorite's Gaiters +3"}
 	sets.precast.JA['Focus'] = {head="Anchorite's Crown +1"}
 	sets.precast.JA['Counterstance'] = {feet="Hesychast's Gaiters +1"}
 	sets.precast.JA['Footwork'] = {feet="Bhikku gaiters +1"}
@@ -56,7 +57,7 @@ function init_gear_sets()
 	
 	sets.precast.JA['Chakra'] = {
 		head="Dampening Tam",
-		body="Anchorete's Cyclas +1",hands="Hesychast's Gloves +1",
+		body="Anchorite's Cyclas +1",hands="Hesychast's Gloves +1",
 		legs="Hes. Hose +1",feet="Anch. Gaiters +1"}
 
 	-- Waltz set (chr and vit)
@@ -277,7 +278,7 @@ function init_gear_sets()
         body="kendatsuba Samue",
         hands=augmented_gear.Adhemar.Atk.hands,
 	    legs="Hesychast's Hose +3",
-    	feet=augmented_gear.Herculean.TA.feet,
+    	feet="Anchorite's Gaiters +3",
 	    neck="Moonbeam Nodowa",
 	    waist="Moonbow Belt",
 	    ear1="Sherida Earring",
@@ -286,17 +287,22 @@ function init_gear_sets()
 	    ring2="Niqmaddu Ring",
 	    back=augmented_gear.capes.tp_da,}
 	sets.engaged.Impetus = set_combine(sets.engaged, {body="Bhikku Cyclas +1"})
+	sets.engaged.Reikikon = set_combine(sets.engaged, {
+		legs="Samnuha Tights",
+    	feet=augmented_gear.Herculean.TA.feet,})
 	sets.engaged.Acc = set_combine(sets.engaged, {
 	    head="kendatsuba Jinpachi",
 	    })
 	sets.engaged.Acc.Impetus = set_combine(sets.engaged.Acc, {body="Bhikku Cyclas +1"})
+	sets.engaged.Acc.Reikikon = set_combine(sets.engaged.Acc, {
+		legs="Samnuha Tights",
+    	feet=augmented_gear.Herculean.TA.feet,})
 	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
 	    ammo="Falcon Eye",
 	    body="Mummu Jacket +2",
 	    hands="Mummu Wrists +2",
-	    feet="Mummu Gamash. +2",
 	    ear1="Mache Earring +1",
-	    ring1="Ilabrat Ring",
+	    ring1="Regal Ring",
 	})
 	sets.engaged.FullAcc.Impetus = set_combine(sets.engaged.FullAcc, {body="Bhikku Cyclas +1"})
 
@@ -326,9 +332,9 @@ function init_gear_sets()
 	sets.Skillchain = {}
 	
 	-- Weapons sets
-	sets.weapons.Godhands = {main="Jolt Counter"}
+	--sets.weapons.Godhands = {main="Jolt Counter"}
 	sets.weapons.Verethragna = {main="Verethragna"}
-	sets.weapons.Spharai = {main="Jolt Counter"}
+	sets.weapons.JoltCounters = {main="Jolt Counter"}
 	sets.weapons.Staff = {main="Reikikon",sub="Niobid Strap"}
 	sets.weapons.Barehanded = {main=empty}
 end

@@ -121,10 +121,10 @@ function init_gear_sets()
         feet={ name="Plun. Poulaines +1", augments={'Enhances "Assassin\'s Charge" effect',}},
         neck="Anu torque",
         waist="Chiner's Belt +1",
-        left_ear="Sherida Earring",
-        right_ear="Suppanomimi",
-        left_ring="Epona's Ring",
-        right_ring="Petrov Ring",
+        ear1="Sherida Earring",
+        ear2="Suppanomimi",
+        ring1="Epona's Ring",
+        ring2="Petrov Ring",
         back={ name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}}, }
     
     sets.engaged.Acc = {
@@ -160,7 +160,7 @@ function init_gear_sets()
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Rudra\'s Storm'] = set_combine(sets.precast.WS, {
         ammo="Jukukik feather",
-        ring1="Ramuh ring",
+        ring1="Ilabrat Ring",
         waist="Artful belt +1",
         legs=augmented_gear.Herculean.WSD.STR.legs,
         feet="Lustratio Leggings",
@@ -169,15 +169,15 @@ function init_gear_sets()
 	sets.precast.WS["Rudra's Storm"].FullAcc = set_combine(sets.precast.WS["Rudra's Storm"].Acc, {})
     sets.precast.WS["Rudra's Storm"].SA = set_combine(sets.precast.WS["Rudra's Storm"], {
         ammo="Yetshila",
-        body="Meghanada Cuirie +1",
+        body="Meghanada Cuirie +2",
         })
     sets.precast.WS["Rudra's Storm"].TA = set_combine(sets.precast.WS["Rudra's Storm"], {
         ammo="Yetshila",
-        body="Meghanada Cuirie +1",
+        body="Meghanada Cuirie +2",
         })
     sets.precast.WS["Rudra's Storm"].SATA = set_combine(sets.precast.WS["Rudra's Storm"], {
         ammo="Yetshila",
-        body="Meghanada Cuirie +1",
+        body="Meghanada Cuirie +2",
         })
 	
     sets.precast.WS["Mandalic Stab"] = set_combine(sets.precast.WS, {})

@@ -112,7 +112,7 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {
         head=augmented_gear.Adhemar.Atk.head,
-        body="Meghanada cuirie +1",
+        body="Meghanada cuirie +2",
         hands=augmented_gear.Adhemar.Atk.hands,
         legs="Samnuha Tights",
         feet=augmented_gear.Herculean.TA.feet,
@@ -183,7 +183,7 @@ function init_gear_sets()
 	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.engaged, {
         head=augmented_gear.Herculean.WSD.STR.head,
-        body="Lak. Frac +2",
+        body="Laksamana's Frac +3",
         hands="Meghanada gloves +2",
         legs=augmented_gear.Herculean.WSD.STR.legs,
         feet=augmented_gear.Herculean.WSD.STR.feet,
@@ -215,7 +215,7 @@ function init_gear_sets()
     sets.precast.WS['Leaden Salute'] = {   
         ammo=gear.MABullet,
         head="Pixie Hairpin +1",
-        body="Samnuha coat",
+        body="Laksamana's Frac +3",
         hands="Carmine Finger Gauntlets +1",
         legs=augmented_gear.Herculean.WSD.MAB.legs,
         feet=augmented_gear.Herculean.WSD.MAB.feet,

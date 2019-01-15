@@ -40,6 +40,7 @@ end
 
 -- Define sets and vars used by this job file.
 function init_gear_sets()
+    include('augmented_gear.lua')
     --------------------------------------
     -- Start defining the sets
     --------------------------------------
@@ -48,6 +49,13 @@ function init_gear_sets()
 	-- Weapons sets
 	sets.weapons.MeleeWeapons = {main="Izcalli",sub="Ammurapi Shield"}
 	sets.weapons.DualWeapons = {main="Izcalli",sub="Nehushtan"}
+
+	augmented_gear.capes = {
+		fc = { name="Alaunus's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10','Phys. dmg. taken-10%',}},
+	}
+	augmented_gear.capes.idle = augmented_gear.capes.fc
+	augmented_gear.capes.macc_mnd = augmented_gear.capes.fc
+	augmented_gear.capes.cure = augmented_gear.capes.fc
 	
     -- Precast Sets
 
@@ -61,7 +69,7 @@ function init_gear_sets()
     	waist="Witful Belt",
     	legs="Kaykaus Tights",
     	feet="Regal pumps +1",
-    	back={ name="Alaunus's Cape", augments={'"Fast Cast"+10',}},
+    	back=augmented_gear.capes.idle,
     }
 		
     sets.precast.FC.DT = set_combine(sets.precast.FC, {})
@@ -145,11 +153,11 @@ function init_gear_sets()
 	    back="Mending Cape",
 	}
 		
-	sets.midcast.CureSolace = set_combine(sets.midcast.Cure, {back="Alaunus's Cape",})
+	sets.midcast.CureSolace = set_combine(sets.midcast.Cure, {augmented_gear.capes.cure,})
 
 	sets.midcast.LightWeatherCure = set_combine(sets.midcast.Cure, {main="Chatoyant Staff",sub="Achaq Grip",waist="Korin Obi", back="Mending Cape"})
 
-	sets.midcast.LightWeatherCureSolace = set_combine(sets.midcast.LightWeatherCure, {back="Alaunus's Cape",})
+	sets.midcast.LightWeatherCureSolace = set_combine(sets.midcast.LightWeatherCure, {augmented_gear.capes.cure,})
 
 	sets.midcast.LightDayCure = set_combine(sets.midcast.LightWeatherCure, {})
 		
@@ -211,7 +219,7 @@ function init_gear_sets()
 		ring1="Ephedra ring",
 		ring2="Haoma's ring",
 		hands="Fanatic gloves",
-		back="Alaunus's Cape",
+		back=augmented_gear.capes.fc,
 		legs="Theophany Pantaloons +2",
 		feet="Gendewitha Galoshes +1",})
 
@@ -224,7 +232,7 @@ function init_gear_sets()
 		head="Telchine cap",
 		body="Telchine Chasuble",
 		hands="Telchine gloves",
-		ring1="Stikini ring",
+		ring2="Stikini ring",
 		back="Mending Cape",
 		waist="Cascade Belt",
 		legs="Telchine Braconi",
@@ -282,13 +290,17 @@ function init_gear_sets()
 	    sub="Sors Shield",
 	    ammo="Plumose Sachet",
 	    head="Inyanga Tiara +2",
-	    body="Inyanga Jubbah +2",
+	    body="Theophany Briault +2",
 	    hands="Inyan. Dastanas +2",
-	    legs="Th. Pantaloons +2",
+	    legs=augmented_gear.Chironic.macc.legs,
 	    feet="Theo. Duckbills +2",
-	    ring1="Stikini Ring",
-	    ring2="Inyanga Ring",
-	    back="Mending Cape",
+	    neck="Sanctity Necklace",
+	    ear1="Psystorm Earring",
+	    ear2="lifestorm Earring",
+	    ring1="Kishar Ring",
+	    ring2="Stikini Ring",
+	    waist="Ovate Rope",
+	    back=augmented_gear.capes.macc_mnd,
 	}
 
 	sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {})

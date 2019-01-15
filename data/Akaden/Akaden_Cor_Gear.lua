@@ -81,7 +81,7 @@ function init_gear_sets()
     sets.weapons.ShieldLastStand = {main='Kustawi +1', sub="Nusku Shield", range="Fomalhaut"}
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Anarchy +2"}
-    sets.weapons.MeleeLeaden = {main='Fettering Blade', sub="Eletta Knife", range="Death Penalty"}
+    sets.weapons.MeleeLeaden = {main='Eletta Knife', sub="Blurred Knife +1", range="Death Penalty"}
     sets.weapons.MeleeDynamis = {main='Rostam', sub="Blurred knife +1", range="Death Penalty"}
     sets.weapons.MeleeLastStand = {main='Rostam', sub="Blurred Knife +1", range="Fomalhaut"}
 

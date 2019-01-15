@@ -53,6 +53,11 @@ augmented_gear.Valorous.WSD = {}
 augmented_gear.Valorous.WSD.VIT = {
 }
 
+augmented_gear.Chironic = {}
+augmented_gear.Chironic.macc = {
+    legs={ name="Chironic Hose", augments={'Mag. Acc.+23 "Mag.Atk.Bns."+23','MND+6','Mag. Acc.+13',}},
+}
+
 augmented_gear.Adhemar = {}
 augments = {}
 augments.Adhemar = {}

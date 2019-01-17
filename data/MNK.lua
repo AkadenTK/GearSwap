@@ -18,6 +18,7 @@ function job_setup()
 	state.Buff['Counterstance'] = buffactive['Counterstance'] or false
 	
 	state.AutoBoost = M(true, 'Auto Boost Mode')
+    state.CounterMode = M{['description']='Counter Mode', 'None', 'Hate', 'Always'}
 	
 	--List of which WS you plan to use TP bonus WS with.
 	moonshade_ws = S{'Victory Smite'}
@@ -27,8 +28,9 @@ function job_setup()
 	
     state.Impetus = {current=0}
     windower.raw_register_event('action', on_action_for_impetus)
+    windower.raw_register_event('action', on_action_for_counter)
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode","Impetus"})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode","CounterMode","Impetus"})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -106,15 +108,64 @@ end
 -- User code that supplements standard library decisions.
 -------------------------------------------------------------------------------------------------------------------
 
+
+function look_offset(a, b)
+    if not a or not b then return false end
+    local h = a.facing % math.pi
+    local h2 = (math.atan2(a.x-b.x,a.y-b.y) + math.pi/2) % math.pi
+    return math.abs(h-h2) 
+end
+
+function check_counterable()
+    local t, me = windower.ffxi.get_mob_by_target('t'), windower.ffxi.get_mob_by_target('me')
+    local old_counterable = state.can_increase_counter_rate
+
+    state.can_increase_counter_rate = not buff['Counterstance'] -- counterstance should be capping counter anyway.
+                                      and look_offset(t, me) < 0.15 and look_offset(me, t) < 0.76
+    if old_counterable ~= state.can_increase_counter_rate then
+        windower.add_to_chat(123, "Counterable: "..tostring(state.can_increase_counter_rate))
+        equip(get_melee_set())
+    end
+end
+
+function job_tick()
+    if state.CounterMode.Value == "Hate" and player.status == 'Engaged' and player.target and player.target.type == 'MONSTER' then
+        if player.target.model_size and player.target.distance < (3.2 + player.target.model_size) then
+           check_counterable()
+        end
+    end
+
+    return false
+end
+
+function on_action_for_counter(action)
+    if state.CounterMode.Value == "Hate" then
+        if action.actor_id == player.id and action.category == 1 then
+            -- we auto-attacked. Make check for counter state.
+            check_counterable()
+        end
+        for _, t in ipairs(action.targets) do
+            if t.id == player.id and action.category == 1 then
+                check_counterable()
+            end
+        end
+    end
+end
+
 -- Modify the default melee set after it was constructed.
 function job_customize_melee_set(meleeSet)
+    if state.CounterMode.Value == "Always" then
+        meleeSet = set_combine(meleeSet, sets.counter)
+    elseif state.CounterMode.Value == "Hate" and state.can_increase_counter_rate then
+        meleeSet = set_combine(meleeSet, sets.counter)
+    end
 
     if state.ExtraMeleeMode.value ~= 'None' then
         meleeSet = set_combine(meleeSet, sets[state.ExtraMeleeMode.value])
     end
 	
     if buffactive.Impetus and meleeSet.Impetus then
-		meleeSet = meleeSet.Impetus
+		meleeSet = set_combine(meleeSet, meleeSet.Impetus)
     end
     
     if buffactive.Counterstance and state.DefenseMode.value == 'None' and state.OffenseMode.value ~= 'FullAcc' then
@@ -225,11 +276,6 @@ end
 function job_self_command(commandArgs, eventArgs)
 
 end
-
-function job_tick()
-	return false
-end
-
 
 function update_melee_groups()
     classes.CustomMeleeGroups:clear()

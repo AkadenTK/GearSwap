@@ -360,6 +360,11 @@ function init_gear_sets()
 	sets.Kiting = {legs="Carmine Cuisses +1"}
 	
 	sets.latent_refresh = {waist="Fucho-no-obi"}
+    sets.idle.Town = set_combine(sets.idle, sets.Kiting, {
+    	head="Runeist's Bandeau +3",
+    	body="Runeist's Coat +3",
+	    hands="Regal Gauntlets",
+    })
 	sets.DayIdle = {}
 	sets.NightIdle = {}
 

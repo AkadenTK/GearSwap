@@ -36,7 +36,7 @@ function init_gear_sets()
 	augmented_gear.capes.str_wsd = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}}
 	augmented_gear.capes.dex_wsd = augmented_gear.capes.str_wsd
 	augmented_gear.capes.dex_da = augmented_gear.capes.tp_da
-	augmented_gear.capes.tp_counter = augmented_gear.capes.tp_da
+	augmented_gear.capes.tp_counter = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','System: 1 ID: 640 Val: 4',}}
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------
@@ -139,17 +139,17 @@ function init_gear_sets()
 	    ring2="Begrudging Ring",
 	    back=augmented_gear.capes.str_crit,
 	})
-	sets.precast.WS['Ascetic\'s Fury'].Impetus = set_combine(sets.precast.WS['Ascetic\'s Fury'], {
-		body= "Bhikku's Cyclas +1",})
+	sets.precast.WS['Ascetic\'s Fury'].Impetus = {
+		body= "Bhikku's Cyclas +1",}
 	sets.precast.WS["Ascetic's Fury"].Acc = set_combine(sets.precast.WS["Ascetic's Fury"], {
 		feet="Mummu Gamash. +2"})
-	sets.precast.WS['Ascetic\'s Fury'].Acc.Impetus = set_combine(sets.precast.WS['Ascetic\'s Fury'].Acc, {
-		body= "Bhikku's Cyclas +1",})
+	sets.precast.WS['Ascetic\'s Fury'].Acc.Impetus = {
+		body= "Bhikku's Cyclas +1",}
 	sets.precast.WS["Ascetic's Fury"].FullAcc = set_combine(sets.precast.WS["Ascetic's Fury"], {
 		head="Mummu Bonnet +2",
 		})
-	sets.precast.WS['Ascetic\'s Fury'].FullAcc.Impetus = set_combine(sets.precast.WS['Ascetic\'s Fury'].FulAcc, {
-		body= "Bhikku's Cyclas +1",})
+	sets.precast.WS['Ascetic\'s Fury'].FullAcc.Impetus = {
+		body= "Bhikku's Cyclas +1",}
 
 
 
@@ -160,16 +160,16 @@ function init_gear_sets()
     	feet=augmented_gear.Herculean.CritDMG.STR.feet,
     	neck="Caro Necklace",
 	    back=augmented_gear.capes.str_crit,})
-	sets.precast.WS["Victory Smite"].Impetus = set_combine(sets.precast.WS["Victory Smite"], {
-		body="Bhikku Cyclas +1",})
+	sets.precast.WS["Victory Smite"].Impetus = {
+		body="Bhikku Cyclas +1",}
 	sets.precast.WS["Victory Smite"].Acc = set_combine(sets.precast.WS["Victory Smite"], {
 		feet="Mummu Gamash. +2"})
-	sets.precast.WS["Victory Smite"].Acc.Impetus = set_combine(sets.precast.WS["Victory Smite"].Acc, {
-		body="Bhikku Cyclas +1",})
+	sets.precast.WS["Victory Smite"].Acc.Impetus = {
+		body="Bhikku Cyclas +1",}
 	sets.precast.WS["Victory Smite"].FullAcc = set_combine(sets.precast.WS["Victory Smite"], {
 		head="Mummu Bonnet +2"})
-	sets.precast.WS["Victory Smite"].FullAcc.Impetus = set_combine(sets.precast.WS["Victory Smite"].FullAcc, {
-		body="Bhikku Cyclas +1",})
+	sets.precast.WS["Victory Smite"].FullAcc.Impetus = {
+		body="Bhikku Cyclas +1",}
 
 
 	sets.precast.WS['Shijin Spiral']   = set_combine(sets.precast.WS, {
@@ -235,7 +235,7 @@ function init_gear_sets()
 		ear1="Odnowa earring +1",
 		ear2="Hearty Earring",
 		head="kendatsuba Jinpachi",
-		body="Hiza. Haramaki +2",
+		body="Hesychast's Cyclas +3",
 		hands="Kurys gloves",
 		ring1="Defending Ring",
 		ring2="Paguroidea ring",
@@ -260,6 +260,8 @@ function init_gear_sets()
 	sets.Kiting = {feet="Herald's Gaiters"}
 
 	sets.idle.Town = {
+		body="Hesychast's Cyclas +3",
+		hands="Rao Kote +1",
 		legs="Hesychast's Hose +3",
 		feet="Herald's Gaiters",
 	}
@@ -271,6 +273,12 @@ function init_gear_sets()
 	-- If you create a set with both offense and defense modes, the offense mode should be first.
 	-- EG: sets.engaged.Dagger.Accuracy.Evasion
 
+	sets.counter = {
+		head="Rao Kabuto +1",
+		body="Hesychast's Cyclas +3",
+		hands="Rao Kote +1",
+	    back=augmented_gear.capes.tp_counter,
+	}
 	-- Normal melee sets
 	sets.engaged =  {
 		ammo="Ginsen",
@@ -286,14 +294,14 @@ function init_gear_sets()
 	    ring1="Epona's Ring",
 	    ring2="Niqmaddu Ring",
 	    back=augmented_gear.capes.tp_da,}
-	sets.engaged.Impetus = set_combine(sets.engaged, {body="Bhikku Cyclas +1"})
+	sets.engaged.Impetus = {body="Bhikku Cyclas +1"}
 	sets.engaged.Reikikon = set_combine(sets.engaged, {
 		legs="Samnuha Tights",
     	feet=augmented_gear.Herculean.TA.feet,})
 	sets.engaged.Acc = set_combine(sets.engaged, {
 	    head="kendatsuba Jinpachi",
 	    })
-	sets.engaged.Acc.Impetus = set_combine(sets.engaged.Acc, {body="Bhikku Cyclas +1"})
+	sets.engaged.Acc.Impetus = {body="Bhikku Cyclas +1"}
 	sets.engaged.Acc.Reikikon = set_combine(sets.engaged.Acc, {
 		legs="Samnuha Tights",
     	feet=augmented_gear.Herculean.TA.feet,})
@@ -304,7 +312,7 @@ function init_gear_sets()
 	    ear1="Mache Earring +1",
 	    ring1="Regal Ring",
 	})
-	sets.engaged.FullAcc.Impetus = set_combine(sets.engaged.FullAcc, {body="Bhikku Cyclas +1"})
+	sets.engaged.FullAcc.Impetus = {body="Bhikku Cyclas +1"}
 
 	-- Defensive melee hybrid sets
 	sets.engaged.PDT = {}

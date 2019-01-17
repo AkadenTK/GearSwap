@@ -148,6 +148,7 @@ function update_job_states()
 		DanceStance = "DanceStance",
 		Stance = "Stance",
 		Impetus = "Impetus",
+		CounterMode = "CounterMode",
     }
 
     stateBox:clear()

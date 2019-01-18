@@ -48,17 +48,17 @@ function init_gear_sets()
 	sets.precast.JA['Boost'] = {hands="Anchorite's Gloves +1"}
 	sets.precast.JA['Dodge'] = {feet="Anchorite's Gaiters +3"}
 	sets.precast.JA['Focus'] = {head="Anchorite's Crown +1"}
-	sets.precast.JA['Counterstance'] = {feet="Hesychast's Gaiters +1"}
+	sets.precast.JA['Counterstance'] = {feet="Hesychast's Gaiters +2"}
 	sets.precast.JA['Footwork'] = {feet="Bhikku gaiters +1"}
 	sets.precast.JA['Formless Strikes'] = {body="Hesychast's Cyclas"}
-	sets.precast.JA['Mantra'] = {feet="Hesychast's Gaiters +1"}
+	sets.precast.JA['Mantra'] = {feet="Hesychast's Gaiters +2"}
 
 	sets.precast.JA['Chi Blast'] = {}
 	
 	sets.precast.JA['Chakra'] = {
 		head="Dampening Tam",
 		body="Anchorite's Cyclas +1",hands="Hesychast's Gloves +1",
-		legs="Hes. Hose +1",feet="Anch. Gaiters +1"}
+		legs="Hes. Hose +1",feet="Anchorite's Gaiters +3"}
 
 	-- Waltz set (chr and vit)
 	sets.precast.Waltz = {}
@@ -277,6 +277,7 @@ function init_gear_sets()
 		head="Rao Kabuto +1",
 		body="Hesychast's Cyclas +3",
 		hands="Rao Kote +1",
+		feet="Hesychast's Gaiters +2",
 	    back=augmented_gear.capes.tp_counter,
 	}
 	-- Normal melee sets

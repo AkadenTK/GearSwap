@@ -120,7 +120,8 @@ function check_counterable()
     local t, me = windower.ffxi.get_mob_by_target('t'), windower.ffxi.get_mob_by_target('me')
     local old_counterable = state.can_increase_counter_rate
 
-    state.can_increase_counter_rate = not buff['Counterstance'] -- counterstance should be capping counter anyway.
+    state.can_increase_counter_rate = not buffactive['Counterstance'] -- counterstance should be capping counter anyway.
+                                      and not buffactive['Inner Strength'] -- gives 100% counter rate
                                       and look_offset(t, me) < 0.15 and look_offset(me, t) < 0.76
     if old_counterable ~= state.can_increase_counter_rate then
         windower.add_to_chat(123, "Counterable: "..tostring(state.can_increase_counter_rate))

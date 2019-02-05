@@ -75,17 +75,20 @@ function init_gear_sets()
     --------------------------------------
     -- Start defining the sets
     --------------------------------------
+    rostams = {
+        ['B'] = { name="Rostam", augments={'03830000810734032C000000',}},
+        ['C'] = { name="Rostam", augments={'038300007A2D64032D000000',}},
+    }
     sets.weapons = {}
     sets.weapons.ShieldLeaden = {main='Fettering Blade', sub="Nusku Shield", range="Death Penalty"}
-    sets.weapons.DWLeaden = {main='Rostam', sub="Fettering Blade", range="Death Penalty"}
+    sets.weapons.DWLeaden = {main='Elatta Knife', sub="Fettering Blade", range="Death Penalty"}
     sets.weapons.ShieldLastStand = {main='Kustawi +1', sub="Nusku Shield", range="Fomalhaut"}
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Anarchy +2"}
-    sets.weapons.MeleeLeaden = {main='Eletta Knife', sub="Blurred Knife +1", range="Death Penalty"}
-    sets.weapons.MeleeDynamis = {main='Rostam', sub="Blurred knife +1", range="Death Penalty"}
-    sets.weapons.MeleeLastStand = {main='Rostam', sub="Blurred Knife +1", range="Fomalhaut"}
+    sets.weapons.MeleeLeaden = {main=rostams.B, sub="Elatta Knife", range="Death Penalty"}
+    sets.weapons.MeleeLastStand = {main=rostams.B, sub="Blurred Knife +1", range="Fomalhaut"}
 
-    sets.Compensator = {main="Rostam",range="Compensator"}
+    sets.Compensator = {main=rostams.C,range="Compensator"}
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
 
     
@@ -460,6 +463,11 @@ function init_gear_sets()
 		
     sets.precast.WS['Hot Shot'] = set_combine(sets.precast.WS['Wildfire'], {})
     sets.precast.WS['Hot Shot'].Acc = set_combine(sets.precast.WS['Wildfire'].Acc, {})
+
+    sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS["Leaden Salute"], {
+        head=augmented_gear.Herculean.WSD.MAB.head,
+        ring1="Acumen ring",
+    })
 		
 		--Because omen skillchains.
     sets.precast.WS['Burning Blade'] = {}

@@ -203,7 +203,18 @@ function init_gear_sets()
 
     sets.precast.WS['Last Stand'] = set_combine(sets.precast.WS, {})
 
-    sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, {
+        body="Samnuha Coat",
+        hands="Meghanada Gloves +2",
+        legs=augmented_gear.Herculean.WSD.MAB.legs,
+        feet=augmented_gear.Herculean.WSD.MAB.feet,
+        neck="Stoicheion medal",
+        ear1="Moonshade earring",
+        ear2="Friomisi earring",   
+        ring1="Dingir ring",  
+        ring2="Acumen ring",
+        waist="Sveltesse gouriz",
+        back={ name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}},})
 
     sets.precast.WS['Aeolian Edge'].TH = set_combine(sets.precast.WS['Aeolian Edge'], sets.TreasureHunter)
 

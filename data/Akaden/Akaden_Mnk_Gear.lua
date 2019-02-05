@@ -2,7 +2,7 @@ function user_setup()
 	-- Options: Override default values
     state.OffenseMode:options('Normal','Acc','FullAcc')
     state.WeaponskillMode:options('Match','Normal', 'Acc', 'FullAcc')
-    state.HybridMode:options('Normal', 'PDT','PDTOnly')
+    state.HybridMode:options('Normal', 'DTLite','MEVA')
     state.PhysicalDefenseMode:options('PDT', 'HP')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
@@ -42,16 +42,31 @@ function init_gear_sets()
 	--------------------------------------
 	
 	-- Precast Sets
+
+	sets.enmity = {
+		head="Halitus Helm",
+		body="Emet Harness +1",
+		hands="Kurys gloves",
+		legs=augmented_gear.Herculean.Phalanx.legs,
+		feet="Rager Ledelsens +1",
+		neck="Moonbeam Necklace",
+		waist="Sinew Belt",
+		ring1="Eihwaz ring",
+		ring2="Petrov Ring",
+		ear1="Friomisi Earring",
+		ammo="Sapience orb",
+	}
 	
 	-- Precast sets to enhance JAs on use
 	sets.precast.JA['Hundred Fists'] = {legs="Hesychast's Hose +3"}
 	sets.precast.JA['Boost'] = {hands="Anchorite's Gloves +1"}
 	sets.precast.JA['Dodge'] = {feet="Anchorite's Gaiters +3"}
 	sets.precast.JA['Focus'] = {head="Anchorite's Crown +1"}
-	sets.precast.JA['Counterstance'] = {feet="Hesychast's Gaiters +2"}
+	sets.precast.JA['Counterstance'] = {feet="Hesychast's Gaiters +3"}
 	sets.precast.JA['Footwork'] = {feet="Bhikku gaiters +1"}
 	sets.precast.JA['Formless Strikes'] = {body="Hesychast's Cyclas"}
-	sets.precast.JA['Mantra'] = {feet="Hesychast's Gaiters +2"}
+	sets.precast.JA['Mantra'] = {feet="Hesychast's Gaiters +3"}
+	sets.precast.JA['Provoke'] = set_combine(sets.enmity, {})
 
 	sets.precast.JA['Chi Blast'] = {}
 	
@@ -158,22 +173,25 @@ function init_gear_sets()
     	body="Kendatsuba Samue",
 	    legs="Hesychast's Hose +3",
     	feet=augmented_gear.Herculean.CritDMG.STR.feet,
-    	neck="Caro Necklace",
+    	neck="Monk's Nodowa +2",
 	    back=augmented_gear.capes.str_crit,})
 	sets.precast.WS["Victory Smite"].Impetus = {
-		body="Bhikku Cyclas +1",}
+		body="Bhikku Cyclas +1",
+		ear2="Ishvara Earring",}
 	sets.precast.WS["Victory Smite"].Acc = set_combine(sets.precast.WS["Victory Smite"], {
 		feet="Mummu Gamash. +2"})
 	sets.precast.WS["Victory Smite"].Acc.Impetus = {
-		body="Bhikku Cyclas +1",}
+		body="Bhikku Cyclas +1",
+		ear2="Ishvara Earring",}
 	sets.precast.WS["Victory Smite"].FullAcc = set_combine(sets.precast.WS["Victory Smite"], {
 		head="Mummu Bonnet +2"})
 	sets.precast.WS["Victory Smite"].FullAcc.Impetus = {
-		body="Bhikku Cyclas +1",}
+		body="Bhikku Cyclas +1",
+		ear2="Ishvara Earring",}
 
 
 	sets.precast.WS['Shijin Spiral']   = set_combine(sets.precast.WS, {
-		neck="Caro Necklace",
+		neck="Monk's Nodowa +2",
 	    legs="Hesychast's Hose +3",
 		ear2='Mache Earring +1',
 	    back=augmented_gear.capes.dex_da,
@@ -226,6 +244,8 @@ function init_gear_sets()
 	
 	-- Resting sets
 	sets.resting = {}
+
+	sets.Cure_Received = {neck="Phalaina Locket",ring2="Kunaji Ring",waist="Gishdubar Sash"}
 	
 
 	-- Idle sets
@@ -234,7 +254,7 @@ function init_gear_sets()
 		neck="Loricate Torque +1",
 		ear1="Odnowa earring +1",
 		ear2="Hearty Earring",
-		head="kendatsuba Jinpachi",
+		head="kendatsuba Jinpachi +1",
 		body="Hesychast's Cyclas +3",
 		hands="Kurys gloves",
 		ring1="Defending Ring",
@@ -260,10 +280,12 @@ function init_gear_sets()
 	sets.Kiting = {feet="Herald's Gaiters"}
 
 	sets.idle.Town = {
+		head="Kendatsuba Jinpachi +1",
 		body="Hesychast's Cyclas +3",
 		hands="Rao Kote +1",
 		legs="Hesychast's Hose +3",
 		feet="Herald's Gaiters",
+		neck="Monk's Nodowa +2",
 	}
 
 	-- Engaged sets
@@ -277,7 +299,8 @@ function init_gear_sets()
 		head="Rao Kabuto +1",
 		body="Hesychast's Cyclas +3",
 		hands="Rao Kote +1",
-		feet="Hesychast's Gaiters +2",
+		legs="Anchorite's hose +2",
+		feet="Hesychast's Gaiters +3",
 	    back=augmented_gear.capes.tp_counter,
 	}
 	-- Normal melee sets
@@ -288,7 +311,7 @@ function init_gear_sets()
         hands=augmented_gear.Adhemar.Atk.hands,
 	    legs="Hesychast's Hose +3",
     	feet="Anchorite's Gaiters +3",
-	    neck="Moonbeam Nodowa",
+	    neck="Monk's Nodowa +2",
 	    waist="Moonbow Belt",
 	    ear1="Sherida Earring",
 	    ear2="Telos Earring",
@@ -300,7 +323,7 @@ function init_gear_sets()
 		legs="Samnuha Tights",
     	feet=augmented_gear.Herculean.TA.feet,})
 	sets.engaged.Acc = set_combine(sets.engaged, {
-	    head="kendatsuba Jinpachi",
+	    head="kendatsuba Jinpachi +1",
 	    })
 	sets.engaged.Acc.Impetus = {body="Bhikku Cyclas +1"}
 	sets.engaged.Acc.Reikikon = set_combine(sets.engaged.Acc, {
@@ -316,12 +339,23 @@ function init_gear_sets()
 	sets.engaged.FullAcc.Impetus = {body="Bhikku Cyclas +1"}
 
 	-- Defensive melee hybrid sets
-	sets.engaged.PDT = {}
-	sets.engaged.Acc.PDT = {}
-	sets.engaged.FullAcc.PDT = {}
-	sets.engaged.PDTOnly = {}
-	sets.engaged.Acc.PDTOnly = {}
-	sets.engaged.FullAcc.PDTOnly = {}
+	sets.engaged.DTLite = set_combine(sets.engaged, {
+		legs="Mummu Kecks +2",
+		feet=augmented_gear.Herculean.TA.feet,
+		ring1="Defending Ring",
+		neck="Loricate Torque +1",
+		ammo="Staunch Tathlum",
+	})
+	--sets.engaged.Acc.PDT = {}
+	--sets.engaged.FullAcc.PDT = {}
+	sets.engaged.MEVA = set_combine(sets.engaged, {
+		head="Kendatsuba Jinpachi +1",
+		body="Kendatsuba Samue",
+		--legs="Kendatsuba Hakama",
+		--feet="Kendatsuba Sune-ate",
+	})
+	--sets.engaged.Acc.PDTOnly = {}
+	--sets.engaged.FullAcc.PDTOnly = {}
 
 	-- Hundred Fists/Impetus melee set mods
 	
@@ -329,7 +363,7 @@ function init_gear_sets()
 	sets.engaged.Acc.HF = set_combine(sets.engaged.Acc, {})
 	sets.engaged.FullAcc.HF = set_combine(sets.engaged.FullAcc, {})
 
-	sets.buff.Doom = set_combine(sets.buff.Doom, {})
+	sets.buff.Doom = set_combine(sets.buff.Doom, {ring2="Saida Ring"})
 	sets.buff.Sleep = {head="Frenzy Sallet"}
 	--sets.buff.Impetus = {body="Bhikku Cyclas +1"}
 	sets.buff.Footwork = {} -- feet="Shukuyu Sune-Ate"

@@ -223,7 +223,7 @@ function init_gear_sets()
         ear1="Moonshade earring",
         ear2="Friomisi earring",   
         ring1="Dingir ring",  
-        ring2="Karieyh ring",
+        ring2="Archon ring",
         waist="Sveltesse gouriz",
         back=augmented_gear.capes.mab_wsd,
     }

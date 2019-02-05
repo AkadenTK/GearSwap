@@ -181,10 +181,6 @@ function job_customize_melee_set(meleeSet)
 end
 
 function job_customize_defense_set(defenseSet)
-    if state.ExtraMeleeMode.value ~= 'None' then
-        defenseSet = set_combine(defenseSet, sets[state.ExtraMeleeMode.value])
-    end
-
     return defenseSet
 end
 

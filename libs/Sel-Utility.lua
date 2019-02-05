@@ -50,6 +50,17 @@ function cancel_conflicting_buffs(spell, spellMap, eventArgs)
     end
 end
 
+
+function notify_buffs(buff, gain)
+	if state.NotifyBuffs.value and NotifyBuffs:contains(buff) then
+		if gain then
+			windower.chat.input('/p I just got hit with '..buff..'.')
+		else
+			windower.chat.input('/p '..buff..' is off now.')
+		end
+	end
+end
+
 -- Function to make auto-translate work in windower.
 -- Usage: windower.add_to_chat(207, 'Test ' .. auto_translate(command))
 
@@ -673,8 +684,9 @@ function silent_can_use(spellid)
 		(spell_jobs[player.main_job_id] >= 100 and number_of_jps(player.job_points[(res.jobs[player.main_job_id].ens):lower()]) >= spell_jobs[player.main_job_id]) ) ) and
 		(not spell_jobs[player.sub_job_id] or not (spell_jobs[player.sub_job_id] <= player.sub_job_level)) then
 		return false
+	elseif res.spells[spellid].type == 'BlueMagic' and not ((player.main_job_id == 16 and (unbridled_learning_set[res.spells[spellid].en] or table.contains(windower.ffxi.get_mjob_data().spells,spellid))) or (player.sub_job_id == 16 and table.contains(windower.ffxi.get_sjob_data().spells,spellid))) then	
+		return false
 	else
-  
 		return true
 	end
 end
@@ -954,13 +966,7 @@ end
 
 function silent_check_disable()
 
-	if buffactive.terror then
-		return true
-	elseif buffactive.petrification then
-		return true
-	elseif buffactive.sleep or buffactive.Lullaby then
-		return true
-	elseif buffactive.stun then
+	if buffactive.terror or buffactive.petrification or buffactive.sleep or buffactive.Lullaby or buffactive.stun then
 		return true
 	else
 		return false
@@ -990,23 +996,18 @@ function check_doom(spell, spellMap, eventArgs)
 end
 
 function check_midaction(spell, spellMap, eventArgs)
-	local in_action, midaction = midaction()
-
-	if eventArgs then
-		if (in_action and midaction.action_type == 'Magic') and state.BlockMidaction.value then
+	if os.clock() < next_cast then
+		if eventArgs then
 			eventArgs.cancel = true
-			return true
-		else
-			return false
+			if delayed_cast == '' then
+				delayed_cast = spell.english
+				windower.send_command:schedule((next_cast - os.clock()),'"'..delayed_cast..'" '..spell.target.raw..'')
+			end
 		end
+		return true
 	else
-		if (in_action and midaction.action_type ~= 'Ranged Attack') or pet_midaction() or gearswap.cued_packet then
-			return true
-		else
-			return false
-		end
+		return false
 	end
-
 end
 
 function check_amnesia(spell, spellMap, eventArgs)
@@ -1053,12 +1054,22 @@ function check_silence(spell, spellMap, eventArgs)
 			eventArgs.cancel = true
 			return true
 		elseif buffactive.silence then
-			if player.inventory['Echo Drops'] or player.satchel['Echo Drops'] then
-				send_command('input /item "Echo Drops" <me>')
-			elseif player.inventory["Remedy"] then
-				send_command('input /item "Remedy" <me>')
+			if buffactive.paralysis then
+				if player.inventory["Remedy"] then
+					send_command('input /item "Remedy" <me>')
+				elseif player.inventory['Echo Drops'] or player.satchel['Echo Drops'] then
+					send_command('input /item "Echo Drops" <me>')
+				else
+					add_to_chat(123,'Abort: You are silenced.')
+				end
 			else
-				add_to_chat(123,'Abort: You are silenced.')
+				if player.inventory['Echo Drops'] or player.satchel['Echo Drops'] then
+					send_command('input /item "Echo Drops" <me>')
+				elseif player.inventory["Remedy"] then
+					send_command('input /item "Remedy" <me>')
+				else
+					add_to_chat(123,'Abort: You are silenced.')
+				end
 			end
 			
 			eventArgs.cancel = true
@@ -1454,7 +1465,7 @@ end
 
 function check_auto_tank_ws()
 	if state.AutoWSMode.value and state.AutoTankMode.value and player.target.type == "MONSTER" and not moving and player.status == 'Engaged' and not silent_check_amnesia() then
-		if player.tp > 999 and relic_weapons:contains(player.equipment.main) and state.RelicAftermath and (not buffactive['Aftermath']) then
+		if player.tp > 999 and relic_weapons:contains(player.equipment.main) and state.RelicAftermath.value and (not buffactive['Aftermath']) then
 			windower.chat.input('/ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
@@ -1599,7 +1610,7 @@ function check_ws()
 			return true
 		elseif player.target.distance > (3.2 + player.target.model_size) and not data.weaponskills.ranged:contains(autows) then
 			return false
-		elseif player.tp > 999 and relic_weapons:contains(player.equipment.main) and state.RelicAftermath and (not buffactive['Aftermath']) then
+		elseif player.tp > 999 and relic_weapons:contains(player.equipment.main) and state.RelicAftermath.value and (not buffactive['Aftermath']) then
 			windower.chat.input('/ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
 			tickdelay = (framerate * 1.8)
 			return true
@@ -2214,8 +2225,14 @@ windower.register_event('outgoing chunk',function(id,data,modified,is_injected,i
         moving = lastlocation ~= modified:sub(5, 16)
         lastlocation = modified:sub(5, 16)
 		
-		if wasmoving ~= moving and not (midaction() or pet_midaction()) then
-			send_command('gs c forceequip')
+		if wasmoving ~= moving then
+			if moving and buffup~= '' then
+				buffup = ''
+				add_to_chat(123,'Buffup cancelled due to movement.')
+			end
+			if not (midaction() or pet_midaction()) then
+				send_command('gs c forceequip')
+			end
 		end
 		
 		if moving and state.RngHelper.value then

@@ -135,16 +135,13 @@ end
 function job_aftercast(spell, spellMap, eventArgs)
     if spell.type == 'CorsairRoll' and not spell.interrupted then
 		if state.CompensatorMode.value ~= 'Never' then
-			if ((player.equipment.range and player.equipment.range == 'Compensator') or (player.equipment.ranged and player.equipment.ranged == 'Compensator')) and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].range and sets.weapons[state.Weapons.value].range ~= 'Compensator' then
-				enable('range')
-				equip({range=sets.weapons[state.Weapons.value].range})
-				disable('range')
-			end
-			if (player.equipment.main and player.equipment.main == 'Rostam') and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].main and sets.weapons[state.Weapons.value].main ~= 'Rostam' then
-				enable('main')
-				equip({main=sets.weapons[state.Weapons.value].main})
-				disable('main')
-			end
+			for slot,piece in pairs(sets.Compensator) do
+                enable(slot)
+                local s = {}
+                s[slot] = sets.weapons[state.Weapons.Value][slot]
+                equip(s)
+                disable(slot)
+            end
 		end
         display_roll_info(spell)
 	elseif spell.type == 'CorsairShot' then
@@ -216,14 +213,12 @@ function job_post_precast(spell, spellMap, eventArgs)
 			equip(sets.precast.LuzafRing)
 		end
 		if spell.type == 'CorsairRoll' and state.CompensatorMode.value ~= 'Never' and (state.CompensatorMode.value == 'Always' or tonumber(state.CompensatorMode.value) > player.tp) then
-			if item_available("Compensator") then
-				enable('range')
-				equip({range="Compensator"})
-			end
-			if item_available("Rostam") then
-				enable('main')
-				equip({main="Rostam"})
-			end
+			for slot,piece in pairs(sets.Compensator) do
+                enable(slot)
+                local s = {}
+                s[slot] = piece
+                equip(s)
+            end
 		end
     elseif spell.english == 'Fold' and buffactive['Bust'] == 2 and sets.precast.FoldDoubleBust then
 		equip(sets.precast.FoldDoubleBust)

@@ -676,7 +676,7 @@ function init_gear_sets()
 	sets.SuppaBrutal = {ear1="Suppanomimi", ear2="Brutal Earring"}
 	sets.DWEarrings = {ear1="Dudgeon Earring",ear2="Heartseeker Earring"}
 	sets.DWMax = {ear1="Dudgeon Earring",ear2="Heartseeker Earring",body="Adhemar Jacket",waist="Reiki Yotai",legs="Carmine Cuisses +1"}
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
 	sets.Assault = {ring1="Balrahn's Ring"}
 
 	sets.Self_Healing = {neck="Phalaina locket"}

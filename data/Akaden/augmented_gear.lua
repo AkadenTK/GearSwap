@@ -55,6 +55,7 @@ augmented_gear.Herculean.WSD.MAB = {
 
 augmented_gear.Herculean.WSD.STR = {
     head={ name="Herculean Helm", augments={'Attack+27','Weapon skill damage +3%','STR+14','Accuracy+6',}},
+    body={ name="Herculean Vest", augments={'Attack+13','Weapon skill damage +3%','STR+10','Accuracy+5',}},
     legs={ name="Herculean Trousers", augments={'Accuracy+16 Attack+16','Weapon skill damage +4%','STR+5','Attack+14',}},
     feet={ name="Herculean Boots", augments={'Accuracy+22 Attack+22','Weapon skill damage +4%','STR+9','Accuracy+9','Attack+12',}},
 }
@@ -117,7 +118,7 @@ augments.Adhemar.HQ = {
 augmented_gear.Adhemar.Acc = {
     head={ name="Adhemar Bonnet", augments=augments.Adhemar.NQ.A},
     body={ name="Adhemar Jacket +1", augments=augments.Adhemar.HQ.B},
-    hands={ name="Adhemar Wristbands +1", augments=augments.Adhemar.HQ.B},
+    hands={ name="Adhemar Wristbands +1", augments=augments.Adhemar.HQ.A},
 }
 augmented_gear.Adhemar.Atk = {
     head={ name="Adhemar Bonnet +1", augments=augments.Adhemar.HQ.B},

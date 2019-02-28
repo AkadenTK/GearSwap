@@ -64,7 +64,7 @@ function init_gear_sets()
     -- Precast Sets
     --------------------------------------
     
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist="Chaac Belt"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist="Chaac Belt",legs="Volte Hose",feet="Volte Boots"})
 	
     -- Precast sets to enhance JAs
     --sets.precast.JA['Astral Flow'] = {head="Glyphic Horn"}

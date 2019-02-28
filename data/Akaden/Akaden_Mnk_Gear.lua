@@ -28,7 +28,7 @@ end
 function init_gear_sets()
     include('augmented_gear.lua')
 
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
 
     augmented_gear.capes = {}
     augmented_gear.capes.tp_da = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
@@ -59,12 +59,12 @@ function init_gear_sets()
 	
 	-- Precast sets to enhance JAs on use
 	sets.precast.JA['Hundred Fists'] = {legs="Hesychast's Hose +3"}
-	sets.precast.JA['Boost'] = {hands="Anchorite's Gloves +1"}
+	sets.precast.JA['Boost'] = {hands="Anchorite's Gloves +3"}
 	sets.precast.JA['Dodge'] = {feet="Anchorite's Gaiters +3"}
 	sets.precast.JA['Focus'] = {head="Anchorite's Crown +1"}
 	sets.precast.JA['Counterstance'] = {feet="Hesychast's Gaiters +3"}
 	sets.precast.JA['Footwork'] = {feet="Bhikku gaiters +1"}
-	sets.precast.JA['Formless Strikes'] = {body="Hesychast's Cyclas"}
+	sets.precast.JA['Formless Strikes'] = {body="Hesychast's Cyclas +3"}
 	sets.precast.JA['Mantra'] = {feet="Hesychast's Gaiters +3"}
 	sets.precast.JA['Provoke'] = set_combine(sets.enmity, {})
 
@@ -72,7 +72,7 @@ function init_gear_sets()
 	
 	sets.precast.JA['Chakra'] = {
 		head="Dampening Tam",
-		body="Anchorite's Cyclas +1",hands="Hesychast's Gloves +1",
+		body="Anchorite's Cyclas +1",hands="Hesychast's Gloves",
 		legs="Hes. Hose +1",feet="Anchorite's Gaiters +3"}
 
 	-- Waltz set (chr and vit)
@@ -109,8 +109,8 @@ function init_gear_sets()
 	    ammo="Knobkierrie",
 	    neck="Fotia Gorget",
         head=augmented_gear.Adhemar.Atk.head,
-        body=augmented_gear.Adhemar.Atk.body,
-        hands=augmented_gear.Adhemar.Atk.hands,
+        body=augmented_gear.Herculean.WSD.STR.body,
+        hands="Anchorite's gloves +3",
 	    ear1="Sherida Earring",
 	    ear2="Moonshade Earring",
 	    back=augmented_gear.capes.str_wsd,
@@ -207,6 +207,8 @@ function init_gear_sets()
 
 
 	sets.precast.WS['Tornado Kick']    = set_combine(sets.precast.WS, {
+    	neck="Monk's Nodowa +2",
+		feet="Anchorite's Gaiters +3"
 	})
 	sets.precast.WS["Tornado Kick"].Acc = set_combine(sets.precast.WS["Tornado Kick"], sets.precast.WSAcc)
 	sets.precast.WS["Tornado Kick"].FullAcc = set_combine(sets.precast.WS["Tornado Kick"], sets.precast.WSFullAcc)
@@ -324,6 +326,7 @@ function init_gear_sets()
     	feet=augmented_gear.Herculean.TA.feet,})
 	sets.engaged.Acc = set_combine(sets.engaged, {
 	    head="kendatsuba Jinpachi +1",
+        hands=augmented_gear.Adhemar.Acc.hands,
 	    })
 	sets.engaged.Acc.Impetus = {body="Bhikku Cyclas +1"}
 	sets.engaged.Acc.Reikikon = set_combine(sets.engaged.Acc, {
@@ -332,7 +335,6 @@ function init_gear_sets()
 	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
 	    ammo="Falcon Eye",
 	    body="Mummu Jacket +2",
-	    hands="Mummu Wrists +2",
 	    ear1="Mache Earring +1",
 	    ring1="Regal Ring",
 	})

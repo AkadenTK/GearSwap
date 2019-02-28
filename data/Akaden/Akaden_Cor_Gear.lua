@@ -9,7 +9,7 @@ function user_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
-    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade','MeleeLeaden','MeleeDynamis','MeleeLastStand', 'ShieldLeaden','ShieldLastStand','None')
+    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade','MeleeLeaden','MeleeLastStand', 'ShieldLeaden','ShieldLastStand','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
 
@@ -76,20 +76,20 @@ function init_gear_sets()
     -- Start defining the sets
     --------------------------------------
     rostams = {
-        ['B'] = { name="Rostam", augments={'03830000810734032C000000',}},
+        ['B'] = { name="Rostam", augments={'03830000792D64032C000000',}},
         ['C'] = { name="Rostam", augments={'038300007A2D64032D000000',}},
     }
     sets.weapons = {}
     sets.weapons.ShieldLeaden = {main='Fettering Blade', sub="Nusku Shield", range="Death Penalty"}
-    sets.weapons.DWLeaden = {main='Elatta Knife', sub="Fettering Blade", range="Death Penalty"}
+    sets.weapons.DWLeaden = {main='Kaja Knife', sub="Fettering Blade", range="Death Penalty"}
     sets.weapons.ShieldLastStand = {main='Kustawi +1', sub="Nusku Shield", range="Fomalhaut"}
     sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
-    sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Anarchy +2"}
-    sets.weapons.MeleeLeaden = {main=rostams.B, sub="Elatta Knife", range="Death Penalty"}
+    sets.weapons.SavageBlade = {main='Kaja Sword', sub="Blurred Knife +1", range="Anarchy +2"}
+    sets.weapons.MeleeLeaden = {main=rostams.B, sub="Kaja Knife", range="Death Penalty"}
     sets.weapons.MeleeLastStand = {main=rostams.B, sub="Blurred Knife +1", range="Fomalhaut"}
 
     sets.Compensator = {main=rostams.C,range="Compensator"}
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
 
     
     -- Precast Sets
@@ -502,7 +502,7 @@ function init_gear_sets()
         back=augmented_gear.capes.ra_stp,
         waist="Yemaya belt",
         legs=augmented_gear.Adhemar.Rng.legs,
-        feet=augmented_gear.Adhemar.Rng.feet,
+        feet=augmented_gear.Adhemar.D.feet,
     }
 
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA,{

@@ -371,7 +371,7 @@ function init_gear_sets()
     -- Extra defense sets.  Apply these on top of melee or defense sets.
     sets.Knockback = {}
     sets.MP = {ear2="Ethereal Earring",waist="Flume Belt"}
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist = "Chaac belt",hands=augmented_gear.Herculean.TH.hands,feet=augmented_gear.Herculean.TH.feet})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
 	
 	-- Weapons sets
 	sets.weapons.Aettir = {main="Aettir",sub="Utu Grip"}
@@ -457,6 +457,7 @@ function init_gear_sets()
 	sets.engaged.Acc = set_combine(sets.engaged, {
 	    ammo="Yamarang",
 	    head="Aya. Zucchetto +2",
+    	hands=augmented_gear.Adhemar.Acc.hands,
     	waist="Kentarch belt +1",
 		ear2="Telos earring",
 	})

@@ -38,7 +38,7 @@ function init_gear_sets()
     --------------------------------------
     -- Special sets (required by rules)
     --------------------------------------
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist="Chaac belt", hands="Plunderer's Armlets +1",feet="Skulk. Poulaines"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist="Chaac belt", hands="Plunderer's Armlets +1",legs="Volte Hose",feet="Skulk. Poulaines"})
     sets.ExtraRegen = {}
     sets.Kiting = {feet="Fajin Boots"}
     sets.Capacity={back="Aptitude Mantle"}

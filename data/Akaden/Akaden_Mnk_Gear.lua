@@ -68,11 +68,11 @@ function init_gear_sets()
 	sets.precast.JA['Mantra'] = {feet="Hesychast's Gaiters +3"}
 	sets.precast.JA['Provoke'] = set_combine(sets.enmity, {})
 
-	sets.precast.JA['Chi Blast'] = {}
+	sets.precast.JA['Chi Blast'] = {head="Hesychast's crown +3"}
 	
 	sets.precast.JA['Chakra'] = {
 		head="Dampening Tam",
-		body="Anchorite's Cyclas +1",hands="Hesychast's Gloves",
+		body="Anchorite's Cyclas +3",hands="Hesychast's Gloves",
 		legs="Hes. Hose +1",feet="Anchorite's Gaiters +3"}
 
 	-- Waltz set (chr and vit)
@@ -108,13 +108,13 @@ function init_gear_sets()
 	sets.precast.WS = {
 	    ammo="Knobkierrie",
 	    neck="Fotia Gorget",
-        head=augmented_gear.Adhemar.Atk.head,
+		head="Hesychast's crown +3",
         body=augmented_gear.Herculean.WSD.STR.body,
         hands="Anchorite's gloves +3",
 	    ear1="Sherida Earring",
 	    ear2="Moonshade Earring",
 	    back=augmented_gear.capes.str_wsd,
-	    waist="Moonbow Belt",
+	    waist="Moonbow Belt +1",
 	    ring1="Regal Ring",
 	    ring2="Niqmaddu Ring",
     	legs="Hiza. Hizayoroi +2",
@@ -129,10 +129,9 @@ function init_gear_sets()
 	-- Specific weaponskill sets.
 
 	sets.precast.WS['Raging Fists']    = set_combine(sets.precast.WS, {
-	    head=augmented_gear.Herculean.WSD.STR.head,
     	hands=augmented_gear.Ryuo.STR.hands,
     	neck="Caro Necklace",
-    	waist="Moonbow Belt",})
+    	waist="Moonbow Belt +1",})
 	sets.precast.WS["Raging Fists"].Acc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSAcc)
 	sets.precast.WS["Raging Fists"].FullAcc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSFullAcc)
 
@@ -148,6 +147,7 @@ function init_gear_sets()
 
 
 	sets.precast.WS['Ascetic\'s Fury']  = set_combine(sets.precast.WS, {
+        head=augmented_gear.Adhemar.Atk.head,
     	hands=augmented_gear.Ryuo.STR.hands,
 	    legs="Hesychast's Hose +3",
     	neck="Caro Necklace",
@@ -169,8 +169,9 @@ function init_gear_sets()
 
 
 	sets.precast.WS["Victory Smite"]   = set_combine(sets.precast.WS, {
+        head=augmented_gear.Adhemar.Atk.head,
     	hands=augmented_gear.Ryuo.STR.hands,
-    	body="Kendatsuba Samue",
+    	body="Anchorite's Cyclas +3",
 	    legs="Hesychast's Hose +3",
     	feet=augmented_gear.Herculean.CritDMG.STR.feet,
     	neck="Monk's Nodowa +2",
@@ -191,6 +192,7 @@ function init_gear_sets()
 
 
 	sets.precast.WS['Shijin Spiral']   = set_combine(sets.precast.WS, {
+        head=augmented_gear.Adhemar.Atk.head,
 		neck="Monk's Nodowa +2",
 	    legs="Hesychast's Hose +3",
 		ear2='Mache Earring +1',
@@ -201,6 +203,8 @@ function init_gear_sets()
 
 
 	sets.precast.WS['Dragon Kick']     = set_combine(sets.precast.WS, {
+    	neck="Monk's Nodowa +2",
+		feet="Anchorite's Gaiters +3"
 	})
 	sets.precast.WS["Dragon Kick"].Acc = set_combine(sets.precast.WS["Dragon Kick"], sets.precast.WSAcc)
 	sets.precast.WS["Dragon Kick"].FullAcc = set_combine(sets.precast.WS["Dragon Kick"], sets.precast.WSFullAcc)
@@ -263,6 +267,7 @@ function init_gear_sets()
 		ring2="Paguroidea ring",
 		legs="Mummu Kecks +2",
 	    back=augmented_gear.capes.tp_da,
+	    waist="Moonbow Belt +1",
 	}
 
 	sets.idle.Weak = set_combine(sets.idle, {})
@@ -301,7 +306,7 @@ function init_gear_sets()
 		head="Rao Kabuto +1",
 		body="Hesychast's Cyclas +3",
 		hands="Rao Kote +1",
-		legs="Anchorite's hose +2",
+		legs="Anchorite's hose +3",
 		feet="Hesychast's Gaiters +3",
 	    back=augmented_gear.capes.tp_counter,
 	}
@@ -314,7 +319,7 @@ function init_gear_sets()
 	    legs="Hesychast's Hose +3",
     	feet="Anchorite's Gaiters +3",
 	    neck="Monk's Nodowa +2",
-	    waist="Moonbow Belt",
+	    waist="Moonbow Belt +1",
 	    ear1="Sherida Earring",
 	    ear2="Telos Earring",
 	    ring1="Epona's Ring",

@@ -9,7 +9,7 @@ function user_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
-    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade','MeleeLeaden','MeleeLastStand', 'ShieldLeaden','ShieldLastStand','None')
+    state.Weapons:options('MeleeLeaden','SavageBlade','MeleeLastStand','DWLeaden','DWLastStand','ShieldLeaden','ShieldLastStand','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
 
@@ -76,15 +76,16 @@ function init_gear_sets()
     -- Start defining the sets
     --------------------------------------
     rostams = {
+        ['A'] = "Lanun Knife",
         ['B'] = { name="Rostam", augments={'03830000792D64032C000000',}},
         ['C'] = { name="Rostam", augments={'038300007A2D64032D000000',}},
     }
     sets.weapons = {}
-    sets.weapons.ShieldLeaden = {main='Fettering Blade', sub="Nusku Shield", range="Death Penalty"}
-    sets.weapons.DWLeaden = {main='Kaja Knife', sub="Fettering Blade", range="Death Penalty"}
-    sets.weapons.ShieldLastStand = {main='Kustawi +1', sub="Nusku Shield", range="Fomalhaut"}
-    sets.weapons.DWLastStand = {main='Fettering Blade', sub="Kustawi +1", range="Fomalhaut"}
-    sets.weapons.SavageBlade = {main='Kaja Sword', sub="Blurred Knife +1", range="Anarchy +2"}
+    sets.weapons.ShieldLeaden = {main=rostams.A, sub="Nusku Shield", range="Death Penalty"}
+    sets.weapons.DWLeaden = {main=rostams.A, sub='Kaja Knife', range="Death Penalty"}
+    sets.weapons.ShieldLastStand = {main=rostams.A, sub="Nusku Shield", range="Fomalhaut"}
+    sets.weapons.DWLastStand = {main=rostams.A, sub='Kustawi +1', range="Fomalhaut"}
+    sets.weapons.SavageBlade = {main='Naegling', sub="Blurred Knife +1", range="Anarchy +2"}
     sets.weapons.MeleeLeaden = {main=rostams.B, sub="Kaja Knife", range="Death Penalty"}
     sets.weapons.MeleeLastStand = {main=rostams.B, sub="Blurred Knife +1", range="Fomalhaut"}
 
@@ -352,12 +353,12 @@ function init_gear_sets()
 	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.engaged, {
         head=augmented_gear.Herculean.WSD.STR.head,
-        neck="Caro necklace",
+        neck="Commodore Charm +2",
         ear1="Moonshade earring",
         ear2="Ishvara Earring",
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
-        ring1="Ilabrat ring",
+        ring1="Ifrit ring +1",
         ring2="Regal Ring",
         back=augmented_gear.capes.str_wsd,
         waist="Prosilio belt",
@@ -366,9 +367,10 @@ function init_gear_sets()
     })
 
     sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast['Savage Blade'], {  
+        head="Carmine mask +1",
         ear1="Cessance earring",
         ear2="Dignitary's earring",
-        body="Mummu Jacket +2",
+        ring1="Ilabrat ring",
         waist="Fotia belt",
     })
 

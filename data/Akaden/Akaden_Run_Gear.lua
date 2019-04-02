@@ -70,12 +70,16 @@ function init_gear_sets()
 	}
 		 
     sets.Enmity.SIRD = set_combine(sets.Enmity, {
-    	ammo="Staunch Tathlum",
+    	ammo="Staunch Tathlum",				 -- 10
+    	head=augmented_gear.Taeon.SIRD.head, -- 10
+	    neck="Moonbeam Necklace",			 -- 10
     	body="Futhark Coat +1";
-    	hands="Rawhide gloves",
-    	ring1="Evanescence ring",
-    	waist="Rumination Sash",
-    	legs="Carmine Cuisses +1"
+    	hands="Rawhide gloves", 			 -- 15
+    	ring1="Evanescence ring",			 -- 5
+    	waist="Rumination Sash",		     -- 10
+    	legs="Carmine Cuisses +1",			 -- 20
+    	feet=augmented_gear.Taeon.SIRD.feet, -- 9
+    	back=augmented_gear.capes.FC,		 -- 10
     	})
      
 
@@ -246,18 +250,15 @@ function init_gear_sets()
 	sets.precast.WS.FullAcc = set_combine(sets.precast.WS,{})
 
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
-        head=augmented_gear.Lustratio.STR.head,
-        body=augmented_gear.Lustratio.STR.body,
+        head=augmented_gear.Adhemar.Atk.head,
+        body=augmented_gear.Adhemar.Atk.body,
         hands="Meghanada gloves +2",
     	--legs="Samnuha Tights",
     	ring2="Niqmaddu ring",
     	back=augmented_gear.capes.DA_STR,
     	})
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'],{
-    	--head="Rune. Bandeau +3",
-        head=augmented_gear.Adhemar.Atk.head,
-        body=augmented_gear.Adhemar.Atk.body,
-        hands=augmented_gear.Adhemar.Atk.hands,
+    	head="Rune. Bandeau +3",
     	})
 	sets.precast.WS['Resolution'].FullAcc = set_combine(sets.precast.WS['Resolution'].Acc,{})
 
@@ -296,8 +297,15 @@ function init_gear_sets()
 			
 	sets.midcast.FastRecast.DT = set_combine(sets.midcast.FastRecast,{})
 
-    sets.midcast['Enhancing Magic'] = {head="Erilaz Galea +1",hands="Regal Gauntlets",legs="Futhark Trousers +1"}
-    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{head="Futhark Bandeau +1",legs=augmented_gear.Herculean.Phalanx.legs})
+    sets.midcast['Enhancing Magic'] = {
+    	head="Erilaz Galea +1",
+    	hands="Regal Gauntlets",
+    	legs="Futhark Trousers +1"}
+    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'], {
+		head="Futhark Bandeau +1",
+		legs=augmented_gear.Herculean.Phalanx.legs,
+		feet=augmented_gear.Taeon.Phalanx.feet
+		})
     sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'],{head="Rune. Bandeau +3"}) 
 	sets.midcast['Refresh'] = set_combine(sets.midcast['Enhancing Magic'],{head="Erilaz Galea +1"}) 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {ear2="Earthcry Earring",waist="Siegel Sash"})
@@ -399,29 +407,26 @@ function init_gear_sets()
 		ammo="Staunch Tathlum",
 	    head="Erilaz Galea +1",
 	    body="Runeist's Coat +3",
-	    hands="Erilaz Gauntlets +1",
-	    legs="Erilaz Leg Guards +1",
-	    feet="Erilaz Greaves +1",
+	    hands="Turms Mittens +1",
+	    legs="Turms Subligar",
+	    feet="Turms Leggings",
 	    neck="Loricate Torque +1",
 	    waist="Flume Belt",
 	    ring1="Defending ring",
 	    ring2="Moonbeam Ring",
 	    ear1="Ethereal Earring",
 	    ear2="Odnowa Earring +1",
-	    back="Moonbeam cape",}
+	    back=augmented_gear.capes.Tank,}
 	sets.defense.MDT_HP = {}
 	
 	sets.defense.BDT = set_combine(sets.defense.MDT,{})
 	sets.defense.BDT_HP = {}
 	
 	sets.defense.MEVA = set_combine(sets.defense.MDT,{
-	    head="Runeist's Bandeau +2",
+	    head="Runeist's Bandeau +3",
 	    neck="Warder's Charm +1",
-	    ear1="Odnowa Earring",
+	    ear1="Hearty Earring",
 	    body="Runeist's Coat +3",
-	    hands="Erilaz Gauntlets +1",
-	    legs="Rune. Trousers +2",
-	    feet="Adhemar Gamashes",
 	    back=augmented_gear.capes.Tank,})
 	sets.defense.MEVA_HP = {}
 		
@@ -857,6 +862,12 @@ function user_job_self_command(commandArgs, eventArgs)
 			end
 		else
 			add_to_chat(123,'All Enmity spells on cooldown.')
+		end
+	elseif commandArgs[1] == 'turtle' then
+		if state.DefenseMode.value == commandArgs[2] then
+			handle_set({"DefenseMode","None"})
+		else
+			handle_set({"DefenseMode",commandArgs[2]})
 		end
     end
 end

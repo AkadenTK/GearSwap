@@ -1,5 +1,19 @@
 augmented_gear = {}
 
+augmented_gear.Taeon = {}
+augmented_gear.Taeon.SIRD = {
+    head={ name="Taeon Chapeau", augments={'Spell interruption rate down -10%',}},
+    feet={ name="Taeon Boots", augments={'Spell interruption rate down -9%','Phalanx +3',}},
+}
+
+augmented_gear.Taeon.Phalanx = {
+    feet=augmented_gear.Taeon.SIRD.feet,
+}
+
+augmented_gear.Taeon.Snapshot = {
+    head={ name="Taeon Chapeau", augments={'"Snapshot" +5','"Snapshot" +5'}},
+}
+
 -------------------
 ---- Merlinic -----
 -------------------

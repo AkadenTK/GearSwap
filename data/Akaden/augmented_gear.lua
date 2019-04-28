@@ -74,6 +74,10 @@ augmented_gear.Herculean.WSD.STR = {
     feet={ name="Herculean Boots", augments={'Accuracy+22 Attack+22','Weapon skill damage +4%','STR+9','Accuracy+9','Attack+12',}},
 }
 
+augmented_gear.Herculean.WSD.DEX = {
+    body={ name="Herculean Vest", augments={'Accuracy+14 Attack+14','Weapon skill damage +2%','DEX+10',}},
+}
+
 augmented_gear.Herculean.WSD.AGI = {
     body={ name="Herculean Vest", augments={'Weapon skill damage +4%','STR+6','Rng.Acc.+13','Rng.Atk.+12',}},
     legs={ name="Herculean Trousers", augments={'Rng.Acc.+24 Rng.Atk.+24','Weapon skill damage +2%','AGI+7','Rng.Atk.+8',}},
@@ -164,7 +168,11 @@ augmented_gear.Lustratio.STR = {
     body={ name="Lustratio Harness +1", augments=augments.Lustratio.HQ.A},
 }
 augmented_gear.Lustratio.DEX = {
-    legs={ name="Lustratio Subligar", augments=augments.Lustratio.NQ.B},
+    head={ name="Lustratio Cap +1", augments=augments.Lustratio.HQ.B},
+    legs={ name="Lustratio Subligar +1", augments=augments.Lustratio.HQ.B},
+}
+augmented_gear.Lustratio.D = {
+    feet={ name="Lustratio Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
 }
 
 augmented_gear.Ryuo = {}

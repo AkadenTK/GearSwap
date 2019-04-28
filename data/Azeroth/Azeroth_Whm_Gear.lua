@@ -64,7 +64,7 @@ function init_gear_sets()
     	head="Haruspex hat", 
     	neck="Cleric's Torque",
     	body="Inyanga jubbah +2",
-    	hands="Fanatic Gloves",
+    	hands="Gendewitha gages +1",
     	ring1="Kishar Ring",
     	waist="Witful Belt",
     	legs="Kaykaus Tights",
@@ -82,7 +82,7 @@ function init_gear_sets()
 
     sets.precast.FC.StatusRemoval = sets.precast.FC['Healing Magic']
 	
-    sets.precast.FC.Cure = set_combine(sets.precast.FC['Healing Magic'], {ear1="Nourishing Earring", ear2="Nourishing Earring +1", head="Piety cap",feet="Vanya Clogs"})
+    sets.precast.FC.Cure = set_combine(sets.precast.FC['Healing Magic'], {ear1="Nourishing Earring", ear2="Nourishing Earring +1",hands="Gendewitha gages +1", head="Piety cap",feet="Vanya Clogs"})
 	
 	sets.precast.FC.Cure.DT = set_combine(sets.precast.FC.Cure, {})
 

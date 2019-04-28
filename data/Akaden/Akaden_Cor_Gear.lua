@@ -366,15 +366,17 @@ function init_gear_sets()
         feet="Lanun bottes +3",       
     })
 
-    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast['Savage Blade'], {  
+    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {  
         head="Carmine mask +1",
-        ear1="Cessance earring",
-        ear2="Dignitary's earring",
-        ring1="Ilabrat ring",
-        waist="Fotia belt",
+        ear2="Mache earring +1",
     })
 
-    sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS['Savage Blade'].Acc, {})
+    sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS['Savage Blade'].Acc, {
+        ring1="Ilabrat ring",
+        neck="Fotia gorget",
+        waist="Eschan Stone",
+        legs="Carmine Cuisses +1",
+    })
 
     sets.precast.WS['Evisceration'] = set_combine(sets.engaged, {
         head=augmented_gear.Adhemar.Atk.head,

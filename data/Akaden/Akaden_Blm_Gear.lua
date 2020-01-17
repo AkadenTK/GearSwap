@@ -216,7 +216,7 @@ function init_gear_sets()
         head=augmented_gear.Merlinic.Damage.head,
         neck="Saevus pendant +1",
         ear1="Barkarole earring",
-        ear2="Friomisi Earring",
+        ear2="Malignance Earring",
         body=augmented_gear.Merlinic.Damage.body,
         hands="Jhakri Cuffs +2",
         ring1="Acumen Ring",

@@ -50,7 +50,6 @@ function init_gear_sets()
 		legs=augmented_gear.Herculean.Phalanx.legs,
 		feet="Rager Ledelsens +1",
 		neck="Moonbeam Necklace",
-		waist="Sinew Belt",
 		ring1="Eihwaz ring",
 		ring2="Petrov Ring",
 		ear1="Friomisi Earring",
@@ -347,11 +346,10 @@ function init_gear_sets()
 
 	-- Defensive melee hybrid sets
 	sets.engaged.DTLite = set_combine(sets.engaged, {
-		legs="Mummu Kecks +2",
-		feet=augmented_gear.Herculean.TA.feet,
+		hands="Malignance Gloves",
 		ring1="Defending Ring",
 		neck="Loricate Torque +1",
-		ammo="Staunch Tathlum",
+		ammo="Staunch Tathlum +1",
 	})
 	--sets.engaged.Acc.PDT = {}
 	--sets.engaged.FullAcc.PDT = {}

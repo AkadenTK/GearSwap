@@ -55,13 +55,13 @@ function init_gear_sets()
 
     sets.Enmity = {
 	    head="Halitus Helm",
-	    neck="Moonbeam Necklace",
-	    --body="Emet Harness +1",
-	    body="Runeist's Coat +3",
+	    neck="Moonlight Necklace",
+	    body="Emet Harness +1",
+	    --body="Runeist's Coat +3",
 	    hands="Kurys gloves",
 	    waist="Kasiri Belt",
 	    legs="Erilaz Leg Guards +1",
-	    feet="Rager Ledel. +1",
+	    feet="Ahosi Leggings",
 	    ear1="Odnowa Earring",
 	    ear2="Odnowa Earring +1",
 	    ring1="Eihwaz Ring",
@@ -72,7 +72,7 @@ function init_gear_sets()
     sets.Enmity.SIRD = set_combine(sets.Enmity, {
     	ammo="Staunch Tathlum +1",				 -- 11
     	head=augmented_gear.Taeon.SIRD.head, -- 10
-	    neck="Moonbeam Necklace",			 -- 10
+	    neck="Moonlight Necklace",			 -- 15
     	body="Futhark Coat +3";
     	hands="Rawhide gloves", 			 -- 15
     	ring1="Evanescence ring",			 -- 5
@@ -86,7 +86,7 @@ function init_gear_sets()
     sets.Enmity.DT = {ammo="Staunch Tathlum +1",
         head="Fu. Bandeau +1",neck="Loricate Torque +1",ear1="Odnowa Earring +1",ear2="Odnowa Earring",
         body="Runeist's Coat +3",hands=gear.herculean_dt_hands,ring1="Moonbeam Ring",ring2="Moonbeam Ring",
-        back="Moonlight Cape",waist="Flume Belt",legs="Eri. Leg Guards +1",feet="Erilaz Greaves +1"}
+        back="Moonlight Cape",waist="Flume Belt",legs="Eri. Leg Guards +1",feet="Ahosi Leggings"}
 
 	--------------------------------------
 	-- Precast sets
@@ -211,7 +211,7 @@ function init_gear_sets()
     	hands="Rawhide gloves",			-- sird 15%
 	    legs="Carmine cuisses +1",		-- sird 20%
 	    feet="Carmine greaves +1",		-- fc 8%
-		neck="Moonbeam Necklace",		-- sird 10%
+		neck="Moonlight Necklace",		-- sird 10%
 	    ring1="Lebeche ring",			-- occ. 2%
 	    ring2="Weatherspoon Ring",		-- fc 5%, occ 3%
 	    back=augmented_gear.capes.FC,	-- fc 10%
@@ -221,7 +221,7 @@ function init_gear_sets()
 	    ammo="Impatiens",				-- occ. 2%
     	hands="Rawhide gloves",			-- sird 15%
     	legs="Futhark Trousers +1", 	-- enh. fc 13%
-		neck="Moonbeam Necklace",		-- sird 10%
+		neck="Moonlight Necklace",		-- sird 10%
 	    ring1="Lebeche ring",			-- occ. 2%
 	    ring2="Weatherspoon Ring",		-- fc 5%, occ 3%
     	waist="Siegel Sash", 			-- enh. fc 8%
@@ -310,6 +310,7 @@ function init_gear_sets()
     	legs="Futhark Trousers +1"}
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'], {
 		head="Futhark Bandeau +2",
+		body=augmented_gear.Taeon.Phalanx.body,
 		legs=augmented_gear.Herculean.Phalanx.legs,
 		feet=augmented_gear.Taeon.Phalanx.feet
 		})
@@ -343,8 +344,8 @@ function init_gear_sets()
 
     sets.idle = set_combine(sets.engaged, {
 	    ammo="Staunch Tathlum +1",
-	    head="Meghanada Visor +2",
-	    --body="Runeist's Coat +3",
+	    head="Futhark Bandeau +2",
+	    body="Runeist's Coat +3",
 	    hands="Regal Gauntlets",
 	    legs="Turms Subligar",
 	    feet="Turms Leggings +1",
@@ -359,12 +360,12 @@ function init_gear_sets()
     sets.idle.Sphere = set_combine(sets.idle,{body="Mekosu. Harness"})
 			
 	sets.idle.Tank = set_combine(sets.idle, {
+		neck="Loricate Torque +1",
 		hands="Meghanada Gloves +2",
 		feet="Erilaz Greaves +1"
     })
 		
 	sets.idle.KiteTank = set_combine(sets.idle.Tank, {
-		body="Futhark Coat +3",
 		legs="Carmine Cuisses +1",
 	})
 

@@ -18,8 +18,8 @@ function user_setup()
     --ammostock['Chrono Bullet'] = 100
     --ammostock['Living Bullet'] = 30
 
-    gear.RAbullet = "Adlivun Bullet"
-    gear.WSbullet = "Adlivun Bullet"
+    gear.RAbullet = "Chrono Bullet"
+    gear.WSbullet = "Chrono Bullet"
     gear.MAbullet = "Orichalcum bullet" --For MAB WS, do not put single-use bullets here.
     gear.QDbullet = "Animikii Bullet"
     options.ammo_warning_limit = 15
@@ -38,7 +38,7 @@ function user_setup()
 	--
 	--send_command('bind ^backspace input /ja "Double-up" <me>')
 	--send_command('bind @backspace input /ja "Snake Eye" <me>')
-	--send_command('bind !backspace input /ja "Fold" <me>')
+	--send_command('bind !backspace input /ja "Fold" <me>')https://imgur.com/
 	--send_command('bind ^@!backspace input /ja "Crooked Cards" <me>')
 	--
 	--send_command('bind ^\\\\ input /ja "Random Deal" <me>')
@@ -71,7 +71,9 @@ function init_gear_sets()
     --------------------------------------
     sets.weapons = {}
     sets.weapons.SavageBlade = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Anarchy +2"}
-    sets.weapons.MeleeLeaden = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Compensator"}
+    sets.weapons.MeleeLeaden = {main='Hepatizon sapara +1', sub="Blurred Knife +1", range="Fomalhaut"}
+
+    sets.Compensator = {range="Compensator"}
 
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt"})
     sets.Capacity = {back="Aptitude Mantle"}
@@ -88,11 +90,12 @@ function init_gear_sets()
     
     sets.precast.CorsairRoll = {
         head="Lanun Tricorne",
-        --neck="Regal necklace",
+        neck="Regal necklace",
         hands="Chasseur's Gants +1",
         back="Camulus's Mantle",
         legs="Desultor Tassets",
-        ring1="Barataria ring"}
+        --ring1="Barataria ring",
+    }
 		
     sets.precast.LuzafRing = {ring2="Luzaf's Ring"}
     

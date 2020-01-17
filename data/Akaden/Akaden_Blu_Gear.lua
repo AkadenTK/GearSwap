@@ -573,7 +573,7 @@ function init_gear_sets()
 	sets.engaged.DTLite = set_combine(sets.engaged, {
     	head="Ayanmo Zucchetto +2",
     	neck="Loricate Torque +1",
-    	body="Ayanmo corazza +2",
+    	hands="Malignance Gloves",
     	ring1="Defending Ring"
 	})
 

@@ -77,8 +77,8 @@ function init_gear_sets()
     --------------------------------------
     rostams = {
         ['A'] = "Lanun Knife",
-        ['B'] = { name="Rostam", augments={'03830000792D64032C000000',}},
-        ['C'] = { name="Rostam", augments={'038300007A2D64032D000000',}},
+        ['B']={ name="Rostam", augments={'Path: B',}},
+        ['C']={ name="Rostam", augments={'Path: C',}},
     }
     sets.weapons = {}
     sets.weapons.ShieldLeaden = {main=rostams.A, sub="Nusku Shield", range="Death Penalty"}
@@ -180,7 +180,7 @@ function init_gear_sets()
     })
 
     sets.engaged.DTLite = set_combine(sets.engaged,{
-        neck="Loricate Torque +1",
+        hands="Malignance Gloves",
         ring1="Defending ring",
         waist="Flume Belt",
     })
@@ -558,7 +558,7 @@ function init_gear_sets()
     sets.idle = set_combine(sets.engaged, {
         head="Meghanada visor +2",
         body="Lanun frac +3",
-        hands="Meghanada Gloves +2",
+        hands="Malignance Gloves",
         legs="Meg. Chausses +2",
         feet="Lanun Bottes +3",
         neck="Loricate Torque +1",

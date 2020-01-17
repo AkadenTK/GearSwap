@@ -1,17 +1,34 @@
 augmented_gear = {}
 
 augmented_gear.Taeon = {}
-augmented_gear.Taeon.SIRD = {
-    head={ name="Taeon Chapeau", augments={'Spell interruption rate down -10%',}},
+
+augmented_gear.Taeon.Phalanx = {
+    head={ name="Taeon Chapeau", augments={'Spell interruption rate down -10%','Phalanx +2',}},
+    body={ name="Taeon Tabard", augments={'Spell interruption rate down -3%','Phalanx +3',}},
+    hands={ name="Taeon Gloves", augments={'Spell interruption rate down -4%','Phalanx +3',}},
     feet={ name="Taeon Boots", augments={'Spell interruption rate down -9%','Phalanx +3',}},
 }
 
-augmented_gear.Taeon.Phalanx = {
-    feet=augmented_gear.Taeon.SIRD.feet,
+augmented_gear.Taeon.SIRD = {
+    head=augmented_gear.Taeon.Phalanx.head,
+    body=augmented_gear.Taeon.Phalanx.body,
+    hands=augmented_gear.Taeon.Phalanx.hands,
+    feet=augmented_gear.Taeon.Phalanx.feet,
+}
+
+augmented_gear.Taeon.TP = {
+    head={ name="Taeon Chapeau", augments={'Accuracy+23','"Triple Atk."+2',}},
+    legs={ name="Taeon Tights", augments={'Accuracy+17 Attack+17','"Triple Atk."+2',}},
+    feet={ name="Taeon Boots", augments={'Accuracy+24','"Triple Atk."+2',}},
 }
 
 augmented_gear.Taeon.Snapshot = {
     head={ name="Taeon Chapeau", augments={'"Snapshot" +5','"Snapshot" +5'}},
+}
+
+augmented_gear.Telchine = {}
+augmented_gear.Telchine.Enhancing = {
+    head = { name="Telchine Cap", augments={'Enh. Mag. eff. dur. +7',}},
 }
 
 -------------------
@@ -24,7 +41,7 @@ augmented_gear.Merlinic.Damage = {
     body = { name="Merlinic Jubbah", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','INT+2','Mag. Acc.+14','"Mag.Atk.Bns."+15',}},
     --hands= ,
     legs = { name="Merlinic Shalwar", augments={'Mag. Acc.+23 "Mag.Atk.Bns."+23','"Conserve MP"+6','INT+1','"Mag.Atk.Bns."+13',}},
-    feet = { name="Merlinic Crackows", augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','Magic burst mdg.+4%','Mag. Acc.+10','"Mag.Atk.Bns."+12',}},
+    feet = { name="Merlinic Crackows", augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','Magic burst dmg.+4%','Mag. Acc.+10','"Mag.Atk.Bns."+12',}},
 }
 
 augmented_gear.Merlinic.Burst = { 

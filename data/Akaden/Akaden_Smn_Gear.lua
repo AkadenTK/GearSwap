@@ -92,6 +92,7 @@ function init_gear_sets()
     -- Pact delay reduction gear
     sets.precast.BloodPactWard = { --I just stack it all because when I do salvage or a gear slot is locked by a NM it's nice
         main=staves.smnskill, -- II -2
+        sub="Vox Grip",
         ammo="Sancus Sachet", -- II -5
         head="Beckoner's horn +1",-- Favor +3, skill +13
         body="Convoker's Doublet +3", -- I -15, skill +17
@@ -201,7 +202,12 @@ function init_gear_sets()
 		
     sets.midcast.Stun = {}
 		
-    sets.midcast.Stun.Resistant = {}
+    sets.midcast.Stun.Resistant = {
+        head=augmented_gear.Merlinic.Damage.head,
+        body=augmented_gear.Merlinic.Damage.body,
+        legs=augmented_gear.Merlinic.Damage.legs,
+        body=augmented_gear.Merlinic.Damage.feet,
+    }
 		
 	sets.midcast['Enfeebling Magic'] = {}
 		

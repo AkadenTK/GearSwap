@@ -25,9 +25,10 @@ function job_setup()
 	
 	autows = "Chant Du Cygne"
 	autofood = 'Pear Crepe'
+	enspell = ''
 	
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","RecoverMode","ElementalMode","CastingMode","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","RecoverMode","ElementalMode","CastingMode","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -78,6 +79,25 @@ function job_precast(spell, spellMap, eventArgs)
 
 end
 
+function job_post_precast(spell, spellMap, eventArgs)
+	if spell.type == 'WeaponSkill' then
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
+		local wsacc = check_ws_acc()
+		
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if get_effective_player_tp(spell, WSset) > 3200 then
+				if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then
+					equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
+				elseif sets.MaxTP then
+					equip(sets.MaxTP[spell.english] or sets.MaxTP)
+				else
+				end
+			end
+		end
+	end
+end
+
 -- Run after the default midcast() is done.
 -- eventArgs is the same one used in job_midcast, in case information needs to be persisted.
 function job_post_midcast(spell, spellMap, eventArgs)
@@ -115,6 +135,8 @@ function job_post_midcast(spell, spellMap, eventArgs)
 					equip(sets.ResistantRecoverBurst)
 				elseif sets.RecoverBurst then
 					equip(sets.RecoverBurst)
+				elseif sets.RecoverMP then
+					equip(sets.RecoverMP)
 				end
 			elseif sets.RecoverMP then
 				equip(sets.RecoverMP)
@@ -167,6 +189,13 @@ function job_aftercast(spell, spellMap, eventArgs)
 end
 
 function job_buff_change(buff, gain)
+	if enspells:contains(buff) then
+		if gain then
+			enspell = buff
+		else
+			enspell = ''
+		end
+	end
 	update_melee_groups()
 end
 
@@ -192,11 +221,35 @@ end
 
 -- Modify the default idle set after it was constructed.
 function job_customize_idle_set(idleSet)
-    if player.mpp < 51 and (state.IdleMode.value == 'Normal' or state.IdleMode.value == 'Sphere') and state.DefenseMode.value == 'None' then
-        idleSet = set_combine(idleSet, sets.latent_refresh)
+    if buffactive['Sublimation: Activated'] then
+        if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and sets.buff.Sublimation then
+            idleSet = set_combine(idleSet, sets.buff.Sublimation)
+        elseif state.IdleMode.value:contains('DT') and sets.buff.DTSublimation then
+            idleSet = set_combine(idleSet, sets.buff.DTSublimation)
+        end
+    end
+
+    if player.mpp < 51 and (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) then
+		if sets.latent_refresh then
+			idleSet = set_combine(idleSet, sets.latent_refresh)
+		end
+		
+		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+		if available_ws:contains(176) and sets.latent_refresh_grip then
+			idleSet = set_combine(idleSet, sets.latent_refresh_grip)
+		end
     end
     
     return idleSet
+end
+
+function job_customize_melee_set(meleeSet)
+
+	if enspell ~= '' and sets.element.enspell and sets.element.enspell[enspell_lookup.enspell] then
+		meleeSet = set_combine(meleeSet, sets.element.enspell[enspell_lookup.enspell])
+	end
+
+    return meleeSet
 end
 
 -- Set eventArgs.handled to true if we don't want the automatic display to be run.
@@ -352,14 +405,14 @@ function job_tick()
 end
 
 function check_arts()	
-	if buffup ~= '' or (not areas.Cities:contains(world.area) and ((state.AutoArts.value and player.in_combat) or state.AutoBuffMode.value)) then
+	if buffup ~= '' or (not areas.Cities:contains(world.area) and ((state.AutoArts.value and player.in_combat) or state.AutoBuffMode.value ~= 'Off')) then
 
  		local abil_recasts = windower.ffxi.get_ability_recasts()	
 
  		if not buffactive.Composure then	
 			local abil_recasts = windower.ffxi.get_ability_recasts()	
 			if abil_recasts[50] < latency then	
-				tickdelay = (framerate * 1)	
+				tickdelay = os.clock() + 1.1
 				windower.chat.input('/ja "Composure" <me>')	
 				return true	
 			end	
@@ -367,7 +420,7 @@ function check_arts()
 
  		if player.sub_job == 'SCH' and not arts_active() and abil_recasts[228] < latency then	
 			send_command('@input /ja "Light Arts" <me>')	
-			tickdelay = (framerate * 1)	
+			tickdelay = os.clock() + 1.1
 			return true	
 		end	
 
@@ -377,12 +430,12 @@ function check_arts()
 end
 
 function check_buff()
-	if state.AutoBuffMode.value and not areas.Cities:contains(world.area) then
+	if state.AutoBuffMode.value ~= 'Off' and not areas.Cities:contains(world.area) then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
-		for i in pairs(buff_spell_lists['Auto']) do
-			if not buffactive[buff_spell_lists['Auto'][i].Buff] and (buff_spell_lists['Auto'][i].When == 'Always' or (buff_spell_lists['Auto'][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists['Auto'][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists['Auto'][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists['Auto'][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists['Auto'][i].SpellID] < latency and silent_can_use(buff_spell_lists['Auto'][i].SpellID) then
-				windower.chat.input('/ma "'..buff_spell_lists['Auto'][i].Name..'" <me>')
-				tickdelay = (framerate * 2)
+		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
+				tickdelay = os.clock() + 2
 				return true
 			end
 		end
@@ -410,9 +463,9 @@ function check_buffup()
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		
 		for i in pairs(buff_spell_lists[buffup]) do
-			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < latency then
+			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < spell_latency then
 				windower.chat.input('/ma "'..buff_spell_lists[buffup][i].Name..'" <me>')
-				tickdelay = (framerate * 2)
+				tickdelay = os.clock() + 2
 				return true
 			end
 		end
@@ -424,12 +477,18 @@ function check_buffup()
 end
 
 function update_melee_groups()
-	if player.equipment.main then
-		classes.CustomMeleeGroups:clear()
-		
-		if player.equipment.main == "Murgleis" and state.Buff['Aftermath: Lv.3'] then
-				classes.CustomMeleeGroups:append('AM')
+	classes.CustomMeleeGroups:clear()
+	
+	if enspell ~= '' then
+		if enspell:endswith('II') then
+			classes.CustomMeleeGroups:append('Enspell2')
+		else
+			classes.CustomMeleeGroups:append('Enspell')
 		end
+	end
+	
+	if player.equipment.main and player.equipment.main == "Murgleis" and state.Buff['Aftermath: Lv.3'] then
+		classes.CustomMeleeGroups:append('AM')
 	end	
 end
 
@@ -438,6 +497,7 @@ buff_spell_lists = {
 		{Name='Refresh III',	Buff='Refresh',		SpellID=894,	When='Always'},
 		{Name='Haste II',		Buff='Haste',		SpellID=511,	When='Always'},
 		{Name='Aurorastorm',	Buff='Aurorastorm',	SpellID=119,	When='Idle'},
+		{Name='Reraise',		Buff='Reraise',		SpellID=135,	When='Always'},
 	},
 	
 	Default = {
@@ -446,6 +506,18 @@ buff_spell_lists = {
 		{Name='Stoneskin',		Buff='Stoneskin',	SpellID=54,		Reapply=false},
 		{Name='Shell V',		Buff='Shell',		SpellID=52,		Reapply=false},
 		{Name='Protect V',		Buff='Protect',		SpellID=47,		Reapply=false},
+	},
+
+	MageBuff = {
+		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
+		{Name='Haste II',		Buff='Haste',			SpellID=511,	Reapply=false},
+		{Name='Aquaveil',		Buff='Aquaveil',		SpellID=55,		Reapply=false},
+		{Name='Phalanx',		Buff='Phalanx',			SpellID=106,	Reapply=false},
+		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		Reapply=false},
+		{Name='Blink',			Buff='Blink',			SpellID=53,		Reapply=false},
+		{Name='Gain-INT',		Buff='INT Boost',		SpellID=490,	Reapply=false},
+		{Name='Shell V',		Buff='Shell',			SpellID=52,		Reapply=false},
+		{Name='Protect V',		Buff='Protect',			SpellID=47,		Reapply=false},
 	},
 	
 	MeleeBuff = {

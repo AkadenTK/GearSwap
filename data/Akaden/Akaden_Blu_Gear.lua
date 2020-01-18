@@ -47,7 +47,6 @@ end
 
 function init_gear_sets()
 
-    include('augmented_gear.lua')
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------

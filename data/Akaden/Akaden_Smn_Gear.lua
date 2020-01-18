@@ -20,7 +20,6 @@ end
 -- Define sets and vars used by this job file.
 function init_gear_sets()
     include('organizer-lib')
-    include('augmented_gear.lua')
     sets.Capacity = {back="Aptitude Mantle"}
     staves = {
         magicbp = "Grioavolr",

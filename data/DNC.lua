@@ -48,20 +48,34 @@ function job_setup()
     state.MainStep = M{['description']='Main Step', 'Box Step','Quickstep','Feather Step','Stutter Step'}
     state.AltStep = M{['description']='Alt Step', 'Feather Step','Quickstep','Stutter Step','Box Step'}
     state.UseAltStep = M(true, 'Use Alt Step')
+	state.AutoPrestoMode = M(true, 'Auto Presto Mode')
     state.SelectStepTarget = M(false, 'Select Step Target')
     state.IgnoreTargetting = M(false, 'Ignore Targetting')
 	state.DanceStance = M{['description']='Dance Stance','None','Saber Dance','Fan Dance'}
 
     state.CurrentStep = M{['description']='Current Step', 'Main', 'Alt'}
-	
-	--List of which WS you plan to use TP bonus WS with.
-	moonshade_ws = S{"Rudra's Storm"}
 
 	autows = "Rudra's Storm"
 	autofood = 'Soy Ramen'
 	
+	function calculate_step_feet_reduction()
+		local tp_reduction = 0
+		
+		if sets.precast.Step and sets.precast.Step.feet and standardize_set(sets.precast.Step).feet:startswith('Horos T. Shoes') then
+			if sets.precast.Step.feet:endswith('+2') then
+				tp_reduction = 10
+			elseif sets.precast.Step.feet:endswith('+3') then
+				tp_reduction = 20
+			end
+		end
+		
+		return tp_reduction 
+	end
+
+	step_feet_reduction = calculate_step_feet_reduction()
+	
     update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","DanceStance","Passive","RuneElement","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","DanceStance","Passive","RuneElement","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -76,38 +90,43 @@ end
 
 function job_precast(spell, spellMap, eventArgs)
 
-	if spell.type == 'WeaponSkill' and state.AutoBuffMode.value and player.tp > 1099 then
+	if spell.type == 'WeaponSkill' and state.AutoBuffMode.value ~= 'Off' and player.tp > (999 + step_cost()) then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		if under3FMs() and abil_recasts[220] < latency and (abil_recasts[236] < latency or state.Buff['Presto']) and player.status == 'Engaged' then
 			eventArgs.cancel = true
 			windower.send_command('gs c step')
 			windower.chat.input:schedule(2.3,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			tickdelay = os.clock() + 4.3
 			return
 		elseif not under3FMs() and not state.Buff['Building Flourish'] and abil_recasts[226] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Climactic Flourish" <me>')
 			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			tickdelay = os.clock() + 1.25
 			return
 		elseif not under3FMs() and not state.Buff['Climactic Flourish'] and abil_recasts[222] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Building Flourish" <me>')
 			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			tickdelay = os.clock() + 1.25
 			return
 		elseif player.sub_job == 'SAM' and player.tp > 1850 and abil_recasts[140] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Sekkanoki" <me>')
 			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			tickdelay = os.clock() + 1.25
 			return
 		elseif player.sub_job == 'SAM' and abil_recasts[134] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Meditate" <me>')
 			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			tickdelay = os.clock() + 1.25
 			return
 		end
-    elseif spell.type == 'Step' and player.tp > 99 then
+    elseif spell.type == 'Step' and player.main_job_level >= 77 and state.AutoPrestoMode.value and player.tp > 99 and player.status == 'Engaged' and under3FMs() then
         local abil_recasts = windower.ffxi.get_ability_recasts()
 
-        if player.main_job_level >= 77 and abil_recasts[236] < latency and abil_recasts[220] < latency and under3FMs() and player.status == 'Engaged' then
+        if abil_recasts[236] < latency and abil_recasts[220] < latency then
             eventArgs.cancel = true
 			windower.chat.input('/ja "Presto" <me>')
 			windower.chat.input:schedule(1.1,'/ja "'..spell.english..'" '..spell.target.raw..'')
@@ -116,25 +135,30 @@ function job_precast(spell, spellMap, eventArgs)
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
-    if spell.type == "WeaponSkill" then
-        if state.Buff['Climactic Flourish'] then
+	if spell.type == 'WeaponSkill' then
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
+		local wsacc = check_ws_acc()
+		
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if get_effective_player_tp(spell, WSset) > 3200 then
+				if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then
+					equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
+				elseif sets.MaxTP then
+					equip(sets.MaxTP[spell.english] or sets.MaxTP)
+				else
+				end
+			end
+		end
+--[[
+		if state.Buff['Building Flourish'] and sets.buff['Building Flourish'] then
+			equip(sets.buff['Building Flourish'])
+		end
+]]
+        if state.Buff['Climactic Flourish'] and sets.buff['Climactic Flourish'] then
             equip(sets.buff['Climactic Flourish'])
         end
-
-		-- Replace Moonshade Earring if we're at cap TP
-        if player.tp == 3000 and moonshade_ws:contains(spell.english) then
-			if check_ws_acc():contains('Acc') then
-				if sets.AccMaxTP then
-					equip(sets.AccMaxTP)
-				end
-						
-			elseif sets.MaxTP then
-					equip(sets.MaxTP)
-			end
-
-		end
-    end
-	
+	end
 end
 
 -- Return true if we handled the aftercast work.  Otherwise it will fall back
@@ -307,23 +331,23 @@ end
 
 function check_buff()
 
-	if state.AutoBuffMode.value then
+	if state.AutoBuffMode.value ~= 'Off' then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 	
 		if not buffactive['Finishing Move 1'] and not buffactive['Finishing Move 2'] and not buffactive['Finishing Move 3'] and not buffactive['Finishing Move 4'] and not buffactive['Finishing Move 5'] and not buffactive['Finishing Move (6+)'] and abil_recasts[223] < latency then
 			windower.chat.input('/ja "No Foot Rise" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.1
 			return true
 		end
 		
 		if player.in_combat then
 			if player.sub_job == 'WAR' and not buffactive.Berserk and abil_recasts[1] < latency then
 				windower.chat.input('/ja "Berserk" <me>')
-				tickdelay = (framerate * 1.8)
+				tickdelay = os.clock() + 1.1
 				return true
 			elseif player.sub_job == 'WAR' and not buffactive.Aggressor and abil_recasts[4] < latency then
 				windower.chat.input('/ja "Aggressor" <me>')
-				tickdelay = (framerate * 1.8)
+				tickdelay = os.clock() + 1.1
 				return true
 			else
 				return false
@@ -341,11 +365,11 @@ function check_dance()
 		
 		if state.DanceStance.value == 'Saber Dance' and abil_recasts[219] < latency then
 			windower.chat.input('/ja "Saber Dance" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.1
 			return true
 		elseif state.DanceStance.value == 'Fan Dance' and abil_recasts[224] < latency then
 			windower.chat.input('/ja "Fan Dance" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.1
 			return true
 		else
 			return false
@@ -353,4 +377,14 @@ function check_dance()
 	end
 
 	return false
+end
+
+function step_cost()
+	local cost = 100
+	
+	if player.equipment.main == 'Setan Kober' then cost = cost - 40 end
+	if player.equipment.sub == 'Setan Kober' then cost = cost - 40 end
+	if state.DefenseMode.value == 'None' then cost = cost - step_feet_reduction end
+	
+	return cost
 end

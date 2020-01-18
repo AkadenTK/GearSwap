@@ -44,7 +44,6 @@ end
 function init_gear_sets()
 
     sets.Capacity={back="Aptitude Mantle"}
-    include('augmented_gear.lua')
     augmented_gear.capes={
     	STP_PDT={ name="Ogma's cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}},
     	Tank={ name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},

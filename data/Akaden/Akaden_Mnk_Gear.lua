@@ -26,7 +26,6 @@ function user_setup()
 end
 
 function init_gear_sets()
-    include('augmented_gear.lua')
 
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
 

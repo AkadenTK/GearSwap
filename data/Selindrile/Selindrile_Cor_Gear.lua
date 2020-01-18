@@ -6,9 +6,9 @@ function user_setup()
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
 	state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
-	state.Weapons:options('Default','DualWeapons','SavageWeapons','DualRangedWeapons','LeadenWeapons','None')
+	state.Weapons:options('Default','DualWeapons','DualSavageWeapons','DualLeadenRanged','DualLeadenMelee','DualLeadenMeleeAcc','DualKustawi','None')
 	state.CompensatorMode:options('300','1000','Never','Always')
-	
+
     gear.RAbullet = "Chrono Bullet"
     gear.WSbullet = "Chrono Bullet"
     gear.MAbullet = "Orichalc. Bullet" --For MAB WS, do not put single-use bullets here.
@@ -36,10 +36,10 @@ function user_setup()
 	send_command('bind ^@!\\\\ gs c toggle LuzafRing')
 	send_command('bind @f7 gs c toggle RngHelper')
 
-	send_command('bind !r gs c weapons SingleWeapon;gs c update')
+	send_command('bind !r gs c weapons DualSavageWeapons;gs c update')
 	send_command('bind @q gs c weapons MaccWeapons;gs c update')
-	send_command('bind ^q gs c weapons DualRangedWeapons;gs c update')
-	send_command('bind !q gs c weapons SavageWeapons;gs c update')
+	send_command('bind ^q gs c weapons DualKustawi;gs c update')
+	send_command('bind !q gs c weapons DualLeadenRanged;gs c update')
 	send_command('bind @pause roller roll')
 
     select_default_macro_book()
@@ -234,13 +234,13 @@ function init_gear_sets()
     -- Ranged gear
     sets.midcast.RA = {ammo=gear.RAbullet,
         head="Meghanada Visor +2",neck="Iskur Gorget",ear1="Enervating Earring",ear2="Telos Earring",
-        body="Laksa. Frac +3",hands="Carmine Fin. Ga. +1",ring1="Rajas Ring",ring2="Ilabrat Ring",
+        body="Nisroch Jerkin",hands="Carmine Fin. Ga. +1",ring1="Rajas Ring",ring2="Ilabrat Ring",
         back=gear.tp_ranger_jse_back,waist="Yemaya Belt",legs="Adhemar Kecks",feet="Meg. Jam. +2"}
 
     sets.midcast.RA.Acc = {ammo=gear.RAbullet,
         head="Meghanada Visor +2",neck="Iskur Gorget",ear1="Enervating Earring",ear2="Telos Earring",
         body="Laksa. Frac +3",hands="Meg. Gloves +2",ring1="Regal Ring",ring2="Dingir Ring",
-        back=gear.tp_ranger_jse_back,waist="Yemaya Belt",legs="Meg. Chausses +2",feet="Meg. Jam. +2"}
+        back=gear.tp_ranger_jse_back,waist="Yemaya Belt",legs="Laksa. Trews +3",feet="Meg. Jam. +2"}
 		
 	sets.buff['Triple Shot'] = {body="Chasseur's Frac +1"}
     
@@ -288,12 +288,12 @@ function init_gear_sets()
 
 	-- Weapons sets
 	sets.weapons.Default = {main="Fettering Blade",sub="Nusku Shield",range="Fomalhaut"}
-	sets.weapons.DualWeapons = {main="Fettering Blade",sub="Blurred Knife +1",range="Fomalhaut"}
-	sets.weapons.RollMeleeWeapons = {main="Hep. Sapara +1",sub="Blurred Knife +1",range="Compensator"}
-	sets.weapons.RollRangedWeapons = {main="Fettering Blade",sub="Kustawi +1",range="Compensator"}
-	sets.weapons.SavageWeapons = {main="Hep. Sapara +1",sub="Blurred Knife +1",range="Ataktos"}
-	sets.weapons.DualRangedWeapons = {main="Fettering Blade",sub="Kustawi +1"}
-	sets.weapons.LeadenWeapons = {main="Fettering Blade",sub="Atoyac",range="Fomalhaut"}
+	sets.weapons.DualWeapons = {main="Kaja Sword",sub="Blurred Knife +1",range="Fomalhaut"}
+	sets.weapons.DualSavageWeapons = {main="Kaja Sword",sub="Blurred Knife +1",range="Ataktos"}
+	sets.weapons.DualLeadenRanged = {main="Kaja Sword",sub="Kaja Knife",range="Fomalhaut"}
+	sets.weapons.DualLeadenMelee = {main="Kaja Sword",sub="Atoyac",range="Fomalhaut"}
+	sets.weapons.DualLeadenMeleeAcc = {main="Kaja Sword",sub="Blurred Knife +1",range="Fomalhaut"}
+	sets.weapons.DualKustawi = {main="Kustawi +1",sub="Kustawi",range="Fomalhaut"}
 	
     -- Engaged sets
 

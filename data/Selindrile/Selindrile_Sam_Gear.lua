@@ -19,7 +19,7 @@ function user_setup()
 	send_command('bind @` gs c cycle SkillchainMode')
 	send_command('bind !@^` gs c cycle Stance')
 	send_command('bind !r gs c set skipprocweapons false;gs c weapons ProcWeapon;gs c set WeaponskillMode Proc;gs c update')
-	send_command('bind ^r !r gs c set skipprocweapons true;gs c weapons Default;gs c set WeaponskillMode Normal;gs c update')
+	send_command('bind ^r gs c set skipprocweapons true;gs c weapons Default;gs c set WeaponskillMode Normal;gs c update')
 	send_command('bind ^q gs c weapons Bow;gs c update')
 
     select_default_macro_book()
@@ -67,11 +67,11 @@ function init_gear_sets()
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {ammo="Knobkierrie",
         head=gear.valorous_wsd_head,neck="Fotia Gorget",ear1="Lugra Earring +1",ear2="Moonshade Earring",
-        body="Sakonji Domaru +2",hands=gear.valorous_wsd_hands,ring1="Niqmaddu Ring",ring2="Regal Ring",
+        body="Sakonji Domaru +3",hands=gear.valorous_wsd_hands,ring1="Niqmaddu Ring",ring2="Regal Ring",
         back=gear.ws_jse_back,waist="Fotia Belt",legs="Wakido Haidate +3",feet=gear.valorous_wsd_feet}
     sets.precast.WS.SomeAcc = set_combine(sets.precast.WS, {feet="Wakido Sune. +3"})
-	sets.precast.WS.Acc = set_combine(sets.precast.WS, {head="Wakido Kabuto +3",body="Sakonji Domaru +2",feet="Wakido Sune. +3"})
-    sets.precast.WS.FullAcc = set_combine(sets.precast.WS, {head="Wakido Kabuto +3",neck="Moonbeam Nodowa",ear1="Zennaroi Earring",ear2="Telos Earring",body="Sakonji Domaru +2",hands="Wakido Kote +3",ring1="Ramuh Ring +1",feet="Wakido Sune. +3"})
+	sets.precast.WS.Acc = set_combine(sets.precast.WS, {head="Wakido Kabuto +3",body="Sakonji Domaru +3",feet="Wakido Sune. +3"})
+    sets.precast.WS.FullAcc = set_combine(sets.precast.WS, {head="Wakido Kabuto +3",neck="Moonbeam Nodowa",ear1="Zennaroi Earring",ear2="Telos Earring",body="Sakonji Domaru +3",hands="Wakido Kote +3",ring1="Ramuh Ring +1",feet="Wakido Sune. +3"})
     sets.precast.WS.Fodder = set_combine(sets.precast.WS, {})
 	
 	sets.precast.WS.Proc = {ammo="Hasty Pinion +1",
@@ -397,23 +397,23 @@ function check_trust()
 			
 				if spell_recasts[980] < spell_latency and not have_trust("Yoran-Oran") then
 					windower.send_command('input /ma "Yoran-Oran (UC)" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				elseif spell_recasts[952] < spell_latency and not have_trust("Koru-Moru") then
 					windower.send_command('input /ma "Koru-Moru" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				elseif spell_recasts[967] < spell_latency and not have_trust("Qultada") then
 					windower.send_command('input /ma "Qultada" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				elseif spell_recasts[914] < spell_latency and not have_trust("Ulmia") then
 					windower.send_command('input /ma "Ulmia" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				elseif spell_recasts[979] < spell_latency and not have_trust("Selh'teus") then
 					windower.send_command('input /ma "Selh\'teus" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				else
 					return false

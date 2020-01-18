@@ -29,9 +29,6 @@ function job_setup()
 	state.LuzafRing = M(true, "Luzaf's Ring")
     -- Whether a warning has been given for low ammo
     state.warned = M(false)
-
-	--List of which WS you plan to use TP bonus WS with.
-	moonshade_ws = S{'Leaden Salute','Wildfire','Last Stand'}
 	
 	autows = 'Leaden Salute'
 	rangedautows = 'Last Stand'
@@ -42,7 +39,7 @@ function job_setup()
 
     sets.Compensator = {range="Compensator"}
 	
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","RngHelper","AutoStunMode","AutoDefenseMode","LuzafRing","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","RangedMode","WeaponskillMode","ElementalMode","IdleMode","Passive","RuneElement","CompensatorMode","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","RngHelper","AutoStunMode","AutoDefenseMode","LuzafRing",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","RangedMode","WeaponskillMode","ElementalMode","IdleMode","Passive","RuneElement","CompensatorMode","TreasureMode",})
 end
 
 
@@ -109,24 +106,7 @@ end
 
 function job_self_command(commandArgs, eventArgs)
 		if commandArgs[1]:lower() == 'elemental' and commandArgs[2]:lower() == 'quickdraw' then
-			if state.ElementalMode.value == 'Fire' then
-				windower.chat.input('/ma "Fire Shot" <t>')
-			elseif state.ElementalMode.value == 'Wind' then
-				windower.chat.input('/ma "Wind Shot" <t>')
-			elseif state.ElementalMode.value == 'Lightning' then
-				windower.chat.input('/ma "Thunder Shot" <t>')
-			elseif state.ElementalMode.value == 'Earth' then
-				windower.chat.input('/ma "Earth Shot" <t>')
-			elseif state.ElementalMode.value == 'Ice' then
-				windower.chat.input('/ma "Ice Shot" <t>')
-			elseif state.ElementalMode.value == 'Water' then
-				windower.chat.input('/ma "Water Shot" <t>')
-			elseif state.ElementalMode.value == 'Light' then
-				windower.chat.input('/ma "Light Shot" <t>')
-			elseif state.ElementalMode.value == 'Dark' then
-				windower.chat.input('/ma "Dark Shot" <t>')
-			end
-
+			windower.chat.input('/ja "'..elements.quickdraw[state.ElementalMode.Value]..' Shot" <t>')
 			eventArgs.handled = true			
 		end
 end
@@ -182,14 +162,34 @@ end
 
 function job_post_precast(spell, spellMap, eventArgs)
 	if spell.type == 'WeaponSkill' then
-        -- Replace Moonshade Earring if we're at cap TP
-        if player.tp == 3000 and moonshade_ws:contains(spell.english) then
-			if check_ws_acc():contains('Acc') then
-				if sets.AccMaxTP then
-					equip(sets.AccMaxTP)
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
+		local wsacc = check_ws_acc()
+		
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if get_effective_player_tp(spell, WSset) > 3200 then
+				if elemental_obi_weaponskills:contains(spell.english) then
+					if wsacc:contains('Acc') and sets.MagicalAccMaxTP then
+						equip(sets.MagicalAccMaxTP[spell.english] or sets.MagicalAccMaxTP)
+					elseif sets.MagicalMaxTP then
+						equip(sets.MagicalMaxTP[spell.english] or sets.MagicalMaxTP)
+					else
+					end
+				elseif spell.skill == 26 then
+					if wsacc:contains('Acc') and sets.RangedAccMaxTP then
+						equip(sets.RangedAccMaxTP[spell.english] or sets.RangedAccMaxTP)
+					elseif sets.RangedMaxTP then
+						equip(sets.RangedMaxTP[spell.english] or sets.RangedMaxTP)
+					else
+					end
+				else
+					if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then
+						equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
+					elseif sets.MaxTP then
+						equip(sets.MaxTP[spell.english] or sets.MaxTP)
+					else
+					end
 				end
-			elseif sets.MaxTP then
-					equip(sets.MaxTP)
 			end
 		end
 	elseif spell.type == 'CorsairShot' and not (spell.english == 'Light Shot' or spell.english == 'Dark Shot') then
@@ -279,7 +279,7 @@ function do_bullet_checks(spell, spellMap, eventArgs)
     
     if spell.type == 'WeaponSkill' then
         if spell.skill == "Marksmanship" then
-            if elemental_obi_weaponskills:contains(spell.name) then
+            if elemental_obi_weaponskills:contains(spell.english) then
                 -- magical weaponskills
                 bullet_name = gear.MAbullet
             else

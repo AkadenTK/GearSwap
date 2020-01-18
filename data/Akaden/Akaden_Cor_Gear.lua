@@ -59,7 +59,6 @@ end
 
 -- Define sets and vars used by this job file.
 function init_gear_sets()
-    include('augmented_gear.lua')
 
     augmented_gear.capes = {
         ra_stp={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10',}},

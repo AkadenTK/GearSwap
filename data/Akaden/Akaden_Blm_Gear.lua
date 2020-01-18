@@ -32,7 +32,6 @@ end
 
 function init_gear_sets()
 
-    include('augmented_gear.lua')
     include('organizer-lib')
 
     --------------------------------------

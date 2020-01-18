@@ -1,18 +1,16 @@
---Place you can overwrite specific functions and settings with your preferences.
---Extra user functions to change how gearswap functions across jobs.
+--Place for settings and custom functions to work across one characters, all jobs.
 
---Time Related Settings
+--Time Related Settings:
 --To determine your offset the first time, uncomment time_offset and set time_test to true,
 --Once you see delay numbers start spamming your chat, (Must be outside of town.)
 --(Also you can't have Commitment or Dedication Buffs) then Equip to ring1 and use "Capacity Ring",
---(Not a Trizek or Calibur ring, "specifically Capacity Ring") your time_offset should appear in chat.
+--(Not a Trizek or Calibur ring, "specifically Capacity Ring" with at least 2 charges) your time_offset should appear in chat.
 --Set time_offset to the number mentioned in your chat and reload.
 --If the number spammed in your chat matches up with the seconds remaining on
 --your Capacity Ring's recast, your time_offset is correct, set time_test to false and reload.
 
 --time_offset = 0
 time_test = false
-framerate = 75
 latency = .75
 
 --If this is set to true it will prevent you from casting shadows when you have more up than that spell would generate.
@@ -37,13 +35,13 @@ state.DisplayMode = M(true, 'Display Mode') --Set this to false if you don't wan
 --}
 
 --Options for automation.
-state.ReEquip 		  = M(true, 'ReEquip Mode')		 --Set this to false if you don't want to equip your current Weapon set when you aren't wearing any weapons.
-state.AutoArts 		  = M(true, 'AutoArts') 		 --Set this to false if you don't want to automatically try to keep up Solace/Arts.
-state.CancelStoneskin = M(true, 'Cancel Stone Skin') --Set this to false if you don't want to automatically cancel stoneskin when you're slept.
-state.SkipProcWeapons = M(true, 'Skip Proc Weapons') --Set this to false if you want to display weapon sets fulltime rather than just Aby/Voidwatch.
-state.NotifyBuffs	  = M(false, 'Notify Buffs') 	 --Set this to true if you want to notify your party when you recieve a specific buff/debuff. (List Below)
+state.ReEquip 		  		= M(true, 'ReEquip Mode')		 --Set this to false if you don't want to equip your current Weapon set when you aren't wearing any weapons.
+state.AutoArts 		  		= M(true, 'AutoArts') 		 --Set this to false if you don't want to automatically try to keep up Solace/Arts.
+state.CancelStoneskin 		= M(true, 'Cancel Stone Skin') --Set this to false if you don't want to automatically cancel stoneskin when you're slept.
+state.SkipProcWeapons 		= M(true, 'Skip Proc Weapons') --Set this to false if you want to display weapon sets fulltime rather than just Aby/Voidwatch.
+state.NotifyBuffs	  		= M(false, 'Notify Buffs') 	 --Set this to true if you want to notify your party when you recieve a specific buff/debuff. (List Below)
 
---[[Global binds you may want to change.
+--[[Binds you may want to change.
 	Bind special characters.
 	@ = Windows Key
 	% = Works only when text bar not up.
@@ -61,7 +59,7 @@ send_command('bind @f8 gs c toggle AutoNukeMode') --Turns auto-nuke mode on and 
 send_command('bind ^f8 gs c toggle AutoStunMode') --Turns auto-stun mode off and on.
 send_command('bind !f8 gs c toggle AutoDefenseMode') --Turns auto-defense mode off and on.
 send_command('bind ^@!f8 gs c toggle AutoTrustMode') --Summons trusts automatically.
-send_command('bind @pause gs c toggle AutoBuffMode') --Automatically keeps certain buffs up, job-dependant.
+send_command('bind @pause gs c cycle AutoBuffMode') --Automatically keeps certain buffs up, job-dependant.
 send_command('bind @scrolllock gs c cycle Passive') --Changes offense settings such as accuracy.
 send_command('bind f9 gs c cycle OffenseMode') --Changes offense settings such as accuracy.
 send_command('bind ^f9 gs c cycle HybridMode') --Changes defense settings for melee such as PDT.
@@ -90,12 +88,10 @@ send_command('bind !t input /target <bt>') --Targets the battle target.
 send_command('bind ^o fillmode') --Lets you see through walls.
 send_command('bind @m gs c mount Omega')
 
---Place to override Tables and other definitions you may want to.
+NotifyBuffs = S{'doom','petrification'}
 
 bayld_items = {'Tlalpoloani','Macoquetza','Camatlatia','Icoyoca','Tlamini','Suijingiri Kanemitsu',
 'Zoquittihuitz','Quauhpilli Helm','Chocaliztli Mask','Xux Hat','Quauhpilli Gloves','Xux Trousers',
 'Chocaliztli Boots','Maochinoli','Xiutleato','Hatxiik','Kuakuakait','Azukinagamitsu','Atetepeyorg',
 'Kaquljaan','Ajjub Bow','Baqil Staff','Ixtab','Tamaxchi','Otomi Helm','Otomi Gloves','Kaabnax Hat',
 'Kaabnax Trousers','Ejekamal Mask','Ejekamal Boots','Quiahuiz Helm','Quiahuiz Trousers','Uk\'uxkaj Cap'}
-
-NotifyBuffs = S{'doom','petrification'}

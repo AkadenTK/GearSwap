@@ -39,14 +39,13 @@ function job_setup()
 	state.Buff['Nightingale'] = buffactive['Nightingale'] or false
 	state.RecoverMode = M('35%', '60%', 'Always', 'Never')
 
-	--List of which WS you plan to use TP bonus WS with.
-	moonshade_ws = S{'Rudra\'s Storm'}
-
 	autows = "Rudra's Storm"
 	autofood = 'Pear Crepe'
+	
+	state.AutoSongMode = M(false, 'Auto Song Mode')
 
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ExtraSongsMode","CastingMode","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoSongMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ExtraSongsMode","CastingMode","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -113,7 +112,6 @@ function job_midcast(spell, spellMap, eventArgs)
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
-
 	if spell.type == 'BardSong' then
 	
 		if state.Buff['Nightingale'] then
@@ -149,21 +147,21 @@ function job_post_precast(spell, spellMap, eventArgs)
 		end
 
 	elseif spell.type == 'WeaponSkill' then
-        -- Replace Moonshade Earring if we're at cap TP
-        if player.tp == 3000 and moonshade_ws:contains(spell.english) then
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
+		local wsacc = check_ws_acc()
 		
-			if check_ws_acc():contains('Acc') or (state.Buff['Sneak Attack'] or state.Buff['Trick Attack']) then
-				if sets.AccMaxTP then
-					equip(sets.AccMaxTP)
-				end
-			else
-				if sets.MaxTP then
-					equip(sets.MaxTP)
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if get_effective_player_tp(spell, WSset) > 3200 then
+				if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then
+					equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
+				elseif sets.MaxTP then
+					equip(sets.MaxTP[spell.english] or sets.MaxTP)
+				else
 				end
 			end
 		end
 	end
-
 end
 
 function job_post_midcast(spell, spellMap, eventArgs)
@@ -183,11 +181,11 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				end
 			end
 			
-			if can_dual_wield() and sets.midcast.SongDebuff.DW then
+			if can_dual_wield and sets.midcast.SongDebuff.DW then
 				equip(sets.midcast.SongDebuff.DW)
 			end
 		else
-			if can_dual_wield() and sets.midcast.SongEffect.DW then
+			if can_dual_wield and sets.midcast.SongEffect.DW then
 				equip(sets.midcast.SongEffect.DW)
 			end
 		end
@@ -239,6 +237,26 @@ function job_buff_change(buff, gain)
 	update_melee_groups()
 end
 
+function job_get_spell_map(spell, default_spell_map)
+
+	if  default_spell_map == 'Cure' or default_spell_map == 'Curaga'  then
+		if world.weather_element == 'Light' then
+                return 'LightWeatherCure'
+		elseif world.day_element == 'Light' then
+                return 'LightDayCure'
+        end
+
+	elseif spell.skill == "Enfeebling Magic" then
+		if spell.english:startswith('Dia') then
+			return "Dia"
+		elseif spell.type == "WhiteMagic" or spell.english:startswith('Frazzle') or spell.english:startswith('Distract') then
+			return 'MndEnfeebles'
+		else
+			return 'IntEnfeebles'
+		end
+	end
+end
+
 -------------------------------------------------------------------------------------------------------------------
 -- Job-specific hooks for non-casting events.
 -------------------------------------------------------------------------------------------------------------------
@@ -255,8 +273,23 @@ end
 
 -- Modify the default idle set after it was constructed.
 function job_customize_idle_set(idleSet)
-    if player.mpp < 51 and (state.IdleMode.value == 'Normal' or state.IdleMode.value == 'Sphere') and state.DefenseMode.value == 'None' then
-        idleSet = set_combine(idleSet, sets.latent_refresh)
+    if buffactive['Sublimation: Activated'] then
+        if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and sets.buff.Sublimation then
+            idleSet = set_combine(idleSet, sets.buff.Sublimation)
+        elseif state.IdleMode.value:contains('DT') and sets.buff.DTSublimation then
+            idleSet = set_combine(idleSet, sets.buff.DTSublimation)
+        end
+    end
+
+    if player.mpp < 51 and (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) then
+		if sets.latent_refresh then
+			idleSet = set_combine(idleSet, sets.latent_refresh)
+		end
+		
+		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+		if available_ws:contains(176) and sets.latent_refresh_grip then
+			idleSet = set_combine(idleSet, sets.latent_refresh_grip)
+		end
     end
 
     return idleSet
@@ -303,22 +336,24 @@ end
 
 function job_tick()
 	if check_song() then return true end
+	if check_buff() then return true end
+	if check_buffup() then return true end
 	return false
 end
 
 function check_song()
-	if state.AutoBuffMode.value and not moving and not areas.Cities:contains(world.area) then
+	if state.AutoSongMode.value then
 		if not buffactive.march then
 			windower.chat.input('/ma "Honor March" <me>')
-			tickdelay = (framerate * 1.5)
-			return true
-		elseif not buffactive.madrigal then
-			windower.chat.input('/ma "Blade Madrigal" <me>')
-			tickdelay = (framerate * 1.5)
+			tickdelay = os.clock() + 1.5
 			return true
 		elseif not buffactive.minuet then
-			windower.send_command('gs c set ExtraSongsMode Dummy;input /ma "Valor Minuet V" <me>')
-			tickdelay = (framerate * 1.5)
+			windower.chat.input('/ma "Valor Minuet V" <me>')
+			tickdelay = os.clock() + 1.5
+			return true
+		elseif not buffactive.madrigal then
+			windower.send_command('gs c set ExtraSongsMode FullLength;input /ma "Blade Madrigal" <me>')
+			tickdelay = os.clock() + 1.5
 			return true
 		else
 			return false
@@ -327,3 +362,65 @@ function check_song()
 		return false
 	end
 end
+
+function check_buff()
+	if state.AutoBuffMode.value ~= 'Off' and not areas.Cities:contains(world.area) then
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
+				tickdelay = os.clock() + 2
+				return true
+			end
+		end
+	else
+		return false
+	end
+end
+
+function check_buffup()
+	if buffup ~= '' then
+		local needsbuff = false
+		for i in pairs(buff_spell_lists[buffup]) do
+			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) then
+				needsbuff = true
+				break
+			end
+		end
+	
+		if not needsbuff then
+			add_to_chat(217, 'All '..buffup..' buffs are up!')
+			buffup = ''
+			return false
+		end
+		
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+		
+		for i in pairs(buff_spell_lists[buffup]) do
+			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < spell_latency then
+				windower.chat.input('/ma "'..buff_spell_lists[buffup][i].Name..'" <me>')
+				tickdelay = os.clock() + 2
+				return true
+			end
+		end
+		
+		return false
+	else
+		return false
+	end
+end
+
+buff_spell_lists = {
+	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
+		{Name='Refresh',			Buff='Refresh',			SpellID=109,	When='Idle'},
+		{Name='Phalanx',			Buff='Phalanx',			SpellID=106,	When='Idle'},
+		{Name='Stoneskin',			Buff='Stoneskin',		SpellID=54,		When='Idle'},
+		{Name='Blink',				Buff='Blink',			SpellID=53,		When='Idle'},
+	},
+	Default = {
+		{Name='Refresh',			Buff='Refresh',			SpellID=109,	Reapply=false},
+		{Name='Phalanx',			Buff='Phalanx',			SpellID=106,	Reapply=false},
+		{Name='Stoneskin',			Buff='Stoneskin',		SpellID=54,		Reapply=false},
+		{Name='Blink',				Buff='Blink',			SpellID=53,		Reapply=false},
+	},
+}

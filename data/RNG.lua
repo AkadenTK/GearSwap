@@ -19,15 +19,12 @@ function job_setup()
 	state.Buff['Unlimited Shot'] = buffactive['Unlimited Shot'] or false
 	state.Buff['Velocity Shot'] = buffactive['Velocity Shot'] or false
 	
-	--List of which WS you plan to use TP bonus WS with.
-	moonshade_ws = S{'Jishnu\'s Radiance','Empyreal Arrow','Last Stand'}
-	
 	autows = "Last Stand"
 	rangedautows = "Last Stand"
 	autofood = 'Soy Ramen'
 	ammostock = 198
 	
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","RngHelper","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","RangedMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","RngHelper","AutoStunMode","AutoDefenseMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","RangedMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -51,30 +48,56 @@ function job_precast(spell, spellMap, eventArgs)
 
 	if spell.action_type == 'Ranged Attack' or
 	  (spell.type == 'WeaponSkill' and (spell.skill == 'Marksmanship' or spell.skill == 'Archery')) then
-		check_ammo(spell, action, spellMap, eventArgs)
+		check_ammo_precast(spell, action, spellMap, eventArgs)
 	end
 
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
 	if spell.type == 'WeaponSkill' then
-        -- Replace Moonshade Earring if we're at cap TP
-        if player.tp == 3000 and moonshade_ws:contains(spell.english) then
-			if check_ws_acc():contains('Acc') then
-				if sets.AccMaxTP then
-					equip(sets.AccMaxTP)
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
+		local wsacc = check_ws_acc()
+		
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if get_effective_player_tp(spell, WSset) > 3200 then
+				if elemental_obi_weaponskills:contains(spell.english) then
+					if wsacc:contains('Acc') and sets.MagicalAccMaxTP then
+						equip(sets.MagicalAccMaxTP[spell.english] or sets.MagicalAccMaxTP)
+					elseif sets.MagicalMaxTP then
+						equip(sets.MagicalMaxTP[spell.english] or sets.MagicalMaxTP)
+					else
+					end
+				elseif S{25,26}:contains(spell.skill) then
+					if wsacc:contains('Acc') and sets.RangedAccMaxTP then
+						equip(sets.RangedAccMaxTP[spell.english] or sets.RangedAccMaxTP)
+					elseif sets.RangedMaxTP then
+						equip(sets.RangedMaxTP[spell.english] or sets.RangedMaxTP)
+					else
+					end
+				else
+					if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then
+						equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
+					elseif sets.MaxTP then
+						equip(sets.MaxTP[spell.english] or sets.MaxTP)
+					else
+					end
 				end
-						
-			elseif sets.MaxTP then
-					equip(sets.MaxTP)
 			end
-
 		end
-	elseif spell.action_type == 'Ranged Attack' and sets.precast.RA and buffactive.Flurry then
-		if sets.precast.RA.Flurry and lastflurry == 1 then
-			equip(sets.precast.RA.Flurry)
-		elseif sets.precast.RA.Flurry and lastflurry == 2 then
-			equip(sets.precast.RA.Flurry2)
+	elseif spell.action_type == 'Ranged Attack' and buffactive.Flurry then
+		if lastflurry == 1 then
+			if sets.precast.RA[state.Weapons.value] and sets.precast.RA[state.Weapons.value].Flurry then
+				equip(sets.precast.RA[state.Weapons.value].Flurry)
+			elseif sets.precast.RA.Flurry then
+				equip(sets.precast.RA.Flurry)
+			end
+		elseif lastflurry == 2 then
+			if sets.precast.RA[state.Weapons.value] and sets.precast.RA[state.Weapons.value].Flurry2 then
+				equip(sets.precast.RA[state.Weapons.value].Flurry2)
+			elseif sets.precast.RA.Flurry2 then
+				equip(sets.precast.RA.Flurry2)
+			end
 		end
 	end
 end
@@ -120,6 +143,7 @@ function job_buff_change(buff, gain)
 		if player.equipment.Ranged then
 			if (player.equipment.Ranged == 'Armageddon' and (buffactive['Aftermath: Lv.1'] or buffactive['Aftermath: Lv.2'] or buffactive['Aftermath: Lv.3']))
 			or (player.equipment.Ranged == 'Gandiva' and (buffactive['Aftermath: Lv.1'] or buffactive['Aftermath: Lv.2'] or buffactive['Aftermath: Lv.3']))
+			or (player.equipment.Ranged == "Gastraphetes" and state.Buff['Aftermath: Lv.3'])
 			or (player.equipment.Ranged == "Annihilator" and state.Buff['Aftermath'])
 			or (player.equipment.Ranged == "Yoichinoyumi" and state.Buff['Aftermath']) then
 				classes.CustomRangedGroups:append('AM')
@@ -151,7 +175,7 @@ end
 -------------------------------------------------------------------------------------------------------------------
 
 -- Check for proper ammo when shooting or weaponskilling
-function check_ammo(spell, action, spellMap, eventArgs)
+function check_ammo_precast(spell, action, spellMap, eventArgs)
 	-- Filter ammo checks depending on Unlimited Shot
 	if state.Buff['Unlimited Shot'] then
 		if player.equipment.ammo ~= U_Shot_Ammo[player.equipment.range] then

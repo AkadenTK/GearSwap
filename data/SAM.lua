@@ -26,7 +26,7 @@ function job_setup()
 	autofood = 'Soy Ramen'
 
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","Stance","IdleMode","Passive","RuneElement","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","Stance","IdleMode","Passive","RuneElement","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -37,22 +37,25 @@ end
 
 function job_precast(spell, spellMap, eventArgs)
 
-	if spell.type == 'WeaponSkill' and state.AutoBuffMode.value then
+	if spell.type == 'WeaponSkill' and state.AutoBuffMode.value ~= 'Off' then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		if player.tp > 1850 and abil_recasts[140] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Sekkanoki" <me>')
 			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			tickdelay = os.clock() + 1.25
 			return
 		elseif abil_recasts[134] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Meditate" <me>')
 			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			tickdelay = os.clock() + 1.25
 			return
 		elseif player.tp < 1500 and not buffactive['Sekkanoki'] and abil_recasts[54] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Hagakure" <me>')
 			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			tickdelay = os.clock() + 1.25
 			return
 		end
 	end
@@ -92,35 +95,45 @@ end
 function job_post_precast(spell, spellMap, eventArgs)
 
 	if spell.type == 'WeaponSkill' then
-		local WSset = get_precast_set(spell, spellMap)
-		if not WSset.ear1 then WSset.ear1 = WSset.left_ear or '' end
-		if not WSset.ear2 then WSset.ear2 = WSset.right_ear or '' end
+
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
 		local wsacc = check_ws_acc()
-        -- Replace Moonshade Earring if we're at cap TP
-		if player.tp > 2900 and (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
-			if wsacc:contains('Acc') and sets.AccMaxTP and not buffactive['Sneak Attack'] then
-				if not sets.AccMaxTP.ear1 then if not sets.AccMaxTP.ear1 then sets.AccMaxTP.ear1 = sets.AccMaxTP.left_ear or '' end end
-				if not sets.AccMaxTP.ear2 then if not sets.AccMaxTP.ear2 then sets.AccMaxTP.ear2 = sets.AccMaxTP.right_ear or '' end end
-				if (sets.AccMaxTP.ear1:startswith("Lugra Earring") or sets.AccMaxTP.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayMaxTPWSEars then
-					equip(sets.AccDayMaxTPWSEars)
+		
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if get_effective_player_tp(spell, WSset) > 3200 then
+				if spell.skill == 25 then
+					if wsacc:contains('Acc') and sets.RangedAccMaxTP then
+						equip(sets.RangedAccMaxTP)
+					elseif sets.RangedMaxTP then
+						equip(sets.RangedMaxTP)
+					else
+					end
 				else
-					equip(sets.AccMaxTP)
-				end
-			elseif sets.MaxTP then
-				if not sets.MaxTP.ear1 then sets.MaxTP.ear1 = sets.MaxTP.left_ear or '' end
-				if not sets.MaxTP.ear2 then sets.MaxTP.ear2 = sets.MaxTP.right_ear or '' end
-				if (sets.MaxTP.ear1:startswith("Lugra Earring") or sets.MaxTP.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayMaxTPWSEars then
-					equip(sets.DayMaxTPWSEars)
-				else
-					equip(sets.MaxTP)
+					if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then
+						local AccMaxTPset = standardize_set(sets.AccMaxTP)
+
+						if (AccMaxTPset.ear1:startswith("Lugra Earring") or AccMaxTPset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayMaxTPWSEars then
+							equip(sets.AccDayMaxTPWSEars[spell.english] or sets.AccDayMaxTPWSEars)
+						else
+							equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
+						end
+					elseif sets.MaxTP then
+						local MaxTPset = standardize_set(sets.MaxTP)
+						if (MaxTPset.ear1:startswith("Lugra Earring") or MaxTPset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayMaxTPWSEars then
+							equip(sets.DayMaxTPWSEars[spell.english] or sets.DayMaxTPWSEars)
+						else
+							equip(sets.MaxTP[spell.english] or sets.MaxTP)
+						end
+					else
+					end
 				end
 			else
-			end
-		else
-			if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayWSEars then
-				equip(sets.AccDayWSEars)
-			elseif (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayWSEars then
-				equip(sets.DayWSEars)
+				if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayWSEars then
+					equip(sets.AccDayWSEars[spell.english] or sets.AccDayWSEars)
+				elseif (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayWSEars then
+					equip(sets.DayWSEars[spell.english] or sets.DayWSEars)
+				end
 			end
 		end
 		
@@ -228,11 +241,11 @@ function check_hasso()
 		
 		if state.Stance.value == 'Hasso' and abil_recasts[138] < latency then
 			windower.chat.input('/ja "Hasso" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.1
 			return true
 		elseif state.Stance.value == 'Seigan' and abil_recasts[139] < latency then
 			windower.chat.input('/ja "Seigan" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.1
 			return true
 		else
 			return false
@@ -243,21 +256,21 @@ function check_hasso()
 end
 
 function check_buff()
-	if state.AutoBuffMode.value and player.in_combat then
+	if state.AutoBuffMode.value ~= 'Off' and player.in_combat then
 		
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 
 		if player.sub_job == 'DRK' and not buffactive['Last Resort'] and abil_recasts[87] < latency then
 			windower.chat.input('/ja "Last Resort" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.1
 			return true
 		elseif player.sub_job == 'WAR' and not buffactive.Berserk and abil_recasts[1] < latency then
 			windower.chat.input('/ja "Berserk" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.1
 			return true
 		elseif player.sub_job == 'WAR' and not buffactive.Aggressor and abil_recasts[4] < latency then
 			windower.chat.input('/ja "Aggressor" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.1
 			return true
 		else
 			return false

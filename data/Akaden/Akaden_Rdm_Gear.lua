@@ -45,7 +45,6 @@ function user_setup()
 end
 
 function init_gear_sets()
-    include('augmented_gear.lua')
 
     augmented_gear.capes = {}
     augmented_gear.capes.dex_crit = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Crit.hit rate+10',}}

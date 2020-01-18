@@ -22,9 +22,6 @@ function job_setup()
     state.Buff['Unbridled Learning'] = buffactive['Unbridled Learning'] or false
 	state.Buff['Unbridled Wisdom'] = buffactive['Unbridled Wisdom'] or false
 	
-	--List of which WS you plan to use TP bonus WS equipment with.
-	moonshade_ws = S{'Chant du Cygne', 'Savage Blade','Requiescat'}
-	
 	state.LearningMode = M(false, 'Learning Mode')
 	state.AutoUnbridled = M(false, 'Auto Unbridled Learning Mode')
 	autows = 'Chant Du Cygne'
@@ -124,7 +121,12 @@ function job_setup()
     blue_magic_maps.MagicalDex = S{
         'Charged Whisker','Gates of Hades'
     }
-            
+
+    -- Magical spells with an Agi stat mod
+    blue_magic_maps.MagicalAgi = S{
+        'Crashing Thunder'
+    }
+
     -- Magical spells (generally debuffs) that we want to focus on magic accuracy over damage.
     -- Add Int for damage where available, though.
     blue_magic_maps.MagicAccuracy = S{
@@ -174,6 +176,9 @@ function job_setup()
         'Zephyr Mantle'
     }
     
+    aoe_blue_magic_healing = S{
+        'Healing Breeze','White Wind'
+    }
     
     -- Spells that require Unbridled Learning to cast.
     unbridled_spells = S{
@@ -183,7 +188,7 @@ function job_setup()
     }
 
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","LearningMode","CastingMode","TreasureMode"})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","LearningMode","CastingMode","TreasureMode"})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -232,7 +237,7 @@ end
 
 function job_filter_precast(spell, spellMap, eventArgs)
 	if spell.skill == 'Blue Magic' and unbridled_spells:contains(spell.english) and not (state.Buff['Unbridled Learning'] or state.Buff['Unbridled Wisdom']) then
-		if (state.AutoUnbridled.value or buffup ~= '' or state.AutoBuffMode.value) and (windower.ffxi.get_ability_recasts()[81] < latency and (windower.ffxi.get_spell_recasts()[spell.recast_id]/60) < spell_latency) then
+		if (state.AutoUnbridled.value or buffup ~= '' or state.AutoBuffMode.value ~= 'Off') and (windower.ffxi.get_ability_recasts()[81] < latency and (windower.ffxi.get_spell_recasts()[spell.recast_id]/60) < spell_latency) then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Unbridled Learning" <me>')
 			windower.chat.input:schedule(1,'/ma "'..spell.english..'" '..spell.target.raw..'')
@@ -262,17 +267,21 @@ end
 function job_post_precast(spell, spellMap, eventArgs)
 
 	if spell.type == 'WeaponSkill' then
-        -- Replace Moonshade Earring if we're at cap TP
-        if player.tp == 3000 and moonshade_ws:contains(spell.english) then
-
-			if check_ws_acc():contains('Acc') then
-				if sets.AccMaxTP then
-					equip(sets.AccMaxTP)
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
+		local wsacc = check_ws_acc()
+		
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if get_effective_player_tp(spell, WSset) > 3200 then
+				if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then
+					equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
+				elseif sets.MaxTP then
+					equip(sets.MaxTP[spell.english] or sets.MaxTP)
+				else
 				end
-			elseif sets.MaxTP then
-					equip(sets.MaxTP)
 			end
 		end
+
 	end
 
     -- If in learning mode, keep on gear intended to help with that, regardless of action.
@@ -296,20 +305,11 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			if spell.element == 'None' and sets.NonElementalCure then
 				equip(sets.NonElementalCure)
 			end
-			if spell.target.type == 'SELF' then
-				if ((player.equipment.main == 'Nibiru Cudgel' and player.equipment.sub == 'Nibiru Cudgel') or state.OffenseMode.value == 'None') and sets.Self_Healing_DWClub then
-					equip(sets.Self_Healing_DWClub)
-				elseif player.equipment.main == 'Nibiru Cudgel' or player.equipment.main == 'Nibiru Cudgel' and sets.Self_Healing_Club then
-					equip(sets.Self_Healing_Club)
-				elseif sets.Self_Healing then
-					equip(sets.Self_Healing)
-				end
-			elseif player.equipment.main == 'Nibiru Cudgel' and player.equipment.main == 'Nibiru Cudgel' and sets.Healing_DWClub then
-				equip(sets.Healing_DWClub)
-			elseif player.equipment.main == 'Nibiru Cudgel' or player.equipment.main == 'Nibiru Cudgel' and sets.Healing_Club then
-				equip(sets.Healing_Club)
+		
+			if spell.target.type == 'SELF' and sets.Self_Healing and not aoe_blue_magic_healing:contains(spell.english) then
+				equip(sets.Self_Healing)
 			end
-			
+				
 		elseif spellMap:contains('Magical') then
 			if state.MagicBurstMode.value ~= 'Off' and (state.Buff['Burst Affinity'] or state.Buff['Azure Lore']) then
 					equip(sets.MagicBurst)
@@ -393,8 +393,15 @@ end
 
 -- Modify the default idle set after it was constructed.
 function job_customize_idle_set(idleSet)
-    if player.mpp < 51 and (state.IdleMode.value == 'Normal' or state.IdleMode.value == 'Sphere') and state.DefenseMode.value == 'None' then
-        idleSet = set_combine(idleSet, sets.latent_refresh)
+    if player.mpp < 51 and (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) then
+		if sets.latent_refresh then
+			idleSet = set_combine(idleSet, sets.latent_refresh)
+		end
+		
+		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+		if available_ws:contains(176) and sets.latent_refresh_grip then
+			idleSet = set_combine(idleSet, sets.latent_refresh_grip)
+		end
     end
 	
 	if state.LearningMode.value == true then 
@@ -437,13 +444,13 @@ function job_tick()
 end
 
 function check_arts()
-	if (player.sub_job == 'SCH' and not arts_active()) and (buffup ~= '' or (not areas.Cities:contains(world.area) and ((state.AutoArts.value and player.in_combat) or state.AutoBuffMode.value))) then
+	if (player.sub_job == 'SCH' and not arts_active()) and (buffup ~= '' or (not areas.Cities:contains(world.area) and ((state.AutoArts.value and player.in_combat) or state.AutoBuffMode.value ~= 'Off'))) then
 	
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 
 		if abil_recasts[228] < latency then
 			send_command('@input /ja "Light Arts" <me>')
-			tickdelay = (framerate * 1)
+			tickdelay = os.clock() + 1
 			return true
 		end
 
@@ -467,13 +474,15 @@ function update_melee_groups()
 end
 
 function check_buff()
-	if state.AutoBuffMode.value and not areas.Cities:contains(world.area) then
+	if state.AutoBuffMode.value ~= 'Off' and not areas.Cities:contains(world.area) then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
-		for i in pairs(buff_spell_lists['Auto']) do
-			if not buffactive[buff_spell_lists['Auto'][i].Buff] and (buff_spell_lists['Auto'][i].When == 'Always' or (buff_spell_lists['Auto'][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists['Auto'][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists['Auto'][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists['Auto'][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists['Auto'][i].SpellID] < latency and silent_can_use(buff_spell_lists['Auto'][i].SpellID) then
-				windower.chat.input('/ma "'..buff_spell_lists['Auto'][i].Name..'" <me>')
-				tickdelay = (framerate * 2)
-				return true
+		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+				if not unbridled_spells:contains(buff_spell_lists[state.AutoBuffMode.Value][i].Name) or unbridled_ready() then
+					windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
+					tickdelay = os.clock() + 2
+					return true
+				end
 			end
 		end
 	else
@@ -500,9 +509,9 @@ function check_buffup()
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		
 		for i in pairs(buff_spell_lists[buffup]) do
-			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < latency then
+			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < spell_latency then
 				windower.chat.input('/ma "'..buff_spell_lists[buffup][i].Name..'" <me>')
-				tickdelay = (framerate * 2)
+				tickdelay = os.clock() + 2
 				return true
 			end
 		end

@@ -107,7 +107,8 @@ function init_gear_sets()
 
 	sets.precast.JA['Swipe'] = sets.precast.JA['Lunge']
 
-	sets.element.Earth = {neck="Quanpur Necklace"}
+	-- Gear for specific elemental nukes.
+	sets.element.Dark = {head="Pixie Hairpin +1",ring2="Archon Ring"}
 
 	-- Pulse sets, different stats for different rune modes, stat aligned.
     sets.precast.JA['Vivacious Pulse'] = {head="Erilaz Galea +1",neck="Incanter's Torque",ring1="Stikini Ring",ring2="Stikini Ring",legs="Rune. Trousers +3"}
@@ -428,23 +429,23 @@ function check_trust()
 			
 				if spell_recasts[980] < spell_latency and not have_trust("Yoran-Oran") then
 					windower.send_command('input /ma "Yoran-Oran (UC)" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				elseif spell_recasts[952] < spell_latency and not have_trust("Koru-Moru") then
 					windower.send_command('input /ma "Koru-Moru" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				elseif spell_recasts[979] < spell_latency and not have_trust("Selh'teus") then
 					windower.send_command('input /ma "Selh\'teus" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				elseif spell_recasts[967] < spell_latency and not have_trust("Qultada") then
 					windower.send_command('input /ma "Qultada" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				elseif spell_recasts[914] < spell_latency and not have_trust("Ulmia") then
 					windower.send_command('input /ma "Ulmia" <me>')
-					tickdelay = (framerate * 3)
+					tickdelay = os.clock() + 3
 					return true
 				else
 					return false

@@ -41,7 +41,6 @@ end
 function init_gear_sets()
 
     include('organizer-lib')
-    include('augmented_gear.lua')
 	sets.Weapons = {main="Akademos",sub="Niobid Strap"}
     --------------------------------------
     -- Start defining the sets

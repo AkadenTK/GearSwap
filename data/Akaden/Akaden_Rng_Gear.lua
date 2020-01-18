@@ -32,7 +32,6 @@ end
 
 -- Set up all gear sets.
 function init_gear_sets()
-    include('augmented_gear.lua')
 	--------------------------------------
 	-- Precast sets
 	--------------------------------------

@@ -43,7 +43,7 @@ function job_setup()
 
 	tp_based_ready_moves = S{'Sic','Somersault ','Dust Cloud','Foot Kick','Sheep Song','Sheep Charge','Lamb Chop',
         'Rage','Head Butt','Scream','Dream Flower','Wild Oats','Leaf Dagger','Claw Cyclone','Razor Fang','Roar',
-        'Gloeosuccus','Palsy Pollen','Soporific','Cursed Sphere','Geist Wall','Numbing Noise','Frogkick',
+        'Gloeosuccus','Palsy Pollen','Soporific','Cursed Sphere','Geist Wall','Numbing Noise','Frog Kick',
         'Nimble Snap','Cyclotail','Spoil','Rhino Guard','Rhino Attack','Hi-Freq Field','Sandpit','Sandblast',
         'Mandibular Bite','Metallic Body','Bubble Shower','Bubble Curtain','Scissor Guard','Grapple','Spinning Top',
         'Double Claw','Filamented Hold','Spore','Blockhead','Secretion','Fireball','Tail Blow','Plague Breath',
@@ -164,9 +164,6 @@ function job_setup()
 							['SharpwitHermes']='Head Butt',['AcuexFamiliar']='Pestilent Plume',['FluffyBredo']='Pestilent Plume',
 							['MosquitoFamiliar']='Infected Leech',['Left-HandedYoko']='Infected Leech',}
 
-	--List of which WS you plan to use TP bonus WS with.
-	moonshade_ws = S{'Rampage','Calamity'}
-
 	state.AutoFightMode = M(true, 'Auto Fight Mode')
 	state.AutoReadyMode = M(false, 'Auto Ready Mode')
 	state.AutoCallPet = M(false, 'Auto Call Pet')
@@ -183,7 +180,7 @@ function job_setup()
 
 	update_pet_groups()
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoReadyMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","PetMode","IdleMode","Passive","RuneElement","JugMode","RewardMode","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoReadyMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","PetMode","IdleMode","Passive","RuneElement","JugMode","RewardMode","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -213,13 +210,13 @@ end
 function job_precast(spell, spellMap, eventArgs)
         cancel_conflicting_buffs(spell, action, spellMap, eventArgs)
 
-        if spell.type == "WeaponSkill" and spell.name ~= 'Mistral Axe' and spell.name ~= 'Bora Axe' and spell.target.distance > target_distance then
+        if spell.type == "WeaponSkill" and spell.english ~= 'Mistral Axe' and spell.english ~= 'Bora Axe' and spell.target.distance > target_distance then
                 eventArgs.cancel = true
                 add_to_chat(123, spell.name..' Canceled: [Out of Range]')
 
 		elseif spell.english == 'Reward' then
 			equip(sets.precast.JA.Reward[state.RewardMode.value])
-			if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
+			if can_dual_wield then
 				equip(sets.RewardAxesDW)
 			else
 				equip(sets.RewardAxe)
@@ -227,7 +224,7 @@ function job_precast(spell, spellMap, eventArgs)
 
 		elseif spell.english == 'Spur' then
 			equip(sets.precast.JA.Spur)
-			if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
+			if can_dual_wield then
 				equip(sets.SpurAxesDW)
 			else
 				equip(sets.SpurAxe)
@@ -266,7 +263,7 @@ function job_precast(spell, spellMap, eventArgs)
 -- Define class for Sic and Ready moves.
         elseif spell.type == 'Monster' then
                 classes.CustomClass = "WS"
-                if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
+                if can_dual_wield then
 					equip(sets.midcast.Pet.ReadyRecastDW)
                 else
 					equip(sets.midcast.Pet.ReadyRecast)
@@ -275,52 +272,49 @@ function job_precast(spell, spellMap, eventArgs)
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
-
-	-- Replace Moonshade Earring if we're at cap TP
 	if spell.type == 'WeaponSkill' then
-		local WSset = get_precast_set(spell, spellMap)
-		if not WSset.ear1 then WSset.ear1 = WSset.left_ear or '' end
-		if not WSset.ear2 then WSset.ear2 = WSset.right_ear or '' end
+
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
 		local wsacc = check_ws_acc()
-        -- Replace Moonshade Earring if we're at cap TP
-        if player.tp > 2950 and (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
-			if wsacc:contains('Acc') and sets.AccMaxTP then
-				if not sets.AccMaxTP.ear1 then sets.AccMaxTP.ear1 = sets.AccMaxTP.left_ear or '' end
-				if not sets.AccMaxTP.ear2 then sets.AccMaxTP.ear2 = sets.AccMaxTP.right_ear or '' end
-				if (sets.AccMaxTP.ear1:startswith("Lugra Earring") or sets.AccMaxTP.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayMaxTPWSEars then
-					equip(sets.AccDayMaxTPWSEars)
+		
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if get_effective_player_tp(spell, WSset) > 3200 then
+				if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then
+					local AccMaxTPset = standardize_set(sets.AccMaxTP)
+
+					if (AccMaxTPset.ear1:startswith("Lugra Earring") or AccMaxTPset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayMaxTPWSEars then
+						equip(sets.AccDayMaxTPWSEars[spell.english] or sets.AccDayMaxTPWSEars)
+					else
+						equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
+					end
+				elseif sets.MaxTP then
+					local MaxTPset = standardize_set(sets.MaxTP)
+					if (MaxTPset.ear1:startswith("Lugra Earring") or MaxTPset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayMaxTPWSEars then
+						equip(sets.DayMaxTPWSEars[spell.english] or sets.DayMaxTPWSEars)
+					else
+						equip(sets.MaxTP[spell.english] or sets.MaxTP)
+					end
 				else
-					equip(sets.AccMaxTP)
-				end
-			elseif sets.MaxTP then
-				if not sets.MaxTP.ear1 then sets.MaxTP.ear1 = sets.MaxTP.left_ear or '' end
-				if not sets.MaxTP.ear2 then sets.MaxTP.ear2 = sets.MaxTP.right_ear or '' end
-				if (sets.MaxTP.ear1:startswith("Lugra Earring") or sets.MaxTP.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayMaxTPWSEars then
-					equip(sets.DayMaxTPWSEars)
-				else
-					equip(sets.MaxTP)
 				end
 			else
-			end
-		else
-			if wsacc:contains('Acc') and (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayWSEars then
-				equip(sets.AccDayWSEars)
-			elseif (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayWSEars then
-				equip(sets.DayWSEars)
+				if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayWSEars then
+					equip(sets.AccDayWSEars[spell.english] or sets.AccDayWSEars)
+				elseif (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayWSEars then
+					equip(sets.DayWSEars[spell.english] or sets.DayWSEars)
+				end
 			end
 		end
-
+		
 		-- If Killer Instinct is active during WS, equip Ferine Gausape +2.
-        if buffactive['Killer Instinct'] then
-                equip(sets.buff['Killer Instinct'])
-        end
+		if buffactive['Killer Instinct'] then
+			equip(sets.buff['Killer Instinct'])
+		end
 	end
-
-
 end
 
 function job_pet_midcast(spell, spellMap, eventArgs)
-        if magic_ready_moves:contains(spell.name) then
+        if magic_ready_moves:contains(spell.english) then
 			if sets.midcast.Pet.MagicReady[state.OffenseMode.value] then
 				equip(sets.midcast.Pet.MagicReady[state.OffenseMode.value])
 			else
@@ -335,14 +329,10 @@ function job_pet_midcast(spell, spellMap, eventArgs)
         end
 
         -- If Pet TP, before bonuses, is less than a certain value then equip Nukumi Manoplas +1
-        if tp_based_ready_moves:contains(spell.name) and PetJob == 'Warrior' then
-                if pet.tp < 1900 then
-                        equip(sets.midcast.Pet.TPBonus)
-                end
-        elseif tp_based_ready_moves:contains(spell.name) and PetJob ~= 'Warrior' then
-                if pet.tp < 2400 then
-                        equip(sets.midcast.Pet.TPBonus)
-                end
+        if tp_based_ready_moves:contains(spell.english) then
+			if pet.tp < 1900 or (PetJob ~= 'Warrior' and pet.tp < 2400) then
+				equip(sets.midcast.Pet.TPBonus)
+			end
         end
 end
 
@@ -361,7 +351,11 @@ end
 -- Return true if we handled the aftercast work.  Otherwise it will fall back
 -- to the general aftercast() code in Mote-Include.
 function job_aftercast(spell, spellMap, eventArgs)
-	if pet_midaction() or (type(spell.type) == 'string' and (spell.type == 'Monster' or spell.english == "Bestial Loyalty" or spell.english == 'Call Beast')) then
+	if type(spell.type) == 'string' and spell.type == 'Monster' and state.DefenseMode.value == 'None' then
+		equip(get_pet_midcast_set(spell, spellMap))
+		petWillAct = os.clock()
+		eventArgs.handled = true
+	elseif pet_midaction() or spell.english == "Bestial Loyalty" or spell.english == 'Call Beast' then
 		eventArgs.handled = true
 	end
 end
@@ -371,6 +365,10 @@ end
 -------------------------------------------------------------------------------------------------------------------
 
 function job_customize_idle_set(idleSet)
+	if pet.isvalid and pet.status == 'Engaged' and can_dual_wield and sets.idle.Pet.Engaged.DW then
+		equip(sets.idle.Pet.Engaged.DW)
+	end
+	
     return idleSet
 end
 
@@ -529,7 +527,7 @@ function check_pet()
 			if abil_recasts[103] < latency and not (buffactive.amnesia or buffactive.impairment) then
 				if item_available('Pet Food '..state.RewardMode.value..'') then
 					windower.chat.input('/ja "Reward" <me>')
-					tickdelay = (framerate * .5)
+					tickdelay = os.clock() + 1.1
 					return true
 				else
 					return false
@@ -540,11 +538,11 @@ function check_pet()
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		if abil_recasts[94] < latency then
 			send_command('@input /ja "Bestial Loyalty" <me>')
-			tickdelay = (framerate * .5)
+			tickdelay = os.clock() + .7
 			return true
 		elseif abil_recasts[104] < latency then
 			send_command('@input /ja "Call Beast" <me>')
-			tickdelay = (framerate * .5)
+			tickdelay = os.clock() + 1.1
 			return true
 		else
 			return false
@@ -560,11 +558,11 @@ function check_ready()
 		if pet.isvalid then
 			if pet.status == "Engaged" and get_current_ready_count() > 0 then
 				windower.send_command('gs c ready')
-				tickdelay = (framerate * 2)
+				tickdelay = os.clock() + 2
 				return true
 			elseif pet.status == "Idle" and player.target.type == "MONSTER" then
 				windower.chat.input('/pet Fight <t>')
-				tickdelay = framerate
+				tickdelay = os.clock() + 2
 				return true
 			else
 				return false
@@ -647,7 +645,7 @@ function get_ready_charge_timer()
 	end
 
 	if state.Weapons.Value == 'None' then
-		if (player.sub_job == 'NIN' or player.sub_job == 'DNC') then
+		if can_dual_wield then
 			if sets.midcast.Pet.ReadyRecastDW.sub and sets.midcast.Pet.ReadyRecastDW.sub == "Charmer's Merlin" then
 				chargetimer = chargetimer - 5
 			end
@@ -657,7 +655,7 @@ function get_ready_charge_timer()
 		end
 	end
 	
-	if (player.sub_job == 'NIN' or player.sub_job == 'DNC') then
+	if can_dual_wield then
 		if sets.midcast.Pet.ReadyRecastDW.legs and sets.midcast.Pet.ReadyRecastDW.legs == "Desultor Tassets" then
 			chargetimer = chargetimer - 5
 		end

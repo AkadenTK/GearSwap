@@ -149,6 +149,7 @@ function init_gear_sets()
         head=augmented_gear.Adhemar.Atk.head,
     	hands=augmented_gear.Ryuo.STR.hands,
 	    legs="Hesychast's Hose +3",
+	    ear1="Odr Earring",
     	neck="Caro Necklace",
 	    ring2="Begrudging Ring",
 	    back=augmented_gear.capes.str_crit,
@@ -172,6 +173,7 @@ function init_gear_sets()
     	hands=augmented_gear.Ryuo.STR.hands,
     	body="Anchorite's Cyclas +3",
 	    legs="Hesychast's Hose +3",
+	    ear1="Odr Earring",
     	feet=augmented_gear.Herculean.CritDMG.STR.feet,
     	neck="Monk's Nodowa +2",
 	    back=augmented_gear.capes.str_crit,})
@@ -194,7 +196,7 @@ function init_gear_sets()
         head=augmented_gear.Adhemar.Atk.head,
 		neck="Monk's Nodowa +2",
 	    legs="Hesychast's Hose +3",
-		ear2='Mache Earring +1',
+		ear2='Odr earring',
 	    back=augmented_gear.capes.dex_da,
 	})
 	sets.precast.WS["Shijin Spiral"].Acc = set_combine(sets.precast.WS["Shijin Spiral"], sets.precast.WSAcc)
@@ -339,7 +341,7 @@ function init_gear_sets()
 	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
 	    ammo="Falcon Eye",
 	    body="Mummu Jacket +2",
-	    ear1="Mache Earring +1",
+	    ear1="Odr earring",
 	    ring1="Regal Ring",
 	})
 	sets.engaged.FullAcc.Impetus = {body="Bhikku Cyclas +1"}

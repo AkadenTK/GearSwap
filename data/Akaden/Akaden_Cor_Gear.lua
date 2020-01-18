@@ -127,8 +127,8 @@ function init_gear_sets()
         neck="Loricate Torque +1",
         waist="Flume Belt",
         ear1="Ethereal Earring",
-        ring1="Warden's Ring",
-        ring2="Yacuruna Ring",
+        ring1="Defending Ring",
+        ring2="Warden's Ring",
         back=augmented_gear.capes.melee, 
     }    
 
@@ -158,7 +158,7 @@ function init_gear_sets()
     sets.engaged.Acc = set_combine(sets.engaged, {
         head="Dampening Tam",
         neck="Ej necklace",
-        ear1="Mache earring +1",
+        ear1="Odr earring",
         ear2="Telos earring",
         body=augmented_gear.Adhemar.Acc.body,
         hands=augmented_gear.Adhemar.Acc.hands,
@@ -368,7 +368,7 @@ function init_gear_sets()
 
     sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {  
         head="Carmine mask +1",
-        ear2="Mache earring +1",
+        ear2="Odr earring",
     })
 
     sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS['Savage Blade'].Acc, {
@@ -382,7 +382,7 @@ function init_gear_sets()
         head=augmented_gear.Adhemar.Atk.head,
         neck="Fotia gorget",
         ear1="Moonshade earring",
-        ear2="Mache Earring +1",
+        ear2="Odr earring",
         body="Abnoba Kaftan",
         hands="Mummu Wrists +2",
         ring1="Mummu ring",

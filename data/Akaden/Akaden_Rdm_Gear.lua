@@ -215,7 +215,7 @@ function init_gear_sets()
         right_ear="Regal Earring",
         left_ring="Stikini Ring",
         right_ring="Weather. Ring",
-        back="Tempered Cape +1",
+        back="Solemnity Cape",
     }
 		
     sets.midcast.LightWeatherCure = set_combine(sets.midcast.Cure, {})
@@ -386,17 +386,6 @@ function init_gear_sets()
 	-- Sets to return to when not performing an action.
 
 	-- Engaged sets
-
-	-- Variations for TP weapon and (optional) offense/defense modes.  Code will fall back on previous
-	-- sets if more refined versions aren't defined.
-	-- If you create a set with both offense and defense modes, the offense mode should be first.
-	-- EG: sets.engaged.Dagger.Accuracy.Evasion
-	
-	-- Normal melee group
---	sets.engaged = {ammo="Ginsen",
---		head="Aya. Zucchetto +2",neck="Asperity Necklace",ear1="Cessance Earring",ear2="Brutal Earring",
---		body="Ayanmo Corazza +2",hands="Aya. Manopolas +2",ring1="Petrov Ring",ring2="Ilabrat Ring",
---		back="Bleating Mantle",waist="Windbuffet Belt +1",legs="Carmine Cuisses +1",feet="Carmine Greaves +1"}
 
 	sets.engaged = {
         ammo="Ginsen",

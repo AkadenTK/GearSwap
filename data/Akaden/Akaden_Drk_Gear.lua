@@ -354,7 +354,6 @@ function init_gear_sets()
 	    neck="Loricate Torque",
 	    waist="Flume Belt",
 	    ear2="Ethereal Earring",
-	    ring1="Yacuruna Ring",
 	    ring2="Defending Ring",
 	    back="Moonbeam Cape",
 	}

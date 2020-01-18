@@ -138,7 +138,6 @@ function init_gear_sets()
         
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
         neck='Ej necklace',
-        ring2="Yacuruna ring",
     })
 
     --sets.engaged.PDT = {}
@@ -191,7 +190,7 @@ function init_gear_sets()
         feet="Mummu Gamash. +1",
         neck="Fotia Gorget",
         waist="Fotia Belt",
-        left_ear="Cessance Earring",
+        left_ear="Odr Earring",
         right_ear="Brutal Earring",
         left_ring="Ilabrat Ring",
         right_ring="Begrudging Ring",

@@ -187,7 +187,7 @@ function init_gear_sets()
         head=augmented_gear.Adhemar.Atk.head,
         body="Abnoba Kaftan",
         neck="Fotia Gorget",
-        ear2="Mache Earring +1",
+        ear2="Odr earring",
         hands=augmented_gear.Adhemar.Atk.hands,
         back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20', 'DEX+10','Crit.hit rate+10',}},
         waist="Fotia Belt",
@@ -607,9 +607,7 @@ function init_gear_sets()
 
 	sets.engaged.Fodder.PDT = set_combine(sets.engaged.PDT, {})
 
-	sets.engaged.MDT = set_combine(sets.dt, {
-		ring2="Yacuruna ring",
-	})
+	sets.engaged.MDT = set_combine(sets.dt, {})
 
 	sets.engaged.Acc.MDT = set_combine(sets.engaged.MDT, {})
 

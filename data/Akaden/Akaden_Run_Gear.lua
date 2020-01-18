@@ -282,7 +282,7 @@ function init_gear_sets()
 	    body="Ayanmo Corazza +2",
     })
 	sets.precast.WS['Dimidiation'].FullAcc = set_combine(sets.precast.WS['Dimidiation'].Acc,{
-		ear1="Mache Earring +1",
+		ear1="Odr earring",
 	})
 	
     sets.precast.WS['Ground Strike'] = set_combine(sets.precast.WS,{

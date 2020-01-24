@@ -62,18 +62,18 @@ function init_gear_sets()
 	sets.HPDown = {}
 
     sets.dt = {
-    	ammo="Staunch Tathlum",
-    	head="Ayanmo Zucchetto +2",
+    	ammo="Staunch Tathlum +1",
+    	head="Malignance Chapeau",
     	neck="Loricate Torque +1",
     	ear1="Ethereal Earring",
-    	body="Ayanmo corazza +2",
-    	hands="Assimilator's Bazubands +3",
+    	body="Malignance Tabard",
+    	hands="Malignance gloves",
     	ring1="Defending ring",
     	ring2="Ayanmo ring",
     	back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
     	waist="Flume belt",		
-    	legs="ayanmo cosciales +2",
-    	feet="Ayanmo gambieras +2"
+    	legs="Volte Hose",
+    	feet="Volte Boots"
 	}
 
 	sets.weapons = {}
@@ -507,7 +507,7 @@ function init_gear_sets()
 	sets.midcast['Blue Magic']['Carcharian Verve'] = set_combine(sets.midcast['Blue Magic'].Buff, {})
 
 	sets.midcast['Blue Magic']['Dream Flower'] = set_combine(sets.midcast['Blue Magic'].MagicAccuracy, {
-		ammo="Staunch Tathlum",
+		ammo="Staunch Tathlum +1",
         hands="Rawhide Gloves",
 		waist="Emphatikos rope",
 	})
@@ -570,23 +570,20 @@ function init_gear_sets()
 	--sets.engaged.Fodder.AM = set_combine(sets.engaged, {})
 
 	sets.engaged.DTLite = set_combine(sets.engaged, {
-    	head="Ayanmo Zucchetto +2",
+    	head="Malignance Chapeau",
     	neck="Loricate Torque +1",
     	hands="Malignance Gloves",
     	ring1="Defending Ring"
 	})
 
 	sets.engaged.DTMid = set_combine(sets.engaged.DTLite, {
-    	ring2="Ayanmo ring",
-		waist="Flume belt",
-        legs="Ayanmo cosciales +2",
-		feet="Ayanmo gambieras +2",
+    	body="Malignance Tabard",
 	})
 
 	--sets.engaged.DTLite.AM = set_combine(sets.engaged, {})
 
 	sets.engaged.PDT = set_combine(sets.engaged.DTLite, {
-		ammo="Staunch Tathlum",
+		ammo="Staunch Tathlum +1",
 		waist="Flume belt",
         legs="Ayanmo cosciales +2",
 		})

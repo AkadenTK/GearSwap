@@ -294,7 +294,7 @@ function init_gear_sets()
     -- Idle sets
            
     sets.idle = set_combine(sets.engaged,{
-    	ammo="Staunch Tathlum",
+    	ammo="Staunch Tathlum +1",
     	head=empty,
     	neck="Coatl gorget +1",
     	body="Lugra Cloak +1",

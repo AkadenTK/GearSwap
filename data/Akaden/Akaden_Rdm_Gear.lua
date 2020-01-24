@@ -9,7 +9,7 @@ function user_setup()
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('Sequence', 'Savage', 'None') -- , 'Crocea'
+	state.Weapons:options('CroceaTernion','CroceaTauret','NaeglingThibron','NaeglingTernion','NaeglingTauret','NaeglingTernionUllr','TauretLevante','SequenceThibron','SequenceTernion','Odin','None')
     state.EnhancingMode = M('Always', 'Never', '300', '1000')
 	
 	gear.obi_cure_back = "Tempered Cape +1"
@@ -110,7 +110,7 @@ function init_gear_sets()
 	
 	sets.precast.WS['Chant Du Cygne'] = set_combine(sets.precast.WS, {
         ammo="Jukukik Feather",
-        head=augmented_gear.Taeon.TP.head,
+        head=augmented_gear.Taeon.Crit.head,
         body="Ayanmo Corazza +2",
         hands="Malignance Gloves",
         legs=augmented_gear.Taeon.TP.legs,
@@ -175,6 +175,35 @@ function init_gear_sets()
         back=augmented_gear.capes.int_mab,
     }
 
+    sets.precast.WS['Empyreal Arrow'] = {
+        head="Malignance Chapeau",
+        body="Malignance Tabard",
+        hands="Malignance Gloves",
+        legs="Volte Hose",
+        feet="Volte Boots",
+        neck="Fotia Gorget",
+        waist="Fotia Belt",
+        left_ear="Suppanomimi",
+        right_ear="Telos Earring",
+        left_ring="Cacoethic Ring +1",
+        right_ring="Apate Ring",
+    }
+
+    sets.precast.WS['Aeolian Edge'] = {
+        ammo="Pemphredo Tathlum",
+        body=augmented_gear.Merlinic.Damage.body,
+        hands="Jhakri Cuffs +2",
+        legs=augmented_gear.Merlinic.Damage.legs,
+        feet=augmented_gear.Merlinic.Damage.feet,
+        neck="Baetyl Pendant",
+        waist="Refoccilation Stone",
+        left_ear="Regal Earring",
+        right_ear="Malignance earring",
+        left_ring="Shiva Ring +1",
+        right_ring="Acumen Ring",
+        back=augmented_gear.capes.int_mab,
+    }
+
 	
 	-- Midcast Sets
 
@@ -186,13 +215,14 @@ function init_gear_sets()
 	-- Gear for Magic Burst mode.
     sets.MagicBurst = {
         head="Ea Hat",
+        body="Ea Houppelande",
         neck="Mizu. Kubikazari",
         hands="Amalric Gages",
         ring1="Mujin Band",
         legs=augmented_gear.Merlinic.Burst.legs,
         feet="Jhakri Pigaches +2"
     }
-	sets.RecoverBurst = {}
+	sets.RecoverBurst = set_combine(sets.MagicBurst, {})
 	
 	-- Gear for specific elemental nukes.
 	sets.element.Wind = {}
@@ -284,7 +314,7 @@ function init_gear_sets()
         head=augmented_gear.Merlinic.Accuracy.head,
         body="Lethargy Sayon +1",
         hands="Leth. Gantherots +1",
-        legs=augmented_gear.Merlinic.Accuracy.legs,
+        legs=augmented_gear.Chironic.Macc.INT.legs,
         feet="Jhakri Pigaches +2",
         neck="Duelist's torque +1",
         waist="Eschan Stone",
@@ -303,8 +333,12 @@ function init_gear_sets()
 	sets.midcast.IntEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {})
 	sets.midcast.IntEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})
 
-	sets.midcast.MndEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {})
-	sets.midcast.MndEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})
+	sets.midcast.MndEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {
+        legs=augmented_gear.Chironic.Macc.MND.legs,
+    })
+	sets.midcast.MndEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {
+        legs=augmented_gear.Chironic.Macc.MND.legs,
+    })
 	
 	sets.midcast['Distract III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",ring1="Stikini Ring"})
 	sets.midcast['Distract III'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
@@ -341,7 +375,7 @@ function init_gear_sets()
         right_ear="Malignance Earring",
         left_ring="Acumen Ring",
         right_ring="Shiva Ring +1",
-        back=augmented_gear.capes.mnd_macc,
+        back=augmented_gear.capes.int_mab,
     }
 		
     sets.midcast['Elemental Magic'].Resistant = set_combine(sets.midcast['Elemental Magic'], {
@@ -388,8 +422,8 @@ function init_gear_sets()
 
 	sets.engaged = {
         ammo="Ginsen",
-        head=augmented_gear.Taeon.TP.head,
-        body="Ayanmo Corazza +2",
+        head="Malignance Chapeau",
+        body="Malignance Tabard",
         hands="Malignance Gloves",
         legs=augmented_gear.Taeon.TP.legs,
         feet=augmented_gear.Taeon.TP.feet,
@@ -404,8 +438,8 @@ function init_gear_sets()
 
 	sets.engaged.DW = {
         ammo="Ginsen",
-        head=augmented_gear.Taeon.TP.head,
-        body="Ayanmo Corazza +2",
+        head="Malignance Chapeau",
+        body="Malignance Tabard",
         hands="Malignance Gloves",
         legs=augmented_gear.Taeon.TP.legs,
         feet=augmented_gear.Taeon.TP.feet,
@@ -419,15 +453,11 @@ function init_gear_sets()
     }
         
     sets.engaged.DTLite = set_combine(sets.engaged, {
-        head="Ayanmo Zucchetto +2",
-        hands="Malignance Gloves",
         neck="Loricate Torque +1",
         right_ring="Defending Ring",
     })
         
     sets.engaged.DTLite.DW = set_combine(sets.engaged.DW, {
-        head="Ayanmo Zucchetto +2",
-        hands="Malignance Gloves",
         neck="Loricate Torque +1",
         right_ring="Defending Ring",
     })
@@ -491,9 +521,16 @@ function init_gear_sets()
     sets.NightIdle = {}
     
     -- Weapons sets
-    sets.weapons.Sequence = {main="Sequence", sub="Kaja Knife"}
-    sets.weapons.Savage = {main="Naegling", sub="Kaja Knife"}
-    sets.weapons.Crocea = {main="Crocea Mors", sub="Kaja Knife"}
+    sets.weapons.CroceaTauret = {main="Crocea Mors", sub="Kaja Knife", }
+    sets.weapons.CroceaTernion = {main="Crocea Mors", sub="Ternion Dagger +1", }
+    sets.weapons.NaeglingThibron = {main="Naegling", sub="Thibron", }
+    sets.weapons.NaeglingTernion = {main="Naegling", sub="Ternion Dagger +1", }
+    sets.weapons.NaeglingTauret = {main="Naegling", sub="Kaja Knife", }
+    sets.weapons.NaeglingTernionUllr = {main="Naegling", sub="Ternion Dagger +1", ranged="Kaja Bow", ammo="Demon Arrow"}
+    sets.weapons.TauretLevante = {main="Kaja Knife", sub="Levante dagger", }
+    sets.weapons.SequenceThibron = {main="Sequence", sub="Thibron", }
+    sets.weapons.SequenceTernion = {main="Sequence", sub="Ternion Dagger +1", }
+    sets.weapons.Odin = {main='Wind Knife',sub="Trainee's Needle"}
 
 end
 

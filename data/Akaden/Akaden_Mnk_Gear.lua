@@ -256,7 +256,7 @@ function init_gear_sets()
 
 	-- Idle sets
 	sets.idle = {
-		ammo="Staunch Tathlum",
+		ammo="Staunch Tathlum +1",
 		neck="Loricate Torque +1",
 		ear1="Odnowa earring +1",
 		ear2="Hearty Earring",
@@ -339,7 +339,7 @@ function init_gear_sets()
     	feet=augmented_gear.Herculean.TA.feet,})
 	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
 	    ammo="Falcon Eye",
-	    body="Mummu Jacket +2",
+	    body="Malignance Tabard",
 	    ear1="Odr earring",
 	    ring1="Regal Ring",
 	})
@@ -356,7 +356,7 @@ function init_gear_sets()
 	--sets.engaged.FullAcc.PDT = {}
 	sets.engaged.MEVA = set_combine(sets.engaged, {
 		head="Kendatsuba Jinpachi +1",
-		body="Kendatsuba Samue",
+		body="Malignance Tabard",
 		--legs="Kendatsuba Hakama",
 		--feet="Kendatsuba Sune-ate",
 	})

@@ -4,7 +4,7 @@ function user_setup()
     state.OffenseMode:options('Normal', 'Acc', 'FullAcc','Crits')
     state.RangedMode:options('Normal', 'Acc','FullAcc','Crits')
     state.HybridMode:options('Normal','DTLite','FullDT')
-    state.WeaponskillMode:options('Match','Normal', 'Acc','FullAcc')
+    state.WeaponskillMode:options('Match','Normal', 'Acc','FullAcc', 'CappedAttack')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
@@ -118,7 +118,7 @@ function init_gear_sets()
     sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, {hands="Chasseur's Gants +1"})
     
     sets.PDT = {
-        head="Meghanada Visor +2",
+        head="Malignance Chapeau",
         body={ name="Lanun Frac +3", augments={'Enhances "Loaded Deck" effect',}},
         hands="Meg. Gloves +2",
         legs="Meg. Chausses +2",
@@ -155,7 +155,7 @@ function init_gear_sets()
     }
 
     sets.engaged.Acc = set_combine(sets.engaged, {
-        head="Dampening Tam",
+        head="Malignance Chapeau",
         neck="Ej necklace",
         ear1="Odr earring",
         ear2="Telos earring",
@@ -165,7 +165,6 @@ function init_gear_sets()
     })
 
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
-        head="Carmine Mask +1",
         legs="Carmine Cuisses +1",
         ring2="Cacoethic ring +1",
     })
@@ -181,7 +180,6 @@ function init_gear_sets()
     sets.engaged.DTLite = set_combine(sets.engaged,{
         hands="Malignance Gloves",
         ring1="Defending ring",
-        waist="Flume Belt",
     })
 
     sets.engaged.Acc.DTLite = set_combine(sets.engaged.Acc, {
@@ -197,7 +195,7 @@ function init_gear_sets()
     })
 
     sets.engaged.FullDT = set_combine(sets.engaged,{
-        head="Meghanada visor +2",
+        head="Malignance Chapeau",
         body="Lanun Frac +3",
         neck="Loricate Torque +1",
         ring1="Defending ring",
@@ -205,7 +203,7 @@ function init_gear_sets()
     })
 
     sets.engaged.Acc.FullDT = set_combine(sets.engaged.Acc, {
-        head="Meghanada visor +2",
+        head="Malignance Chapeau",
         body="Lanun Frac +3",
         neck="Loricate Torque +1",
         ring1="Defending ring",
@@ -213,7 +211,7 @@ function init_gear_sets()
     })
 
     sets.engaged.FullAcc.FullDT = set_combine(sets.engaged.FullAcc, {
-        head="Meghanada visor +2",
+        head="Malignance Chapeau",
         body="Lanun Frac +3",
         neck="Loricate Torque +1",
         ring1="Defending ring",
@@ -377,6 +375,11 @@ function init_gear_sets()
         legs="Carmine Cuisses +1",
     })
 
+    sets.precast.WS['Savage Blade'].CappedAttack = set_combine(sets.precast.WS['Savage Blade'],{
+        --head="Malignance Chapeau",
+        --hands="Malignance gloves",
+    })
+
     sets.precast.WS['Evisceration'] = set_combine(sets.engaged, {
         head=augmented_gear.Adhemar.Atk.head,
         neck="Fotia gorget",
@@ -417,6 +420,11 @@ function init_gear_sets()
     sets.precast.WS['Last Stand'].FullAcc = set_combine(sets.precast.WS['Last Stand'].Acc,{
         neck="Commodore Charm +2",
         })
+
+    sets.precast.WS['Last Stand'].CappedAttack = set_combine(sets.precast.WS['Last Stand'],{
+        head="Malignance Chapeau",
+        hands="Malignance gloves",
+    })
 		
     sets.precast.WS['Detonator'] = set_combine(sets.precast.WS['Last Stand'], {})
     sets.precast.WS['Detonator'].Acc = set_combine(sets.precast.WS['Last Stand'].Acc, {})
@@ -494,12 +502,12 @@ function init_gear_sets()
 
     -- Ranged gear
     sets.midcast.RA = {ammo=gear.RAbullet,
-        head="Meghanada visor +2",
+        head="Malignance Chapeau",
         ear2="Telos earring",
         ear1="Dedition earring",
         neck="Iskur Gorget",
-        body="Oshosi Vest +1",
-        hands=augmented_gear.Adhemar.Rng.hands,
+        body="Malignance Tabard",
+        hands="Malignance Gloves",
         ring1="Ilabrat ring",
         ring2="Cacoethic ring +1",
         back=augmented_gear.capes.ra_stp,
@@ -525,7 +533,6 @@ function init_gear_sets()
 
     sets.midcast.RA.FullAcc = set_combine(sets.midcast.RA.Acc,{
         body="Laksamana's frac +3",
-        hands="Meghanada gloves +2",
         ring1="Cacoethic ring +1",
         ring2="Regal Ring",
         waist="Kwahu Kachina belt",
@@ -533,7 +540,6 @@ function init_gear_sets()
     })
 		
 	sets.buff['Triple Shot'] = {
-        head="Oshosi mask",
         hands="Lanun gants +3",
         body="Chasseur's Frac +1",
     }
@@ -555,7 +561,7 @@ function init_gear_sets()
 
     -- Idle sets
     sets.idle = set_combine(sets.engaged, {
-        head="Meghanada visor +2",
+        head="Malignance Chapeau",
         body="Lanun frac +3",
         hands="Malignance Gloves",
         legs="Meg. Chausses +2",
@@ -578,7 +584,7 @@ function init_gear_sets()
     
     -- Defense sets
     sets.defense.PDT = set_combine(sets.idle, {
-        head="Meghanada Visor +2",
+        head="Malignance Chapeau",
         body={ name="Lanun Frac +3", augments={'Enhances "Loaded Deck" effect',}},
         hands="Meg. Gloves +2",
         legs="Meg. Chausses +2",

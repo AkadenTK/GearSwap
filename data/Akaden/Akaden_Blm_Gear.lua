@@ -268,7 +268,7 @@ function init_gear_sets()
     
     -- Normal refresh idle set
     sets.idle = set_combine(sets.midcast['Elemental Magic'], {
-        ammo="Staunch Tathlum",
+        ammo="Staunch Tathlum +1",
         head="Befouled Crown",
         body="Shamash Robe",
         neck="Loricate Torque +1",

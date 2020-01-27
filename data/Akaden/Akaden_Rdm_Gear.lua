@@ -9,7 +9,7 @@ function user_setup()
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('CroceaTernion','CroceaTauret','NaeglingThibron','NaeglingTernion','NaeglingTauret','NaeglingTernionUllr','TauretLevante','SequenceThibron','SequenceTernion','Odin','None')
+	state.Weapons:options('CroceaTauret','CroceaTernion','NaeglingThibron','NaeglingTernion','NaeglingTauret','NaeglingTernionUllr','TauretLevante','SequenceThibron','SequenceTernion','Odin','Grio','None')
     state.EnhancingMode = M('Always', 'Never', '300', '1000')
 	
 	gear.obi_cure_back = "Tempered Cape +1"
@@ -22,7 +22,8 @@ function user_setup()
 	gear.obi_high_nuke_waist = "Refoccilation Stone"
 
     enhancing_spells = T{'Aquaveil', 'Stoneskin', 'Protect', 'Shell', 'Temper', 'Temper II', 
-                         'Enthunder', 'Enstone', 'Enaero', 'Enblizzard', 'Enfire', 'Enwater', 'Enthunder II', 'Enstone II', 'Enaero II', 'Enblizzard II', 'Enfire II', 'Enwater II',}
+                         'Enthunder', 'Enstone', 'Enaero', 'Enblizzard', 'Enfire', 'Enwater', 'Enthunder II', 'Enstone II', 'Enaero II', 'Enblizzard II', 'Enfire II', 'Enwater II', 
+                         'Gain-STR', 'Gain-DEX', 'Gain-AGI', 'Gain-VIT', 'Gain-INT', 'Gain-MND', 'Gain-CHR',}
 		-- Additional local binds
 	--send_command('bind ^` gs c cycle ElementalMode')
 	send_command('bind @` gs c cycle MagicBurstMode')
@@ -132,9 +133,9 @@ function init_gear_sets()
         legs="Jhakri Slops +2",
         feet="Jhakri Pigaches +2",
         neck="Fotia Gorget",
-        waist="Fotia Belt",
-        left_ear="Brutal Earring",
-        right_ear="Ishvara Earring",
+        waist="Prosilio belt",
+        left_ear="Ishvara Earring",
+        right_ear="Moonshade Earring",
         left_ring="Ayanmo Ring",
         right_ring="Ifrit Ring +1",
         back=augmented_gear.capes.str_wsd,
@@ -147,11 +148,11 @@ function init_gear_sets()
         hands="Jhakri Cuffs +2",
         legs=augmented_gear.Merlinic.Damage.legs,
         feet=augmented_gear.Merlinic.Damage.feet,
-        neck="Baetyl Pendant",
+        neck="Dls. Torque +1",
         waist="Refoccilation Stone",
         left_ear="Regal Earring",
         right_ear="Malignance earring",
-        left_ring="Shiva Ring +1",
+        left_ring="Arcon Ring",
         right_ring="Acumen Ring",
         back=augmented_gear.capes.int_mab,
     }
@@ -264,7 +265,7 @@ function init_gear_sets()
 	sets.midcast['Enhancing Magic'] = {
         head=augmented_gear.Telchine.Enhancing.head,
         body="Viti. Tabard +1",
-        hands="Atrophy Gloves +1",
+        hands="Atrophy gloves +2",
         legs="Carmine Cuisses +1",
         feet="Leth. Houseaux +1",
         neck="Dls. Torque +1",
@@ -283,9 +284,10 @@ function init_gear_sets()
 
     sets.enhancing_skill = set_combine(sets.midcast['Enhancing Magic'], {
         head="Befouled Crown",
-        hands="Vitiation Gloves +1",
+        hands="vitiation gloves +2",
         legs="Carmine Cuisses +1",
         neck="Melic Torque",
+        left_ear="Mimir Earring",
     })
 
     sets.midcast.Phalanx = set_combine(sets.enhancing_skill, {
@@ -296,14 +298,15 @@ function init_gear_sets()
     })
 
 	--Atrophy Gloves are better than Lethargy for me despite the set bonus for duration on others.		
-	sets.buff.ComposureOther = set_combine(sets.midcast['Enhancing Magic'], {head="Telchine Cap",body="Lethargy Sayon +1",hands="Atrophy Gloves +1",legs="Lethargy Fuseau +1",feet="Leth. Houseaux +1",})
+	sets.buff.ComposureOther = set_combine(sets.midcast['Enhancing Magic'], {head="Telchine Cap",body="Lethargy Sayon +1",hands="Atrophy gloves +2",legs="Lethargy Fuseau +1",feet="Leth. Houseaux +1",})
 		
 	--Red Mage enhancing sets are handled in a different way from most, layered on due to the way Composure works
 	--Don't set combine a full set with these spells, they should layer on Enhancing Set > Composure (If Applicable) > Spell
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {waist="Gishdubar Sash",legs="Leth. Fuseau +1"})
 	sets.midcast.Aquaveil = set_combine(sets.enhancing_skill, {waist="Emphatikos Rope"})
 	sets.midcast.BarElement = set_combine(sets.enhancing_skill, {})
-	sets.midcast.Stoneskin = set_combine(sets.enhancing_skill, {neck="Nodens Gorget",waist="Siegel Sash"})
+    sets.midcast.Stoneskin = set_combine(sets.enhancing_skill, {neck="Nodens Gorget",waist="Siegel Sash"})
+	sets.midcast.BoostStat = set_combine(sets.enhancing_skill, {})
 	sets.midcast.Protect = {ring2="Sheltered Ring"}
 	sets.midcast.Shell = {ring2="Sheltered Ring"}
     sets.midcast.Temper = set_combine(sets.enhancing_skill, {})
@@ -521,16 +524,17 @@ function init_gear_sets()
     sets.NightIdle = {}
     
     -- Weapons sets
-    sets.weapons.CroceaTauret = {main="Crocea Mors", sub="Kaja Knife", }
+    sets.weapons.CroceaTauret = {main="Crocea Mors", sub="Tauret", }
     sets.weapons.CroceaTernion = {main="Crocea Mors", sub="Ternion Dagger +1", }
     sets.weapons.NaeglingThibron = {main="Naegling", sub="Thibron", }
     sets.weapons.NaeglingTernion = {main="Naegling", sub="Ternion Dagger +1", }
-    sets.weapons.NaeglingTauret = {main="Naegling", sub="Kaja Knife", }
+    sets.weapons.NaeglingTauret = {main="Naegling", sub="Tauret", }
     sets.weapons.NaeglingTernionUllr = {main="Naegling", sub="Ternion Dagger +1", ranged="Kaja Bow", ammo="Demon Arrow"}
-    sets.weapons.TauretLevante = {main="Kaja Knife", sub="Levante dagger", }
+    sets.weapons.TauretLevante = {main="Tauret", sub="Levante dagger", }
     sets.weapons.SequenceThibron = {main="Sequence", sub="Thibron", }
     sets.weapons.SequenceTernion = {main="Sequence", sub="Ternion Dagger +1", }
     sets.weapons.Odin = {main='Wind Knife',sub="Trainee's Needle"}
+    sets.weapons.Grio = {main='Grioavolr',sub="Enki Strap"}
 
 end
 

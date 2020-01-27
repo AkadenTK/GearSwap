@@ -3,7 +3,7 @@
 function user_setup()
     state.OffenseMode:options('Normal', 'Acc', 'FullAcc','Crits')
     state.RangedMode:options('Normal', 'Acc','FullAcc','Crits')
-    state.HybridMode:options('Normal','DTLite','FullDT')
+    state.HybridMode:options('Normal','DTLite', 'DTMid', 'FullDT')
     state.WeaponskillMode:options('Match','Normal', 'Acc','FullAcc', 'CappedAttack')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
@@ -12,6 +12,8 @@ function user_setup()
     state.Weapons:options('MeleeLeaden','SavageBlade','MeleeLastStand','DWLeaden','DWLastStand','ShieldLeaden','ShieldLastStand','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
+
+    state.CompensatorMode:options('Always', 'Never', '1000')
 
     state.LastRoll = 'unknown'
     ammostock = {}
@@ -60,16 +62,16 @@ end
 -- Define sets and vars used by this job file.
 function init_gear_sets()
 
-    augmented_gear.capes = {
-        ra_stp={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10',}},
-        melee={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
-        mab_wsd={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
-        str_wsd={ name="Camulus's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}},
-        agi_wsd={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}},
-        snapshot={ name="Camulus's Mantle", augments={'"Snapshot"+10',}},
-        FC={ name="Camulus's Mantle", augments={'"Fast Cast"+10',}},        
-    }
+    augmented_gear.capes = {}
+    augmented_gear.capes.ra_stp={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10',}}
+    augmented_gear.capes.melee={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}}
+    augmented_gear.capes.mab_wsd={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}}
+    augmented_gear.capes.str_wsd={ name="Camulus's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}}
+    augmented_gear.capes.agi_wsd={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}}
+    augmented_gear.capes.snapshot={ name="Camulus's Mantle", augments={'"Snapshot"+10',}}
+    augmented_gear.capes.FC={ name="Camulus's Mantle", augments={'"Fast Cast"+10',}}
     augmented_gear.capes.dex_crit=augmented_gear.capes.melee
+    augmented_gear.capes.defense=augmented_gear.capes.melee
 
     --------------------------------------
     -- Start defining the sets
@@ -81,11 +83,11 @@ function init_gear_sets()
     }
     sets.weapons = {}
     sets.weapons.ShieldLeaden = {main=rostams.A, sub="Nusku Shield", range="Death Penalty"}
-    sets.weapons.DWLeaden = {main=rostams.A, sub='Kaja Knife', range="Death Penalty"}
+    sets.weapons.DWLeaden = {main=rostams.A, sub='Tauret', range="Death Penalty"}
     sets.weapons.ShieldLastStand = {main=rostams.A, sub="Nusku Shield", range="Fomalhaut"}
     sets.weapons.DWLastStand = {main=rostams.A, sub='Kustawi +1', range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Naegling', sub="Blurred Knife +1", range="Anarchy +2"}
-    sets.weapons.MeleeLeaden = {main=rostams.B, sub="Kaja Knife", range="Death Penalty"}
+    sets.weapons.MeleeLeaden = {main=rostams.B, sub="Tauret", range="Death Penalty"}
     sets.weapons.MeleeLastStand = {main=rostams.B, sub="Blurred Knife +1", range="Fomalhaut"}
 
     sets.Compensator = {main=rostams.C,range="Compensator"}
@@ -139,6 +141,7 @@ function init_gear_sets()
     -- EG: sets.engaged.Dagger.Accuracy.Evasion
     
     -- Normal melee group
+    -- Rostam with 3 pairs of rolls + shell will roughly cap DT.
     sets.engaged = {
         head=augmented_gear.Adhemar.Atk.head,
         neck="Iskur gorget",
@@ -153,7 +156,6 @@ function init_gear_sets()
         legs="Samnuha tights",
         feet=augmented_gear.Herculean.TA.feet,
     }
-
     sets.engaged.Acc = set_combine(sets.engaged, {
         head="Malignance Chapeau",
         neck="Ej necklace",
@@ -163,9 +165,11 @@ function init_gear_sets()
         hands=augmented_gear.Adhemar.Acc.hands,
         waist="kentarch belt +1",
     })
-
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
+        head="Carmine Mask +1",
+        body="Malignance Tabard",
         legs="Carmine Cuisses +1",
+        feet="Malignance Boots",
         ring2="Cacoethic ring +1",
     })
 
@@ -177,60 +181,81 @@ function init_gear_sets()
         feet="Mummu Gamashes +2"
     })
 
+
+    -- Rostam with 2 pairs of rolls + shell will cap.
     sets.engaged.DTLite = set_combine(sets.engaged,{
+        head="Malignance Chapeau",
+        ring1="Defending ring",
+    })
+    sets.engaged.Acc.DTLite = set_combine(sets.engaged.Acc, {
+        head="Malignance Chapeau",
+        ring1="Defending ring",
+    })
+    sets.engaged.FullAcc.DTLite = set_combine(sets.engaged.FullAcc, {  
+        head="Malignance Chapeau",
+        ring1="Defending ring",
+    })
+
+
+    -- Rostam with 1 pair of rolls + shell will cap
+    sets.engaged.DTMid = set_combine(sets.engaged,{
+        head="Malignance Chapeau",
+        hands="Malignance Gloves",
+        ring1="Defending ring",
+    })
+    sets.engaged.Acc.DTMid = set_combine(sets.engaged.Acc, {
+        head="Malignance Chapeau",
+        hands="Malignance Gloves",
+        ring1="Defending ring",
+    })
+    sets.engaged.FullAcc.DTMid = set_combine(sets.engaged.FullAcc, {  
+        head="Malignance Chapeau",
         hands="Malignance Gloves",
         ring1="Defending ring",
     })
 
-    sets.engaged.Acc.DTLite = set_combine(sets.engaged.Acc, {
-        neck="Loricate Torque +1",
-        ring1="Defending ring",
-        waist="Flume Belt",        
-    })
 
-    sets.engaged.FullAcc.DTLite = set_combine(sets.engaged.FullAcc, {
-        neck="Loricate Torque +1",
-        ring1="Defending ring",
-        waist="Flume Belt",        
-    })
-
+    -- No Rostam, still capped with shell.
     sets.engaged.FullDT = set_combine(sets.engaged,{
         head="Malignance Chapeau",
-        body="Lanun Frac +3",
+        body="Malignance Tabard",
+        feet="Malignance Boots",
         neck="Loricate Torque +1",
         ring1="Defending ring",
         waist="Flume Belt",
     })
-
     sets.engaged.Acc.FullDT = set_combine(sets.engaged.Acc, {
         head="Malignance Chapeau",
-        body="Lanun Frac +3",
+        body="Malignance Tabard",
+        feet="Malignance Boots",
         neck="Loricate Torque +1",
         ring1="Defending ring",
         waist="Flume Belt",        
     })
-
     sets.engaged.FullAcc.FullDT = set_combine(sets.engaged.FullAcc, {
         head="Malignance Chapeau",
-        body="Lanun Frac +3",
+        body="Malignance Tabard",
+        feet="Malignance Boots",
         neck="Loricate Torque +1",
         ring1="Defending ring",
         waist="Flume Belt",        
     })
 
     sets.engaged.DW = set_combine(sets.engaged, {})
-    
     sets.engaged.DW.Acc = set_combine(sets.engaged.Acc, {})
-    
     sets.engaged.DW.FullAcc = set_combine(sets.engaged.FullAcc, {})
-
-    sets.engaged.DW.Hybrid = set_combine(sets.engaged.Hybrid, {})
-
+    
     sets.engaged.DW.DTLite = set_combine(sets.engaged.DTLite, {})
-
     sets.engaged.DW.Acc.DTLite = set_combine(sets.engaged.Acc.DTLite, {})
-
     sets.engaged.DW.FullAcc.DTLite = set_combine(sets.engaged.FullAcc.DTLite, {})
+    
+    sets.engaged.DW.DTMid = set_combine(sets.engaged.DTMid, {})
+    sets.engaged.DW.Acc.DTMid = set_combine(sets.engaged.Acc.DTMid, {})
+    sets.engaged.DW.FullAcc.DTMid = set_combine(sets.engaged.FullAcc.DTMid, {})
+    
+    sets.engaged.DW.FullDT = set_combine(sets.engaged.FullDT, {})
+    sets.engaged.DW.Acc.FullDT = set_combine(sets.engaged.Acc.FullDT, {})
+    sets.engaged.DW.FullAcc.FullDT = set_combine(sets.engaged.FullAcc.FullDT, {})
 
     gear.CorsairShot = {}
     gear.CorsairShot.Augment = {feet="Chasseur's bottes +1",}
@@ -251,17 +276,17 @@ function init_gear_sets()
         feet="Lunan bottes +3",
     }
     sets.precast.CorsairShot.StoreTP = set_combine(sets.precast.CorsairShot,{ -- 73 STP + 25 TP
-        head="Pursuer's beret", -- 5
+        head="Malignance Chapeau", -- 8
         neck="Iskur Gorget", --8
         ear1="Dedition earring", --8
         ear2="Telos Earring", -- 5
-        body="Oshosi Vest +1", -- 7
+        body="Malignance Tabard", -- 11
         hands="Schutzen mittens", -- 25 TP
         ring1="Ilabrat Ring", -- 5
         ring2="Petrov Ring", -- 5
         waist="Kentarch belt +1",  -- 1-5
         legs=augmented_gear.Adhemar.D.legs, -- 7
-        feet="Carmine Greaves +1", -- 8
+        feet="Malignance Boots", -- 9
         back=augmented_gear.capes.ra_stp, -- 10
     })
     sets.precast.CorsairShot.Proc = set_combine(sets.precast.CorsairShot, {})
@@ -280,7 +305,7 @@ function init_gear_sets()
         waist="Kwahu kachina belt",
         legs="Mummu Kecks +2",
         feet="Laksamana's boots +2"
-        })
+    })
 
     sets.precast.CorsairShot['Light Shot'] = set_combine(sets.precast.CorsairShot.Acc, {})
 
@@ -513,7 +538,7 @@ function init_gear_sets()
         back=augmented_gear.capes.ra_stp,
         waist="Yemaya belt",
         legs=augmented_gear.Adhemar.Rng.legs,
-        feet=augmented_gear.Adhemar.D.feet,
+        feet="Malignance boots",
     }
 
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA,{
@@ -562,10 +587,10 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = set_combine(sets.engaged, {
         head="Malignance Chapeau",
-        body="Lanun frac +3",
+        body="Malignance Tabard",
         hands="Malignance Gloves",
-        legs="Meg. Chausses +2",
-        feet="Lanun Bottes +3",
+        legs="Volte Hose",
+        feet="Malignance Boots",
         neck="Loricate Torque +1",
         waist="Flume Belt",
         ear1="Ethereal Earring",
@@ -578,6 +603,7 @@ function init_gear_sets()
 
     sets.idle.Town = set_combine(sets.idle, {
         head='Lanun Tricorne +3',
+        body='Lanun Frac +3',
         neck="Comm. Charm +2", 
         hands='Lanun gants +3',
         legs="Carmine Cuisses +1"})
@@ -585,27 +611,29 @@ function init_gear_sets()
     -- Defense sets
     sets.defense.PDT = set_combine(sets.idle, {
         head="Malignance Chapeau",
-        body={ name="Lanun Frac +3", augments={'Enhances "Loaded Deck" effect',}},
-        hands="Meg. Gloves +2",
-        legs="Meg. Chausses +2",
-        feet={ name="Lanun Bottes +3", augments={'Enhances "Wild Card" effect',}},
+        body="Malignance Tabard",
+        hands="Malignance Gloves",
+        legs="Volte Hose",
+        feet="Malignance Boots",
         neck="Loricate Torque +1",
         waist="Flume Belt",
         ear1="Ethereal Earring",
-        ear2="Brutal Earring",
-        ring1="Warden's Ring",
-        ring2="Epona's Ring",
-        back="Moonbeam Cape",})
+        ear2="Hearty Earring",
+        ring1="Defending Ring",
+        ring2="Warden's Ring",
+        back=augmented_gear.capes.defense,})
 
     sets.idle.PDT = set_combine(sets.defense.PDT, {})
 
-    sets.defense.MDT = set_combine(sets.idle, {})
+    sets.defense.MDT = set_combine(sets.defense.PDT, {
+        feet="Volte Boots",
+    })
 		
-    sets.defense.MEVA = set_combine(sets.idle, {})
+    sets.defense.MEVA = set_combine(sets.defense.PDT, {})
 
     sets.Kiting = {legs="Carmine Cuisses +1"}
 	
-	sets.DWMax = {}
+	--sets.DWMax = {}
 
 end
 

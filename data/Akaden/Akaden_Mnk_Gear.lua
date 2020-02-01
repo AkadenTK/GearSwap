@@ -154,16 +154,16 @@ function init_gear_sets()
 	    back=augmented_gear.capes.str_crit,
 	})
 	sets.precast.WS['Ascetic\'s Fury'].Impetus = {
-		body= "Bhikku's Cyclas +1",}
+		body="Bhikku Cyclas +1",}
 	sets.precast.WS["Ascetic's Fury"].Acc = set_combine(sets.precast.WS["Ascetic's Fury"], {
 		feet="Mummu Gamash. +2"})
 	sets.precast.WS['Ascetic\'s Fury'].Acc.Impetus = {
-		body= "Bhikku's Cyclas +1",}
+		body="Bhikku Cyclas +1",}
 	sets.precast.WS["Ascetic's Fury"].FullAcc = set_combine(sets.precast.WS["Ascetic's Fury"], {
 		head="Mummu Bonnet +2",
 		})
 	sets.precast.WS['Ascetic\'s Fury'].FullAcc.Impetus = {
-		body= "Bhikku's Cyclas +1",}
+		body="Bhikku Cyclas +1",}
 
 
 
@@ -394,4 +394,22 @@ function select_default_macro_book()
 	set_macro_page(3, 1)
 
 	windower.chat.input:schedule(1,'/lockstyleset 1')
+end
+
+
+function user_customize_melee_set(meleeSet)
+    if buffactive.Impetus and meleeSet.Impetus then
+		meleeSet = set_combine(meleeSet, meleeSet.Impetus)
+    end
+	
+    return meleeSet
+end
+
+function user_post_precast(spell, spellMap, eventArgs)
+    if spell.type == 'WeaponSkill' and state.DefenseMode.current == 'None' then
+        local WSset = get_precast_set(spell, spellMap)
+        if buffactive.Impetus and WSset.Impetus then
+			equip(WSset.Impetus)
+        end
+	end
 end

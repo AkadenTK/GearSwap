@@ -54,6 +54,7 @@ function init_gear_sets()
     augmented_gear.capes.mnd_macc = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20',}}
     augmented_gear.capes.int_mab = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
     augmented_gear.capes.int_macc = augmented_gear.capes.int_mab
+    augmented_gear.capes.dw ={ name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+5','"Dual Wield"+10','Phys. dmg. taken-10%',}}
 
 	--------------------------------------
 	-- Start defining the sets
@@ -62,7 +63,7 @@ function init_gear_sets()
 	-- Precast Sets
 	
 	-- Precast sets to enhance JAs
-	sets.precast.JA['Chainspell'] = {body="Viti. Tabard +1"}
+	sets.precast.JA['Chainspell'] = {body="Vitiation Tabard +3"}
 	
 
 	-- Waltz set (chr and vit)
@@ -76,7 +77,7 @@ function init_gear_sets()
 	sets.precast.FC = {
         ammo="Impatiens",
         head={ name="Carmine Mask +1", augments={'Accuracy+20','Mag. Acc.+12','"Fast Cast"+4',}},
-        body="Vitiation tabard +1",
+        body="Vitiation Tabard +3",
         hands="Leyline Gloves",
         legs="Psyloth Lappas",
         feet="Carmine Greaves +1",
@@ -95,7 +96,7 @@ function init_gear_sets()
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 	sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
         ammo="Regal Gem",
-        head='Vitiation Chapeau +1',
+        head='Vitiation Chapeau +3',
         body="Shamash Robe",
         hands="Jhakri Cuffs +2",
         legs="Jhakri Slops +2",
@@ -127,19 +128,22 @@ function init_gear_sets()
 
 	sets.precast.WS['Savage Blade'] = {
         ammo="Floestone",
-        head="Jhakri Coronal +2",
-        body="Ayanmo Corazza +2",
+        head="Vitiation Chapeau +3",
+        body="Vitiation Tabard +3",
         hands="Jhakri Cuffs +2",
         legs="Jhakri Slops +2",
         feet="Jhakri Pigaches +2",
-        neck="Fotia Gorget",
+        neck="Dualist's Torque +1",
         waist="Prosilio belt",
         left_ear="Ishvara Earring",
         right_ear="Moonshade Earring",
-        left_ring="Ayanmo Ring",
-        right_ring="Ifrit Ring +1",
+        left_ring="Rufescent Ring",
+        right_ring="Ayanmo Ring",
         back=augmented_gear.capes.str_wsd,
     }
+
+    sets.precast.WS['Savage Blade'].CappedAttack = set_combine(sets.precast.WS['Savage Blade'], {
+    })
         
     sets.precast.WS['Sanguine Blade'] = {
         ammo="Pemphredo Tathlum",
@@ -264,7 +268,7 @@ function init_gear_sets()
 
 	sets.midcast['Enhancing Magic'] = {
         head=augmented_gear.Telchine.Enhancing.head,
-        body="Viti. Tabard +1",
+        body="Vitiation Tabard +3",
         hands="Atrophy gloves +2",
         legs="Carmine Cuisses +1",
         feet="Leth. Houseaux +1",
@@ -314,10 +318,10 @@ function init_gear_sets()
 	
 	sets.midcast['Enfeebling Magic'] = {
         ammo="Regal Gem",
-        head=augmented_gear.Merlinic.Accuracy.head,
+        head="Vitiation Chapeau +3",
         body="Lethargy Sayon +1",
         hands="Leth. Gantherots +1",
-        legs=augmented_gear.Chironic.Macc.INT.legs,
+        legs=augmented_gear.Chironic.Macc.MND.legs,
         feet="Jhakri Pigaches +2",
         neck="Duelist's torque +1",
         waist="Eschan Stone",
@@ -328,24 +332,28 @@ function init_gear_sets()
         back=augmented_gear.capes.mnd_macc,
     }
 		
-	sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {})
+	sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {
+        body=augmented_gear.Merlinic.Accuracy.body,
+    })
 		
     sets.midcast.ElementalEnfeeble = set_combine(sets.midcast['Enfeebling Magic'], {})
     sets.midcast.ElementalEnfeeble.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})
 	
-	sets.midcast.IntEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {})
-	sets.midcast.IntEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})
+	sets.midcast.IntEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {
+        back=augmented_gear.capes.int_macc,
+        legs=augmented_gear.Chironic.Macc.INT.legs,
+    })
+	sets.midcast.IntEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {
+        back=augmented_gear.capes.int_macc,
+        legs=augmented_gear.Chironic.Macc.INT.legs,
+    })
 
-	sets.midcast.MndEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {
-        legs=augmented_gear.Chironic.Macc.MND.legs,
-    })
-	sets.midcast.MndEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {
-        legs=augmented_gear.Chironic.Macc.MND.legs,
-    })
+	sets.midcast.MndEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {})
+	sets.midcast.MndEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})
 	
-	sets.midcast['Distract III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",ring1="Stikini Ring"})
+	sets.midcast['Distract III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring"})
 	sets.midcast['Distract III'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
-	sets.midcast['Frazzle III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",ring1="Stikini Ring"})
+	sets.midcast['Frazzle III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring"})
 	sets.midcast['Frazzle III'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
 	
 	sets.midcast.Silence = set_combine(sets.midcast['Enfeebling Magic'], {})
@@ -445,15 +453,19 @@ function init_gear_sets()
         body="Malignance Tabard",
         hands="Malignance Gloves",
         legs=augmented_gear.Taeon.TP.legs,
-        feet=augmented_gear.Taeon.TP.feet,
+        feet="Malignance Boots",
         neck="Anu Torque",
         waist="Windbuffet Belt +1",
         left_ear="Sherida Earring",
-        right_ear="Suppanomimi",
+        right_ear="Telos Earring",
         left_ring="Petrov Ring",
         right_ring="Hetairoi Ring",
-        back=augmented_gear.capes.stp,
+        back=augmented_gear.capes.dw,
     }
+
+    sets.engaged.DW.Enspell = set_combine(sets.engaged.DW, {
+        hands="Ayanmo Manopolas +2",
+    })
         
     sets.engaged.DTLite = set_combine(sets.engaged, {
         neck="Loricate Torque +1",
@@ -463,6 +475,10 @@ function init_gear_sets()
     sets.engaged.DTLite.DW = set_combine(sets.engaged.DW, {
         neck="Loricate Torque +1",
         right_ring="Defending Ring",
+    })
+
+    sets.engaged.DTLite.DW.Enspell = set_combine(sets.engaged.DTLite.DW, {
+        hands="Ayanmo Manopolas +2",
     })
         
     sets.engaged.FullDT = set_combine(sets.engaged.DTLite, {
@@ -486,7 +502,7 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = set_combine(sets.engaged.DW, {
         ammo="Homiliary",
-        head="Vitiation Chapeau +1",
+        head="Vitiation Chapeau +3",
         body="Shamash Robe",
         hands="Malignance Gloves",
         neck="Loricate Torque +1",

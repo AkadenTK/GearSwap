@@ -218,7 +218,7 @@ function init_gear_sets()
         body="Assimilator's Jubbah +3",
         hands="jhakri cuffs +2",
         ring2="Ilabrat ring",
-    	ring1="Ifrit ring +1",
+    	ring1="Rufescent ring",
         waist="Prosilio belt",
         back={ name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10',}},
         legs=augmented_gear.Herculean.WSD.STR.legs,

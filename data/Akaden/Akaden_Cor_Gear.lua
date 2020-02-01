@@ -380,7 +380,7 @@ function init_gear_sets()
         ear2="Ishvara Earring",
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
-        ring1="Ifrit ring +1",
+        ring1="Rufescent ring",
         ring2="Regal Ring",
         back=augmented_gear.capes.str_wsd,
         waist="Prosilio belt",

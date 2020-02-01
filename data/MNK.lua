@@ -68,9 +68,9 @@ end
 function job_post_precast(spell, spellMap, eventArgs)
     if spell.type == 'WeaponSkill' and state.DefenseMode.current == 'None' then
         local WSset = get_precast_set(spell, spellMap)
-        if buffactive.Impetus and WSset.Impetus then
-			equip(WSset.Impetus)
-        end
+        --if buffactive.Impetus and WSset.Impetus then
+		--	equip(WSset.Impetus)
+        --end
         
 		if buffactive.Footwork and WSset.Footwork then
             equip(WSset.Footwork)
@@ -88,9 +88,10 @@ function job_post_precast(spell, spellMap, eventArgs)
 			end
 		end
 		
-        if buffactive.Impetus and (spell.english == "Ascetic's Fury" or spell.english == "Victory Smite") then
-			equip(sets.buff.Impetus)
-		elseif buffactive.Footwork and (spell.english == "Dragon Kick" or spell.english == "Tornado Kick") then
+        --if buffactive.Impetus and (spell.english == "Ascetic's Fury" or spell.english == "Victory Smite") then
+		--	equip(sets.buff.Impetus)
+		--else
+            if buffactive.Footwork and (spell.english == "Dragon Kick" or spell.english == "Tornado Kick") then
 			equip(sets.FootworkWS)
 		end
 	end
@@ -172,9 +173,9 @@ function job_customize_melee_set(meleeSet)
         meleeSet = set_combine(meleeSet, sets[state.ExtraMeleeMode.value])
     end
 	
-    if buffactive.Impetus and meleeSet.Impetus then
-		meleeSet = set_combine(meleeSet, meleeSet.Impetus)
-    end
+    --if buffactive.Impetus and meleeSet.Impetus then
+	--	meleeSet = set_combine(meleeSet, meleeSet.Impetus)
+    --end
     
     if buffactive.Counterstance and state.DefenseMode.value == 'None' and state.OffenseMode.value ~= 'FullAcc' then
         meleeSet = set_combine(meleeSet, sets.buff.Counterstance)

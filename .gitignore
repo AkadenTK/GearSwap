@@ -22,7 +22,6 @@ data/instructions.txt
 libs/Mote-*
 libs/rev1/*
 *_Crafting.lua
-*-Items.lua
 data/export/*
 data/common/*
 data/User/*

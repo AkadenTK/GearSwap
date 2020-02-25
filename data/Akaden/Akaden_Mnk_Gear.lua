@@ -2,7 +2,7 @@ function user_setup()
 	-- Options: Override default values
     state.OffenseMode:options('Normal','Acc','FullAcc')
     state.WeaponskillMode:options('Match','Normal', 'Acc', 'FullAcc')
-    state.HybridMode:options('Normal', 'DTLite','MEVA')
+    state.HybridMode:options('Normal', 'DTLite', 'CounterHybrid','MEVA')
     state.PhysicalDefenseMode:options('PDT', 'HP')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
@@ -69,7 +69,6 @@ function init_gear_sets()
 	sets.precast.JA['Chi Blast'] = {head="Hesychast's crown +3"}
 	
 	sets.precast.JA['Chakra'] = {
-		head="Dampening Tam",
 		body="Anchorite's Cyclas +3",hands="Hesychast's Gloves",
 		legs="Hes. Hose +1",feet="Anchorite's Gaiters +3"}
 
@@ -98,7 +97,7 @@ function init_gear_sets()
 		feet=augmented_gear.Herculean.FC.feet,
 	}
 
-	sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
+	sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads", body="Passion Jacket"})
 
        
 	-- Weaponskill sets
@@ -173,6 +172,7 @@ function init_gear_sets()
     	body="Anchorite's Cyclas +3",
 	    legs="Hesychast's Hose +3",
 	    ear1="Odr Earring",
+	    ring1="Gere Ring",
     	feet=augmented_gear.Herculean.CritDMG.STR.feet,
     	neck="Monk's Nodowa +2",
 	    back=augmented_gear.capes.str_crit,})
@@ -180,11 +180,12 @@ function init_gear_sets()
 		body="Bhikku Cyclas +1",
 		ear2="Ishvara Earring",}
 	sets.precast.WS["Victory Smite"].Acc = set_combine(sets.precast.WS["Victory Smite"], {
+	    ring1="Regal Ring",
 		feet="Mummu Gamash. +2"})
 	sets.precast.WS["Victory Smite"].Acc.Impetus = {
 		body="Bhikku Cyclas +1",
 		ear2="Ishvara Earring",}
-	sets.precast.WS["Victory Smite"].FullAcc = set_combine(sets.precast.WS["Victory Smite"], {
+	sets.precast.WS["Victory Smite"].FullAcc = set_combine(sets.precast.WS["Victory Smite"].Acc, {
 		head="Mummu Bonnet +2"})
 	sets.precast.WS["Victory Smite"].FullAcc.Impetus = {
 		body="Bhikku Cyclas +1",
@@ -260,12 +261,13 @@ function init_gear_sets()
 		neck="Loricate Torque +1",
 		ear1="Odnowa earring +1",
 		ear2="Hearty Earring",
-		head="kendatsuba Jinpachi +1",
+		head="Malignance Chapeau",
 		body="Hesychast's Cyclas +3",
-		hands="Kurys gloves",
+		hands="Malignance Gloves",
 		ring1="Defending Ring",
 		ring2="Paguroidea ring",
-		legs="Mummu Kecks +2",
+		legs="Malignance Tights",
+		feet="Herald's Gaiters",
 	    back=augmented_gear.capes.tp_da,
 	    waist="Moonbow Belt +1",
 	}
@@ -322,7 +324,7 @@ function init_gear_sets()
 	    waist="Moonbow Belt +1",
 	    ear1="Sherida Earring",
 	    ear2="Telos Earring",
-	    ring1="Epona's Ring",
+	    ring1="Gere Ring",
 	    ring2="Niqmaddu Ring",
 	    back=augmented_gear.capes.tp_da,}
 	sets.engaged.Impetus = {body="Bhikku Cyclas +1"}
@@ -347,9 +349,17 @@ function init_gear_sets()
 
 	-- Defensive melee hybrid sets
 	sets.engaged.DTLite = set_combine(sets.engaged, {
+		head="Malignance Chapeau",
 		hands="Malignance Gloves",
 		ring1="Defending Ring",
 		neck="Loricate Torque +1",
+		ammo="Staunch Tathlum +1",
+	})
+	sets.engaged.CounterHybrid = set_combine(sets.engaged, sets.counter, {
+		head="Malignance Chapeau",
+		feet="Malignance boots",
+		neck="Loricate Torque +1",
+		ring1="Defending Ring",
 		ammo="Staunch Tathlum +1",
 	})
 	--sets.engaged.Acc.PDT = {}

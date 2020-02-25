@@ -546,7 +546,7 @@ function init_gear_sets()
 	sets.engaged.Acc = set_combine(sets.engaged, {
         ammo="Falcon Eye",
         head=augmented_gear.Adhemar.Acc.head,
-        neck='Ej necklace',
+        neck='Subtlety Spectacles',
         ear1="Cessance earring",
         ear2="Telos earring",
         body=augmented_gear.Adhemar.Acc.body,
@@ -585,7 +585,7 @@ function init_gear_sets()
 	sets.engaged.PDT = set_combine(sets.engaged.DTLite, {
 		ammo="Staunch Tathlum +1",
 		waist="Flume belt",
-        legs="Ayanmo cosciales +2",
+        legs="Malignance tights",
 		})
 
 

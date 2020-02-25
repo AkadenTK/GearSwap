@@ -17,7 +17,7 @@ function user_setup()
 
     state.LastRoll = 'unknown'
     ammostock = {}
-    ammostock['Chrono Bullet'] = 100
+    ammostock['Chrono Bullet'] = 300
     ammostock['Living Bullet'] = 30
 
     gear.RAbullet = "Chrono Bullet"
@@ -149,8 +149,8 @@ function init_gear_sets()
         ear2="Brutal Earring",
         body=augmented_gear.Adhemar.Atk.body,
         hands=augmented_gear.Adhemar.Atk.hands,
-        ring1="Ilabrat ring",
-        ring2="Epona's ring",
+        ring1="Epona's ring",
+        ring2="Ilabrat ring",
         back=augmented_gear.capes.melee,
         waist="Windbuffet belt +1",
         legs="Samnuha tights",
@@ -158,7 +158,7 @@ function init_gear_sets()
     }
     sets.engaged.Acc = set_combine(sets.engaged, {
         head="Malignance Chapeau",
-        neck="Ej necklace",
+        neck="Subtlety Spectacles",
         ear1="Odr earring",
         ear2="Telos earring",
         body=augmented_gear.Adhemar.Acc.body,
@@ -201,16 +201,19 @@ function init_gear_sets()
     sets.engaged.DTMid = set_combine(sets.engaged,{
         head="Malignance Chapeau",
         hands="Malignance Gloves",
+        feet="Malignance Boots",
         ring1="Defending ring",
     })
     sets.engaged.Acc.DTMid = set_combine(sets.engaged.Acc, {
         head="Malignance Chapeau",
         hands="Malignance Gloves",
+        feet="Malignance Boots",
         ring1="Defending ring",
     })
     sets.engaged.FullAcc.DTMid = set_combine(sets.engaged.FullAcc, {  
         head="Malignance Chapeau",
         hands="Malignance Gloves",
+        feet="Malignance Boots",
         ring1="Defending ring",
     })
 
@@ -268,8 +271,8 @@ function init_gear_sets()
         ear2="Hecate's Earring",
         body="Lanun Frac +3",
         hands="Carmine Finger Gauntlets +1",
-        ring1="Dingir Ring",
-        ring2="Acumen Ring",
+        ring1="Acumen Ring",
+        ring2="Dingir Ring",
         back=augmented_gear.capes.ra_stp,
         waist="Eschan Stone",
         legs=augmented_gear.Herculean.WSD.MAB.legs,
@@ -282,10 +285,10 @@ function init_gear_sets()
         ear2="Telos Earring", -- 5
         body="Malignance Tabard", -- 11
         hands="Schutzen mittens", -- 25 TP
-        ring1="Ilabrat Ring", -- 5
-        ring2="Petrov Ring", -- 5
+        ring1="Petrov Ring", -- 5
+        ring2="Ilabrat Ring", -- 5
         waist="Kentarch belt +1",  -- 1-5
-        legs=augmented_gear.Adhemar.D.legs, -- 7
+        legs="Malignance Tights", -- 10
         feet="Malignance Boots", -- 9
         back=augmented_gear.capes.ra_stp, -- 10
     })
@@ -303,7 +306,7 @@ function init_gear_sets()
         ring2="Regal ring",
         back=augmented_gear.capes.mab_wsd,
         waist="Kwahu kachina belt",
-        legs="Mummu Kecks +2",
+        legs="Malignance Tights",
         feet="Laksamana's boots +2"
     })
 
@@ -335,7 +338,7 @@ function init_gear_sets()
         back=augmented_gear.capes.FC,
     })
 
-    sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga beads"})
+    sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga beads", body="Passion Jacket"})
 	
 	sets.precast.FC.Cure = set_combine(sets.precast.FC, {})
 
@@ -380,8 +383,8 @@ function init_gear_sets()
         ear2="Ishvara Earring",
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
-        ring1="Rufescent ring",
-        ring2="Regal Ring",
+        ring1="Regal ring",
+        ring2="Rufescent Ring",
         back=augmented_gear.capes.str_wsd,
         waist="Prosilio belt",
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -394,7 +397,7 @@ function init_gear_sets()
     })
 
     sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS['Savage Blade'].Acc, {
-        ring1="Ilabrat ring",
+        ring2="Ilabrat ring",
         neck="Fotia gorget",
         waist="Eschan Stone",
         legs="Carmine Cuisses +1",
@@ -412,8 +415,8 @@ function init_gear_sets()
         ear2="Odr earring",
         body="Abnoba Kaftan",
         hands="Mummu Wrists +2",
-        ring1="Mummu ring",
-        ring2="Regal ring",
+        ring1="Regal ring",
+        ring2="Mummu ring",
         back=augmented_gear.capes.dex_crit,
         waist="Fotia belt",
         legs=augmented_gear.Herculean.CritDMG.DEX.legs,
@@ -431,19 +434,19 @@ function init_gear_sets()
         waist="Fotia Belt",
         ear1="Moonshade Earring",
         ear2="Ishvara Earring",
-        ring1="Dingir ring",
-        ring2= "Regal Ring",
+        ring1="Regal ring",
+        ring2= "Dingir Ring",
         back=augmented_gear.capes.agi_wsd,
     }
 
     sets.precast.WS['Last Stand'].Acc = set_combine(sets.precast.WS['Last Stand'],{
         ear2="Telos Earring",
-        ring1="Cacoethic Ring +1",
         feet="Meghanada Jambeaux +2"
         })
 
     sets.precast.WS['Last Stand'].FullAcc = set_combine(sets.precast.WS['Last Stand'].Acc,{
         neck="Commodore Charm +2",
+        legs="Meghanada Chausses +2",
         })
 
     sets.precast.WS['Last Stand'].CappedAttack = set_combine(sets.precast.WS['Last Stand'],{
@@ -474,8 +477,8 @@ function init_gear_sets()
         waist="Svelt. Gouriz +1",
         ear1="Friomisi Earring",
         ear2="Moonshade Earring",
-        ring1="Dingir Ring",
-        ring2="Archon ring",
+        ring1="Archon Ring",
+        ring2="Dingir ring",
         back=augmented_gear.capes.mab_wsd,
         --back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','"Mag.Atk.Bns."+10',}},
     }
@@ -534,16 +537,17 @@ function init_gear_sets()
         body="Malignance Tabard",
         hands="Malignance Gloves",
         ring1="Ilabrat ring",
-        ring2="Cacoethic ring +1",
+        ring2="Dingir Ring",
         back=augmented_gear.capes.ra_stp,
         waist="Yemaya belt",
-        legs=augmented_gear.Adhemar.Rng.legs,
+        --legs="Malignance tights",
+        legs="Adhemar kecks +1",
         feet="Malignance boots",
     }
 
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA,{
-        ear1="Volley Earring",
-        feet="Meg. Jam. +2"
+        body="Laksamana's frac +3",
+        ring1="Regal Ring",
     })
 
     sets.midcast.RA.Crits = set_combine(sets.midcast.RA,{
@@ -553,15 +557,14 @@ function init_gear_sets()
       ring2="Begrudging ring", 
       waist="Kwahu kachina belt",
       legs="Mummu kecks +2",
-      feet="Oshosi leggings",
+      feet="Mummu Gamashes +2",
     })
 
     sets.midcast.RA.FullAcc = set_combine(sets.midcast.RA.Acc,{
-        body="Laksamana's frac +3",
-        ring1="Cacoethic ring +1",
-        ring2="Regal Ring",
+        ear1="Volley Earring",
         waist="Kwahu Kachina belt",
-        legs="Meg. Chausses +2",
+        ring2="Cacoethic ring +1", 
+        legs="Malignance tights",
     })
 		
 	sets.buff['Triple Shot'] = {
@@ -589,7 +592,7 @@ function init_gear_sets()
         head="Malignance Chapeau",
         body="Malignance Tabard",
         hands="Malignance Gloves",
-        legs="Volte Hose",
+        legs="Malignance Tights",
         feet="Malignance Boots",
         neck="Loricate Torque +1",
         waist="Flume Belt",
@@ -606,14 +609,16 @@ function init_gear_sets()
         body='Lanun Frac +3',
         neck="Comm. Charm +2", 
         hands='Lanun gants +3',
-        legs="Carmine Cuisses +1"})
+        legs="Carmine Cuisses +1",
+        feet="Lanun Bottes +3",
+    })
     
     -- Defense sets
     sets.defense.PDT = set_combine(sets.idle, {
         head="Malignance Chapeau",
         body="Malignance Tabard",
         hands="Malignance Gloves",
-        legs="Volte Hose",
+        legs="Malignance Tights",
         feet="Malignance Boots",
         neck="Loricate Torque +1",
         waist="Flume Belt",

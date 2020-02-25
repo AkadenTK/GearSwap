@@ -133,3 +133,9 @@ function user_self_command(commandArgs, eventArgs)
         end
     end
 end
+
+item_stepdown = {
+    ['Warp Ring'] = {'Treat Staff','main'},
+    ['Treat Staff'] = {'Instant Warp','item'},
+    ['Instant Warp'] = {'Warp Cudgel','main'}
+}

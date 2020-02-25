@@ -136,7 +136,7 @@ function init_gear_sets()
     })
         
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
-        neck='Ej necklace',
+        neck='Subtlety Spectacles',
     })
 
     --sets.engaged.PDT = {}

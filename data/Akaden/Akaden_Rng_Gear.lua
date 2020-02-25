@@ -290,7 +290,7 @@ function init_gear_sets()
 
     sets.engaged.Acc = set_combine(sets.engaged, {
         head=augmented_gear.Adhemar.Acc.head,
-        neck="Ej necklace",
+        neck="Subtlety Spectacles",
         ear1="Telos earring",
         ear2="Dignitary's earring",
         body="Mummu Jacket +2",

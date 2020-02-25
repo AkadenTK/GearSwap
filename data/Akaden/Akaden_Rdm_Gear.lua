@@ -9,8 +9,10 @@ function user_setup()
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('CroceaTauret','CroceaTernion','NaeglingThibron','NaeglingTernion','NaeglingTauret','NaeglingTernionUllr','TauretLevante','SequenceThibron','SequenceTernion','Odin','Grio','None')
+	state.Weapons:options('CroceaDaybreak','CroceaTernion','NaeglingThibron','NaeglingTauret','NaeglingUllr','TauretThibron','TauretTernion','Odin','Nuking','NukingShield','None')
     state.EnhancingMode = M('Always', 'Never', '300', '1000')
+    state.EnfeeblingMode = M('Never', 'Always','300', '1000')
+    state.NukingMode = M('Never', 'Always','300', '1000')
 	
 	gear.obi_cure_back = "Tempered Cape +1"
 	gear.obi_cure_waist = "Witful Belt"
@@ -50,6 +52,7 @@ function init_gear_sets()
     augmented_gear.capes = {}
     augmented_gear.capes.dex_crit = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Crit.hit rate+10',}}
     augmented_gear.capes.str_wsd = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+    augmented_gear.capes.mnd_wsd = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Weapon skill damage +10%',}}
     augmented_gear.capes.stp = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
     augmented_gear.capes.mnd_macc = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20',}}
     augmented_gear.capes.int_mab = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
@@ -81,11 +84,11 @@ function init_gear_sets()
         hands="Leyline Gloves",
         legs="Psyloth Lappas",
         feet="Carmine Greaves +1",
-        neck="Asperity Necklace",
         waist="Witful Belt",
         left_ring="Weatherspoon Ring",
         right_ring="Kishar Ring",
     }
+    sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
 		
 	sets.precast.FC.Impact = set_combine(sets.precast.FC, {head=empty,body="Twilight Cloak"})
        
@@ -130,7 +133,7 @@ function init_gear_sets()
         ammo="Floestone",
         head="Vitiation Chapeau +3",
         body="Vitiation Tabard +3",
-        hands="Jhakri Cuffs +2",
+        hands="Atrophy gloves +3",
         legs="Jhakri Slops +2",
         feet="Jhakri Pigaches +2",
         neck="Dualist's Torque +1",
@@ -138,7 +141,7 @@ function init_gear_sets()
         left_ear="Ishvara Earring",
         right_ear="Moonshade Earring",
         left_ring="Rufescent Ring",
-        right_ring="Ayanmo Ring",
+        right_ring="Ifrit Ring +1",
         back=augmented_gear.capes.str_wsd,
     }
 
@@ -151,14 +154,14 @@ function init_gear_sets()
         body=augmented_gear.Merlinic.Damage.body,
         hands="Jhakri Cuffs +2",
         legs=augmented_gear.Merlinic.Damage.legs,
-        feet=augmented_gear.Merlinic.Damage.feet,
-        neck="Dls. Torque +1",
+        feet="Vitiation Boots +3",
+        neck="Baetyl Pendant",
         waist="Refoccilation Stone",
         left_ear="Regal Earring",
         right_ear="Malignance earring",
-        left_ring="Arcon Ring",
-        right_ring="Acumen Ring",
-        back=augmented_gear.capes.int_mab,
+        left_ring="Freke Ring",
+        right_ring="Arcon Ring",
+        back=augmented_gear.capes.mnd_wsd,
     }
 
         
@@ -168,26 +171,42 @@ function init_gear_sets()
         body="Jhakri Robe +2",
         hands="Jhakri Cuffs +2",
         legs="Jhakri Slops +2",
-        feet="Jhakri Pigaches +2",
+        feet="Vitiation Boots +3",
         --neck="Fotia Gorget",
         --waist="Fotia Belt",
         neck="Baetyl Pendant",
         waist="Refoccilation Stone",
-        left_ear="Regal Earring",
+        left_ear="Moonshade Earring",
         right_ear="Malignance earring",
-        left_ring="Shiva Ring +1",
+        left_ring="Freke Ring",
         right_ring="Weatherspoon Ring",
-        back=augmented_gear.capes.int_mab,
+        back=augmented_gear.capes.mnd_wsd,
+    }
+
+    sets.precast.WS['Black Halo'] = {
+        ammo="Floestone",
+        head="Vitiation Chapeau +3",
+        body="Vitiation Tabard +3",
+        hands="Atrophy gloves +3",
+        legs="Jhakri Slops +2",
+        feet="Jhakri Pigaches +2",
+        neck="Dualist's Torque +1",
+        waist="Prosilio belt",
+        left_ear="Regal Earring",
+        right_ear="Moonshade Earring",
+        left_ring="Rufescent Ring",
+        right_ring="Ifrit Ring +1",
+        back=augmented_gear.capes.mnd_wsd,
     }
 
     sets.precast.WS['Empyreal Arrow'] = {
         head="Malignance Chapeau",
         body="Malignance Tabard",
         hands="Malignance Gloves",
-        legs="Volte Hose",
-        feet="Volte Boots",
+        legs="Malignance Tights",
+        feet="Malignance Boots",
         neck="Fotia Gorget",
-        waist="Fotia Belt",
+        waist="Yemaya Belt",
         left_ear="Suppanomimi",
         right_ear="Telos Earring",
         left_ring="Cacoethic Ring +1",
@@ -204,8 +223,8 @@ function init_gear_sets()
         waist="Refoccilation Stone",
         left_ear="Regal Earring",
         right_ear="Malignance earring",
-        left_ring="Shiva Ring +1",
-        right_ring="Acumen Ring",
+        left_ring="Freke Ring",
+        right_ring="Shiva Ring +1",
         back=augmented_gear.capes.int_mab,
     }
 
@@ -238,7 +257,7 @@ function init_gear_sets()
 
     sets.midcast.Cure = {
         ammo="Regal Gem",
-        head="Viti. Chapeau +1",
+        head="Viti. Chapeau +3",
         body="Shamash Robe",
         hands="Telchine Gloves",
         legs="Atrophy Tights +1",
@@ -269,11 +288,11 @@ function init_gear_sets()
 	sets.midcast['Enhancing Magic'] = {
         head=augmented_gear.Telchine.Enhancing.head,
         body="Vitiation Tabard +3",
-        hands="Atrophy gloves +2",
+        hands="Atrophy gloves +3",
         legs="Carmine Cuisses +1",
         feet="Leth. Houseaux +1",
         neck="Dls. Torque +1",
-        waist="Olympus Sash",
+        waist="Embla Sash",
         left_ear="Halasz Earring",
         right_ear="Andoaa Earring",
         left_ring="Stikini Ring",
@@ -281,16 +300,14 @@ function init_gear_sets()
         back="Ghostfyre Cape",
     }
 
-    sets.enhancing_weapons = {
+    sets.enhancing_skill = set_combine(sets.midcast['Enhancing Magic'], {
         main="Pukulatmuj +1",
         sub="Pukulatmuj",
-    }
-
-    sets.enhancing_skill = set_combine(sets.midcast['Enhancing Magic'], {
         head="Befouled Crown",
-        hands="vitiation gloves +2",
+        hands="Vitiation gloves +3",
         legs="Carmine Cuisses +1",
         neck="Melic Torque",
+        waist="Olympus sash",
         left_ear="Mimir Earring",
     })
 
@@ -299,10 +316,11 @@ function init_gear_sets()
         body=augmented_gear.Taeon.Phalanx.body,
         hands=augmented_gear.Taeon.Phalanx.hands,
         feet=augmented_gear.Taeon.Phalanx.feet,
+        waist="Embla Sash",
     })
 
 	--Atrophy Gloves are better than Lethargy for me despite the set bonus for duration on others.		
-	sets.buff.ComposureOther = set_combine(sets.midcast['Enhancing Magic'], {head="Telchine Cap",body="Lethargy Sayon +1",hands="Atrophy gloves +2",legs="Lethargy Fuseau +1",feet="Leth. Houseaux +1",})
+	sets.buff.ComposureOther = set_combine(sets.midcast['Enhancing Magic'], {head="Telchine Cap",body="Lethargy Sayon +1",hands="Atrophy gloves +3",legs="Lethargy Fuseau +1",feet="Leth. Houseaux +1",})
 		
 	--Red Mage enhancing sets are handled in a different way from most, layered on due to the way Composure works
 	--Don't set combine a full set with these spells, they should layer on Enhancing Set > Composure (If Applicable) > Spell
@@ -317,22 +335,29 @@ function init_gear_sets()
     sets.midcast["Temper II"] = sets.midcast.Temper
 	
 	sets.midcast['Enfeebling Magic'] = {
+        main="Crocea Mors",
+        sub="Daybreak",
         ammo="Regal Gem",
         head="Vitiation Chapeau +3",
         body="Lethargy Sayon +1",
         hands="Leth. Gantherots +1",
         legs=augmented_gear.Chironic.Macc.MND.legs,
-        feet="Jhakri Pigaches +2",
+        feet="Vitiation Boots +3",
         neck="Duelist's torque +1",
         waist="Eschan Stone",
-        left_ear="Digni. Earring",
+        left_ear="Snotra Earring",
         right_ear="Malignance Earring",
         left_ring="Stikini Ring",
         right_ring="Kishar Ring",
         back=augmented_gear.capes.mnd_macc,
     }
+    sets.midcast['Enfeebling Magic']['NukingMode'] = set_combine(sets.midcast['Enfeebling Magic'], {main='Daybreak',sub='Nibiru Cudgel'})
+    sets.midcast['Enfeebling Magic']['NukingShield'] = set_combine(sets.midcast['Enfeebling Magic'], {main='Daybreak',sub='Culminus'})
+
 		
 	sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {
+        ranged="Kaja Bow",
+        ammo=nil,
         body=augmented_gear.Merlinic.Accuracy.body,
     })
 		
@@ -356,38 +381,39 @@ function init_gear_sets()
 	sets.midcast['Frazzle III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring"})
 	sets.midcast['Frazzle III'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
 	
-	sets.midcast.Silence = set_combine(sets.midcast['Enfeebling Magic'], {})
-	sets.midcast.Silence.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})	
-	
 	sets.midcast['Divine Magic'] = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})
 
 	sets.midcast.Dia = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 	sets.midcast.Diaga = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 	sets.midcast['Dia II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
-	sets.midcast['Dia III'] = set_combine(sets.midcast['Enfeebling Magic'], {head="Viti. Chapeau +1"})
+	sets.midcast['Dia III'] = set_combine(sets.midcast['Enfeebling Magic'], {head="Viti. Chapeau +3"})
 	
 	sets.midcast.Bio = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 	sets.midcast['Bio II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
-	sets.midcast['Bio III'] = set_combine(sets.midcast['Enfeebling Magic'], {head="Viti. Chapeau +1"})
+	sets.midcast['Bio III'] = set_combine(sets.midcast['Enfeebling Magic'], {head="Viti. Chapeau +3"})
 
-	sets.midcast['Slow II'] = set_combine(sets.midcast['Enfeebling Magic'], {head="Viti. Chapeau +1"})
-	sets.midcast['Slow II'].Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {head="Viti. Chapeau +1"})
+	sets.midcast['Slow II'] = set_combine(sets.midcast['Enfeebling Magic'], {head="Viti. Chapeau +3"})
+	sets.midcast['Slow II'].Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {head="Viti. Chapeau +3"})
 	
     sets.midcast['Elemental Magic'] = {
+        main="Daybreak",
+        sub="Nibiru Cudgel",
         ammo="Pemphredo Tathlum",
         head=augmented_gear.Merlinic.Damage.head,
         body=augmented_gear.Merlinic.Damage.body,
         hands="Jhakri Cuffs +2",
         legs=augmented_gear.Merlinic.Damage.legs,
-        feet=augmented_gear.Merlinic.Damage.feet,
+        feet="Vitiation Boots +3",
         neck="Baetyl Pendant",
         waist="Refoccilation Stone",
         left_ear="Regal Earring",
         right_ear="Malignance Earring",
-        left_ring="Acumen Ring",
+        left_ring="Freke Ring",
         right_ring="Shiva Ring +1",
         back=augmented_gear.capes.int_mab,
     }
+    sets.midcast['CroceaDaybreak'] = {}
+    sets.midcast['CroceaDaybreak']['Elemental Magic'] = set_combine(sets.midcast['Elemental Magic'], {main='Nibiru Cudgel',sub='Daybreak'})
 		
     sets.midcast['Elemental Magic'].Resistant = set_combine(sets.midcast['Elemental Magic'], {
         feet="Jhakri Pigaches +2",
@@ -396,16 +422,20 @@ function init_gear_sets()
     })
 		
     sets.midcast['Elemental Magic'].Fodder = set_combine(sets.midcast['Elemental Magic'], {})
+    sets.midcast['Elemental Magic'].Fodder['CroceaDaybreak'] = set_combine(sets.midcast['Elemental Magic'].Fodder, {main='Nibiru Cudgel',sub='Daybreak'})
 
     sets.midcast['Elemental Magic'].Proc = {}
 		
 	sets.midcast['Elemental Magic'].HighTierNuke = set_combine(sets.midcast['Elemental Magic'], {})
+    sets.midcast['Elemental Magic'].HighTierNuke['CroceaDaybreak'] = set_combine(sets.midcast['Elemental Magic'].HighTierNuke, {main='Nibiru Cudgel',sub='Daybreak'})
 	sets.midcast['Elemental Magic'].HighTierNuke.Resistant = set_combine(sets.midcast['Elemental Magic'].Resistant, {})
+    sets.midcast['Elemental Magic'].HighTierNuke.Resistant['CroceaDaybreak'] = set_combine(sets.midcast['Elemental Magic'].HighTierNuke.Resistant, {main='Nibiru Cudgel',sub='Daybreak'})
 	sets.midcast['Elemental Magic'].HighTierNuke.Fodder = set_combine(sets.midcast['Elemental Magic'].Fodder, {})
+    sets.midcast['Elemental Magic'].HighTierNuke.Fodder['CroceaDaybreak'] = set_combine(sets.midcast['Elemental Magic'].HighTierNuke.Fodder, {main='Nibiru Cudgel',sub='Daybreak'})
 		
 	sets.midcast.Impact = set_combine(sets.midcast['Enfeebling Magic'], {head=empty,body="Twilight Cloak",back=augmented_gear.capes.int_macc,})
 
-	sets.midcast['Dark Magic'] = {}
+	sets.midcast['Dark Magic'] = set_combine(sets.midcast['Enfeebling Magic'], {head=empty,body="Twilight Cloak",back=augmented_gear.capes.int_macc,})
 
     sets.midcast.Drain = set_combine(sets.midcast['Elemental Magic'], {
         head="Pixie Hairpin +1",
@@ -466,6 +496,20 @@ function init_gear_sets()
     sets.engaged.DW.Enspell = set_combine(sets.engaged.DW, {
         hands="Ayanmo Manopolas +2",
     })
+
+    sets.engaged.DW['Crocea Mors'] = sets.engaged.DW.Enspell
+    sets.engaged['Odin'] = set_combine(sets.engaged.DW.Enspell, {
+        head="Carmine Mask +1",
+        body="Ayanmo Corazza +2",
+        legs="Carmine Cuisses +1",
+        --feet=augmented_gear.Taeon.TP.feet,
+        neck="Dls. Torque +1",
+        --left_ear="Eabani earring",
+        --right_ear="Suppanomimi",
+        left_ring="Stikini Ring",
+        right_ring="Stikini Ring",
+        --waist="Hachirin-no-obi",
+    })
         
     sets.engaged.DTLite = set_combine(sets.engaged, {
         neck="Loricate Torque +1",
@@ -483,13 +527,13 @@ function init_gear_sets()
         
     sets.engaged.FullDT = set_combine(sets.engaged.DTLite, {
         ammo="Staunch Tathlum +1",
-        legs="Ayanmo Cosciales +2",
+        legs="Malignance tights",
         feet="Carmine Greaves +1",
     })
         
     sets.engaged.FullDT.DW = set_combine(sets.engaged.DTLite.DW, {
         ammo="Staunch Tathlum +1",
-        legs="Ayanmo Cosciales +2",
+        legs="Malignance Tights",
         feet="Carmine Greaves +1",
     })
 
@@ -507,8 +551,8 @@ function init_gear_sets()
         hands="Malignance Gloves",
         neck="Loricate Torque +1",
         waist="Flume belt",
-        legs="Ayanmo Cosciales +2",
-        feet="Carmine Greaves +1",
+        legs="Malignance Tights",
+        feet="Malignance Boots",
         left_ear="Ethereal earring",
         right_ear="Hearty earring",
         left_ring="Warden's ring",
@@ -522,6 +566,11 @@ function init_gear_sets()
     sets.idle.Weak = set_combine(sets.idle, {})
     
     sets.idle.DTHippo = set_combine(sets.idle.PDT, {})
+    sets.idle.Town = set_combine(sets.idle, {
+        hands="Vitiation Gloves +3",
+        legs="Carmine Cuisses +1",
+        feet="Vitiation Boots +3",
+    })
     
     -- Defense sets
     sets.defense.PDT = {}
@@ -540,17 +589,17 @@ function init_gear_sets()
     sets.NightIdle = {}
     
     -- Weapons sets
-    sets.weapons.CroceaTauret = {main="Crocea Mors", sub="Tauret", }
+    sets.weapons.CroceaDaybreak = {main="Crocea Mors", sub="Daybreak", }
     sets.weapons.CroceaTernion = {main="Crocea Mors", sub="Ternion Dagger +1", }
     sets.weapons.NaeglingThibron = {main="Naegling", sub="Thibron", }
     sets.weapons.NaeglingTernion = {main="Naegling", sub="Ternion Dagger +1", }
     sets.weapons.NaeglingTauret = {main="Naegling", sub="Tauret", }
-    sets.weapons.NaeglingTernionUllr = {main="Naegling", sub="Ternion Dagger +1", ranged="Kaja Bow", ammo="Demon Arrow"}
-    sets.weapons.TauretLevante = {main="Tauret", sub="Levante dagger", }
-    sets.weapons.SequenceThibron = {main="Sequence", sub="Thibron", }
-    sets.weapons.SequenceTernion = {main="Sequence", sub="Ternion Dagger +1", }
-    sets.weapons.Odin = {main='Wind Knife',sub="Trainee's Needle"}
-    sets.weapons.Grio = {main='Grioavolr',sub="Enki Strap"}
+    sets.weapons.NaeglingUllr = {main="Naegling", sub="Tauret", ranged="Kaja Bow", ammo="Demon Arrow"}
+    sets.weapons.TauretThibron = {main="Tauret", sub="Thibron", ranged="Kaja Bow", ammo="Demon Arrow"}
+    sets.weapons.TauretTernion = {main="Tauret", sub="Ternion Dagger +1"}
+    sets.weapons.Odin = {main='Ceremonial Dagger',sub="Ceremonial Dagger", ranged="Kaja Bow", ammo="Demon Arrow"}
+    sets.weapons.Nuking = {main='Daybreak',sub="Nibiru Cudgel"}
+    sets.weapons.NukingShield = {main='Daybreak',sub="Culminus"}
 
 end
 
@@ -576,29 +625,32 @@ function user_job_precast(spell, spellMap, eventArgs)
 end
 
 function user_job_aftercast(spell, spellMap, eventArgs)
-    if spell.skill == 'Enhancing Magic' and enhancing_spells:contains(spell.english) and not spell.interrupted then
-        if state.EnhancingMode.value ~= 'Never' then
-            for slot,piece in pairs(sets.enhancing_weapons) do
-                enable(slot)
-                local s = {}
-                s[slot] = sets.weapons[state.Weapons.Value][slot]
-                equip(s)
-                disable(slot)
-            end
+    if ((spell.skill == 'Enhancing Magic' and enhancing_spells:contains(spell.english) and state.EnhancingMode.value ~= 'Never') or 
+       ((spell.skill == 'Enfeebling Magic' or spell.en == 'Impact') and state.EnfeeblingMode.value ~= 'Never') or
+        (spell.skill == 'Elemental Magic' and state.NukingMode.value ~= 'Never')) then
+        enable('main')
+        enable('sub')
+        enable('ranged')
+        enable('range')
+        enable('ammo')
+        for slot,piece in pairs(sets.weapons[state.Weapons.Value]) do
+            local s = {}
+            s[slot] = sets.weapons[state.Weapons.Value][slot]
+            equip(s)
+            disable(slot)
         end
     end
 end
 
 function user_job_post_precast(spell, spellMap, eventArgs)
-    if spell.skill == 'Enhancing Magic' and enhancing_spells:contains(spell.english) then
-        if state.EnhancingMode.value ~= 'Never' and (state.EnhancingMode.value == 'Always' or tonumber(state.EnhancingMode.value) > player.tp) then
-            for slot,piece in pairs(sets.enhancing_weapons) do
-                enable(slot)
-                local s = {}
-                s[slot] = piece
-                equip(s)
-            end
-        end
+    if ((spell.skill == 'Enhancing Magic' and enhancing_spells:contains(spell.english) and state.EnhancingMode.value ~= 'Never' and (state.EnhancingMode.value == 'Always' or tonumber(state.EnhancingMode.value) > player.tp)) or 
+       ((spell.skill == 'Enfeebling Magic' or spell.en == 'Impact') and state.EnfeeblingMode.value ~= 'Never' and (state.EnfeeblingMode.value == 'Always' or tonumber(state.EnfeeblingMode.value) > player.tp)) or
+        (spell.skill == 'Elemental Magic' and state.NukingMode.value ~= 'Never' and (state.NukingMode.value == 'Always' or tonumber(state.NukingMode.value) > player.tp))) then
+        enable('main')
+        enable('sub')
+        enable('ranged')
+        enable('range')
+        enable('ammo')
     end
 end
 

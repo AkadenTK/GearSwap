@@ -649,7 +649,7 @@ function init_gear_sets()
 		head="Assimilator's Keffiyeh +3",
 		ear2="Hearty earring",
 		body="Shamash robe",
-    	legs="Amalric Slops",
+    	legs="Amalric Slops +1",
     	feet="Amalric nails",
 	})
 

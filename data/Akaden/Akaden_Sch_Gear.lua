@@ -89,7 +89,7 @@ function init_gear_sets()
         ring2="Sangoma ring",
         back="Tempered cap +1",
         waist="Fucho-no-obi",
-        legs="Amalric Slops",
+        legs="Amalric Slops +1",
         feet="Amalric Nails"
 	}
 

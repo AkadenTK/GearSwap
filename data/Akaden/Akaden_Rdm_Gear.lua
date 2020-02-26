@@ -2,7 +2,7 @@
     include('smartcure.lua')
 function user_setup()
 	-- Options: Override default values
-    state.OffenseMode:options('Normal')
+    state.OffenseMode:options('Normal', 'Accuracy')
     state.HybridMode:options('Normal', 'DTLite', 'FullDT')
 	state.CastingMode:options('Normal', 'Resistant', 'Fodder', 'Proc')
     state.IdleMode:options('Normal', 'PDT', 'MDT', 'TPEat','DTHippo')
@@ -153,16 +153,19 @@ function init_gear_sets()
         head="Pixie Hairpin +1",
         body=augmented_gear.Merlinic.Damage.body,
         hands="Jhakri Cuffs +2",
-        legs=augmented_gear.Merlinic.Damage.legs,
+        legs="Amalric Slops +1",
         feet="Vitiation Boots +3",
         neck="Baetyl Pendant",
-        waist="Refoccilation Stone",
+        waist="Orpheus's sash",
         left_ear="Regal Earring",
         right_ear="Malignance earring",
         left_ring="Freke Ring",
         right_ring="Arcon Ring",
         back=augmented_gear.capes.mnd_wsd,
     }
+    sets.precast.WS['Sanguine Blade'].Accuracy = set_combine(sets.precast.WS['Sanguine Blade'], {
+        legs=augmented_gear.Merlinic.Damage.legs,
+    })
 
         
     sets.precast.WS['Seraph Blade'] = {
@@ -170,18 +173,21 @@ function init_gear_sets()
         head="Jhakri Coronal +2",
         body="Jhakri Robe +2",
         hands="Jhakri Cuffs +2",
-        legs="Jhakri Slops +2",
+        legs="Amalric Slops +1",
         feet="Vitiation Boots +3",
         --neck="Fotia Gorget",
         --waist="Fotia Belt",
         neck="Baetyl Pendant",
-        waist="Refoccilation Stone",
+        waist="Orpheus's sash",
         left_ear="Moonshade Earring",
         right_ear="Malignance earring",
         left_ring="Freke Ring",
         right_ring="Weatherspoon Ring",
         back=augmented_gear.capes.mnd_wsd,
     }
+    sets.precast.WS['Seraph Blade'].Accuracy = set_combine(sets.precast.WS['Seraph Blade'], {
+        legs=augmented_gear.Merlinic.Damage.legs,
+    })
 
     sets.precast.WS['Black Halo'] = {
         ammo="Floestone",
@@ -217,7 +223,7 @@ function init_gear_sets()
         ammo="Pemphredo Tathlum",
         body=augmented_gear.Merlinic.Damage.body,
         hands="Jhakri Cuffs +2",
-        legs=augmented_gear.Merlinic.Damage.legs,
+        legs="Amalric Slops +1",
         feet=augmented_gear.Merlinic.Damage.feet,
         neck="Baetyl Pendant",
         waist="Refoccilation Stone",
@@ -465,39 +471,32 @@ function init_gear_sets()
         ammo="Ginsen",
         head="Malignance Chapeau",
         body="Malignance Tabard",
+        legs="Malignance tights",
         hands="Malignance Gloves",
-        legs=augmented_gear.Taeon.TP.legs,
-        feet=augmented_gear.Taeon.TP.feet,
-        neck="Anu Torque",
-        waist="Windbuffet Belt +1",
-        left_ear="Sherida Earring",
-        right_ear="Telos Earring",
-        left_ring="Petrov Ring",
-        right_ring="Hetairoi Ring",
-        back=augmented_gear.capes.stp,
-    }
-
-	sets.engaged.DW = {
-        ammo="Ginsen",
-        head="Malignance Chapeau",
-        body="Malignance Tabard",
-        hands="Malignance Gloves",
-        legs=augmented_gear.Taeon.TP.legs,
         feet="Malignance Boots",
         neck="Anu Torque",
         waist="Windbuffet Belt +1",
         left_ear="Sherida Earring",
         right_ear="Telos Earring",
-        left_ring="Petrov Ring",
+        left_ring="Ilabrat Ring",
         right_ring="Hetairoi Ring",
-        back=augmented_gear.capes.dw,
+        back=augmented_gear.capes.stp,
     }
+
+	sets.engaged.DW = set_combine(sets.engaged, {
+        back=augmented_gear.capes.dw,
+    })
 
     sets.engaged.DW.Enspell = set_combine(sets.engaged.DW, {
         hands="Ayanmo Manopolas +2",
     })
 
-    sets.engaged.DW['Crocea Mors'] = sets.engaged.DW.Enspell
+    sets.engaged['CroceaDaybreak'] = set_combine(sets.engaged.DW, {
+        hands="Ayanmo Manopolas +2",
+        waist="Orpheus's Sash",
+    })
+    sets.engaged.DW['CroceaTernion'] = sets.engaged.DW['CroceaDaybreak']
+
     sets.engaged['Odin'] = set_combine(sets.engaged.DW.Enspell, {
         head="Carmine Mask +1",
         body="Ayanmo Corazza +2",
@@ -508,7 +507,7 @@ function init_gear_sets()
         --right_ear="Suppanomimi",
         left_ring="Stikini Ring",
         right_ring="Stikini Ring",
-        --waist="Hachirin-no-obi",
+        waist="Orpheus's sash",
     })
         
     sets.engaged.DTLite = set_combine(sets.engaged, {
@@ -570,6 +569,7 @@ function init_gear_sets()
         hands="Vitiation Gloves +3",
         legs="Carmine Cuisses +1",
         feet="Vitiation Boots +3",
+        waist="Orpheus's sash",
     })
     
     -- Defense sets

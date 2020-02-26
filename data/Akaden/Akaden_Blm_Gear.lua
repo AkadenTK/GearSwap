@@ -109,7 +109,7 @@ function init_gear_sets()
         ring2="Sangoma ring",
         back="Tempered cape +1",
         waist="Fucho-no-obi",
-        legs="Amalric Slops",
+        legs="Amalric Slops +1",
         feet="Amalric Nails"
     }
     
@@ -257,7 +257,7 @@ function init_gear_sets()
             ring1="Sangoma ring",
             ring2="Mephitas's ring +1",
             body="Amalric doublet",
-            legs="Amalric slops",
+            legs="Amalric Slops +1",
             ear2="Dignitary's Earring"
     })
 	

@@ -48,7 +48,7 @@ function init_gear_sets()
         hands="Glyphic bracers",
         legs="Beckoner's spats",
         feet=augmented_gear.Apogee.Magic.feet,
-        neck="Melic Torque",
+        neck="Incanter's Torque",
         waist="Lucidity Sash",
         ear1="Summoning earring",
         ear2="Andoaa earring",
@@ -77,7 +77,7 @@ function init_gear_sets()
         hands="Glyphic bracers",
         legs="Beckoner's spats",
         feet="Beckoner's pigaches",
-        neck="Melic Torque",
+        neck="Incanter's Torque",
         waist="Lucidity Sash",
         ear1="Summoning earring",
         ear2="Andoaa earring",
@@ -98,7 +98,7 @@ function init_gear_sets()
         hands="Glyphic bracers",-- I -5, skill +17
         legs="Beckoner's spats", -- skill +15
         feet="Glyphic pigaches +1",
-        neck="Melic Torque",
+        neck="Incanter's Torque",
         ring1="Stikini Ring",
         ring2="Evoker's ring",
         ear1="Evans Earring",--2

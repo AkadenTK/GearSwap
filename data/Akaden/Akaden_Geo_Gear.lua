@@ -101,7 +101,7 @@ function init_gear_sets()
 	sets.midcast.Geomancy = {
         main="Solstice",
         head="Azimuth hood +1",
-        neck="Melic Torque",
+        neck="Incanter's Torque",
         body="Bagua Tunic +1",
         hands="Geomancy Mitaines +1",
         back="Lifestream cape"
@@ -261,7 +261,7 @@ function init_gear_sets()
         back="Solemnity cape",
         ear1="Ethereal earring",
         ring1="Warden's ring",
-        ring2="Paguroidea Ring",
+        ring2="Sheltered Ring",
         legs="Assiduity Pants +1",
         feet="Azimuth gaiters +1"
     })

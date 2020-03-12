@@ -276,7 +276,7 @@ function init_gear_sets()
         ear1="Ethereal Earring",
         ear2="Halasz earring",
         ring1="Defending Ring",
-        ring2="Paguroidea Ring",
+        ring2="Sheltered Ring",
         back="Solemnity cape",
         waist="Fucho-no-obi",
         legs="Assiduity Pants +1",

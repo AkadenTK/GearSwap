@@ -300,7 +300,7 @@ function init_gear_sets()
     	body="Lugra Cloak +1",
     	hands="Sulev. Gauntlets +2",
 	    ring1="Defending Ring",
-	    ring2="Paguroidea ring",
+	    ring2="Sheltered Ring",
 	    waist="Flume Belt",
 	    legs="Sulev. Cuisses +2",
 	    feet="Sulev. Leggings +2",

@@ -17,7 +17,7 @@ function user_setup()
 
     state.LastRoll = 'unknown'
     ammostock = {}
-    ammostock['Chrono Bullet'] = 300
+    ammostock['Chrono Bullet'] = 100
     ammostock['Living Bullet'] = 30
 
     gear.RAbullet = "Chrono Bullet"
@@ -384,7 +384,7 @@ function init_gear_sets()
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
         ring1="Regal ring",
-        ring2="Rufescent Ring",
+        ring2="Epaminondas's ring",
         back=augmented_gear.capes.str_wsd,
         waist="Prosilio belt",
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -435,7 +435,7 @@ function init_gear_sets()
         ear1="Moonshade Earring",
         ear2="Ishvara Earring",
         ring1="Regal ring",
-        ring2= "Dingir Ring",
+        ring2="Epaminondas's ring",
         back=augmented_gear.capes.agi_wsd,
     }
 
@@ -495,7 +495,7 @@ function init_gear_sets()
 
     sets.precast.WS['Wildfire'] = set_combine(sets.precast.WS["Leaden Salute"], {
         head=augmented_gear.Herculean.WSD.MAB.head,
-        ring1="Acumen ring",
+        ring1="Epaminondas's ring",
         })
 
     sets.precast.WS['Wildfire'].Acc = set_combine(sets.precast.WS['Wildfire'], {})
@@ -541,7 +541,7 @@ function init_gear_sets()
         back=augmented_gear.capes.ra_stp,
         waist="Yemaya belt",
         --legs="Malignance tights",
-        legs="Adhemar kecks +1",
+        legs=augmented_gear.Adhemar.D.legs,
         feet="Malignance boots",
     }
 
@@ -599,7 +599,7 @@ function init_gear_sets()
         ear1="Ethereal Earring",
         ear2="Hearty Earring",
         ring1="Defending ring",
-        ring2="Paguroidea ring",
+        ring2="Sheltered Ring",
     })
 		
     sets.idle.Refresh = set_combine(sets.idle, {})

@@ -65,6 +65,7 @@ function init_gear_sets()
 	sets.precast.JA['Formless Strikes'] = {body="Hesychast's Cyclas +3"}
 	sets.precast.JA['Mantra'] = {feet="Hesychast's Gaiters +3"}
 	sets.precast.JA['Provoke'] = set_combine(sets.enmity, {})
+	sets.midcast['Flash'] = set_combine(sets.enmity, {})
 
 	sets.precast.JA['Chi Blast'] = {head="Hesychast's crown +3"}
 	
@@ -112,7 +113,7 @@ function init_gear_sets()
 	    ear2="Moonshade Earring",
 	    back=augmented_gear.capes.str_wsd,
 	    waist="Moonbow Belt +1",
-	    ring1="Regal Ring",
+    	ring1="Gere Ring",
 	    ring2="Niqmaddu Ring",
     	legs="Hiza. Hizayoroi +2",
 	    feet=augmented_gear.Herculean.WSD.STR.feet,
@@ -126,8 +127,11 @@ function init_gear_sets()
 	-- Specific weaponskill sets.
 
 	sets.precast.WS['Raging Fists']    = set_combine(sets.precast.WS, {
-    	hands=augmented_gear.Ryuo.STR.hands,
-    	neck="Caro Necklace",
+		head=augmented_gear.Adhemar.Atk.head,
+		body=augmented_gear.Adhemar.Atk.body,
+    	hands=augmented_gear.Adhemar.Atk.hands,
+    	ring1="Gere Ring",
+    	neck="Monk's Nodowa",
     	waist="Moonbow Belt +1",})
 	sets.precast.WS["Raging Fists"].Acc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSAcc)
 	sets.precast.WS["Raging Fists"].FullAcc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSFullAcc)
@@ -171,10 +175,11 @@ function init_gear_sets()
     	hands=augmented_gear.Ryuo.STR.hands,
     	body="Anchorite's Cyclas +3",
 	    legs="Hesychast's Hose +3",
-	    ear1="Odr Earring",
+	    ear1="Sherida Earring",
+	    ear2="Moonshade Earring",
 	    ring1="Gere Ring",
     	feet=augmented_gear.Herculean.CritDMG.STR.feet,
-    	neck="Monk's Nodowa +2",
+    	neck="Fotia Gorget",
 	    back=augmented_gear.capes.str_crit,})
 	sets.precast.WS["Victory Smite"].Impetus = {
 		body="Bhikku Cyclas +1",
@@ -265,7 +270,7 @@ function init_gear_sets()
 		body="Hesychast's Cyclas +3",
 		hands="Malignance Gloves",
 		ring1="Defending Ring",
-		ring2="Paguroidea ring",
+		ring2="Sheltered Ring",
 		legs="Malignance Tights",
 		feet="Herald's Gaiters",
 	    back=augmented_gear.capes.tp_da,
@@ -383,6 +388,13 @@ function init_gear_sets()
 	sets.buff.Sleep = {head="Frenzy Sallet"}
 	--sets.buff.Impetus = {body="Bhikku Cyclas +1"}
 	sets.buff.Footwork = {} -- feet="Shukuyu Sune-Ate"
+	sets.buff['Perfect Counter'] = {
+		head="Rao kabuto +1",
+		feet="Hesychast's gaiters +3",
+	} -- feet="Shukuyu Sune-Ate"
+	sets.buff['Boost'] ={
+		waist="Ask Sash",
+	}
 	
 	sets.FootworkWS = {feet="Shukuyu Sune-Ate"}
 	sets.DayIdle = {}
@@ -394,7 +406,7 @@ function init_gear_sets()
 	--sets.weapons.Godhands = {main="Jolt Counter"}
 	sets.weapons.Verethragna = {main="Verethragna"}
 	sets.weapons.JoltCounters = {main="Jolt Counter"}
-	sets.weapons.Staff = {main="Reikikon",sub="Niobid Strap"}
+	sets.weapons.Staff = {main="Malignance Pole",sub="Niobid Strap"}
 	sets.weapons.Barehanded = {main=empty}
 end
 
@@ -410,6 +422,9 @@ end
 function user_customize_melee_set(meleeSet)
     if buffactive.Impetus and meleeSet.Impetus then
 		meleeSet = set_combine(meleeSet, meleeSet.Impetus)
+    end
+    if buffactive['Perfect Counter'] and state.DefenseMode.value == 'None' then
+        meleeSet = set_combine(meleeSet, sets.buff['Perfect Counter'])
     end
 	
     return meleeSet

@@ -265,7 +265,7 @@ function init_gear_sets()
 	    ear1="Ethereal Earring",
 	    ear2="Gifted Earring",
 	    ring1="Defending Ring",
-	    ring2="Paguroidea Ring",
+	    ring2="Sheltered Ring",
 	    back="Solemnity Cape",
 	}
 

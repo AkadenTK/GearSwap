@@ -69,7 +69,7 @@ function init_gear_sets()
     	body="Malignance Tabard",
     	hands="Malignance gloves",
     	ring1="Defending ring",
-    	ring2="Ayanmo ring",
+    	ring2="Warden's ring",
     	back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
     	waist="Flume belt",		
     	legs="Volte Hose",
@@ -251,8 +251,8 @@ function init_gear_sets()
         ear2="Ishvara Earring",
         body="Assimilator's Jubbah +3",
         hands="jhakri cuffs +2",
-        ring2="Apate ring",
         ring1="Ifrit ring +1",
+        ring2="Epaminondas's ring",
         waist="Prosilio belt",
         back={ name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10',}},
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -272,8 +272,8 @@ function init_gear_sets()
         ear2="Ishvara Earring",
         body="Assimilator's Jubbah +3",
         hands="jhakri cuffs +2",
-        ring2="Apate ring",
-        ring1="Ifrit ring +1",
+        ring1="Rufescent ring",
+        ring2="Epaminondas's ring",
         waist="Prosilio belt",
         back={ name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10',}},
         legs=augmented_gear.Herculean.WSD.STR.legs,
@@ -364,14 +364,14 @@ function init_gear_sets()
 		ammo="Pemphredo Tathlum",
         head="Jhakri coronal +2",
         neck="Baetyl pendant",
-        body="Shamash Robe",
+        body="Amalric Doublet +1",
         ear1="Friomisi earring",
         ear2="Regal earring",
         hands="Jhakri cuffs +2",
         ring1="Acumen ring",
         ring2="Shiva Ring +1",
         waist="Eschan Stone",
-        legs="Jhakri Slops +2",
+        legs="Amalric Slops +1",
         feet="Jhakri pigaches +2",
     	back={ name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','System: 1 ID: 1155 Val: 4',}},
     }
@@ -380,7 +380,7 @@ function init_gear_sets()
         ammo="Pemphredo Tathlum",
         head="Assimilator's Keffiyeh +3",
         body="Shamash Robe",
-        neck="Erra pendant",
+        neck="Encanter's torque",
         hands="Jhakri cuffs +2",
         ear2="Regal earring",
         ear1="Dignitary's earring",
@@ -405,7 +405,7 @@ function init_gear_sets()
 
 	sets.midcast['Enhancing Magic'] = {}
 
-	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {})
+	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif +1", })
 
 	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {
 		waist="Emphatikos rope",})
@@ -502,7 +502,7 @@ function init_gear_sets()
 		hands="Hashishin Bazubands +1",
 	})
 
-	sets.midcast['Blue Magic']['Battery Charge'] = set_combine(sets.midcast['Blue Magic'].Buff, {})
+	sets.midcast['Blue Magic']['Battery Charge'] = set_combine(sets.midcast['Blue Magic'].Buff, {head="Amalric Coif +1", })
 
 	sets.midcast['Blue Magic']['Carcharian Verve'] = set_combine(sets.midcast['Blue Magic'].Buff, {})
 
@@ -618,7 +618,7 @@ function init_gear_sets()
         body="Shamash robe",
 		hands=augmented_gear.Herculean.Refresh.hands,
         ring1="Defending ring",
-        ring2="Paguroidea ring",
+        ring2="Sheltered Ring",
 		--legs=augmented_gear.Herculean.Refresh.legs,
 		legs="Carmine Cuisses +1",
         feet=augmented_gear.Herculean.Refresh.feet,

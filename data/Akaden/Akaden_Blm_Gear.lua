@@ -56,12 +56,12 @@ function init_gear_sets()
     sets.precast.FC = {
         ammo="Impatiens",
         head="Nahtirah hat",
-        body="Anhur Robe",
-        ring1="Kishar Ring",
-        ring2="Weatherspoon Ring",
-        waist="Witful Belt",
+        body="Merlinic jubbah",
         legs="Psycloth lappas",
-        feet="Amalric nails"
+        feet="Amalric nails +1",
+        left_ring="Kishar Ring",
+        right_ring="Weatherspoon Ring",
+        waist="Witful Belt",
     }
 		
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {})
@@ -81,36 +81,36 @@ function init_gear_sets()
 	sets.precast.FC.Impact = set_combine(sets.precast.FC, {head=empty,body="Twilight Cloak"})
 
 	--sets.precast.FC.Death = {main=gear.grioavolr_nuke_staff,sub="Niobid Strap",ammo="Impatiens",
-    --    head="Nahtirah Hat",neck="Voltsurge Torque",ear1="Enchanter Earring +1",ear2="Loquacious Earring",
-    --    body=gear.merlinic_nuke_body,hands="Helios Gloves",ring1="Mephitas's Ring +1",ring2="Lebeche Ring",
+    --    head="Nahtirah Hat",neck="Voltsurge Torque",left_ear="Enchanter Earring +1",right_ear="Loquacious Earring",
+    --    body=gear.merlinic_nuke_body,hands="Helios Gloves",left_ring="Mephitas's Ring +1",right_ring="Lebeche Ring",
     --    back="Perimede Cape",waist="Witful Belt",legs="Psycloth Lappas",feet="Regal Pumps +1"}
 		
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
     --sets.precast.WS = {ammo="Dosis Tathlum",
-	--	head="Hagondes Hat +1",neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Crematio Earring",
-	--	body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Shiva Ring +1",ring2="Shiva Ring +1",
+	--	head="Hagondes Hat +1",neck="Baetyl Pendant",left_ear="Friomisi Earring",right_ear="Crematio Earring",
+	--	body="Jhakri Robe +2",hands="Jhakri Cuffs +2",left_ring="Shiva Ring +1",right_ring="Shiva Ring +1",
 	--	back="Taranus's Cape",waist="Fotia Belt",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     --sets.precast.WS['Vidohunir'] = {ammo="Dosis Tathlum",
-	--	head="Hagondes Hat +1",neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Crematio Earring",
-	--	body="Zendik Robe",hands="Hagondes Cuffs +1",ring1="Shiva Ring +1",ring2="Shiva Ring +1",
+	--	head="Hagondes Hat +1",neck="Baetyl Pendant",left_ear="Friomisi Earring",right_ear="Crematio Earring",
+	--	body="Zendik Robe",hands="Hagondes Cuffs +1",left_ring="Shiva Ring +1",right_ring="Shiva Ring +1",
 	--	back="Taranus's Cape",waist="Fotia Belt",legs="Hagondes Pants +1",feet=gear.merlinic_nuke_feet}
 
     sets.precast.WS['Myrkr'] =  { -- LOOOTS of MP+
         ammo="Pemphredo Tathlum",
-        head="Nahtirah Hat",
+        head="Pixie Hairpin +1",
         neck="Sanctity necklace",
-        ear1="Gifted Earring",
-        ear2="Halasz Earring",
-        body="Amalric Doublet",
+        left_ear="Andoaa Earring",
+        right_ear="Halasz Earring",
+        body="Ea Houppelande",
         hands="Telchine gloves",
-        ring2="Sangoma ring",
+        right_ring="Sangoma ring",
         back="Tempered cape +1",
         waist="Fucho-no-obi",
         legs="Amalric Slops +1",
-        feet="Amalric Nails"
+        feet="Amalric Nails +1"
     }
     
     
@@ -122,7 +122,7 @@ function init_gear_sets()
         neck="Nodens gorget",
         body="Vanya robe",
         hands='Telchine gloves',
-        ear2="Mendicant's earring",
+        right_ear="Mendicant's earring",
         back="Solemnity cape",
         legs="Gyve trousers"
     }
@@ -152,18 +152,18 @@ function init_gear_sets()
         main="Lathi",
         sub="Enkei Strap",
         ammo="Pemphredo Tathlum",
-        head= augmented_gear.Merlinic.Accuracy.head,
+        head= "Cath Palug Crown",
         neck="Sanctity Necklace",
-        ear1="Barkarole earring",
-        ear2="Dignitary's earring",
-        body=augmented_gear.Merlinic.Accuracy.body,
-        hands="Amalric gages",
-        ring1="Sangoma Ring",
-        ring2="Stikini ring",
+        left_ear="Dignitary's earring",
+        right_ear="Malignance earring",
+        body="Amalric Doublet +1",
+        hands="Jhakri Cuffs +2",
+        left_ring="Stikini Ring",
+        right_ring="Stikini ring",
         back="Taranus's cape",
-        waist="Refoccilation Stone",
+        waist="Eschan Stone",
         legs=augmented_gear.Merlinic.Accuracy.legs,
-        feet=augmented_gear.Merlinic.Accuracy.feet
+        feet="Jhakri Pigaches +2",
     }
 		
     sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {})
@@ -189,9 +189,9 @@ function init_gear_sets()
 
     sets.midcast.Drain = set_combine(sets.midcast['Dark Magic'], {
         head="Pixie Hairpin +1",
-        ear1="Halasz earring",
-        ring1="Evanescence ring",
-        ring2="Excelsis Ring",
+        left_ear="Halasz earring",
+        left_ring="Evanescence ring",
+        right_ring="Excelsis Ring",
         waist="Fucho-no-obi",
         feet="Merlinic Crackows"
     })
@@ -212,29 +212,26 @@ function init_gear_sets()
         main="Lathi",
         sub="Niobid strap",
         ammo="Pemphredo Tathlum",
-        head=augmented_gear.Merlinic.Damage.head,
+        head="Cath Palug Crown",
         neck="Saevus pendant +1",
-        ear1="Barkarole earring",
-        ear2="Malignance Earring",
-        body=augmented_gear.Merlinic.Damage.body,
-        hands="Jhakri Cuffs +2",
-        ring1="Acumen Ring",
-        ring2="Strendu Ring",
+        left_ear="Barkarole earring",
+        right_ear="Malignance Earring",
+        body="Amalric doublet +1",
+        hands="Amalric gages +1",
+        left_ring="Freke Ring",
+        right_ring="Shiva Ring +1",
         back="Taranus's cape",
         waist="Refoccilation Stone",
-        legs=augmented_gear.Merlinic.Damage.legs,
-        feet="Jhakri Pigaches +2",
+        legs="Amalric Slops +1",
+        feet="Amalric Nails +1",
     }
 
     sets.midcast['Elemental Magic'].Resistant = set_combine(sets.midcast['Elemental Magic'], {
         sub="Enki Strap",
-        head=augmented_gear.Merlinic.Accuracy.head,
         neck="Baetyl pendant",
-        ear2="Dignitary's Earring",
-        body=augmented_gear.Merlinic.Accuracy.body,
-        ring1="Sangoma ring",
-        ring2="Stikini ring",
-        legs=augmented_gear.Merlinic.Accuracy.legs,
+        right_ear="Dignitary's Earring",
+        left_ring="Sangoma ring",
+        right_ring="Stikini ring",
     })
 		
     sets.midcast['Elemental Magic'].Fodder = set_combine(sets.midcast['Elemental Magic'], {})
@@ -247,18 +244,18 @@ function init_gear_sets()
 	sets.midcast.Helix.Resistant = set_combine(sets.midcast['Elemental Magic'].Resistant, {})
 		
 		-- Minimal damage gear, maximum recast gear for procs.
-    sets.midcast['Elemental Magic'].Proc = {main="Earth Staff",sub=empty,ranged=empty,ammo=empty,head=empty,neck=empty,ear1=empty,ear2=empty,body="Spaekona's Coat +2",hand=empty,ring1=empty,ring2=empty,back=empty,waist=empty,legs=empty,feet=empty,}
+    sets.midcast['Elemental Magic'].Proc = {main="Earth Staff",sub=empty,range=empty,ammo=empty,head=empty,neck=empty,left_ear=empty,right_ear=empty,body="Spaekona's Coat +2",hand=empty,left_ring=empty,right_ring=empty,back=empty,waist=empty,legs=empty,feet=empty,}
 
 		
 	sets.midcast.Impact = set_combine(sets.midcast['Elemental Magic'].Resistant, {head=empty, body="Twilight Cloak"})
 	
 	sets.midcast.Death = set_combine(sets.midcast['Elemental Magic'], {
             head="Pixie Hairpin +1",
-            ring1="Sangoma ring",
-            ring2="Mephitas's ring +1",
-            body="Amalric doublet",
+            left_ring="Sangoma ring",
+            right_ring="Mephitas's ring +1",
+            body="Amalric doublet +1",
             legs="Amalric Slops +1",
-            ear2="Dignitary's Earring"
+            right_ear="Dignitary's Earring"
     })
 	
     -- Sets to return to when not performing an action.
@@ -273,10 +270,10 @@ function init_gear_sets()
         body="Shamash Robe",
         neck="Loricate Torque +1",
         hands="Serpentes cuffs",
-        ear1="Ethereal Earring",
-        ear2="Halasz earring",
-        ring1="Defending Ring",
-        ring2="Sheltered Ring",
+        left_ear="Ethereal Earring",
+        right_ear="Halasz earring",
+        left_ring="Defending Ring",
+        right_ring="Sheltered Ring",
         back="Solemnity cape",
         waist="Fucho-no-obi",
         legs="Assiduity Pants +1",
@@ -324,26 +321,21 @@ function init_gear_sets()
 	-- Gear that converts elemental damage done to recover MP.	
 	sets.RecoverMP = {body="Spaekona's Coat +2"}
 	-- Gear for Magic Burst mode.
-    sets.MagicBurst = {
-        head=augmented_gear.Merlinic.Burst.head, 
+    sets.MagicBurst = set_combine(sets.midcast['Elemental Magic'], {
+        head="Ea Hat", 
+        body="Ea Houppelande",
         neck="Mizu. Kubikazari",
-        hands="Amalric Gages",
-        ring1="Mujin Band",
+        hands="Amalric Gages +1",
+        left_ring="Mujin Band",
         legs=augmented_gear.Merlinic.Burst.legs,
-        feet="Jhakri Pigaches +2"}
-	sets.RecoverBurst = {
-        head=augmented_gear.Merlinic.Burst.head,
-        neck="Mizu. Kubikazari",
-        body="Spaekona's Coat +2",
-        hands="Amalric Gages",
-        ring1="Mujin Band",
-        legs=augmented_gear.Merlinic.Burst.legs, 
-        feet=augmented_gear.Merlinic.Burst.feet}
+        feet="Jhakri Pigaches +2"})
+	sets.RecoverBurst = set_combine(sets.MagicBurst, {
+        body="Spaekona's Coat +2",})
 	
 	-- Gear for specific elemental nukes.
 	sets.element.Wind = {}
 	sets.element.Ice = {}
-	sets.element.Dark = {head="Pixie Hairpin +1",ring2="Archon Ring"}
+	sets.element.Dark = {head="Pixie Hairpin +1",right_ring="Archon Ring"}
 	sets.element.Earth = {neck="Quanpur Necklace"}
 
     -- Engaged sets
@@ -357,8 +349,8 @@ function init_gear_sets()
     sets.engaged = {}
 
 	--Situational sets: Gear that is equipped on certain targets
-	sets.Self_Healing = {neck="Phalaina Locket",ring1="Kunaji Ring",ring2="Asklepian Ring",waist="Gishdubar Sash"}
-	sets.Cure_Received = {neck="Phalaina Locket",ring1="Kunaji Ring",ring2="Asklepian Ring",waist="Gishdubar Sash"}
+	sets.Self_Healing = {neck="Phalaina Locket",left_ring="Kunaji Ring",right_ring="Asklepian Ring",waist="Gishdubar Sash"}
+	sets.Cure_Received = {neck="Phalaina Locket",left_ring="Kunaji Ring",right_ring="Asklepian Ring",waist="Gishdubar Sash"}
 	sets.Self_Refresh = {back="Grapevine Cape",waist="Gishdubar Sash",feet="Inspirited Boots"}
 		
 end

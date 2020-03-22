@@ -7,7 +7,7 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
 	state.IdleMode:options('Normal', 'PDT')
-	state.Weapons:options('Verethragna','JoltCounters','Staff','Barehanded','None')
+	state.Weapons:options('Verethragna','Godhands','JoltCounters','Staff','Barehanded','None')
 
 	state.AutoBoost = M(false, 'Auto Boost Mode')
 
@@ -49,9 +49,9 @@ function init_gear_sets()
 		legs=augmented_gear.Herculean.Phalanx.legs,
 		feet="Rager Ledelsens +1",
 		neck="Moonbeam Necklace",
-		ring1="Eihwaz ring",
-		ring2="Petrov Ring",
-		ear1="Friomisi Earring",
+		left_ring="Eihwaz ring",
+		right_ring="Petrov Ring",
+		left_ear="Friomisi Earring",
 		ammo="Sapience orb",
 	}
 	
@@ -92,8 +92,8 @@ function init_gear_sets()
 		neck="Baetyl Pendant",
 		body=augmented_gear.Adhemar.D.body,
 		hands="Leyline Gloves",
-		ring1="Lebeche Ring",
-		ring2="Weatherspoon Ring",
+		left_ring="Lebeche Ring",
+		right_ring="Weatherspoon Ring",
 		legs=augmented_gear.Herculean.FC.legs,
 		feet=augmented_gear.Herculean.FC.feet,
 	}
@@ -109,12 +109,12 @@ function init_gear_sets()
 		head="Hesychast's crown +3",
         body=augmented_gear.Herculean.WSD.STR.body,
         hands="Anchorite's gloves +3",
-	    ear1="Sherida Earring",
-	    ear2="Moonshade Earring",
+	    left_ear="Sherida Earring",
+	    right_ear="Moonshade Earring",
 	    back=augmented_gear.capes.str_wsd,
 	    waist="Moonbow Belt +1",
-    	ring1="Gere Ring",
-	    ring2="Niqmaddu Ring",
+    	left_ring="Gere Ring",
+	    right_ring="Niqmaddu Ring",
     	legs="Hiza. Hizayoroi +2",
 	    feet=augmented_gear.Herculean.WSD.STR.feet,
 
@@ -130,7 +130,7 @@ function init_gear_sets()
 		head=augmented_gear.Adhemar.Atk.head,
 		body=augmented_gear.Adhemar.Atk.body,
     	hands=augmented_gear.Adhemar.Atk.hands,
-    	ring1="Gere Ring",
+    	left_ring="Gere Ring",
     	neck="Monk's Nodowa",
     	waist="Moonbow Belt +1",})
 	sets.precast.WS["Raging Fists"].Acc = set_combine(sets.precast.WS["Raging Fists"], sets.precast.WSAcc)
@@ -151,9 +151,9 @@ function init_gear_sets()
         head=augmented_gear.Adhemar.Atk.head,
     	hands=augmented_gear.Ryuo.STR.hands,
 	    legs="Hesychast's Hose +3",
-	    ear1="Odr Earring",
+	    left_ear="Odr Earring",
     	neck="Caro Necklace",
-	    ring2="Begrudging Ring",
+	    right_ring="Begrudging Ring",
 	    back=augmented_gear.capes.str_crit,
 	})
 	sets.precast.WS['Ascetic\'s Fury'].Impetus = {
@@ -175,33 +175,33 @@ function init_gear_sets()
     	hands=augmented_gear.Ryuo.STR.hands,
     	body="Anchorite's Cyclas +3",
 	    legs="Hesychast's Hose +3",
-	    ear1="Sherida Earring",
-	    ear2="Moonshade Earring",
-	    ring1="Gere Ring",
+	    left_ear="Sherida Earring",
+	    right_ear="Moonshade Earring",
+	    left_ring="Gere Ring",
     	feet=augmented_gear.Herculean.CritDMG.STR.feet,
     	neck="Fotia Gorget",
 	    back=augmented_gear.capes.str_crit,})
 	sets.precast.WS["Victory Smite"].Impetus = {
 		body="Bhikku Cyclas +1",
-		ear2="Ishvara Earring",}
+		right_ear="Ishvara Earring",}
 	sets.precast.WS["Victory Smite"].Acc = set_combine(sets.precast.WS["Victory Smite"], {
-	    ring1="Regal Ring",
+	    left_ring="Regal Ring",
 		feet="Mummu Gamash. +2"})
 	sets.precast.WS["Victory Smite"].Acc.Impetus = {
 		body="Bhikku Cyclas +1",
-		ear2="Ishvara Earring",}
+		right_ear="Ishvara Earring",}
 	sets.precast.WS["Victory Smite"].FullAcc = set_combine(sets.precast.WS["Victory Smite"].Acc, {
 		head="Mummu Bonnet +2"})
 	sets.precast.WS["Victory Smite"].FullAcc.Impetus = {
 		body="Bhikku Cyclas +1",
-		ear2="Ishvara Earring",}
+		right_ear="Ishvara Earring",}
 
 
 	sets.precast.WS['Shijin Spiral']   = set_combine(sets.precast.WS, {
         head=augmented_gear.Adhemar.Atk.head,
 		neck="Monk's Nodowa +2",
 	    legs="Hesychast's Hose +3",
-		ear2='Odr earring',
+		right_ear='Odr earring',
 	    back=augmented_gear.capes.dex_da,
 	})
 	sets.precast.WS["Shijin Spiral"].Acc = set_combine(sets.precast.WS["Shijin Spiral"], sets.precast.WSAcc)
@@ -235,16 +235,16 @@ function init_gear_sets()
     	feet=augmented_gear.Herculean.WSD.MAB.feet,
 	    neck="Baetyl Pendant",
 	    waist="Eschan Stone",
-	    ear1="Moonshade Earring",
-	    ear2="Friomisi Earring",
-	    ring1="Archon Ring",
-	    ring2="Acumen Ring",
+	    left_ear="Moonshade Earring",
+	    right_ear="Friomisi Earring",
+	    left_ring="Archon Ring",
+	    right_ring="Acumen Ring",
 	    back=augmented_gear.capes.str_wsd,
 	}
 	
 	-- Swap to these on Moonshade using WS if at 3000 TP
-	sets.MaxTP = {ear1="Brutal Earring",ear2="Sherida Earring",}
-	sets.AccMaxTP = {ear1="Zennaroi Earring",ear2="Telos Earring"}
+	sets.MaxTP = {left_ear="Brutal Earring",right_ear="Sherida Earring",}
+	sets.AccMaxTP = {left_ear="Zennaroi Earring",right_ear="Telos Earring"}
 	
 	-- Midcast Sets
 	sets.midcast.FastRecast = set_combine(sets.precast.FC, {})
@@ -257,20 +257,20 @@ function init_gear_sets()
 	-- Resting sets
 	sets.resting = {}
 
-	sets.Cure_Received = {neck="Phalaina Locket",ring2="Kunaji Ring",waist="Gishdubar Sash"}
+	sets.Cure_Received = {neck="Phalaina Locket",right_ring="Kunaji Ring",waist="Gishdubar Sash"}
 	
 
 	-- Idle sets
 	sets.idle = {
 		ammo="Staunch Tathlum +1",
 		neck="Loricate Torque +1",
-		ear1="Odnowa earring +1",
-		ear2="Hearty Earring",
+		left_ear="Odnowa earring +1",
+		right_ear="Hearty Earring",
 		head="Malignance Chapeau",
 		body="Hesychast's Cyclas +3",
 		hands="Malignance Gloves",
-		ring1="Defending Ring",
-		ring2="Sheltered Ring",
+		left_ring="Defending Ring",
+		right_ring="Sheltered Ring",
 		legs="Malignance Tights",
 		feet="Herald's Gaiters",
 	    back=augmented_gear.capes.tp_da,
@@ -327,10 +327,10 @@ function init_gear_sets()
     	feet="Anchorite's Gaiters +3",
 	    neck="Monk's Nodowa +2",
 	    waist="Moonbow Belt +1",
-	    ear1="Sherida Earring",
-	    ear2="Telos Earring",
-	    ring1="Gere Ring",
-	    ring2="Niqmaddu Ring",
+	    left_ear="Sherida Earring",
+	    right_ear="Telos Earring",
+	    left_ring="Gere Ring",
+	    right_ring="Niqmaddu Ring",
 	    back=augmented_gear.capes.tp_da,}
 	sets.engaged.Impetus = {body="Bhikku Cyclas +1"}
 	sets.engaged.Reikikon = set_combine(sets.engaged, {
@@ -347,8 +347,8 @@ function init_gear_sets()
 	sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
 	    ammo="Falcon Eye",
 	    body="Malignance Tabard",
-	    ear1="Odr earring",
-	    ring1="Regal Ring",
+	    left_ear="Odr earring",
+	    left_ring="Regal Ring",
 	})
 	sets.engaged.FullAcc.Impetus = {body="Bhikku Cyclas +1"}
 
@@ -356,15 +356,15 @@ function init_gear_sets()
 	sets.engaged.DTLite = set_combine(sets.engaged, {
 		head="Malignance Chapeau",
 		hands="Malignance Gloves",
-		ring1="Defending Ring",
-		neck="Loricate Torque +1",
+		left_ring="Defending Ring",
 		ammo="Staunch Tathlum +1",
 	})
+	sets.engaged.DTLite.Impetus = {body="Bhikku Cyclas +1"}
 	sets.engaged.CounterHybrid = set_combine(sets.engaged, sets.counter, {
 		head="Malignance Chapeau",
 		feet="Malignance boots",
 		neck="Loricate Torque +1",
-		ring1="Defending Ring",
+		left_ring="Defending Ring",
 		ammo="Staunch Tathlum +1",
 	})
 	--sets.engaged.Acc.PDT = {}
@@ -384,7 +384,7 @@ function init_gear_sets()
 	sets.engaged.Acc.HF = set_combine(sets.engaged.Acc, {})
 	sets.engaged.FullAcc.HF = set_combine(sets.engaged.FullAcc, {})
 
-	sets.buff.Doom = set_combine(sets.buff.Doom, {ring2="Saida Ring"})
+	sets.buff.Doom = set_combine(sets.buff.Doom, {right_ring="Saida Ring"})
 	sets.buff.Sleep = {head="Frenzy Sallet"}
 	--sets.buff.Impetus = {body="Bhikku Cyclas +1"}
 	sets.buff.Footwork = {} -- feet="Shukuyu Sune-Ate"
@@ -403,7 +403,7 @@ function init_gear_sets()
 	sets.Skillchain = {}
 	
 	-- Weapons sets
-	--sets.weapons.Godhands = {main="Jolt Counter"}
+	sets.weapons.Godhands = {main="Godhands"}
 	sets.weapons.Verethragna = {main="Verethragna"}
 	sets.weapons.JoltCounters = {main="Jolt Counter"}
 	sets.weapons.Staff = {main="Malignance Pole",sub="Niobid Strap"}

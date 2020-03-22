@@ -163,7 +163,7 @@ function init_gear_sets()
         body="Amalric Doublet +1",
         hands="Jhakri Cuffs +2",
         legs="Amalric Slops +1",
-        feet="Vitiation Boots +3",
+        feet="Amalric Nails +1",
         neck="Baetyl Pendant",
         waist="Orpheus's sash",
         left_ear="Regal Earring",
@@ -173,8 +173,8 @@ function init_gear_sets()
         back=augmented_gear.capes.mnd_wsd,
     }
     sets.precast.WS['Sanguine Blade'].Accuracy = set_combine(sets.precast.WS['Sanguine Blade'], {
-        body=augmented_gear.Merlinic.Damage.body,
         legs=augmented_gear.Merlinic.Damage.legs,
+        feet="Vitiation Boots +3",
     })
 
         
@@ -250,20 +250,6 @@ function init_gear_sets()
 
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1",waist="Chaac Belt",legs="Volte Hose",feet="Volte Boots"})
 	
-	-- Gear that converts elemental damage done to recover MP.	
-	sets.RecoverMP = {body="Seidr Cotehardie"}
-	
-	-- Gear for Magic Burst mode.
-    sets.MagicBurst = {
-        head="Ea Hat",
-        body="Ea Houppelande",
-        neck="Mizu. Kubikazari",
-        hands="Amalric Gages",
-        ring1="Mujin Band",
-        legs=augmented_gear.Merlinic.Burst.legs,
-        feet="Jhakri Pigaches +2"
-    }
-	sets.RecoverBurst = set_combine(sets.MagicBurst, {})
 	
 	-- Gear for specific elemental nukes.
 	sets.element.Wind = {}
@@ -346,8 +332,8 @@ function init_gear_sets()
 	sets.midcast.BarElement = set_combine(sets.enhancing_skill, {})
     sets.midcast.Stoneskin = set_combine(sets.enhancing_skill, {neck="Nodens Gorget",waist="Siegel Sash"})
 	sets.midcast.BoostStat = set_combine(sets.enhancing_skill, {})
-	sets.midcast.Protect = {ring2="Sheltered Ring"}
-	sets.midcast.Shell = {ring2="Sheltered Ring"}
+	sets.midcast.Protect = {right_ring="Sheltered Ring"}
+	sets.midcast.Shell = {right_ring="Sheltered Ring"}
     sets.midcast.Temper = set_combine(sets.enhancing_skill, {})
     sets.midcast["Temper II"] = sets.midcast.Temper
 	
@@ -373,7 +359,7 @@ function init_gear_sets()
 
 		
 	sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {
-        ranged="Ullr",
+        range="Ullr",
         ammo=nil,
         body=augmented_gear.Merlinic.Accuracy.body,
     })
@@ -411,6 +397,21 @@ function init_gear_sets()
 
 	sets.midcast['Slow II'] = set_combine(sets.midcast['Enfeebling Magic'], {head="Viti. Chapeau +3"})
 	sets.midcast['Slow II'].Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {head="Viti. Chapeau +3"})
+
+    -- Gear that converts elemental damage done to recover MP.  
+    sets.RecoverMP = {body="Seidr Cotehardie"}
+    
+    -- Gear for Magic Burst mode.
+    sets.MagicBurst = {
+        head="Ea Hat",
+        body="Ea Houppelande",
+        neck="Mizu. Kubikazari",
+        hands="Amalric Gages +1",
+        right_ring="Mujin Band",
+        legs=augmented_gear.Merlinic.Burst.legs,
+        feet="Jhakri Pigaches +2"
+    }
+    sets.RecoverBurst = set_combine(sets.MagicBurst, {})
 	
     sets.midcast['Elemental Magic'] = {
         main="Maxentius",
@@ -418,9 +419,9 @@ function init_gear_sets()
         ammo="Pemphredo Tathlum",
         head="Cath palug crown",
         body="Amalric Doublet +1",
-        hands="Jhakri Cuffs +2",
+        hands="Amalric Gages +1",
         legs="Amalric Slops +1",
-        feet="Vitiation Boots +3",
+        feet="Amalric Nails +1",
         neck="Baetyl Pendant",
         waist="Refoccilation Stone",
         left_ear="Regal Earring",
@@ -431,9 +432,7 @@ function init_gear_sets()
     }
 		
     sets.midcast['Elemental Magic'].Resistant = set_combine(sets.midcast['Elemental Magic'], {
-        body=augmented_gear.Merlinic.Damage.body,
-        legs=augmented_gear.Merlinic.Damage.legs,
-        feet="Jhakri Pigaches +2",
+        feet="Vitiation Boots +3",
         left_ear="Heretic Earring",
         left_ring="Stikini ring",
     })
@@ -603,11 +602,11 @@ function init_gear_sets()
     sets.weapons.NaeglingThibron = {main="Naegling", sub="Thibron", }
     sets.weapons.NaeglingTernion = {main="Naegling", sub="Ternion Dagger +1", }
     sets.weapons.NaeglingTauret = {main="Naegling", sub="Tauret", }
-    sets.weapons.NaeglingUllr = {main="Naegling", sub="Tauret", ranged="Ullr", ammo="Demon Arrow"}
-    sets.weapons.Domain = {main="Naegling", sub="Daybreak", ranged="Ullr", ammo="Demon Arrow"}
-    sets.weapons.TauretThibron = {main="Tauret", sub="Thibron", ranged="Ullr", ammo="Demon Arrow"}
+    sets.weapons.NaeglingUllr = {main="Naegling", sub="Tauret", range="Ullr", ammo="Demon Arrow"}
+    sets.weapons.Domain = {main="Naegling", sub="Daybreak", range="Ullr", ammo="Demon Arrow"}
+    sets.weapons.TauretThibron = {main="Tauret", sub="Thibron", range="Ullr", ammo="Demon Arrow"}
     sets.weapons.TauretTernion = {main="Tauret", sub="Ternion Dagger +1"}
-    sets.weapons.Odin = {main='Ceremonial Dagger',sub="Ceremonial Dagger", ranged="Ullr", ammo="Demon Arrow"}
+    sets.weapons.Odin = {main='Ceremonial Dagger',sub="Ceremonial Dagger", range="Ullr", ammo="Demon Arrow"}
     sets.weapons.Nuking = {main='Maxentius',sub="Daybreak"}
     sets.weapons.NukingShield = {main='Daybreak',sub="Culminus"}
 
@@ -632,6 +631,7 @@ function user_job_precast(spell, spellMap, eventArgs)
         smartcure_target(spell.target.name)     
     end
     state.smartcure = false
+
 end
 
 function user_job_aftercast(spell, spellMap, eventArgs)

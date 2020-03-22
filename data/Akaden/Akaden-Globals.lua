@@ -74,10 +74,10 @@ send_command('bind @m gs c mount Tulfaire') --Bird is the word.
 
 --Warp ring binds.
 --send_command('bind ^@!h get "Warp Ring" satchel')
---send_command('bind ^h gs c forceequip Warp ring2')
+--send_command('bind ^h gs c forceequip Warp right_ring')
 --send_command('bind !h input /item "Warp Ring" <me>')
---send_command('bind ^!h gs c quietenable ring2;put "Warp Ring" satchel')
-send_command('bind ^h gs c forceequip Warp ring2;wait 9; input /item "Warp Ring" <me>;wait 5;gs enable ring2;')
+--send_command('bind ^!h gs c quietenable right_ring;put "Warp Ring" satchel')
+send_command('bind ^h gs c forceequip Warp right_ring;wait 9; input /item "Warp Ring" <me>;wait 5;gs enable right_ring;')
 
 --Nexus Cape binds.
 send_command('bind ^@!n get "Nexus Cape" satchel')
@@ -87,27 +87,27 @@ send_command('bind ^!n gs c quietenable back;put "Nexus Cape" satchel')
 
 --Dimensional Ring (Holla) binds.
 --send_command('bind ^@!, get "Dim. Ring (Holla)" satchel')
---send_command('bind ^, gs c forceequip HollaRing ring2')
+--send_command('bind ^, gs c forceequip HollaRing right_ring')
 --send_command('bind !, input /item "Dim. Ring (Holla)" <me>')
---send_command('bind ^!, gs c quietenable ring2;put "Dim. Ring (Holla)" satchel')
+--send_command('bind ^!, gs c quietenable right_ring;put "Dim. Ring (Holla)" satchel')
 --
 ----Dimensional Ring (Dem) binds.
 --send_command('bind ^@!. get "Dim. Ring (Dem)" satchel')
---send_command('bind ^. gs c forceequip DemRing ring2')
+--send_command('bind ^. gs c forceequip DemRing right_ring')
 --send_command('bind !. input /item "Dim. Ring (Dem)" <me>')
---send_command('bind ^!. gs c quietenable ring2;put "Dim. Ring (Dem)" satchel')
+--send_command('bind ^!. gs c quietenable right_ring;put "Dim. Ring (Dem)" satchel')
 --
 ----Dimensional Ring (Mea) binds.
 --send_command('bind ^@!/ get "Dim. Ring (Mea)" satchel')
---send_command('bind ^/ gs c forceequip MeaRing ring2')
+--send_command('bind ^/ gs c forceequip MeaRing right_ring')
 --send_command('bind !/ input /item "Dim. Ring (Mea)" <me>')
---send_command('bind ^!/ gs c quietenable ring2;put "Dim. Ring (Mea)" satchel')
+--send_command('bind ^!/ gs c quietenable right_ring;put "Dim. Ring (Mea)" satchel')
 
 --Reraise Earring binds.
 send_command('bind ^@!u get "Reraise Earring" satchel')
-send_command('bind ^u gs c forceequip RREar ear2')
+send_command('bind ^u gs c forceequip RREar right_ear')
 send_command('bind !u input /item "Reraise Earring" <me>')
-send_command('bind ^!u gs c quietenable ear2;put "Reraise Earring" satchel')
+send_command('bind ^!u gs c quietenable right_ear;put "Reraise Earring" satchel')
 
 --Capacity item binds.
 send_command('bind ^@!z get "Mecisto. Mantle" satchel;get "Capacity Ring" satchel;wait 1;get "Trizek Ring" satchel;wait 1;get "Vocation Ring" satchel;wait 1;get "Facility Ring" satchel')

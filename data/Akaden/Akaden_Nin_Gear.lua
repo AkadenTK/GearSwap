@@ -60,7 +60,7 @@ function init_gear_sets()
         body="Samnuha coat",
         hands="Leyline gloves",
         legs="Gyve trousers",
-        feet="Amalric nails"
+        feet="Amalric nails +1"
     }
 		
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads",body="Passion Jacket",feet="Hattori Kyahan +1"})
@@ -79,12 +79,12 @@ function init_gear_sets()
         ammo="Ginsen",
         head=augmented_gear.Adhemar.Atk.head,
         neck="Asperity Necklace",
-        ear1='Suppanomimi',
-        ear2="Brutal Earring",
+        left_ear='Suppanomimi',
+        right_ear="Brutal Earring",
         body=augmented_gear.Adhemar.Atk.body,
         hands=augmented_gear.Adhemar.Atk.hands,
-        ring1="Ilabrat ring",
-        ring2="Epona's ring",
+        left_ring="Ilabrat ring",
+        right_ring="Epona's ring",
         back="Atheling Mantle",
         waist="Windbuffet belt +1",
         legs="Samnuha tights",

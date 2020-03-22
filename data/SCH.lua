@@ -710,6 +710,7 @@ function handle_elemental(cmdParams)
 			add_to_chat(123,'Immanence not active, wait for stratagem cooldown. - Activating Immanence.')
 			windower.chat.input('/ja "Immanence" <me>')
 		else
+            local prevCasting = state.CastingMode.value
 			state.CastingMode:set('Proc')
 			if state.DisplayMode.value then update_job_states()	end
 			windower.chat.input('/p Starting 6-Step '..auto_translate('Skillchain')..' -<t>-')
@@ -724,6 +725,7 @@ function handle_elemental(cmdParams)
 			windower.chat.input:schedule(22.4,'/ma "Fire" <t>')
 			windower.chat.input:schedule(26.7,'/ja "Immanence" <me>')
 			windower.chat.input:schedule(28,'/ma "Thunder" <t>')
+            windower.send_command:schedule(30, 'gs c set CastingMode '..prevCasting)
 		end
 	
 	elseif command == 'wsskillchain' then

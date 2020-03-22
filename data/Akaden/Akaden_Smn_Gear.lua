@@ -22,17 +22,18 @@ function init_gear_sets()
     include('organizer-lib')
     sets.Capacity = {back="Aptitude Mantle"}
     staves = {
-        magicbp = "Grioavolr",
+        magicbp = { name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: INT+11','Pet: Mag. Acc.+17','Pet: "Mag.Atk.Bns."+24','DMG:+22',}},
         magicaccbp = "Grioavolr",
         physicalbp = "Gridarvor",
         smnskill = "Espiritus",
         perp = "Gridarvor",
-        refresh = "Bolelabunga"
+        refresh = "Daybreak",
+        fc = "Grioavolr",
     }
 
     --[#2 Augmented Items & JSE Cape ]--
     augmented_gear.capes = {
-        magic = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','"Fast Cast"+10',}},
+        magic= { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Pet: Magic Damage+10',}},
         atk = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: Attack+10 Pet: Rng.Atk.+10',}},
         --atk = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Accuracy+20 Attack+20','Accuracy+10','Pet: Haste+10',}},
         idle = { name="Campestres's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10',}},
@@ -45,15 +46,15 @@ function init_gear_sets()
         ammo="Sancus Sachet",
         head="Convoker's Horn +1",
         body="Beckoner's doublet",
-        hands="Glyphic bracers",
-        legs="Beckoner's spats",
+        hands="Glyphic Bracers +1",
+        legs="Beckoner's Spats +1",
         feet=augmented_gear.Apogee.Magic.feet,
         neck="Incanter's Torque",
         waist="Lucidity Sash",
-        ear1="Summoning earring",
-        ear2="Andoaa earring",
-        ring1="Globidonta Ring",
-        ring2="Evoker's ring",
+        left_ear="Summoning earring",
+        right_ear="Andoaa earring",
+        left_ring="Stikini Ring",
+        right_ring="Evoker's ring",
         back="Conveyance Cape"
         --ammo="Seraphicaller",
         --head="Convoker's Horn +2",
@@ -74,53 +75,48 @@ function init_gear_sets()
         ammo="Esper Stone +1",
         head="Convoker's Horn +1",
         body="Beckoner's doublet",
-        hands="Glyphic bracers",
-        legs="Beckoner's spats",
+        hands="Glyphic Bracers +1",
+        legs="Beckoner's Spats +1",
         feet="Beckoner's pigaches",
         neck="Incanter's Torque",
         waist="Lucidity Sash",
-        ear1="Summoning earring",
-        ear2="Andoaa earring",
-        ring1="Zodiac Ring",--use on all but light or darks day
-        ring2="Evoker's Ring",
+        left_ear="Summoning earring",
+        right_ear="Andoaa earring",
+        left_ring="Zodiac Ring",--use on all but light or darks day
+        right_ring="Evoker's Ring",
         back="Conveyance Cape"
     }
 
     sets.precast.JA['Mana Cede'] = {hands="Caller's Bracers +2"}
 
     -- Pact delay reduction gear
-    sets.precast.BloodPactWard = { --I just stack it all because when I do salvage or a gear slot is locked by a NM it's nice
+    sets.precast.BloodPactWard = set_combine(sets.smnskill, { --I just stack it all because when I do salvage or a gear slot is locked by a NM it's nice
         main=staves.smnskill, -- II -2
-        sub="Vox Grip",
         ammo="Sancus Sachet", -- II -5
         head="Beckoner's horn +1",-- Favor +3, skill +13
         body="Convoker's Doublet +3", -- I -15, skill +17
-        hands="Glyphic bracers",-- I -5, skill +17
-        legs="Beckoner's spats", -- skill +15
-        feet="Glyphic pigaches +1",
-        neck="Incanter's Torque",
-        ring1="Stikini Ring",
-        ring2="Evoker's ring",
-        ear1="Evans Earring",--2
-        ear2="Andoaa earring",
+        hands="Glyphic Bracers +1",-- I -5, skill +17
         back="Conveyance Cape" --II -3
-    }
+    })
 
     sets.precast.BloodPactRage = set_combine(sets.precast.BloodPactWard, {})
 
     -- Fast cast sets for spells
     
     sets.precast.FC = {
-        main=staves.fc,--9
+        main=staves.fc,--4
         sub="Vivid Strap",--1
-        head="Merlinic Hood",
-        hands="Amalric gages",
-        body="Merlinic Jubbah", --13
-        ring1={name="Mephitas's Ring +1",priority=3},
-        ring2={name="Mephitas's Ring",priority=3},
-        waist="Channeler's stone", --3
+        ammo="Impatiens",
+        head="Cath Palug Crown", -- 8
+        hands="Amalric gages +1",
+        body="Merlinic Jubbah", -- 6
+        right_ear="Malignance Earring", --4
+        left_ring={name="Mephitas's Ring +1",priority=3},
+        right_ring="Weatherspoon ring",  -- 5
+        neck="Baetyl Pendant", -- 4
+        waist="Embla Sash", --5
         legs="Psycloth Lappas", --7
-        feet="Amalric Nails",
+        feet="Amalric Nails +1",
         back=augmented_gear.capes.fc,--10
     }
 
@@ -149,12 +145,12 @@ function init_gear_sets()
         feet=augmented_gear.Apogee.Magic.feet,
         neck="Sanctity Necklace",
         waist="Shinjutsu-no-Obi +1",
-        ear1="Etiolation Earring",
-        ear2=moonshade,
-        ring1={name="Mephitas's Ring +1",priority=3},
-        ring2={name="Mephitas's Ring",priority=3},
+        left_ear="Etiolation Earring",
+        right_ear=moonshade,
+        left_ring={name="Mephitas's Ring +1",priority=3},
+        right_ring={name="Mephitas's Ring",priority=3},
         back="Conveyance Cape"
-        --ear1="Evans Earring",
+        --left_ear="Evans Earring",
         --ammo="Seraphicaller",
     }
 
@@ -171,17 +167,17 @@ function init_gear_sets()
         body="Vanya robe",
         hands="Telchine gloves",
         legs="Gyve trousers",
-        ear1="Mendicant's earring",--5%
+        left_ear="Mendicant's earring",--5%
         neck="Nodens Gorget",--5%
         waist="Witful Belt",
         back="Solemnity Cape",
-        --ring2="Sirona's Ring",
+        --right_ring="Sirona's Ring",
         --back="Thaumaturge's Cape",
     }
 		
-	sets.Self_Healing = {neck="Phalaina Locket",ring1="Kunaji Ring",ring2="Asklepian Ring",waist="Gishdubar Sash"}
-	sets.Cure_Received = {neck="Phalaina Locket",ring1="Kunaji Ring",ring2="Asklepian Ring",waist="Gishdubar Sash"}
-	sets.Self_Refresh = {back="Grapevine Cape",waist="Gishdubar Sash",feet="Inspirited Boots"}
+	sets.Self_Healing = {neck="Phalaina Locket",left_ring="Kunaji Ring",right_ring="Asklepian Ring",waist="Gishdubar Sash"}
+	sets.Cure_Received = {neck="Phalaina Locket",left_ring="Kunaji Ring",right_ring="Asklepian Ring",waist="Gishdubar Sash"}
+	sets.Self_Refresh = {head="Amalric Coif +1",back="Grapevine Cape",waist="Gishdubar Sash",feet="Inspirited Boots"}
 		
 	sets.midcast.Cursna =  set_combine(sets.midcast.Cure, {})
 		
@@ -220,7 +216,7 @@ function init_gear_sets()
 		
     sets.midcast['Enhancing Magic'] = {head="Telchine Cap",body="Telchine Chasuble",hands="Telchine Gloves",legs="Telchine Braconi",feet="Telchine Pigaches"}
 		
-	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {})
+	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif +1",})
 	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {})
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {})
 	sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {})
@@ -247,13 +243,13 @@ function init_gear_sets()
         neck="Shulmanu collar",
         --waist="Mujin Obi",
         waist="Regal Belt",
-        ear1="Gelos Earring",
-        ear2="Lugalbanda earring",
-        ring1={name="Varar Ring",priority=3},
-        ring2={name="Varar Ring",priority=3},
+        left_ear="Gelos Earring",
+        right_ear="Lugalbanda earring",
+        left_ring={name="Varar Ring",priority=3},
+        right_ring={name="Varar Ring",priority=3},
         back=augmented_gear.capes.atk,
         --back="Conveyance Cape",
-        --ring2="Evoker's ring",
+        --right_ring="Evoker's ring",
         --ammo="Seraphicaller",
     }
 		
@@ -262,7 +258,7 @@ function init_gear_sets()
     sets.midcast.Pet.MagicalBloodPactRage = {
         main=magbpstaff,
         sub="Elan Strap",
-        head=augmented_gear.Apogee.Magic.head,
+        head="Cath Palug Crown",
         hands=augmented_gear.Merlinic.Pet.MAB.hands,
         body="Convoker's Doublet +3",
         legs=augmented_gear.Apogee.Magic.legs,
@@ -273,10 +269,10 @@ function init_gear_sets()
         --neck="Deino Collar",
         neck="Adad Amulet",
         waist="Regal Belt",
-        ear1="Gelos Earring",
-        ear2="Lugalbanda earring",
-        ring1="Varar Ring",
-        ring2="Varar Ring",
+        left_ear="Gelos Earring",
+        right_ear="Lugalbanda earring",
+        left_ring="Varar Ring",
+        right_ring="Varar Ring",
         back=augmented_gear.capes.magic,
     }
 
@@ -314,16 +310,16 @@ function init_gear_sets()
         sub="Genbu's shield",
         ammo="Sancus Sachet",
         head="Convoker's Horn +1",
-        body="Amalric Doublet",
+        body="Amalric Doublet +1",
         hands="Serpentes cuffs",
         legs="Assiduity pants +1",
         feet="Serpentese Sabots",
         neck="Loricate Torque +1",
         waist="Fucho-no-obi",
-        ear1="Ethereal Earring",
-        ear2="Halasz earring",
-        ring1={name="Mephitas's Ring +1",priority=4},
-        ring2="Defending Ring",
+        left_ear="Ethereal Earring",
+        right_ear="Halasz earring",
+        left_ring={name="Mephitas's Ring +1",priority=4},
+        right_ring="Defending Ring",
         back="Conveyance Cape",
     }
 
@@ -356,7 +352,7 @@ function init_gear_sets()
         main=staves.perp,
         sub="Vox Grip",
         head="Beckoner's horn +1",
-        body="Amalric doublet",
+        body="Amalric doublet +1",
         --hands="Asteria Mitts +1",
         hands="Serpentes cuffs",
         legs="Assiduity pants +1",
@@ -364,8 +360,8 @@ function init_gear_sets()
         neck="Caller's Pendant",
         ammo="Sancus Sachet",
         waist="Lucidity sash",
-        ring1={name="Mephitas's Ring +1",priority=3},
-        ring2="Evoker's ring"
+        left_ring={name="Mephitas's Ring +1",priority=3},
+        right_ring="Evoker's ring"
     }
 		
     sets.idle.PDT.Avatar = set_combine(sets.idle.Avatar, {})

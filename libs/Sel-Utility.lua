@@ -207,17 +207,22 @@ waltz_tp_cost = {['Curing Waltz'] = 200, ['Curing Waltz II'] = 350, ['Curing Wal
 -- Utility function for automatically adjusting the waltz spell being used to match HP needs and TP limits.
 -- Handle spell changes before attempting any precast stuff.
 function refine_waltz(spell, spellMap, eventArgs)
-    if not state.RefineWaltz.value or spell.type ~= 'Waltz' then
-        return
-	elseif player.tp < 150 then
+    if not state.RefineWaltz.value or spell.type ~= 'Waltz' then return false end
+	
+	local effective_tp = player.tp
+	if state.DefenseMode.value == 'None' and uses_waltz_legs then
+		effective_tp = player.tp + 50
+	end
+	
+	if effective_tp < 200 then
 		add_to_chat(123, 'Abort: Insufficient TP ['..tostring(player.tp)..'] to waltz.')
 		eventArgs.cancel = true
-		return
+		return true
     end
 
     -- Don't modify anything for Healing Waltz or Divine Waltzes
     if spell.english == "Healing Waltz" or spell.english == "Divine Waltz" or spell.english == "Divine Waltz II" then
-        return
+        return false
     end
 
     local newWaltz = spell.english
@@ -238,123 +243,118 @@ function refine_waltz(spell, spellMap, eventArgs)
 			missingHP = missingHP / 2
 		end
     end
-    
+
     -- If we have an estimated missing HP value, we can adjust the preferred tier used.
-    if missingHP ~= nil then
-		local abil_recasts = windower.ffxi.get_ability_recasts()
-        if player.main_job == 'DNC' then
-            if missingHP < 40 and spell.target.name == player.name then
-                -- Not worth curing yourself for so little.
-                -- Don't block when curing others to allow for waking them up.
-                add_to_chat(123,'Abort: You have full HP!')
-                eventArgs.cancel = true
-                return
-            elseif missingHP < 200 then
-				if abil_recasts[217] < latency then
-					newWaltz = 'Curing Waltz'
-					waltzID = 190
-				elseif abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				end
-            elseif missingHP < 600 then
-				if abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				elseif abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				elseif abil_recasts[217] < latency then
-					newWaltz = 'Curing Waltz'
-					waltzID = 190
-				end
-            elseif missingHP < 1100 then
-				if abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				elseif abil_recasts[188] < latency then	
-					newWaltz = 'Curing Waltz IV'
-					waltzID = 193
-				elseif abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				end
-			elseif state.AutoContradanceMode.value and abil_recasts[229] < latency then
-                eventArgs.cancel = true
-				windower.chat.input('/ja "Contradance" <me>')
-				windower.chat.input:schedule(.5,'/ja "Curing Waltz III" '..spell.target.raw..'')
-                return
-            elseif missingHP < 1500 then
-				if abil_recasts[188] < latency then	
-					newWaltz = 'Curing Waltz IV'
-					waltzID = 193
-				elseif abil_recasts[189] < latency then	
-					newWaltz = 'Curing Waltz V'
-					waltzID = 311
-				elseif abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				end
-            else
-				if abil_recasts[189] < latency then	
-					newWaltz = 'Curing Waltz V'
-					waltzID = 311
-				elseif abil_recasts[188] < latency then	
-					newWaltz = 'Curing Waltz IV'
-					waltzID = 193
-				elseif abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				end
-            end
-        elseif player.sub_job == 'DNC' then
-            if missingHP < 40 and spell.target.name == player.name then
-                -- Not worth curing yourself for so little.
-                -- Don't block when curing others to allow for waking them up.
-                add_to_chat(123,'Abort: You have full HP!')
-                eventArgs.cancel = true
-                return
-            elseif missingHP < 150 then
-				if abil_recasts[217] < latency then
-					newWaltz = 'Curing Waltz'
-					waltzID = 190
-				elseif abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				end
-            elseif missingHP < 300 then
-				if abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				elseif abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				end
-            else
-				if abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				elseif abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				end
-            end
-        else
-            -- Not dnc main or sub; bail out
-            return
-        end
-    end
+    if missingHP == nil then return end
 
-	local tpCost = waltz_tp_cost[newWaltz]
-
-	if state.DefenseMode.value == 'None' and uses_waltz_legs then
-		tpCost = tpCost - 50
+	local abil_recasts = windower.ffxi.get_ability_recasts()
+	if player.main_job == 'DNC' then
+		if missingHP < 40 and spell.target.name == player.name then
+			-- Not worth curing yourself for so little.
+			-- Don't block when curing others to allow for waking them up.
+			add_to_chat(123,'Abort: You have full HP!')
+			eventArgs.cancel = true
+			return true
+		elseif missingHP < 200 then
+			if abil_recasts[217] < latency then
+				newWaltz = 'Curing Waltz'
+				waltzID = 190
+			elseif abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			end
+		elseif missingHP < 600 then
+			if abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			elseif abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			elseif abil_recasts[217] < latency then
+				newWaltz = 'Curing Waltz'
+				waltzID = 190
+			end
+		elseif missingHP < 1100 then
+			if abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			elseif abil_recasts[188] < latency then	
+				newWaltz = 'Curing Waltz IV'
+				waltzID = 193
+			elseif abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			end
+		elseif state.AutoContradanceMode.value and abil_recasts[229] < latency then
+			eventArgs.cancel = true
+			windower.chat.input('/ja "Contradance" <me>')
+			windower.chat.input:schedule(.5,'/ja "Curing Waltz III" '..spell.target.raw..'')
+			return true
+		elseif missingHP < 1500 then
+			if abil_recasts[188] < latency then	
+				newWaltz = 'Curing Waltz IV'
+				waltzID = 193
+			elseif abil_recasts[189] < latency then	
+				newWaltz = 'Curing Waltz V'
+				waltzID = 311
+			elseif abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			end
+		else
+			if abil_recasts[189] < latency then	
+				newWaltz = 'Curing Waltz V'
+				waltzID = 311
+			elseif abil_recasts[188] < latency then	
+				newWaltz = 'Curing Waltz IV'
+				waltzID = 193
+			elseif abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			end
+		end
+	elseif player.sub_job == 'DNC' then
+		if missingHP < 40 and spell.target.name == player.name then
+			-- Not worth curing yourself for so little.
+			-- Don't block when curing others to allow for waking them up.
+			add_to_chat(123,'Abort: You have full HP!')
+			eventArgs.cancel = true
+			return true
+		elseif missingHP < 150 then
+			if abil_recasts[217] < latency then
+				newWaltz = 'Curing Waltz'
+				waltzID = 190
+			elseif abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			end
+		elseif missingHP < 300 then
+			if abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			elseif abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			end
+		else
+			if abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			elseif abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			end
+		end
+	else
+		-- Not dnc main or sub; bail out
+		return false
 	end
 
+	local tpCost = waltz_tp_cost[newWaltz]
     local downgrade
 
     -- Downgrade the spell to what we can afford
-    if player.tp < tpCost and not buffactive.trance then
+    if effective_tp < tpCost and not buffactive.trance then
         --[[ Costs:
             Curing Waltz:     200 TP
             Curing Waltz II:  350 TP
@@ -364,11 +364,6 @@ function refine_waltz(spell, spellMap, eventArgs)
             Divine Waltz:     400 TP
             Divine Waltz II:  800 TP
         --]]
-		local effective_tp
-		if state.DefenseMode.value == 'None' and uses_waltz_legs then
-			effective_tp = player.tp + 50
-        end
-
 		if effective_tp < 350 and abil_recasts[217] < latency then
             newWaltz = 'Curing Waltz'
         elseif effective_tp < 500 then
@@ -402,16 +397,13 @@ function refine_waltz(spell, spellMap, eventArgs)
 
     
     if newWaltz ~= spell.english then
-        send_command('@input /ja "'..newWaltz..'" '..tostring(spell.target.raw))
+        windower.chat.input('/ja "'..newWaltz..'" '..tostring(spell.target.raw))
         if downgrade then
             add_to_chat(122, downgrade)
         end
         eventArgs.cancel = true
-        return
-    end
-
-    if missingHP and missingHP > 0 then
-        add_to_chat(122,'Trying to cure '..tostring(missingHP)..' HP using '..newWaltz..'.')
+		add_to_chat(122,'Trying to cure '..tostring(missingHP)..' HP using '..newWaltz..'.')
+        return true
     end
 end
 
@@ -1126,7 +1118,7 @@ end
 
 function check_midaction(spell, spellMap, eventArgs)
 	if os.clock() < next_cast and not state.RngHelper.value then
-		if eventArgs then
+		if eventArgs and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) then
 			eventArgs.cancel = true
 			if delayed_cast == '' then
 				windower.send_command:schedule((next_cast - os.clock()),'gs c delayedcast')
@@ -1283,7 +1275,7 @@ function check_cost(spell, spellMap, eventArgs)
 			eventArgs.cancel = true
 			return true
 		end
-	elseif spell.type:startswith('BloodPact') and not buffactive['Astral Conduit'] and player.mp < spellCost then
+	elseif spell.type:startswith('BloodPact') and not state.Buff["Astral Conduit"] and player.mp < spellCost then
 		add_to_chat(123,'Abort: '..spell.english..' costs more MP. ('..player.mp..'/'..spellCost..')')
 		cancel_spell()
 		eventArgs.cancel = true
@@ -1347,9 +1339,11 @@ function check_abilities(spell, spellMap, eventArgs)
 			windower.chat.input('/ja "Addendum: Black" <me>')
 			return true
 		elseif spell.english == "Seigan" and buffactive['Seigan'] then
-			eventArgs.cancel = true
-			windower.chat.input('/ja "Third Eye" <me>')
-			return true
+			if windower.ffxi.get_ability_recasts()[133] < latency then
+				eventArgs.cancel = true
+				windower.chat.input('/ja "Third Eye" <me>')
+				return true
+			end
 		elseif state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
 			if spell.english == "Penury" then
 				windower.chat.input('/ja "Parsimony" <me>')
@@ -1898,7 +1892,7 @@ function check_cpring()
 
 	if player.main_job_level == 99 then
 	
-		if player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent == 2100 then
+		if player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent == 2100 and not buffactive["Emporox's Gift"] then
 			if item_available("Emporox's Ring") then
 				local emporox_ring = get_usable_item("Emporox's Ring")
 				if player.equipment.left_ring and player.equipment.left_ring == "Emporox's Ring" and emporox_ring.usable then
@@ -2056,6 +2050,75 @@ function has_shadows()
 		return 1
 	else
 		return 0
+	end
+end
+
+function check_shadows()
+	if not state.AutoShadowMode.value or moving or areas.Cities:contains(world.area) then return false end
+	local spell_recasts = windower.ffxi.get_spell_recasts()
+	local currentshadows = has_shadows()
+	if player.main_job == 'NIN' then
+		if currentshadows < 3 and player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 99 and spell_recasts[340] < spell_latency then
+			windower.chat.input('/ma "Utsusemi: San" <me>')
+			tickdelay = os.clock() + 1.8
+			return true
+		elseif currentshadows < 2 then
+			if spell_recasts[339] < spell_latency then
+				windower.chat.input('/ma "Utsusemi: Ni" <me>')
+				tickdelay = os.clock() + 1.8
+				return true
+			elseif spell_recasts[338] < spell_latency then
+				windower.chat.input('/ma "Utsusemi: Ichi" <me>')
+				tickdelay = os.clock() + 2
+				return true
+			else
+				return false
+			end
+		else
+			return false
+		end
+	elseif player.sub_job == 'NIN' then
+		if currentshadows < 2 then
+			if spell_recasts[339] < spell_latency then
+				windower.chat.input('/ma "Utsusemi: Ni" <me>')
+				tickdelay = os.clock() + 1.8
+				return true
+			elseif spell_recasts[338] < spell_latency then
+				windower.chat.input('/ma "Utsusemi: Ichi" <me>')
+				tickdelay = os.clock() + 2
+				return true
+			else
+				return false
+			end
+		else
+			return false
+		end
+	elseif currentshadows == 0 then
+		if player.main_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
+			windower.chat.input('/ja "Third Eye" <me>')
+			tickdelay = os.clock() + 1.1
+			return true
+		elseif silent_can_use(679) and spell_recasts[679] < spell_latency then
+			windower.chat.input('/ma "Occultation" <me>')
+			tickdelay = os.clock() + 2
+			return true
+		elseif silent_can_use(53) and spell_recasts[53] < spell_latency then
+			windower.chat.input('/ma "Blink" <me>')
+			tickdelay = os.clock() + 2
+			return true
+		elseif silent_can_use(647) and spell_recasts[647] < spell_latency then
+			windower.chat.input('/ma "Zephyr Mantle" <me>')
+			tickdelay = os.clock() + 2
+			return true
+		elseif player.sub_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
+			windower.chat.input('/ja "Third Eye" <me>')
+			tickdelay = os.clock() + 1.1
+			return true
+		else
+			return false
+		end
+	else
+		return false
 	end
 end
 
@@ -2239,16 +2302,6 @@ function count_total_ammo(ammo_name)
     end
 
 	return ammo_count
-end
-
-function check_shadows()
-	if not state.AutoShadowMode.value or moving or areas.Cities:contains(world.area) then 
-		return false
-	elseif handle_shadows() then
-		return true
-	else
-		return false
-	end
 end
 
 function check_rune()
@@ -2623,4 +2676,12 @@ function table.tostring( tbl )
     end
   end
   return "{" .. table.concat( result, "," ) .. "}"
+end
+
+function set_dual_wield()
+	if (dualWieldJobs:contains(player.main_job) or (player.sub_job == 'DNC' or player.sub_job == 'NIN')) then
+		can_dual_wield = true
+	else
+		can_dual_wield = false
+	end
 end

@@ -3,7 +3,7 @@ function user_setup()
     state.OffenseMode:options('Normal','Acc')
     state.CastingMode:options('Normal','Resistant','AoE')
     state.IdleMode:options('Normal','PDT')
-	state.Weapons:options('None','Aeneas','DualWeapons','DualSwords','DualNukeWeapons')
+	state.Weapons:options('None','Aeneas','DualWeapons','DualNaegling','DualTauret','DualNukeWeapons')
 
 	-- Adjust this if using the Terpander (new +song instrument)
     info.ExtraSongInstrument = 'Blurred Harp +1'
@@ -33,8 +33,9 @@ function init_gear_sets()
 
 	-- Weapons sets
 	sets.weapons.Aeneas = {main="Aeneas",sub="Genmei Shield"}
-	sets.weapons.DualWeapons = {main="Aeneas",sub="Taming Sari"}
-	sets.weapons.DualSwords = {main="Vampirism",sub="Vampirism"}
+	sets.weapons.DualWeapons = {main="Aeneas",sub="Blurred Knife +1"}
+	sets.weapons.DualNaegling = {main="Naegling",sub="Blurred Knife +1"}
+	sets.weapons.DualTauret = {main="Tauret",sub="Blurred Knife +1"}
 	sets.weapons.DualNukeWeapons = {main="Malevolence",sub="Malevolence"}
 
     sets.buff.Sublimation = {waist="Embla Sash"}
@@ -199,29 +200,29 @@ function init_gear_sets()
 	sets.resting = {main="Chatoyant Staff",sub="Oneiros Grip",ammo="Staunch Tathlum +1",
 		head=empty,neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Respite Cloak",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
-		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
+		back="Umbra Cape",waist="Flume Belt +1",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 	
 	sets.idle = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum +1",
 		head=empty,neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Respite Cloak",hands=gear.chironic_refresh_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
-		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
+		back="Umbra Cape",waist="Flume Belt +1",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
 	sets.idle.PDT = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum +1",
 		head=empty,neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Respite Cloak",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
-		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
+		back="Umbra Cape",waist="Flume Belt +1",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 	
 	-- Defense sets
 
 	sets.defense.PDT = {main="Terra's Staff", sub="Umbra Strap",ammo="Staunch Tathlum +1",
 		head=empty,neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Respite Cloak",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
-		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
+		back="Umbra Cape",waist="Flume Belt +1",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
 	sets.defense.MDT = {main="Terra's Staff", sub="Umbra Strap",ammo="Staunch Tathlum +1",
 		head=empty,neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Respite Cloak",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
-		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
+		back="Umbra Cape",waist="Flume Belt +1",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
 	sets.Kiting = {feet="Fili Cothurnes +1"}
 	sets.latent_refresh = {waist="Fucho-no-obi"}

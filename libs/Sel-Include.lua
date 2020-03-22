@@ -177,13 +177,6 @@ function init_include()
 	state.Buff['Manifestation'] = buffactive['Manifestation'] or false
 	state.Buff['Warcry'] = buffactive['Warcry'] or false
 	
-	--Defining Variables here on load that won't change without a reload to save processing.
-	if (dualWieldJobs:contains(player.main_job) or (player.sub_job == 'DNC' or player.sub_job == 'NIN')) then
-		can_dual_wield = true
-	else
-		can_dual_wield = false
-	end
-
     -- Classes describe a 'type' of action.  They are similar to state, but
     -- may have any free-form value, or describe an entire table of mapped values.
     classes = {}
@@ -241,6 +234,7 @@ function init_include()
 	next_cast = 0
 	delayed_cast = ''
 	delayed_target = ''
+	equipped = 0
 	
 	time_test = false
 	selindrile_warned = false
@@ -346,7 +340,7 @@ function init_include()
 	end
 
 	if not selindrile_warned then
-		naughty_list = {'lua','gearswap','file','windower','plugin','addon','program','hack','bot'}
+		naughty_list = {'lua','gearswap','file','windower','plugin','addon','program','hack','bot ','bots ','botting','easyfarm'}
 		
 		windower.raw_register_event('outgoing chunk', function(id, data, modified, injected, blocked)
 			if id == 0x0B6 and res.servers[windower.ffxi.get_info().server].en == 'Asura' then
@@ -534,6 +528,7 @@ end
 
 -- Non item-based global settings to check on load.
 function global_on_load()
+	set_dual_wield()
 	if world.area then
 		if world.area:contains('Abyssea') or areas.ProcZones:contains(world.area) then
 			state.SkipProcWeapons:set('False')
@@ -974,7 +969,6 @@ function default_precast(spell, spellMap, eventArgs)
 	end
 	
     cancel_conflicting_buffs(spell, spellMap, eventArgs)
-    refine_waltz(spell, spellMap, eventArgs)
 	
 	if spell.action_type == 'Magic' then
 		next_cast = os.clock() + 3.6 - latency
@@ -1018,6 +1012,10 @@ function default_post_precast(spell, spellMap, eventArgs)
 					equip({waist="Hachirin-no-Obi"})
 				end
 			end
+
+			if state.SkillchainMode.value ~= 'Off' and sets.Skillchain then
+				equip(sets.Skillchain)
+			end
 			
 			if sets.Reive and buffactive['Reive Mark'] and sets.Reive.neck == "Ygnas's Resolve +1" then
 				equip(sets.Reive)
@@ -1027,7 +1025,7 @@ function default_post_precast(spell, spellMap, eventArgs)
 				equip(sets.precast.WS.Proc)
 			end
 			
-			if state.Capacity.value == true then 
+			if state.Capacity.value == true then
 				equip(sets.Capacity)
 			end
 			
@@ -1059,10 +1057,6 @@ function default_post_precast(spell, spellMap, eventArgs)
 					handle_equipping_gear(player.status)
 				end
 			elseif spell.type == 'WeaponSkill' then
-				if state.SkillchainMode.value ~= 'Off' and sets.Skillchain then
-					equip(sets.Skillchain)
-				end
-				
 				if sets.precast.WS[spell.english] and sets.precast.WS[spell.english].DT then
 					equip(sets.precast.WS[spell.english].DT)
 				elseif sets.precast.WS.DT then
@@ -1179,7 +1173,7 @@ function default_aftercast(spell, spellMap, eventArgs)
 	elseif spell.action_type == 'Magic' then
 		next_cast = os.clock() + 3.35 - latency
 	elseif spell.type == 'WeaponSkill' then
-		next_cast = os.clock() + 2 - latency
+		next_cast = os.clock() + 1.5 - latency
 	elseif spell.action_type == 'Ability' then
 		next_cast = os.clock() + .8 - latency
 	elseif 	spell.action_type == 'Item' then
@@ -1276,6 +1270,7 @@ function filter_precast(spell, spellMap, eventArgs)
 		if check_warps(spell, spellMap, eventArgs) then return end
 	elseif spell.action_type == 'Ability' or spell.type == 'WeaponSkill' then
 		if check_amnesia(spell, spellMap, eventArgs) then return end
+		if refine_waltz(spell, spellMap, eventArgs) then return end
 		if check_abilities(spell, spellMap, eventArgs) then return end
 	end
 	if check_recast(spell, spellMap, eventArgs) then return end
@@ -1393,6 +1388,13 @@ end
 -- Central point to call to equip gear based on status.
 -- Status - Player status that we're using to define what gear to equip.
 function handle_equipping_gear(playerStatus, petStatus)
+	local current_time = os.clock()
+	if current_time < equipped then
+		return
+	else
+		equipped = current_time + .1
+	end
+	
     -- init a new eventArgs
     local eventArgs = {handled = false}
 	
@@ -1402,7 +1404,7 @@ function handle_equipping_gear(playerStatus, petStatus)
     end
 
 	if state.ReEquip.value and state.Weapons.value ~= 'None' then
-		if player.equipment.main == 'empty' or player.equipment.sub == 'empty' then
+		if player.equipment.main ~= sets.weapons[state.Weapons.value].main or (sets.weapons[state.Weapons.value].sub and player.equipment.sub ~= sets.weapons[state.Weapons.value].sub) or (sets.weapons[state.Weapons.value].range and player.equipment.range ~= sets.weapons[state.Weapons.value].range) then
 			handle_weapons()
 		end
 	end
@@ -2108,6 +2110,7 @@ end
 
 -- Called when the player's subjob changes.
 function sub_job_change(newSubjob, oldSubjob)
+	set_dual_wield()
     if user_setup then
         user_setup()
     end
@@ -2290,6 +2293,10 @@ function buff_change(buff, gain)
 		elseif gain and (player.equipment.head == "Guide Beret" or player.equipment.head == "Sprout Beret") then
 			enable("head")
         end
+	elseif buff == "Emporox's Gift" and gain then
+		if player.equipment.left_ring == "Emporox's Ring" then
+			enable("ring1")
+		end
     end
 
 	if not midaction() and not pet_midaction() then

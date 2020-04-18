@@ -118,7 +118,7 @@ function init_gear_sets()
         left_ear="Sherida Earring",
         right_ear="Regal Earring",
         left_ring="Ilabrat Ring",
-        right_ring="Stikini Ring",
+        right_ring="Stikini Ring +1",
         back=augmented_gear.capes.mnd_macc,
     })
 	
@@ -146,7 +146,7 @@ function init_gear_sets()
         legs="Jhakri Slops +2",
         feet="Jhakri Pigaches +2",
         neck="Dualist's Torque +1",
-        waist="Prosilio belt",
+        waist="Prosilio Belt +1",
         left_ear="Ishvara Earring",
         right_ear="Moonshade Earring",
         left_ring="Rufescent Ring",
@@ -207,7 +207,7 @@ function init_gear_sets()
         legs="Jhakri Slops +2",
         feet="Jhakri Pigaches +2",
         neck="Dualist's Torque +1",
-        waist="Prosilio belt",
+        waist="Prosilio Belt +1",
         left_ear="Regal Earring",
         right_ear="Moonshade Earring",
         left_ring="Rufescent Ring",
@@ -269,7 +269,7 @@ function init_gear_sets()
         waist="Emphatikos Rope",-- sp. intr. rate.
         left_ear="Mendi. Earring",
         right_ear="Regal Earring",
-        left_ring="Stikini Ring",
+        left_ring="Stikini Ring +1",
         right_ring="Weather. Ring",
         back="Solemnity Cape",
     }
@@ -298,8 +298,8 @@ function init_gear_sets()
         waist="Embla Sash",
         left_ear="Halasz Earring",
         right_ear="Andoaa Earring",
-        left_ring="Stikini Ring",
-        right_ring="Stikini Ring",
+        left_ring="Stikini Ring +1",
+        right_ring="Stikini Ring +1",
         back="Ghostfyre Cape",
     }
 
@@ -310,7 +310,8 @@ function init_gear_sets()
         hands="Vitiation gloves +3",
         legs="Carmine Cuisses +1",
         neck="Incanter's Torque",
-        waist="Olympus sash",
+        --waist="Olympus sash",
+        waist="Embla Sash",
         left_ear="Mimir Earring",
     })
 
@@ -350,7 +351,7 @@ function init_gear_sets()
         waist="Eschan Stone",
         left_ear="Snotra Earring",
         right_ear="Malignance Earring",
-        left_ring="Stikini Ring",
+        left_ring="Stikini Ring +1",
         right_ring="Kishar Ring",
         back=augmented_gear.capes.mnd_macc,
     }
@@ -379,9 +380,9 @@ function init_gear_sets()
 	sets.midcast.MndEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {})
 	sets.midcast.MndEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})
 	
-	sets.midcast['Distract III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring"})
+	sets.midcast['Distract III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring +1"})
 	sets.midcast['Distract III'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
-	sets.midcast['Frazzle III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring"})
+	sets.midcast['Frazzle III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring +1"})
 	sets.midcast['Frazzle III'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
 	
 	sets.midcast['Divine Magic'] = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})
@@ -434,7 +435,7 @@ function init_gear_sets()
     sets.midcast['Elemental Magic'].Resistant = set_combine(sets.midcast['Elemental Magic'], {
         feet="Vitiation Boots +3",
         left_ear="Heretic Earring",
-        left_ring="Stikini ring",
+        left_ring="Stikini Ring +1",
     })
 
     sets.midcast['Elemental Magic'].Proc = {}
@@ -509,8 +510,8 @@ function init_gear_sets()
         neck="Dls. Torque +1",
         --left_ear="Eabani earring",
         --right_ear="Suppanomimi",
-        left_ring="Stikini Ring",
-        right_ring="Stikini Ring",
+        left_ring="Stikini Ring +1",
+        right_ring="Stikini Ring +1",
         waist="Orpheus's sash",
     })
         

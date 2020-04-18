@@ -97,7 +97,7 @@ function init_gear_sets()
 	    hands={ name="Fall. Fin. Gaunt. +1", augments={'Enhances "Diabolic Eye" effect',}},
 	    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
 	    neck="Erra Pendant",
-	    left_ring="Stikini Ring",
+	    left_ring="Stikini Ring +1",
 	    right_ring="Kishar ring",
 	    back={ name="Niht Mantle", augments={'Attack+14','Dark magic skill +6','"Drain" and "Aspir" potency +24',}},
 	    feet="Ratri Sollerets",

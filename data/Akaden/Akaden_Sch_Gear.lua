@@ -174,7 +174,7 @@ function init_gear_sets()
 	sets.midcast.Bio = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 	sets.midcast['Bio II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 	
-	sets.midcast['Divine Magic'] = set_combine(sets.midcast['Enfeebling Magic'], {left_ring="Stikini Ring",feet=gear.chironic_nuke_feet})
+	sets.midcast['Divine Magic'] = set_combine(sets.midcast['Enfeebling Magic'], {left_ring="Stikini Ring +1",feet=gear.chironic_nuke_feet})
 
     sets.midcast['Dark Magic'] = {}
 
@@ -230,8 +230,8 @@ function init_gear_sets()
 	sets.midcast.IntEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {head="Amalric Coif +1",left_ear="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
 	sets.midcast.IntEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {head="Amalric Coif +1",right_ear="Barkaro. Earring",back=gear.nuke_jse_back,waist="Acuity Belt +1"})
 
-	sets.midcast.MndEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {left_ring="Stikini Ring"})
-	sets.midcast.MndEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {left_ring="Stikini Ring"})
+	sets.midcast.MndEnfeebles = set_combine(sets.midcast['Enfeebling Magic'], {left_ring="Stikini Ring +1"})
+	sets.midcast.MndEnfeebles.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {left_ring="Stikini Ring +1"})
 		
     -- Custom refinements for certain nuke tiers
 	sets.midcast['Elemental Magic'].HighTierNuke = set_combine(sets.midcast['Elemental Magic'], {main="Akademos",sub="Niobid Strap",ammo="Pemphredo Tathlum",left_ear="Regal Earring",right_ear="Barkaro. Earring",hands="Amalric Gages +1"})

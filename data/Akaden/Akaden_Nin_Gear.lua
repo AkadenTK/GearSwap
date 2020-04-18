@@ -57,7 +57,7 @@ function init_gear_sets()
     
     sets.precast.FC = {
         head="Herculean Helm",
-        body="Samnuha coat",
+        body=augmented_gear.Adhemar.FC.body,
         hands="Leyline gloves",
         legs="Gyve trousers",
         feet="Amalric nails +1"

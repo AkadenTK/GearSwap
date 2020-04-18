@@ -10,6 +10,10 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
 
+    state.Weapons:options('Default','None')
+
+    state.AutoBuffMode.value = 'Off'
+
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None','Suppa','DWEarrings','DWMax'}
 	state.AmbushMode = M(false, 'Ambush Mode')
 
@@ -35,12 +39,13 @@ end
 -- Define sets and vars used by this job file.
 function init_gear_sets()
 
-    include('augmented_gear.lua')
     --------------------------------------
     -- Special sets (required by rules)
     --------------------------------------
+    sets.weapons = {}
+    sets.weapons.Default = {main="Taming Sari", sub="Sandung"}
 
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", hands="Plunderer's Armlets +1",feet="Skulk. Poulaines"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", hands="Plunderer's Armlets +1",legs=augmented_gear.Herculean.TH.legs,feet="Skulk. Poulaines"})
     sets.ExtraRegen = {}
     sets.Kiting = {feet="Fajin Boots"}
     sets.Capacity={back="Aptitude Mantle"}
@@ -54,8 +59,6 @@ function init_gear_sets()
     -- Extra Melee sets.  Apply these on top of melee sets.
     sets.Knockback = {}
 	sets.Suppa = {ear1="Suppanomimi", ear2="Sherida Earring"}
-	sets.Weapons = {}
-	sets.MagicWeapons = {}
 	sets.Throwing = {}
 	sets.DWEarrings = {}
 	sets.DWMax = {}
@@ -98,7 +101,11 @@ function init_gear_sets()
 
 
     -- Fast cast sets for spells
-    sets.precast.FC = {}
+    sets.precast.FC = {
+        head="Haruspex Hat",
+        body="Samnuha Coat",
+        hands="Leyline gloves",
+    }
 
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads",body="Passion Jacket"})
 
@@ -252,7 +259,15 @@ function init_gear_sets()
 
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 
-    sets.idle = set_combine(sets.engaged, {feet="Fajin Boots"})
+    sets.idle = set_combine(sets.engaged, {
+        head="Meghanada Visor +1",
+        body="Meghanada Cuirie +2",
+        hands="Malignance Gloves",
+        feet="Fajin Boots",
+        neck="Twilight Torque",
+        left_ring="Defending Ring",
+        right_ring="Karieyh Ring",
+    })
 		
     sets.idle.Sphere = set_combine(sets.idle, {})
 
@@ -280,32 +295,32 @@ end
 
 --Dynamis Trust Overwrite
 function check_trust()
-	if not moving then
-		if state.AutoTrustMode.value and not areas.Cities:contains(world.area) and (buffactive['Reive Mark'] or not player.in_combat) then
-			local party = windower.ffxi.get_party()
-			if party.p5 == nil then
-				local spell_recasts = windower.ffxi.get_spell_recasts()
-			
-				if spell_recasts[936] == 0 and not have_trust("Karaha-Baruha") then
-					windower.send_command('input /ma "Karaha-Baruha" <me>')
-					return true
-				elseif spell_recasts[952] == 0 and not have_trust("Koru-Moru") then
-					windower.send_command('input /ma "Koru-Moru" <me>')
-					return true
-				elseif spell_recasts[914] == 0 and not have_trust("Ulmia") then
-					windower.send_command('input /ma "Ulmia" <me>')
-					return true
-				elseif spell_recasts[989] == 0 and not have_trust("KingofHearts") then
-					windower.send_command('input /ma "King of Hearts" <me>')
-					return true
-				elseif spell_recasts[968] == 0 and not have_trust("Adelheid") then
-					windower.send_command('input /ma "Adelheid" <me>')
-					return true
-				else
-					return false
-				end
-			end
-		end
-	end
+	--if not moving then
+	--	if state.AutoTrustMode.value and not areas.Cities:contains(world.area) and (buffactive['Reive Mark'] or not player.in_combat) then
+	--		local party = windower.ffxi.get_party()
+	--		if party.p5 == nil then
+	--			local spell_recasts = windower.ffxi.get_spell_recasts()
+	--		
+	--			if spell_recasts[936] == 0 and not have_trust("Karaha-Baruha") then
+	--				windower.send_command('input /ma "Karaha-Baruha" <me>')
+	--				return true
+	--			elseif spell_recasts[952] == 0 and not have_trust("Koru-Moru") then
+	--				windower.send_command('input /ma "Koru-Moru" <me>')
+	--				return true
+	--			elseif spell_recasts[914] == 0 and not have_trust("Ulmia") then
+	--				windower.send_command('input /ma "Ulmia" <me>')
+	--				return true
+	--			elseif spell_recasts[989] == 0 and not have_trust("KingofHearts") then
+	--				windower.send_command('input /ma "King of Hearts" <me>')
+	--				return true
+	--			elseif spell_recasts[968] == 0 and not have_trust("Adelheid") then
+	--				windower.send_command('input /ma "Adelheid" <me>')
+	--				return true
+	--			else
+	--				return false
+	--			end
+	--		end
+	--	end
+	--end
 	return false
 end

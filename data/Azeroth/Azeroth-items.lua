@@ -16,6 +16,9 @@ augmented_gear.Merlinic.Accuracy = {
 augmented_gear.Herculean = {}
 augmented_gear.Herculean.Refresh = {
 }
+augmented_gear.Herculean.TH = {
+    legs={ name="Herculean Trousers", augments={'Pet: DEX+6','INT+6','"Treasure Hunter"+2','Mag. Acc.+11 "Mag.Atk.Bns."+11',}},
+}
 
 augmented_gear.Herculean.WSD = {}
 augmented_gear.Herculean.WSD.MAB = {

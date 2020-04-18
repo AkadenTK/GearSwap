@@ -158,8 +158,8 @@ function init_gear_sets()
         right_ear="Malignance earring",
         body="Amalric Doublet +1",
         hands="Jhakri Cuffs +2",
-        left_ring="Stikini Ring",
-        right_ring="Stikini ring",
+        left_ring="Stikini Ring +1",
+        right_ring="Stikini Ring +1",
         back="Taranus's cape",
         waist="Eschan Stone",
         legs=augmented_gear.Merlinic.Accuracy.legs,
@@ -231,7 +231,7 @@ function init_gear_sets()
         neck="Baetyl pendant",
         right_ear="Dignitary's Earring",
         left_ring="Sangoma ring",
-        right_ring="Stikini ring",
+        right_ring="Stikini Ring +1",
     })
 		
     sets.midcast['Elemental Magic'].Fodder = set_combine(sets.midcast['Elemental Magic'], {})

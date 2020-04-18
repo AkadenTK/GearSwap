@@ -9,13 +9,14 @@ function user_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
-    state.Weapons:options('DWLeaden','DWLastStand', 'SavageBlade', 'ShieldLeaden','ShieldLastStand','OneShot','MeleeLeaden','None')
+    state.Weapons:options('MeleeLeaden','SavageBlade','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
 
     state.LastRoll = 'unknown'
-    ammostock = 999
-    --ammostock['Chrono Bullet'] = 100
+    --ammostock = 999
+    ammostock = {}
+    ammostock['Chrono Bullet'] = 100
     --ammostock['Living Bullet'] = 30
 
     gear.RAbullet = "Chrono Bullet"
@@ -60,7 +61,7 @@ end
 -- Define sets and vars used by this job file.
 function init_gear_sets()
 
-    include('augmented_gear.lua')
+    --include('augmented_gear.lua')
     augmented_gear.capes={
         stp={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}},
         str_wsd={ name="Camulus's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}},

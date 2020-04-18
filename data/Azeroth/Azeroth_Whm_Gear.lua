@@ -40,7 +40,6 @@ end
 
 -- Define sets and vars used by this job file.
 function init_gear_sets()
-    include('augmented_gear.lua')
     --------------------------------------
     -- Start defining the sets
     --------------------------------------

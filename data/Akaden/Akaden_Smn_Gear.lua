@@ -3,11 +3,6 @@ function user_setup()
     state.OffenseMode:options('None', 'Normal', 'Acc')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT', 'TPEat')
-
-    gear.perp_staff = {name="Gridarvor"}
-	
-	gear.magic_jse_back = {name="Campestres's Cape",augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10',}}
-	gear.phys_jse_back = {name="Campestres's Cape",augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Haste+10',}}
 	
     send_command('bind !` input /ja "Release" <me>')
 	send_command('bind @` gs c cycle MagicBurst')
@@ -32,12 +27,11 @@ function init_gear_sets()
     }
 
     --[#2 Augmented Items & JSE Cape ]--
-    augmented_gear.capes = {
-        magic= { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Pet: Magic Damage+10',}},
-        atk = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: Attack+10 Pet: Rng.Atk.+10',}},
-        --atk = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Accuracy+20 Attack+20','Accuracy+10','Pet: Haste+10',}},
-        idle = { name="Campestres's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10',}},
-    } 
+    augmented_gear.capes = {}
+    augmented_gear.capes.magic = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Pet: Magic Damage+10','"Fast Cast"+10',}}
+    augmented_gear.capes.atk = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: Attack+10 Pet: Rng.Atk.+10',}}
+    augmented_gear.capes.fc = augmented_gear.capes.magic
+    
     augmented_gear.capes.fc = augmented_gear.capes.magic
 
     sets.smnskill = { 
@@ -45,7 +39,7 @@ function init_gear_sets()
         sub="Vox Grip",
         ammo="Sancus Sachet",
         head="Convoker's Horn +1",
-        body="Beckoner's doublet",
+        body="Beckoner's Doublet +1",
         hands="Glyphic Bracers +1",
         legs="Beckoner's Spats +1",
         feet=augmented_gear.Apogee.Magic.feet,
@@ -53,7 +47,7 @@ function init_gear_sets()
         waist="Lucidity Sash",
         left_ear="Summoning earring",
         right_ear="Andoaa earring",
-        left_ring="Stikini Ring",
+        left_ring="Stikini Ring +1",
         right_ring="Evoker's ring",
         back="Conveyance Cape"
         --ammo="Seraphicaller",
@@ -74,10 +68,10 @@ function init_gear_sets()
         sub="Vox Grip",
         ammo="Esper Stone +1",
         head="Convoker's Horn +1",
-        body="Beckoner's doublet",
+        body="Beckoner's Doublet +1",
         hands="Glyphic Bracers +1",
         legs="Beckoner's Spats +1",
-        feet="Beckoner's pigaches",
+        feet="Beckoner's Pigaches +1",
         neck="Incanter's Torque",
         waist="Lucidity Sash",
         left_ear="Summoning earring",
@@ -116,7 +110,7 @@ function init_gear_sets()
         neck="Baetyl Pendant", -- 4
         waist="Embla Sash", --5
         legs="Psycloth Lappas", --7
-        feet="Amalric Nails +1",
+        feet="Amalric Nails +1", -- 6
         back=augmented_gear.capes.fc,--10
     }
 
@@ -125,7 +119,7 @@ function init_gear_sets()
         sub="Sors shield",
         })
 		
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {})
+    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash",})
 	
     sets.precast.FC.Stoneskin = set_combine(sets.precast.FC['Enhancing Magic'], {})
 
@@ -139,7 +133,7 @@ function init_gear_sets()
         --sub="Vox Grip",
         ammo="Sancus Sachet",
         head=augmented_gear.Apogee.Magic.head,
-        body="Beckoner's doublet",
+        body="Beckoner's Doublet +1",
         hands="Lamassu mitts +1",
         legs="Beck. Spats +1",
         feet=augmented_gear.Apogee.Magic.feet,
@@ -214,12 +208,24 @@ function init_gear_sets()
 	sets.midcast.Bio = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 	sets.midcast['Bio II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 		
-    sets.midcast['Enhancing Magic'] = {head="Telchine Cap",body="Telchine Chasuble",hands="Telchine Gloves",legs="Telchine Braconi",feet="Telchine Pigaches"}
+    sets.midcast['Enhancing Magic'] = {
+        head="Telchine Cap",
+        body="Telchine Chasuble",
+        hands="Telchine Gloves",
+        legs="Telchine Braconi",
+        feet="Telchine Pigaches",
+        neck="Incanter Torque",
+        left_ear="Mimir Earring",
+        right_ear="Andoaa Earring",
+        left_ring="Stikini Ring +1",
+        right_ring="Stikini Ring +1",
+        waist="Embla Sash",
+    }
 		
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif +1",})
-	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {})
-    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {})
-	sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {})
+	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif +1",})
+    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {head="Befouled Crown", waist="Siegel Sash",})
+	sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {head="Befouled Crown",})
 
     -- Avatar pact sets.  All pacts are Ability type.
 
@@ -242,7 +248,7 @@ function init_gear_sets()
         feet="Convoker's pigaches +2",
         neck="Shulmanu collar",
         --waist="Mujin Obi",
-        waist="Regal Belt",
+        waist="Incarnation Sash",
         left_ear="Gelos Earring",
         right_ear="Lugalbanda earring",
         left_ring={name="Varar Ring",priority=3},

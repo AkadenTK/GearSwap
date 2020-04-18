@@ -2,10 +2,10 @@
 function user_setup()
 	-- Options: Override default values
     state.OffenseMode:options('Normal','Acc','FullAcc')
-    state.HybridMode:options('Normal','PDT')
+    state.HybridMode:options('Normal', 'DTLite','PDT')
     state.RangedMode:options('Normal', 'Acc')
     state.WeaponskillMode:options('Normal','Acc','FullAcc')
-	state.IdleMode:options('Normal', 'Sphere')
+	state.IdleMode:options('Normal', 'Refresh')
     state.PhysicalDefenseMode:options('PDT')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
@@ -35,6 +35,7 @@ end
 
 -- Define sets and vars used by this job file.
 function init_gear_sets()
+    include('organizer-lib')
     --------------------------------------
     -- Special sets (required by rules)
     --------------------------------------
@@ -279,7 +280,7 @@ function init_gear_sets()
         right_ear="Moonshade Earring",
         left_ring="Gere ring",
         right_ring="Regal ring",
-        waist="Prosilio belt",
+        waist="Prosilio Belt +1",
         back="Sacro Mantle",
     })
     sets.precast.WS["Savage Blade"].SA = set_combine(sets.precast.WS["Savage Blade"].Fodder, sets.sata)
@@ -334,7 +335,10 @@ function init_gear_sets()
         right_ring="Sheltered Ring",
     })
 		
-    sets.idle.Sphere = set_combine(sets.idle, {})
+    sets.idle.Refresh = set_combine(sets.idle, {
+        legs=augmented_gear.Herculean.Refresh.legs,
+        right_ring="Stikini Ring +1",
+    })
 
     sets.idle.Weak = set_combine(sets.idle, {})
 

@@ -9,7 +9,7 @@ function user_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
-    state.Weapons:options('MeleeLeaden','SavageBlade','MeleeLastStand','DWLeaden','DWLastStand','ShieldLeaden','ShieldLastStand','None')
+    state.Weapons:options('MeleeLeaden','SavageBlade','SavageRostam','MeleeLastStand','DWLeaden','DWLastStand','ShieldLeaden','ShieldLastStand','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
 
@@ -66,7 +66,7 @@ function init_gear_sets()
     augmented_gear.capes.ra_stp={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10',}}
     augmented_gear.capes.melee={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}}
     augmented_gear.capes.mab_wsd={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}}
-    augmented_gear.capes.str_wsd={ name="Camulus's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}}
+    augmented_gear.capes.str_wsd={ name="Camulus's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
     augmented_gear.capes.agi_wsd={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}}
     augmented_gear.capes.snapshot={ name="Camulus's Mantle", augments={'"Snapshot"+10',}}
     augmented_gear.capes.FC={ name="Camulus's Mantle", augments={'"Fast Cast"+10',}}
@@ -87,6 +87,7 @@ function init_gear_sets()
     sets.weapons.ShieldLastStand = {main=rostams.A, sub="Nusku Shield", range="Fomalhaut"}
     sets.weapons.DWLastStand = {main=rostams.A, sub='Kustawi +1', range="Fomalhaut"}
     sets.weapons.SavageBlade = {main='Naegling', sub="Blurred Knife +1", range="Anarchy +2"}
+    sets.weapons.SavageRostam = {main='Naegling', sub=rostams.B, range="Anarchy +2"}
     sets.weapons.MeleeLeaden = {main=rostams.B, sub="Tauret", range="Death Penalty"}
     sets.weapons.MeleeLastStand = {main=rostams.B, sub="Blurred Knife +1", range="Fomalhaut"}
 
@@ -302,7 +303,7 @@ function init_gear_sets()
         right_ear="Hermetic earring",
         body="Oshosi Vest +1",
         hands="Laksa. gants +2",
-        left_ring="Stikini ring",
+        left_ring="Stikini Ring +1",
         right_ring="Regal ring",
         back=augmented_gear.capes.mab_wsd,
         waist="Kwahu kachina belt",
@@ -378,17 +379,17 @@ function init_gear_sets()
 	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.engaged, {
         head=augmented_gear.Herculean.WSD.STR.head,
+        body="Laksamana's frac +3",
+        hands="Meghanada gloves +2",
+        legs=augmented_gear.Herculean.WSD.STR.legs,
+        feet="Lanun bottes +3",       
         neck="Commodore Charm +2",
         left_ear="Moonshade earring",
         right_ear="Ishvara Earring",
-        body="Laksamana's frac +3",
-        hands="Meghanada gloves +2",
         left_ring="Regal ring",
         right_ring="Epaminondas's ring",
+        waist="Prosilio Belt +1",
         back=augmented_gear.capes.str_wsd,
-        waist="Prosilio belt",
-        legs=augmented_gear.Herculean.WSD.STR.legs,
-        feet="Lanun bottes +3",       
     })
 
     sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {  
@@ -461,6 +462,7 @@ function init_gear_sets()
         })
 
     sets.precast.WS['Last Stand'].FullAcc = set_combine(sets.precast.WS['Last Stand'].Acc,{
+        right_ear="Beyla Earring",
         neck="Commodore Charm +2",
         legs="Meghanada Chausses +2",
         })
@@ -561,7 +563,7 @@ function init_gear_sets()
     }
 
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA,{
-        left_ear="Beyla Earring",
+        left_ear="Enervating Earring",
         body="Laksamana's frac +3",
         left_ring="Regal Ring",
     })
@@ -577,6 +579,7 @@ function init_gear_sets()
     })
 
     sets.midcast.RA.FullAcc = set_combine(sets.midcast.RA.Acc,{
+        left_ear="Beyla Earring",
         waist="Kwahu Kachina belt",
         right_ring="Cacoethic ring +1", 
         legs="Malignance tights",

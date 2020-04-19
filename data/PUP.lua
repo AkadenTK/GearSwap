@@ -221,9 +221,9 @@ function job_get_spell_map(spell, default_spell_map)
 end
 
 function job_customize_idle_set(idleSet)
-	if pet.isvalid and pet.status == 'Engaged' and sets.midcast.Pet then
+	if pet.isvalid and pet.status == 'Engaged' then
 		local now = os.clock()
-		if state.PetWSGear.value and pet.tp and pet.tp > 999 then
+		if state.PetWSGear.value and sets.midcast.Pet and pet.tp and pet.tp > 999 then
 			if sets.midcast.Pet.PetWSGear and sets.midcast.Pet.PetWSGear[state.PetMode.value] then
 				idleSet = set_combine(idleSet, sets.midcast.Pet.PetWSGear[state.PetMode.value])
 			elseif sets.midcast.Pet.PetWSGear then
@@ -236,7 +236,11 @@ function job_customize_idle_set(idleSet)
 		else
 			idleSet = set_combine(idleSet, sets.idle.Pet.Engaged)
 		end
-	elseif  mageJobs:contains(player.sub_job) then
+
+		if buffactive['Overdrive'] and sets.buff.Overdrive then
+			idleSet = set_combine(idleSet, sets.buff.Overdrive)
+		end
+	elseif  data.jobs.mage_jobs:contains(player.sub_job) then
 		if player.mpp < 51 and (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) then
 			if sets.latent_refresh then
 				idleSet = set_combine(idleSet, sets.latent_refresh)
@@ -394,7 +398,7 @@ end
 
 function check_auto_pet()
 
-	if not state.AutoPuppetMode.value or areas.Cities:contains(world.area) then return false end
+	if not state.AutoPuppetMode.value or data.areas.cities:contains(world.area) then return false end
 
 	local abil_recasts = windower.ffxi.get_ability_recasts()
 

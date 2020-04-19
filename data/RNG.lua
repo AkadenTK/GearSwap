@@ -54,6 +54,7 @@ end
 function job_setup()
 
 	state.AutoAmmoMode = M(true,'Auto Ammo Mode')
+	state.UseDefaultAmmo = M(true,'Use Default Ammo')
 	state.Buff.Barrage = buffactive.Barrage or false
 	state.Buff.Camouflage = buffactive.Camouflage or false
 	state.Buff['Double Shot'] = buffactive['Double Shot'] or false
@@ -102,7 +103,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
 			-- Replace Moonshade Earring if we're at cap TP
 			if get_effective_player_tp(spell, WSset) > 3200 then
-				if elemental_obi_weaponskills:contains(spell.english) then
+				if data.weaponskills.elemental:contains(spell.english) then
 					if wsacc:contains('Acc') and sets.MagicalAccMaxTP then
 						equip(sets.MagicalAccMaxTP[spell.english] or sets.MagicalAccMaxTP)
 					elseif sets.MagicalMaxTP then
@@ -226,7 +227,7 @@ end
 
 -- Called by the 'update' self-command.
 function job_update(cmdParams, eventArgs)
-    if cmdParams[1] == 'user' and not areas.Cities:contains(world.area) then
+    if cmdParams[1] == 'user' and not data.areas.cities:contains(world.area) then
         if not buffactive['Velocity Shot'] then
             send_command('@input /ja "Velocity Shot" <me>')
         end
@@ -291,6 +292,12 @@ function check_ammo_precast(spell, action, spellMap, eventArgs)
 				add_to_chat(122,"Ammo '"..player.equipment.ammo.."' running low: ("..count_available_ammo(player.equipment.ammo)..") remaining.")
 			end
 		end
+	end
+end
+
+function job_aftercast(spell, spellMap, eventArgs)
+	if state.UseDefaultAmmo.value then
+		equip({ammo=DefaultAmmo[player.equipment.range]})
 	end
 end
 

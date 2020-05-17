@@ -1,7 +1,7 @@
 
 function user_setup()
 	-- Options: Override default values
-    state.OffenseMode:options('Normal','Acc','BigAcc','FullAcc','None')
+    state.OffenseMode:options('Normal', 'Atk_Cap','Acc','BigAcc','FullAcc','None')
 	state.HybridMode:options('Normal','DTLite','DTMid','DT')
     state.WeaponskillMode:options('Match','Normal','Acc','BigAcc','FullAcc','Fodder')
     state.CastingMode:options('Normal','Resistant','Enmity')
@@ -227,7 +227,7 @@ function init_gear_sets()
     })
 
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
-        ammo="Floestone",
+        ammo="Aurgelmir orb +1",
     	head=augmented_gear.Herculean.WSD.STR.head,
         body="Assimilator's Jubbah +3",
         hands="jhakri cuffs +2",
@@ -237,7 +237,7 @@ function init_gear_sets()
         right_ear="Ishvara Earring",
         left_ring="Ilabrat ring",
         right_ring="Rufescent ring",
-        waist="Prosilio Belt +1",
+        waist="Sailfi Belt +1",
         back=augmented_gear.capes.str_wsd,
     })
     sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {
@@ -262,19 +262,23 @@ function init_gear_sets()
 	--sets.precast.WS['Vorpal Blade'].Fodder = set_combine(sets.precast.WS['Vorpal Blade'], {})
 
 	sets.precast.WS['Expiacion'] = set_combine(sets.precast.WS, {
-        ammo="Floestone",
+        ammo="Aurgelmir orb +1",
     	head=augmented_gear.Herculean.WSD.STR.head,
         body="Assimilator's Jubbah +3",
-        hands="jhakri cuffs +2",
+        hands="Jhakri Cuffs +2",
         legs="Luhlaza Shalwar +3",
-    	feet=augmented_gear.Herculean.WSD.STR.feet,
+    	feet="Jhakri Pigaches +2",
         neck='Mirage Stole +2',
         right_ear="Ishvara Earring",
         left_ear="Moonshade earring",
         right_ring="Ifrit ring +1",
         left_ring="Epaminondas's ring",
-        waist="Prosilio Belt +1",
+        waist="Sailfi Belt +1",
         back=augmented_gear.capes.str_wsd,
+    })
+    sets.precast.WS['Expiacion'].Atk_Cap = set_combine(sets.precast.WS['Expiacion'], {
+        head="Malignance Chapeau",
+        right_ring="Metamorph Ring +1",
     })
 	sets.precast.WS['Expiacion'].Acc = set_combine(sets.precast.WS['Expiacion'], {
         right_ear="Regal Earring",
@@ -292,7 +296,7 @@ function init_gear_sets()
 
 
 	sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS, {
-        ammo="Floestone",
+        ammo="Aurgelmir orb +1",
     	head=augmented_gear.Herculean.WSD.STR.head,
         body="Assimilator's Jubbah +3",
         hands="jhakri cuffs +2",
@@ -303,7 +307,7 @@ function init_gear_sets()
         right_ear="Ishvara Earring",
         right_ring="Rufescent ring",
         left_ring="Epaminondas's ring",
-        waist="Prosilio Belt +1",
+        waist="Sailfi Belt +1",
         back=augmented_gear.capes.mnd_wsd,
     })
     sets.precast.WS['Black Halo'].Acc = set_combine(sets.precast.WS['Black Halo'], {
@@ -321,7 +325,7 @@ function init_gear_sets()
     })
 
     sets.precast.WS['Realmrazer'] = set_combine(sets.precast.WS, {
-        ammo="Floestone",
+        ammo="Aurgelmir orb +1",
         head=augmented_gear.Adhemar.Atk.head,
         body="Assimilator's Jubbah +3",
         hands="jhakri cuffs +2",
@@ -379,7 +383,7 @@ function init_gear_sets()
     	hands=augmented_gear.Adhemar.Atk.hands,
         right_ring="Ifrit ring +1",
         back="Buquwik Cape",
-        waist="Prosilio Belt +1",
+        waist="Sailfi Belt +1",
         legs=augmented_gear.Herculean.WSD.STR.legs,
         feet="Rawhide boots"
     }
@@ -440,8 +444,8 @@ function init_gear_sets()
         left_ear="Friomisi earring",
         right_ear="Regal earring",
         hands="Amalric gages +1",
-        left_ring="Acumen ring",
-        right_ring="Shiva Ring +1",
+        left_ring="Shiva ring +1",
+        right_ring="Metamorph Ring +1",
         waist=gear.ElementalObi,
         legs="Amalric Slops +1",
         feet="Amalric nails +1",
@@ -456,8 +460,8 @@ function init_gear_sets()
         hands="Jhakri cuffs +2",
         right_ear="Regal earring",
         left_ear="Dignitary's earring",
-        left_ring="Stikini Ring +1",
-        right_ring="Weatherspoon ring",
+        left_ring="Weatherspoon ring",
+        right_ring="Metamorph Ring +1",
         legs="Luhlaza Shalwar +3",
         feet="Jhakri pigaches +2"
 		})
@@ -626,7 +630,7 @@ function init_gear_sets()
 	-- Engaged sets
 
 	sets.engaged = {
-        ammo="Ginsen",
+        ammo="Aurgelmir orb +1",
         head=augmented_gear.Adhemar.Atk.head,
         body=augmented_gear.Adhemar.Atk.body,
     	hands=augmented_gear.Adhemar.Atk.hands,

@@ -145,17 +145,17 @@ function init_gear_sets()
     -- Rostam with 3 pairs of rolls + shell will roughly cap DT.
     sets.engaged = {
         head=augmented_gear.Adhemar.Atk.head,
+        body=augmented_gear.Adhemar.Atk.body,
+        hands=augmented_gear.Adhemar.Atk.hands,
+        legs="Samnuha tights",
+        feet=augmented_gear.Herculean.TA.feet,
         neck="Iskur gorget",
         left_ear='Suppanomimi',
         right_ear="Brutal Earring",
-        body=augmented_gear.Adhemar.Atk.body,
-        hands=augmented_gear.Adhemar.Atk.hands,
         left_ring="Epona's ring",
         right_ring="Ilabrat ring",
         back=augmented_gear.capes.melee,
         waist="Windbuffet belt +1",
-        legs="Samnuha tights",
-        feet=augmented_gear.Herculean.TA.feet,
     }
     sets.engaged.Acc = set_combine(sets.engaged, {
         head="Malignance Chapeau",
@@ -388,7 +388,7 @@ function init_gear_sets()
         right_ear="Ishvara Earring",
         left_ring="Regal ring",
         right_ring="Epaminondas's ring",
-        waist="Prosilio Belt +1",
+        waist="Sailfi Belt +1",
         back=augmented_gear.capes.str_wsd,
     })
 

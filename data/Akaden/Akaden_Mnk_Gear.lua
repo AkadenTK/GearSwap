@@ -264,7 +264,7 @@ function init_gear_sets()
 	sets.idle = {
 		ammo="Staunch Tathlum +1",
 		neck="Loricate Torque +1",
-		left_ear="Odnowa earring +1",
+		left_ear="Tuisto Earring",
 		right_ear="Hearty Earring",
 		head="Malignance Chapeau",
 		body="Hesychast's Cyclas +3",
@@ -319,7 +319,7 @@ function init_gear_sets()
 	}
 	-- Normal melee sets
 	sets.engaged =  {
-		ammo="Ginsen",
+		ammo="Aurgelmir orb +1",
         head=augmented_gear.Adhemar.Atk.head,
         body="kendatsuba Samue",
         hands=augmented_gear.Adhemar.Atk.hands,

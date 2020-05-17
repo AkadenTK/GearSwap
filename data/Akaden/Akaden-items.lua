@@ -179,7 +179,6 @@ augmented_gear.Adhemar.Rng = {
 augmented_gear.Adhemar.D = {
     body={ name="Adhemar Jacket", augments={'HP+80','"Fast Cast"+7','Magic dmg. taken -3',}},
     legs={ name="Adhemar Kecks +1", augments={'AGI+12','"Rapid Shot"+13','Enmity-6',}}, 
-    feet={ name="Adhemar Gamashes", augments={'HP+50','"Store TP"+6','"Snapshot"+8',}},
 }
 augmented_gear.Lustratio = {}
 augments.Lustratio = {}
@@ -191,16 +190,18 @@ augments.Lustratio.HQ = {
     A={'Attack+20','STR+8','"Dbl.Atk."+3',},
     B={'Accuracy+20','DEX+8','Crit. hit rate+3%',},
 }
+augmented_gear.Lustratio.D = {
+    feet={ name="Lustratio Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
+}
 augmented_gear.Lustratio.STR = {
     head={ name="Lustratio Cap +1", augments=augments.Lustratio.HQ.B},
     body={ name="Lustratio Harness +1", augments=augments.Lustratio.HQ.A},
+    feet=augmented_gear.Lustratio.D.feet,
 }
 augmented_gear.Lustratio.DEX = {
     head={ name="Lustratio Cap +1", augments=augments.Lustratio.HQ.B},
     legs={ name="Lustratio Subligar +1", augments=augments.Lustratio.HQ.B},
-}
-augmented_gear.Lustratio.D = {
-    feet={ name="Lustratio Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
+    feet=augmented_gear.Lustratio.D.feet,
 }
 
 augmented_gear.Ryuo = {}

@@ -139,14 +139,14 @@ function init_gear_sets()
     })
 
 	sets.precast.WS['Savage Blade'] = {
-        ammo="Floestone",
+        ammo="Aurgelmir orb +1",
         head="Vitiation Chapeau +3",
         body="Vitiation Tabard +3",
         hands="Atrophy gloves +3",
         legs="Jhakri Slops +2",
         feet="Jhakri Pigaches +2",
         neck="Dualist's Torque +1",
-        waist="Prosilio Belt +1",
+        waist="Sailfi Belt +1",
         left_ear="Ishvara Earring",
         right_ear="Moonshade Earring",
         left_ring="Rufescent Ring",
@@ -207,7 +207,7 @@ function init_gear_sets()
         legs="Jhakri Slops +2",
         feet="Jhakri Pigaches +2",
         neck="Dualist's Torque +1",
-        waist="Prosilio Belt +1",
+        waist="Sailfi Belt +1",
         left_ear="Regal Earring",
         right_ear="Moonshade Earring",
         left_ring="Rufescent Ring",
@@ -230,19 +230,19 @@ function init_gear_sets()
     }
 
     sets.precast.WS['Aeolian Edge'] = {
-        ammo="Pemphredo Tathlum",
-        head="Cath palug crown",
-        body=augmented_gear.Merlinic.Damage.body,
-        hands="Jhakri Cuffs +2",
-        legs="Amalric Slops +1",
-        feet=augmented_gear.Merlinic.Damage.feet,
-        neck="Baetyl Pendant",
-        waist="Refoccilation Stone",
-        left_ear="Regal Earring",
-        right_ear="Malignance earring",
-        left_ring="Freke Ring",
-        right_ring="Epaminondas's ring",
-        back=augmented_gear.capes.int_mab,
+        --ammo="Pemphredo Tathlum",
+        --head="Cath palug crown",
+        --body=augmented_gear.Merlinic.Damage.body,
+        --hands="Jhakri Cuffs +2",
+        --legs="Amalric Slops +1",
+        --feet=augmented_gear.Merlinic.Damage.feet,
+        --neck="Baetyl Pendant",
+        --waist="Refoccilation Stone",
+        --left_ear="Regal Earring",
+        --right_ear="Malignance earring",
+        --left_ring="Freke Ring",
+        --right_ring="Epaminondas's ring",
+        --back=augmented_gear.capes.int_mab,
     }
 
 	
@@ -424,7 +424,7 @@ function init_gear_sets()
         legs="Amalric Slops +1",
         feet="Amalric Nails +1",
         neck="Baetyl Pendant",
-        waist="Refoccilation Stone",
+        waist=gear.ElementalObi,
         left_ear="Regal Earring",
         right_ear="Malignance Earring",
         left_ring="Freke Ring",
@@ -473,7 +473,7 @@ function init_gear_sets()
 	-- Engaged sets
 
 	sets.engaged = {
-        ammo="Ginsen",
+        ammo="Aurgelmir orb +1",
         head="Malignance Chapeau",
         body="Malignance Tabard",
         legs="Malignance tights",

@@ -132,7 +132,7 @@ function init_gear_sets()
 
     -- Normal melee group
     sets.engaged = {
-        ammo="Ginsen",
+        ammo="Aurgelmir orb +1",
         head=augmented_gear.Adhemar.Atk.head,
         body=augmented_gear.Adhemar.Atk.body,
         hands=augmented_gear.Adhemar.Atk.hands,
@@ -201,7 +201,7 @@ function init_gear_sets()
         body=augmented_gear.Adhemar.Atk.body,
         hands="Meg. Gloves +2",
         legs=augmented_gear.Lustratio.DEX.legs,
-        feet=augmented_gear.Lustratio.DEX.feet,
+        feet=augmented_gear.Lustratio.D.feet,
         waist="Chaac Belt",
         neck="Caro Necklace",
         left_ear="Odr Earring",
@@ -269,7 +269,7 @@ function init_gear_sets()
     sets.precast.WS['Aeolian Edge'].TH = set_combine(sets.precast.WS['Aeolian Edge'], sets.TreasureHunter)
     
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
-        ammo="Floestone",
+        ammo="Aurgelmir orb +1",
         head=augmented_gear.Lustratio.STR.head,
         body=augmented_gear.Lustratio.STR.body,
         hands="Meg. Gloves +2",
@@ -280,7 +280,7 @@ function init_gear_sets()
         right_ear="Moonshade Earring",
         left_ring="Gere ring",
         right_ring="Regal ring",
-        waist="Prosilio Belt +1",
+        waist="Sailfi Belt +1",
         back="Sacro Mantle",
     })
     sets.precast.WS["Savage Blade"].SA = set_combine(sets.precast.WS["Savage Blade"].Fodder, sets.sata)

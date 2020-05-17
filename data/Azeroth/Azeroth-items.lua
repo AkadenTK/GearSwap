@@ -21,18 +21,21 @@ augmented_gear.Herculean.TH = {
 }
 
 augmented_gear.Herculean.WSD = {}
-augmented_gear.Herculean.WSD.MAB = {
-    legs={ name="Herculean Trousers", augments={'Mag. Acc.+11 "Mag.Atk.Bns."+11','Weapon skill damage +2%','MND+7','"Mag.Atk.Bns."+14',}},
-    feet={ name="Herculean Boots", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Weapon skill damage +4%','STR+6',}},
-}
-
 augmented_gear.Herculean.WSD.STR = {
     head={ name="Herculean Helm", augments={'Accuracy+24','Weapon skill damage +4%','AGI+4','Attack+15',}},
     legs={ name="Herculean Trousers", augments={'Attack+29','Weapon skill damage +4%','DEX+7','Accuracy+4',}},
     feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','Weapon skill damage +4%','STR+4','Accuracy+10',}},
 }
 
+augmented_gear.Herculean.WSD.MAB = {
+    head=augmented_gear.Herculean.WSD.STR.head,
+    legs={ name="Herculean Trousers", augments={'Pet: "Dbl. Atk."+1','Pet: Accuracy+17 Pet: Rng. Acc.+17','Weapon skill damage +5%','Accuracy+9 Attack+9','Mag. Acc.+12 "Mag.Atk.Bns."+12',}},
+    feet={ name="Herculean Boots", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Weapon skill damage +4%','STR+6',}},
+}
+
 augmented_gear.Herculean.WSD.AGI = {
+    head=augmented_gear.Herculean.WSD.STR.head,
+    legs=augmented_gear.Herculean.WSD.MAB.legs,
 }
 
 augmented_gear.Herculean.CritDMG = {}
@@ -43,9 +46,6 @@ augmented_gear.Herculean.TA = {
     feet={ name="Herculean Boots", augments={'Accuracy+6 Attack+6','"Triple Atk."+3','DEX+7','Accuracy+15',}},
 }
 augmented_gear.Herculean.Phalanx = {
-}
-
-augmented_gear.Herculean.TH = {
 }
 
 augmented_gear.Valorous = {}
@@ -75,16 +75,20 @@ augments.Adhemar.HQ = {
     C = {'AGI+12','Rng.Acc.+20','Rng.Atk.+20',},
 }
 augmented_gear.Adhemar.Acc = {
-    head={ name="Adhemar Bonnet", augments=augments.Adhemar.NQ.A},
-    hands={ name="Adhemar Wristbands", augments=augments.Adhemar.NQ.A},
+    head={ name="Adhemar Bonnet +1", augments=augments.Adhemar.HQ.A},
+    body={ name="Adhemar Jacket +1", augments=augments.Adhemar.HQ.A},
+    hands={ name="Adhemar Wristbands +1", augments=augments.Adhemar.HQ.A},
 }
 augmented_gear.Adhemar.Atk = {
     head=augmented_gear.Adhemar.Acc.head,
+    body=augmented_gear.Adhemar.Acc.body,
     hands=augmented_gear.Adhemar.Acc.hands,
 }
-augmented_gear.Adhemar.Rng = {
-}
 augmented_gear.Adhemar.D = {
+    legs={ name="Adhemar Kecks +1", augments={'AGI+12','"Rapid Shot"+13','Enmity-6',}}, 
+}
+augmented_gear.Adhemar.Rng = {
+    legs=augmented_gear.Adhemar.D.legs,
 }
 augmented_gear.Lustratio = {}
 augments.Lustratio = {}
@@ -95,4 +99,17 @@ augments.Lustratio.HQ = {
 augmented_gear.Lustratio.STR = {
 }
 augmented_gear.Lustratio.DEX = {
+}
+
+augmented_gear.Kaykaus = {}
+augments.Kaykaus = {}
+augments.Kaykaus.HQ = {
+    A = {'MP+80','MND+12','Mag. Acc.+20',},
+    C = {'MP+80','Spell interruption rate down +12%','"Cure" spellcasting time -7%',},
+}
+augmented_gear.Kaykaus.C = {
+    head={ name="Kaykaus Mitra +1", augments=augments.Kaykaus.HQ.C},
+}
+augmented_gear.Kaykaus.D = {
+    feet={ name="Kaykaus Boots +1", augments={'Mag. Acc.+20','"Cure" potency +6%','"Fast Cast"+4',}},
 }

@@ -76,7 +76,7 @@ function init_gear_sets()
     
     -- Normal melee group
     sets.engaged = {
-        ammo="Ginsen",
+        ammo="Aurgelmir orb +1",
         head=augmented_gear.Adhemar.Atk.head,
         neck="Asperity Necklace",
         left_ear='Suppanomimi',

@@ -121,11 +121,11 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {
         ammo="Ginsen",
-        head={ name="Adhemar Bonnet", augments={'DEX+10','AGI+10','Accuracy+15',}},
-        body="Pillager's Vest +2",
-        hands={ name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}},
+        head=augmented_gear.Adhemar.Atk.head,
+        body=augmented_gear.Adhemar.Atk.body,
+        hands=augmented_gear.Adhemar.Atk.hands,
         legs="Samnuha tights",
-        feet={ name="Plun. Poulaines +1", augments={'Enhances "Assassin\'s Charge" effect',}},
+        feet="Plun. Poulaines +1",
         neck="Anu torque",
         waist="Chiner's Belt +1",
         ear1="Sherida Earring",
@@ -262,7 +262,8 @@ function init_gear_sets()
     sets.idle = set_combine(sets.engaged, {
         head="Meghanada Visor +1",
         body="Meghanada Cuirie +2",
-        hands="Malignance Gloves",
+        hands="Malignance gloves",
+        legs="Malignance Tights",
         feet="Fajin Boots",
         neck="Twilight Torque",
         left_ring="Defending Ring",

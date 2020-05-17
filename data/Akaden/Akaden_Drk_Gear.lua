@@ -114,8 +114,8 @@ function init_gear_sets()
 	    feet="Ratri Sollerets",
 	    neck="Sanctity Necklace",
 	    waist="Oneiros Belt",
-	    left_ear="Odnowa Earring +1",
-	    right_ear="Odnowa Earring",
+	    left_ear="Tuisto Earring",
+	    right_ear="Odnowa Earring +1",
 	    left_ring="Praan Ring",
 	    right_ring="Moonbeam Ring",
 	    back="Moonbeam Cape",
@@ -242,7 +242,7 @@ function init_gear_sets()
      
 	-- Engaged sets
 	sets.engaged = {
-	    ammo="Ginsen",
+	    ammo="Aurgelmir orb +1",
 	    head="Argosy celata +1",
 	    body=augmented_gear.Valorous.TP.body,
 	    hands="Argosy mufflers +1",

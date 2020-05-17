@@ -64,7 +64,7 @@ data.elements.enspell_of = {['Fire']='Fire', ['Ice']='Blizzard', ['Wind']='Aero'
 data.elements.runes_lookup = {['Lux']='Light', ['Tenebrae']='Dark', ['Ignis']='Fire', ['Gelus']='Ice', ['Flabra']='Wind',
      ['Tellus']='Earth', ['Sulpor']='Lightning', ['Unda']='Water'}
 
-data.elements.enspells_lookup = {['Enthunder']='Thunder', ['Enstone']='Earth', ['Enaero']='Wind', ['Enblizzard']='Ice',
+data.elements.enspells_lookup = {['Enthunder']='Lightning', ['Enstone']='Earth', ['Enaero']='Wind', ['Enblizzard']='Ice',
 		['Enfire']='Fire', ['Enwater']='Water', ['Enlight']='Light', ['Endark']='Dark',	
 		['Enthunder II']='Thunder', ['Enstone II']='Earth', ['Enaero II']='Wind', 
 		['Enblizzard II']='Ice', ['Enfire II']='Fire', ['Enwater II']='Water', ['Enlight II']='Light', 
@@ -106,8 +106,9 @@ data.elements.rune_of = {['Light']='Lux', ['Dark']='Tenebrae', ['Fire']='Ignis',
      ['Earth']='Tellus', ['Lightning']='Sulpor', ['Water']='Unda'}
  
 
---Cursna actions that one shouldn't replace when replacing actions for cursna.
+--Exceptions for specific actions, placed here to be easily modifiable.
 cursna_exceptions = S{'Cursna','Accession','Divine Caress','Hallowed Water','Holy Water','Light Arts','Addendum: White'}
+TH_WS_exceptions = S{'Corporal Tombstone','Lithicthrower Image','Incarnation Icon','Impish Statue'}
 
 -------------------------------------------------------------------------------------------------------------------
 -- Mappings for weaponskills
@@ -696,6 +697,7 @@ data.npcs.trusts = S{'ArkEV','ArkGK','ArkHM','ArkMR','ArkTT','Abenzio','Abquhbah
 -------------------------------------------------------------------------------------------------------------------
 data.skills = {}
 data.skills.one_handed_combat = S{2,3,5,9,11} --Combat skills for one-handed-weapons.
+--data.skills.two_handed_combat = S{4,6,7,8,10,12} --Combat skills for two-handed-weapons.
 
 -------------------------------------------------------------------------------------------------------------------
 -- Stepdown Tables.

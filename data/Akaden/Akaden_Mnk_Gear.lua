@@ -316,6 +316,7 @@ function init_gear_sets()
 		legs="Anchorite's hose +3",
 		feet="Hesychast's Gaiters +3",
 	    back=augmented_gear.capes.tp_counter,
+	    right_ear="Genmei Earring",
 	}
 	-- Normal melee sets
 	sets.engaged =  {

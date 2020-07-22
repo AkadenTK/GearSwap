@@ -29,7 +29,7 @@ augmented_gear.Herculean.WSD.STR = {
 
 augmented_gear.Herculean.WSD.MAB = {
     head=augmented_gear.Herculean.WSD.STR.head,
-    legs={ name="Herculean Trousers", augments={'Pet: "Dbl. Atk."+1','Pet: Accuracy+17 Pet: Rng. Acc.+17','Weapon skill damage +5%','Accuracy+9 Attack+9','Mag. Acc.+12 "Mag.Atk.Bns."+12',}},
+    legs={ name="Herculean Trousers", augments={'Rng.Atk.+14','STR+8','Weapon skill damage +5%','Mag. Acc.+13 "Mag.Atk.Bns."+13',}},
     feet={ name="Herculean Boots", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Weapon skill damage +4%','STR+6',}},
 }
 

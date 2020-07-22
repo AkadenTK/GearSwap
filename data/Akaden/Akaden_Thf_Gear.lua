@@ -97,7 +97,7 @@ function init_gear_sets()
     -- Waltz set (chr and vit)
     sets.precast.Waltz = {}
 		
-	sets.Self_Waltz = {}
+	sets.Self_Waltz = {body="Passion Jacket",}
 		
     -- Don't need any special gear for Healing Waltz.
     sets.precast.Waltz['Healing Waltz'] = {}
@@ -124,6 +124,14 @@ function init_gear_sets()
 
     -- Ranged snapshot gear
     sets.precast.RA = {}
+
+    sets.midcast.Cure = {
+        left_ear="Mendicant's Earring",
+        left_ring="Lebeche Ring",
+        right_ring="Stikini Ring +1",
+        neck="Phalaina locket",
+        back="Solemnity cape",
+    }
 
 
     --------------------------------------
@@ -166,7 +174,7 @@ function init_gear_sets()
         hands="Malignance Gloves",  
         legs="Malignance Tights",
         neck="Loricate Torque +1",
-        right_ring="Defending Ring",
+        left_ring="Defending Ring",
         ammo="Staunch Tathlum +1",
     })
 
@@ -317,7 +325,14 @@ function init_gear_sets()
     --------------------------------------
 
     -- Resting sets
-    sets.resting = {}
+    sets.resting = {
+        head="Rawhide Mask",
+        hands=augmented_gear.Herculean.Refresh.hands,
+        legs=augmented_gear.Herculean.Refresh.legs,
+        feet=augmented_gear.Herculean.Refresh.feet,
+        left_ring="Stikini Ring +1",
+        right_ring="Stikini Ring +1",
+    }
 
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 

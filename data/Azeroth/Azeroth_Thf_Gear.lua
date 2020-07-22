@@ -43,7 +43,7 @@ function init_gear_sets()
     -- Special sets (required by rules)
     --------------------------------------
     sets.weapons = {}
-    sets.weapons.Default = {main="Taming Sari", sub="Sandung"}
+    sets.weapons.Default = {main="Kaja Knife", sub="Sandung"}
 
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", hands="Plunderer's Armlets +1",legs=augmented_gear.Herculean.TH.legs,feet="Skulk. Poulaines"})
     sets.ExtraRegen = {}
@@ -260,16 +260,18 @@ function init_gear_sets()
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 
     sets.idle = set_combine(sets.engaged, {
-        head="Meghanada Visor +1",
+        head="Turms Cap +1",
         body="Meghanada Cuirie +2",
         hands="Malignance gloves",
         legs="Malignance Tights",
-        feet="Fajin Boots",
+        feet="Turms Leggings +1",
         neck="Twilight Torque",
         left_ring="Defending Ring",
         right_ring="Karieyh Ring",
     })
 		
+
+        sets.kiting = {feet="Fajin Boots"}
     sets.idle.Sphere = set_combine(sets.idle, {})
 
     sets.idle.Weak = set_combine(sets.idle, {})

@@ -267,7 +267,7 @@ function init_gear_sets()
         body="Assimilator's Jubbah +3",
         hands="Jhakri Cuffs +2",
         legs="Luhlaza Shalwar +3",
-    	feet="Jhakri Pigaches +2",
+        feet=augmented_gear.Herculean.WSD.STR.feet,
         neck='Mirage Stole +2',
         right_ear="Ishvara Earring",
         left_ear="Moonshade earring",

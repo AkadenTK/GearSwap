@@ -92,7 +92,7 @@ function init_gear_sets()
     sets.weapons.MeleeLastStand = {main=rostams.B, sub="Blurred Knife +1", range="Fomalhaut"}
 
     sets.Compensator = {main=rostams.C,range="Compensator"}
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap", hands=augmented_gear.Herculean.TH.hands,feet="Volte Boots"})
 
     
     -- Precast Sets

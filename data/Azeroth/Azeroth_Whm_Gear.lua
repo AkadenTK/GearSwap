@@ -300,7 +300,7 @@ function init_gear_sets()
 	    legs=augmented_gear.Chironic.macc.legs,
 	    feet="Theophany Duckbills +3",
 	    neck="Sanctity Necklace",
-	    left_ear="Psystorm Earring",
+	    left_ear="Malignance Earring",
 	    right_ear="lifestorm Earring",
 	    left_ring="Kishar Ring",
 	    right_ring="Stikini Ring",

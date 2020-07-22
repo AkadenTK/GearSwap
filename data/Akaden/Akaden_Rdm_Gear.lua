@@ -263,7 +263,7 @@ function init_gear_sets()
         head="Viti. Chapeau +3",
         body="Shamash Robe",
         hands="Telchine Gloves",
-        legs="Atrophy Tights +1",
+        legs="Atrophy Tights +2",
         feet="Medium's Sabots",
         neck="Nodens Gorget",
         waist="Emphatikos Rope",-- sp. intr. rate.
@@ -289,6 +289,8 @@ function init_gear_sets()
 	sets.Self_Refresh = {head="Amalric Coif +1", waist="Gishdubar Sash"}
 
 	sets.midcast['Enhancing Magic'] = {
+        main='Crocea Mors',
+        sub='Ammurapi Shield',
         head=augmented_gear.Telchine.Enhancing.head,
         body="Vitiation Tabard +3",
         hands="Atrophy gloves +3",
@@ -308,11 +310,12 @@ function init_gear_sets()
         sub="Pukulatmuj",
         head="Befouled Crown",
         hands="Vitiation gloves +3",
-        legs="Carmine Cuisses +1",
+        legs="Atrophy Tights +2",
         neck="Incanter's Torque",
-        --waist="Olympus sash",
-        waist="Embla Sash",
+        waist="Olympus sash",
+        --waist="Embla Sash",
         left_ear="Mimir Earring",
+        right_ear="Andoaa Earring",
     })
 
     sets.midcast.Phalanx = set_combine(sets.enhancing_skill, {

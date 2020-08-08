@@ -246,7 +246,6 @@ function init_gear_sets()
         ammo="Falcon Eye",
     })
     sets.precast.WS['Savage Blade'].BigAcc = set_combine(sets.precast.WS['Savage Blade'].Acc, {
-        neck="Subtlety Spectacles",
     })
     sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS['Savage Blade'].BigAcc, {
         head="Carmine Mask +1",
@@ -286,7 +285,6 @@ function init_gear_sets()
         ammo="Falcon Eye",
     })
     sets.precast.WS['Expiacion'].BigAcc = set_combine(sets.precast.WS['Expiacion'].Acc, {
-        neck="Subtlety Spectacles",
     })
     sets.precast.WS['Expiacion'].FullAcc = set_combine(sets.precast.WS['Expiacion'].BigAcc, {
         head="Carmine Mask +1",
@@ -316,7 +314,6 @@ function init_gear_sets()
         ammo="Falcon Eye",
     })
     sets.precast.WS['Black Halo'].BigAcc = set_combine(sets.precast.WS['Black Halo'].Acc, {
-        neck="Subtlety Spectacles",
     })
     sets.precast.WS['Black Halo'].FullAcc = set_combine(sets.precast.WS['Black Halo'].BigAcc, {
         head="Carmine Mask +1",

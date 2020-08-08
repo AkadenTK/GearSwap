@@ -77,7 +77,7 @@ function init_gear_sets()
     --------------------------------------
     sets.weapons = {}
     sets.weapons.SavageBlade = {main='Kaja Sword', sub="Blurred Knife +1", range="Anarchy +2"}
-    sets.weapons.MeleeLeaden = {main='Kaja Sword', sub="Kaja Knife", range="Fomalhaut"}
+    sets.weapons.MeleeLeaden = {main='Kaja Knife', sub="Blurred Knife +1", range="Fomalhaut"}
 
     sets.Compensator = {range="Compensator"}
 
@@ -133,17 +133,17 @@ function init_gear_sets()
         waist="Kentarch belt +1",
         back=augmented_gear.capes.stp,
     } 
-    sets.engaged.DTLite = set_combine(sets.engaged, {
-        hands="Malignance Gloves",
-        legs="Malignance Tights",
-    })
     sets.engaged.Acc = set_combine(sets.engaged, {
         head="Meghanada visor +1",
         legs="Meghanada chausses +2"
     })
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {})
     sets.engaged.Crits = set_combine(sets.engaged.FullAcc, {})
-    sets.engaged.DTLite = set_combine(sets.engaged,{})
+    sets.engaged.DTLite = set_combine(sets.engaged, {
+        hands="Malignance Gloves",
+        legs="Malignance Tights",
+        left_ring="Defending Ring",
+    })
     sets.engaged.Acc.DTLite = set_combine(sets.engaged.Acc, {})
     sets.engaged.FullAcc.DTLite = set_combine(sets.engaged.FullAcc, {})
 
@@ -207,7 +207,7 @@ function init_gear_sets()
         ammo=gear.RAbullet,
         head={ name="Taeon Chapeau", augments={'"Snapshot"+5','"Snapshot"+5',}}, -- s10
         --head='Chass. Tricorne +1', -- r14
-        --neck='Commodore Charm +2', -- s4
+        neck='Commodore Charm +2', -- s4
         body="Oshosi Vest", --s12
         --body="Laksamana's frac +3", --r20
         hands="Carmine Fin. Ga. +1", -- s8 r11

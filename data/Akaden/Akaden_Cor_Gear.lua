@@ -159,7 +159,7 @@ function init_gear_sets()
     }
     sets.engaged.Acc = set_combine(sets.engaged, {
         head="Malignance Chapeau",
-        neck="Subtlety Spectacles",
+        neck="Lissome Necklace",
         left_ear="Odr earring",
         right_ear="Telos earring",
         body=augmented_gear.Adhemar.Acc.body,
@@ -308,7 +308,7 @@ function init_gear_sets()
         back=augmented_gear.capes.mab_wsd,
         waist="Kwahu kachina belt",
         legs="Malignance Tights",
-        feet="Laksamana's boots +2"
+        feet="Laksamana's Boots +3"
     })
 
     sets.precast.CorsairShot['Light Shot'] = set_combine(sets.precast.CorsairShot.Acc, {})

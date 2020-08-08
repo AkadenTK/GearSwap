@@ -219,11 +219,6 @@ function job_post_midcast(spell, spellMap, eventArgs)
 		end
     end
 	
-	if spell.skill == 'Enfeebling Magic' or spell.skill == 'Dark Magic' or default_spell_map == 'ElementalEnfeeble' or spell.english == 'Impact' then
-		if state.Weapons.value ~= 'None' and not sets.weapons[state.Weapons.value].range and item_available('Regal Gem') then
-			equip({range=empty,ammo="Regal Gem"})
-		end
-	end
 end
 
 function job_aftercast(spell, spellMap, eventArgs)

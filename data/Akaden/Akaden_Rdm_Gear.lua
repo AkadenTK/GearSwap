@@ -163,7 +163,7 @@ function init_gear_sets()
         body="Amalric Doublet +1",
         hands="Jhakri Cuffs +2",
         legs="Amalric Slops +1",
-        feet="Amalric Nails +1",
+        feet="Vitiation Boots +3",
         neck="Baetyl Pendant",
         waist="Orpheus's sash",
         left_ear="Regal Earring",
@@ -174,7 +174,6 @@ function init_gear_sets()
     }
     sets.precast.WS['Sanguine Blade'].Accuracy = set_combine(sets.precast.WS['Sanguine Blade'], {
         legs=augmented_gear.Merlinic.Damage.legs,
-        feet="Vitiation Boots +3",
     })
 
         
@@ -359,13 +358,13 @@ function init_gear_sets()
         back=augmented_gear.capes.mnd_macc,
     }
     sets.midcast['Enfeebling Magic']['NukingMode'] = set_combine(sets.midcast['Enfeebling Magic'], {main='Daybreak',sub='Nibiru Cudgel'})
-    sets.midcast['Enfeebling Magic']['NukingShield'] = set_combine(sets.midcast['Enfeebling Magic'], {main='Daybreak',sub='Culminus'})
+    sets.midcast['Enfeebling Magic']['NukingShield'] = set_combine(sets.midcast['Enfeebling Magic'], {main='Daybreak',sub='Ammurapi Shield'})
 
 		
 	sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {
-        range="Ullr",
-        ammo=nil,
-        body=augmented_gear.Merlinic.Accuracy.body,
+        ranged="Ullr",
+        ammo="Demon Arrow",
+        body="Amalric doublet +1",
     })
 		
     sets.midcast.ElementalEnfeeble = set_combine(sets.midcast['Enfeebling Magic'], {})
@@ -385,8 +384,11 @@ function init_gear_sets()
 	
 	sets.midcast['Distract III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring +1"})
 	sets.midcast['Distract III'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
-	sets.midcast['Frazzle III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring +1"})
-	sets.midcast['Frazzle III'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
+    sets.midcast['Frazzle III'] = set_combine(sets.midcast.MndEnfeebles, {hands="Leth. Gantherots +1",right_ring="Stikini Ring +1"})
+    sets.midcast['Frazzle III'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
+
+    sets.midcast['Frazzle II'] = set_combine(sets.midcast.MndEnfeebles.Resistant, {hands="Leth. Gantherots +1",right_ring="Stikini Ring +1"})
+    sets.midcast['Frazzle II'].Resistant = set_combine(sets.midcast.MndEnfeebles.Resistant, {})
 	
 	sets.midcast['Divine Magic'] = set_combine(sets.midcast['Enfeebling Magic'].Resistant, {})
 
@@ -612,7 +614,7 @@ function init_gear_sets()
     sets.weapons.TauretTernion = {main="Tauret", sub="Ternion Dagger +1"}
     sets.weapons.Odin = {main='Ceremonial Dagger',sub="Ceremonial Dagger", range="Ullr", ammo="Demon Arrow"}
     sets.weapons.Nuking = {main='Maxentius',sub="Daybreak"}
-    sets.weapons.NukingShield = {main='Daybreak',sub="Culminus"}
+    sets.weapons.NukingShield = {main='Daybreak',sub="Ammurapi Shield"}
 
 end
 

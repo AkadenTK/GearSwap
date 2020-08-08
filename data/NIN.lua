@@ -98,7 +98,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 		local WSset = standardize_set(get_precast_set(spell, spellMap))
 		local wsacc = check_ws_acc()
 		
-		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring" or WSset.left_ear == "Moonshade Earring" or WSset.right_ear == "Moonshade Earring") then
 			-- Replace Moonshade Earring if we're at cap TP
 			if get_effective_player_tp(spell, WSset) > 3200 then
 				if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then

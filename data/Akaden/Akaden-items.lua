@@ -68,7 +68,7 @@ augmented_gear.Merlinic.Pet.MAB = {
     hands={ name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+16 Pet: "Mag.Atk.Bns."+16','Blood Pact Dmg.+8','Pet: DEX+4','Pet: "Mag.Atk.Bns."+5',}},
 }
 augmented_gear.Merlinic.Pet.Atk = {
-    hands={ name="Merlinic Dastanas", augments={'Pet: Accuracy+28 Pet: Rng. Acc.+28','Blood Pact Dmg.+5','Pet: DEX+7','Pet: Mag. Acc.+10',}},
+    hands={ name="Merlinic Dastanas", augments={'Pet: Attack+26 Pet: Rng.Atk.+26','Blood Pact Dmg.+8','Pet: DEX+8','Pet: Mag. Acc.+12',}},
 }
 
 augmented_gear.Chironic = {}
@@ -227,11 +227,11 @@ augments.Apogee.HQ = {
 }
 augmented_gear.Apogee = {}
 augmented_gear.Apogee.Magic={
-    body={ name="Apogee Dalmatica +1", augments=augments.Apogee.HQ.A},
-    feet={ name="Apogee Pumps +1", augments=augments.Apogee.HQ.A},
+    body={ name="Apogee Dalmatica +1", augments=augments.Apogee.HQ.A, priority=-1},
+    feet={ name="Apogee Pumps +1", augments=augments.Apogee.HQ.A, priority=-1},
 }
 augmented_gear.Apogee.Physical = set_combine(augmented_gear.Apogee.Magic, {
-    head={ name="Apogee Crown +1", augments=augments.Apogee.HQ.B},
-    legs = { name= "Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}},
-    feet = { name= "Apogee Pumps +1", augments=augments.Apogee.HQ.B},
+    head={ name="Apogee Crown +1", augments=augments.Apogee.HQ.B, priority=-1},
+    legs = { name= "Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}, priority=-1},
+    feet = { name= "Apogee Pumps +1", augments=augments.Apogee.HQ.B, priority=-1},
 })

@@ -20,7 +20,7 @@ function init_gear_sets()
         magicbp = { name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: INT+11','Pet: Mag. Acc.+17','Pet: "Mag.Atk.Bns."+24','DMG:+22',}},
         magicaccbp = "Grioavolr",
         physicalbp = "Nirvana",
-        smnskill = "Espiritus",
+        --smnskill = "Espiritus",
         perp = "Nirvana",
         refresh = "Daybreak",
         fc = "Grioavolr",
@@ -35,8 +35,8 @@ function init_gear_sets()
     augmented_gear.capes.fc = augmented_gear.capes.magic
 
     sets.smnskill = { 
-        main=staves.smnskill,
-        sub="Vox Grip",
+        --main=staves.smnskill,
+        --sub="Vox Grip",
         ammo="Sancus Sachet +1",
         head="Convoker's Horn +1",
         body="Baayami Robe +1", 
@@ -45,7 +45,7 @@ function init_gear_sets()
         feet="Baayami Sabots +1", 
         neck="Incanter's Torque",
         waist="Lucidity Sash",
-        left_ear="Summoning earring",
+        left_ear="lodurr earring",
         right_ear="Andoaa earring",
         left_ring="Evoker's ring",
         right_ring="Stikini Ring +1",
@@ -64,8 +64,8 @@ function init_gear_sets()
     --sets.precast.JA['Astral Flow'] = {head="Glyphic Horn"}
     
     sets.precast.JA['Elemental Siphon'] = set_combine(sets.smnskill, {
-        main=staves.smnskill,
-        sub="Vox Grip",
+        --main=staves.smnskill,
+        --sub="Vox Grip",
         ammo="Esper Stone +1",
         head="Convoker's Horn +1",
         body="Beckoner's Doublet +1",
@@ -126,16 +126,17 @@ function init_gear_sets()
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Myrkr'] = {
         --sub="Vox Grip",
-        ammo="Sancus Sachet +1",
+        ammo="Summoner's collar +2",
         --head=augmented_gear.Apogee.Magic.head,
+        head="Beckoner's Horn +1",
         body="Beckoner's Doublet +1",
         hands="Lamassu mitts +1",
         legs="Beck. Spats +1",
         feet=augmented_gear.Apogee.Magic.feet,
         neck="Sanctity Necklace",
-        waist="Shinjutsu-no-Obi +1",
-        left_ear="Etiolation Earring",
-        right_ear=moonshade,
+        waist="Regal Belt", -- hp
+        left_ear="Halasz Earring",
+        right_ear="moonshade Earring",
         left_ring={name="Mephitas's Ring +1",priority=3},
         right_ring={name="Mephitas's Ring",priority=3},
         back="Conveyance Cape"
@@ -253,12 +254,12 @@ function init_gear_sets()
         hands=augmented_gear.Merlinic.Pet.Atk.hands,
         legs=augmented_gear.Apogee.Physical.legs,
         feet=augmented_gear.Apogee.Physical.feet,
-        neck="Shulmanu collar",
+        neck="Summoner's Collar +2",
         waist="Incarnation Sash",
         left_ear="Gelos Earring",
         right_ear="Lugalbanda earring",
-        left_ring={name="Varar Ring +1",priority=3},
-        right_ring={name="Varar Ring +1",priority=3},
+        left_ring="Varar Ring +1",
+        right_ring="Varar Ring +1",
         back=augmented_gear.capes.atk,
     }
 		
@@ -275,7 +276,7 @@ function init_gear_sets()
         main=staves.magicbp,
         ammo="Sancus Sachet +1",
         --neck="Deino Collar",
-        neck="Adad Amulet",
+        neck="Summoner's Collar +2",
         waist="Regal Belt",
         left_ear="Gelos Earring",
         right_ear="Lugalbanda earring",
@@ -315,20 +316,20 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = {
         main=staves.perp,
-        sub="Vox Grip",
+        sub="Elan strap +1",
         ammo="Sancus Sachet +1",
         head="Convoker's Horn +1",
-        body={name="Apogee Dalmatica +1", priority=1},
+        body=augmented_gear.Apogee.Magic.body,
         hands="Asteria Mitts +1",
         legs="Assiduity pants +1",
         feet="Baayami Sabots +1",
-        neck="Loricate Torque +1",
+        neck="Summoner's collar +2",
         waist="Fucho-no-obi",
         left_ear="Ethereal Earring",
         right_ear="Halasz earring",
         left_ring="Defending Ring",
         right_ring="Stikini Ring +1",
-        back={name="Moonbeam Cape",priority=2},
+        back="Moonbeam Cape",
     }
 
     sets.idle.PDT = set_combine(sets.idle, {})
@@ -358,18 +359,18 @@ function init_gear_sets()
     
     sets.idle.Avatar = {
         main=staves.perp,
-        sub="Vox Grip",
+        sub="Elan Strap +1",
         head="Beckoner's horn +1",
-        body={name="Apogee Dalmatica +1", priority=1},
+        body=augmented_gear.Apogee.Magic.body,
         hands="Asteria Mitts +1",
         legs="Assiduity pants +1",
         feet="Baayami Sabots +1",
-        neck="Caller's Pendant",
+        neck="Summoner's collar +2",
         ammo="Sancus Sachet +1",
         waist="Lucidity sash",
         left_ring="Evoker's ring",
         right_ring="Stikini Ring +1",
-        back={name="Moonbeam Cape",priority=2},
+        back="Moonbeam Cape",
     }
 		
     sets.idle.PDT.Avatar = set_combine(sets.idle.Avatar, {})

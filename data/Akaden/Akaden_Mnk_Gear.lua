@@ -46,8 +46,6 @@ function init_gear_sets()
 		head="Halitus Helm",
 		body="Emet Harness +1",
 		hands="Kurys gloves",
-		legs=augmented_gear.Herculean.Phalanx.legs,
-		feet="Rager Ledelsens +1",
 		neck="Moonbeam Necklace",
 		left_ring="Eihwaz ring",
 		right_ring="Petrov Ring",

@@ -228,6 +228,10 @@ function job_customize_melee_set(meleeSet)
         meleeSet = set_combine(meleeSet, sets.buff.Footwork)
     end
 	
+	if state.Buff['Boost'] then
+		meleeSet = set_combine(meleeSet, sets.buff.Boost)
+	end
+	
     return meleeSet
 end
 

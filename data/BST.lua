@@ -80,7 +80,9 @@ function job_setup()
         'Fantod','Charged Whisker','Purulent Ooze','Corrosive Ooze','Tortoise Stomp','Harden Shell','Aqua Breath',
         'Sensilla Blades','Tegmina Buffet','Molting Plumage','Swooping Frenzy','Pentapeck','Sweeping Gouge',
         'Zealous Snort','Somersault ','Tickling Tendrils','Stink Bomb','Nectarous Deluge','Nepenthic Plunge',
-        'Pecking Flurry','Pestilent Plume','Foul Waters','Spider Web','Sickle Slash'}
+        'Pecking Flurry','Pestilent Plume','Foul Waters','Spider Web','Sickle Slash','Crossthrash','Predatory Glare',
+		'Hoof Volley','Nihility Song','Frenzied Rage','Venom Shower','Mega Scissors','Fluid Toss','Fluid Spread',
+		'Digest','Rhinowrecker'}
 
 	tp_based_ready_moves = S{'Sic','Somersault ','Dust Cloud','Foot Kick','Sheep Song','Sheep Charge','Lamb Chop',
         'Rage','Head Butt','Scream','Dream Flower','Wild Oats','Leaf Dagger','Claw Cyclone','Razor Fang','Roar',
@@ -92,17 +94,23 @@ function job_setup()
         'Water Wall','Snow Cloud','Wild Carrot','Sudden Lunge','Noisome Powder','Wing Slap','Beak Lunge','Suction',
         'Drainkiss','Acid Mist','TP Drainkiss','Back Heel','Jettatura','Choke Breath','Fantod','Charged Whisker',
         'Purulent Ooze','Corrosive Ooze','Tortoise Stomp','Harden Shell','Aqua Breath','Sensilla Blades',
-        'Tegmina Buffet','Sweeping Gouge','Zealous Snort','Tickling Tendrils','Pecking Flurry',
-        'Pestilent Plume','Foul Waters','Spider Web'}
+        'Tegmina Buffet','Sweeping Gouge','Zealous Snort','Tickling Tendrils','Pecking Flurry','Pestilent Plume',
+		'Foul Waters','Spider Web','Crossthrash','Hoof Volley','Venom Shower','Mega Scissors','Fluid Toss',
+		'Fluid Spread','Digest','Rhinowrecker'}
 
 	-- List of Magic-based Ready moves to use with Pet MAB or Pet M.Acc gearset.
 	magic_ready_moves = S{'Dust Cloud','Sheep Song','Scream','Dream Flower','Roar','Gloeosuccus','Palsy Pollen',
         'Soporific','Cursed Sphere','Venom','Geist Wall','Toxic Spit','Numbing Noise','Spoil','Hi-Freq Field',
-        'Sandpit','Sandblast','Venom Spray','Bubble Shower','Filamented Hold','Queasyshroom','Silence Gas',
-        'Numbshroom','Spore','Dark Spore','Shakeshroom','Fireball','Plague Breath','Infrasonics','Chaotic Eye',
-        'Blaster','Intimidate','Snow Cloud','Noisome Powder','TP Drainkiss','Jettatura','Charged Whisker',
-        'Purulent Ooze','Corrosive Ooze','Aqua Breath','Molting Plumage','Stink Bomb','Nectarous Deluge',
-        'Nepenthic Plunge','Pestilent Plume','Foul Waters','Spider Web'}
+        'Sandpit','Sandblast','Venom Spray','Bubble Shower','Filamented Hold','Silence Gas','Spore','Dark Spore',
+		'Fireball','Plague Breath','Infrasonics','Chaotic Eye','Blaster','Intimidate','Snow Cloud',
+		'Noisome Powder','TP Drainkiss','Jettatura','Charged Whisker','Purulent Ooze','Corrosive Ooze','Aqua Breath',
+		'Molting Plumage','Stink Bomb','Nectarous Deluge','Nepenthic Plunge','Pestilent Plume','Foul Waters',
+		'Spider Web','Nihility Song','Venom Shower','Digest'}
+		
+	debuff_ready_moves = S{'Dust Cloud','Sheep Song','Scream','Dream Flower','Roar','Gloeosuccus','Palsy Pollen',
+        'Soporific','Geist Wall','Numbing Noise','Spoil','Hi-Freq Field','Sandpit','Sandblast','Filamented Hold',
+		'Spore','Fireball','Infrasonics','Chaotic Eye','Blaster','Intimidate','Noisome Powder','TP Drainkiss',
+		'Jettatura','Purulent Ooze','Corrosive Ooze','Pestilent Plume','Spider Web','Nihility Song'}		
 
 	-- List of abilities to reference for applying Treasure Hunter +1 via Chaac Belt.
 	abilities_to_check = S{'Feral Howl','Quickstep','Box Step','Stutter Step','Desperate Flourish','Violent Flourish',
@@ -218,6 +226,14 @@ function job_setup()
 
 	autows = 'Cloudsplitter'
 	autofood = 'Akamochi'
+
+	base_chargetimer = 30
+
+	if 	player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 100 then
+		base_chargetimer = base_chargetimer - 5
+	end
+	
+	base_chargetimer = base_chargetimer - (2 * windower.ffxi.get_player().merits.sic_recast)
 
 	update_pet_groups()
 	update_melee_groups()
@@ -359,11 +375,38 @@ function job_post_precast(spell, spellMap, eventArgs)
 end
 
 function job_pet_midcast(spell, spellMap, eventArgs)
+
+end
+
+function job_post_pet_midcast(spell, spellMap, eventArgs)
+
+end
+
+function job_pet_aftercast(spell, action, spellMap, eventArgs)
+	windower.add_to_chat:schedule(.5,204,'~~~Current Ready Charges Available: ['..get_current_ready_count()..']~~~')
+end
+
+-- Return true if we handled the aftercast work.  Otherwise it will fall back
+-- to the general aftercast() code in Mote-Include.
+function job_midcast(spell, spellMap, eventArgs)
+
+end
+
+function job_aftercast(spell, spellMap, eventArgs)
+	if spell.type == 'Monster' then
+		equip(get_pet_midcast_set(spell, spellMap))
+		petWillAct = os.clock()
+		
+		
         if magic_ready_moves:contains(spell.english) then
-			if sets.midcast.Pet.MagicReady[state.OffenseMode.value] then
-				equip(sets.midcast.Pet.MagicReady[state.OffenseMode.value])
+			if debuff_ready_moves:contains(spell.english) and sets.midcast.Pet.DebuffReady then
+					equip(sets.midcast.Pet.DebuffReady)
 			else
-				equip(sets.midcast.Pet.MagicReady)
+				if sets.midcast.Pet.MagicReady[state.OffenseMode.value] then
+					equip(sets.midcast.Pet.MagicReady[state.OffenseMode.value])
+				else
+					equip(sets.midcast.Pet.MagicReady)
+				end
 			end
         else
 			if sets.midcast.Pet[state.OffenseMode.value] then
@@ -372,35 +415,20 @@ function job_pet_midcast(spell, spellMap, eventArgs)
 				equip(sets.midcast.Pet.WS)
 			end
         end
-
         -- If Pet TP, before bonuses, is less than a certain value then equip Nukumi Manoplas +1
         if tp_based_ready_moves:contains(spell.english) then
 			if pet.tp < 1900 or (PetJob ~= 'Warrior' and pet.tp < 2400) then
 				equip(sets.midcast.Pet.TPBonus)
 			end
         end
-end
-
-function job_post_pet_midcast(spell, spellMap, eventArgs)
-	if state.Buff["Unleash"] and UnleashLock and not UnleashLocked then
-		UnleashLocked = true
-		disable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-		add_to_chat(217, "Unleash is on, locking your current Ready set.")
-	end
-end
-
-function job_pet_aftercast(spell, action, spellMap, eventArgs)
-	send_command('@wait 1;gs c showcharge')
-end
-
--- Return true if we handled the aftercast work.  Otherwise it will fall back
--- to the general aftercast() code in Mote-Include.
-function job_aftercast(spell, spellMap, eventArgs)
-	if type(spell.type) == 'string' and spell.type == 'Monster' and state.DefenseMode.value == 'None' then
-		equip(get_pet_midcast_set(spell, spellMap))
-		petWillAct = os.clock()
+		
+		if state.Buff["Unleash"] and UnleashLock and not UnleashLocked then
+			UnleashLocked = true
+			disable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
+			add_to_chat(217, "Unleash is on, locking your current Ready set.")
+		end
 		eventArgs.handled = true
-	elseif pet_midaction() or spell.english == "Bestial Loyalty" or spell.english == 'Call Beast' then
+	elseif spell.english == "Bestial Loyalty" or spell.english == 'Call Beast' then
 		eventArgs.handled = true
 	end
 end
@@ -531,30 +559,29 @@ function update_melee_groups()
 end
 
 function job_self_command(commandArgs, eventArgs)
+	if commandArgs[1]:lower() == 'showcharge' then
+		add_to_chat(204, '~~~Current Ready Charges Available: ['..get_current_ready_count()..']~~~')
 
-		if commandArgs[1]:lower() == 'showcharge' then
-			add_to_chat(204, '~~~Current Ready Charges Available: ['..get_current_ready_count()..']~~~')
+	elseif commandArgs[1]:lower() == 'displaypetinfo' then
+		add_to_chat(8,''..state.JugMode.value..': '..pet_info[state.JugMode.value]..'')
+	elseif commandArgs[1]:lower() == 'unleashlock' then
+		if UnleashLock == true then
+			UnleashLock = false
+			add_to_chat(122, "Unleash no longer locks gear.")
+		elseif UnleashLock == false then
+			UnleashLock = true
+			add_to_chat(122, "Unleash now locks gear.")
+		end
 
-		elseif commandArgs[1]:lower() == 'displaypetinfo' then
-			add_to_chat(8,''..state.JugMode.value..': '..pet_info[state.JugMode.value]..'')
-		elseif commandArgs[1]:lower() == 'unleashlock' then
-			if UnleashLock == true then
-				UnleashLock = false
-				add_to_chat(122, "Unleash no longer locks gear.")
-			elseif UnleashLock == false then
-				UnleashLock = true
-				add_to_chat(122, "Unleash now locks gear.")
+	elseif commandArgs[1]:lower() == 'ready' and pet.isvalid then
+
+			if pet.status == "Idle" and player.target.type == "MONSTER" then
+				windower.chat.input('/pet Fight <t>')
+			else
+				handle_ready(commandArgs)
 			end
 
-		elseif commandArgs[1]:lower() == 'ready' and pet.isvalid then
-
-				if pet.status == "Idle" and player.target.type == "MONSTER" then
-					windower.chat.input('/pet Fight <t>')
-				else
-					handle_ready(commandArgs)
-				end
-
-		end
+	end
 end
 
 function job_tick()
@@ -632,7 +659,7 @@ function get_current_ready_count()
 	-- The *# is your current recharge timer.
     local fullRechargeTime = 3*ReadyChargeTimer
 
-    local currentCharges = math.floor((maxCharges - maxCharges * readyRecast / fullRechargeTime) + latency)
+    local currentCharges = math.floor(maxCharges - maxCharges * readyRecast / fullRechargeTime)
 
     return currentCharges
 end
@@ -683,32 +710,26 @@ function handle_ready(commandArgs)
 end
 
 function get_ready_charge_timer()
-	local chargetimer = 25
-
-	if 	player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 100 then
-		chargetimer = chargetimer - 5
-	end
-
+	local charge_timer = base_chargetimer
 	if state.Weapons.Value == 'None' then
-		if can_dual_wield then
-			if sets.midcast.Pet.ReadyRecastDW.sub and sets.midcast.Pet.ReadyRecastDW.sub == "Charmer's Merlin" then
-				chargetimer = chargetimer - 5
-			end
-
+		if can_dual_wield and sets.midcast.Pet.ReadyRecastDW.sub and sets.midcast.Pet.ReadyRecastDW.sub == "Charmer's Merlin" then
+				charge_timer = charge_timer - 5
 		elseif sets.midcast.Pet.ReadyRecast.main and sets.midcast.Pet.ReadyRecast.main == "Charmer's Merlin" then
-			chargetimer = chargetimer - 5
+			charge_timer = charge_timer - 5
 		end
+	elseif sets.weapons[state.Weapons.Value].main == "Charmer's Merlin" or sets.weapons[state.Weapons.Value].main == "Charmer's Merlin" then
+		charge_timer = charge_timer - 5
 	end
 	
-	if can_dual_wield then
-		if sets.midcast.Pet.ReadyRecastDW.legs and sets.midcast.Pet.ReadyRecastDW.legs == "Desultor Tassets" then
-			chargetimer = chargetimer - 5
-		end
-	else
-		if sets.midcast.Pet.ReadyRecast.legs and sets.midcast.Pet.ReadyRecast.legs == "Desultor Tassets" then
-			chargetimer = chargetimer - 5
-		end	
+	if can_dual_wield and sets.midcast.Pet.ReadyRecastDW.legs and sets.midcast.Pet.ReadyRecastDW.legs == "Desultor Tassets" then
+			charge_timer = charge_timer - 5
+	elseif sets.midcast.Pet.ReadyRecast.legs and sets.midcast.Pet.ReadyRecast.legs == "Desultor Tassets" then
+			charge_timer = charge_timer - 5
 	end
-
-	return chargetimer
+	
+	if charge_timer < 10 then
+		return 10
+	else
+		return charge_timer
+	end
 end

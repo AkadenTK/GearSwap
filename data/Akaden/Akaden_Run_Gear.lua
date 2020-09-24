@@ -6,10 +6,10 @@ function user_setup()
 	state.CastingMode:options('Normal','SIRD','Resistant')
 	state.PhysicalDefenseMode:options('PDT', 'PDT_HP')
 	state.MagicalDefenseMode:options('MDT','MDT_HP','BDT','BDT_HP')
-	state.ResistDefenseMode:options('MEVA','MEVA_HP','Death','Charm','DTCharm')
+	state.ResistDefenseMode:options('MEVA','Death','Charm')
 	state.IdleMode:options('Normal','Tank','KiteTank','Sphere')
-	state.Weapons:options('Epeolatry', 'Lionheart', 'Aettir')
-	state.BuffMode = M{['description']='Buff Mode', 'Tank', 'Hybrid', 'DD'}
+	state.Weapons:options('Tank', 'Epeolatry', 'Lionheart', 'Aettir')
+	state.BuffMode = M{['description']='Buff Mode', 'Tank', 'Supertank', 'Hybrid', 'DD'}
 	state.DowngradeFlash = M(false,'Downgrade Flash')
 
     state.AutoBuffMode.value = 'Off'
@@ -62,7 +62,7 @@ function init_gear_sets()
 	    hands="Kurys gloves",
 	    legs="Erilaz Leg Guards +1",
 	    feet="Ahosi Leggings",
-        neck={name="Futhark Torque +2", priority=2},
+        neck={name="Unmoving Collar +1", priority=2},
 	    left_ear={name="Odnowa Earring +1",priority=2},
 	    right_ear={name="Tuisto Earring", priority=2},
 	    left_ring={name="Eihwaz Ring",priority=2},
@@ -137,7 +137,6 @@ function init_gear_sets()
 	sets.precast.JA['Animated Flourish'].DT = set_combine(sets.Enmity.DT, {})
 
     sets.precast.JA['Lunge'] = {
-		ammo="Seething Bomblet",
 		head=augmented_gear.Herculean.WSD.MAB.head,
         neck="Baetyl pendant",
         body="Samnuha coat",
@@ -190,7 +189,7 @@ function init_gear_sets()
 	    hands="Leyline Gloves",			-- fc 8%
 	    legs="Aya. Cosciales +2",		-- fc 6%
 	    feet="Carmine greaves +1",		-- fc 8%
-	    neck="Baetyl Pendant",			-- fc 4%
+	    neck={name="Unmoving Collar +1", priority=2},
 	    left_ear={name="Odnowa Earring +1", priority=2},
 	    --right_ear="Tuisto Earring",		-- hp 150
 	    waist="Audumbla Sash",			-- SIRD
@@ -347,6 +346,7 @@ function init_gear_sets()
         --hp swaps
         --body="Runeist's coat +3", 
         feet="Carmine Greaves +1", -- also fc
+        back={name="Moonbeam Cape", priority=1},
     }
     sets.midcast['Phalanx'] = {
         head="Futhark Bandeau +3",
@@ -358,10 +358,17 @@ function init_gear_sets()
         left_ear="Mimir Earring",
         left_ring="Stikini Ring +1",
         waist="Olympus Sash",
+        back={name="Moonbeam Cape", priority=1},
 	}
     sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'],{head="Rune. Bandeau +3"}) 
 	sets.midcast['Refresh'] = set_combine(sets.midcast['Enhancing Magic'],{head="Erilaz Galea +1"}) 
-    sets.midcast['Aquaveil'] = set_combine(sets.midcast['Enhancing Magic'], sets.sird)
+    sets.midcast['Aquaveil'] = set_combine(sets.sird, {
+        left_ear={name="Odnowa Earring +1",priority=2},
+        right_ear={name="Tuisto earring", priority=2},
+        left_ring="Defending Ring",
+        right_ring={name="Gelatinous Ring +1", priority=2},
+        back={name="Moonbeam Cape", priority=2},
+    })
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {right_ear="Earthcry Earring",waist="Siegel Sash"})
 	sets.midcast.Flash = set_combine(sets.Enmity, {})
 	sets.midcast.Foil = set_combine(sets.Enmity, {})
@@ -436,6 +443,7 @@ function init_gear_sets()
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
 	
 	-- Weapons sets
+    sets.weapons.Tank = {main="Epeolatry",sub="Refined Grip +1"}
 	sets.weapons.Aettir = {main="Aettir",sub="Utu Grip"}
 	sets.weapons.Lionheart = {main="Lionheart",sub="Utu Grip"}
 	sets.weapons.Epeolatry = {main="Epeolatry",sub="Utu Grip"}
@@ -454,13 +462,15 @@ function init_gear_sets()
 	sets.defense.MEVA = set_combine(sets.defense.MDT,{
         hands="Turms mittens +1",
     })
-	sets.defense.MEVA_HP = {}
 		
 	sets.defense.Death = {left_ring="Eihwaz ring"}
 
-	sets.defense.DTCharm = {}
-		
-	sets.defense.Charm = {}
+	sets.defense.Charm = set_combine(sets.defense.MEVA, { 
+        body="Futhark Coat +3", 
+        legs="Volte Hose",
+        feet="Volte Boots",
+        neck={name="Unmoving Collar +1", priority=2},
+    })
 	
 	-- Swap to these on Moonshade using WS if at 3000 TP
 	sets.MaxTP = {left_ear="Brutal Earring"}
@@ -516,15 +526,8 @@ function init_gear_sets()
 	})
 	
     sets.engaged.Tank = set_combine(sets.idle.Tank,{
-    	head="Turms cap +1",
-    	neck="Futhark Torque +2",
-    	body="Runeist's Coat +3",
     	hands="Turms mittens +1",
-    	legs="Erilaz Leg Guards +1",
-    	feet="Turms leggings +1",
-        right_ring="Gelatinous Ring +1",
-        left_ear="Odnowa Earring +1",
-    	})
+  	})
 	sets.engaged.Acc.Tank = set_combine(sets.engaged.Tank,{
     	legs="Ayanmo cosciales +2",
 	})
@@ -759,34 +762,62 @@ function check_buffs()
     local spell_recasts = windower.ffxi.get_spell_recasts()
 	local ability_recasts = windower.ffxi.get_ability_recasts()
 		--Tank
-	if state.BuffMode.value == 'Tank' then
-		if not buffactive.Phalanx and spell_recasts[106] == 0 then
-			windower.chat.input('/ma "Phalanx" <me>')
-			return 200
-		elseif not buffactive['Defense Boost'] and not buffactive['Defense Down'] and spell_recasts [547] == 0 and player.sub_job == 'BLU' then
-			windower.chat.input('/ma "Cocoon" <me>')
-			return 200
-		elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
-			windower.chat.input('/ma "Crusade" <me>')
-			return 200
-		elseif player.sub_job == 'BLU' and not buffactive.Haste and spell_recasts [530] == 0 then
-			windower.chat.input('/ma "Refueling" <me>')
-			return 200
-		elseif not buffactive.Refresh and spell_recasts [109] == 0 then
-			windower.chat.input('/ma "Refresh" <me>')
-			return 200
-		elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
-			windower.chat.input('/ma "Aquaveil" <me>')
-			return 200
-		elseif not buffactive.Regen and spell_recasts [477] == 0 then
-			send_command('input /ma "Regen IV" <me>')
-			return 200
-		elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 and player.mpp > 50 then
-			send_command('input /ma "Shock Spikes" <me>')
-			return 200
-		else
-			add_to_chat(123,'All buffs applied.')
-		end
+    if state.BuffMode.value == 'Tank' then
+        if not buffactive.Phalanx and spell_recasts[106] == 0 then
+            windower.chat.input('/ma "Phalanx" <me>')
+            return 200
+        elseif not buffactive['Defense Boost'] and not buffactive['Defense Down'] and spell_recasts [547] == 0 and player.sub_job == 'BLU' then
+            windower.chat.input('/ma "Cocoon" <me>')
+            return 200
+        elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
+            windower.chat.input('/ma "Crusade" <me>')
+            return 200
+        elseif player.sub_job == 'BLU' and not buffactive.Haste and spell_recasts [530] == 0 then
+            windower.chat.input('/ma "Refueling" <me>')
+            return 200
+        elseif not buffactive.Refresh and spell_recasts [109] == 0 then
+            windower.chat.input('/ma "Refresh" <me>')
+            return 200
+        elseif not buffactive.Aquaveil and spell_recasts [55] == 0 then
+            windower.chat.input('/ma "Aquaveil" <me>')
+            return 200
+        elseif not buffactive.Regen and spell_recasts [477] == 0 then
+            send_command('input /ma "Regen IV" <me>')
+            return 200
+        elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 and player.mpp > 50 then
+            send_command('input /ma "Shock Spikes" <me>')
+            return 200
+        else
+            add_to_chat(123,'All buffs applied.')
+        end
+    elseif state.BuffMode.value == 'Supertank' then
+        if not buffactive.Aquaveil and spell_recasts [55] == 0 then
+            windower.chat.input('/ma "Aquaveil" <me>')
+            return 200
+        elseif not buffactive.Phalanx and spell_recasts[106] == 0 then
+            windower.chat.input('/ma "Phalanx" <me>')
+            return 200
+        elseif not buffactive['Defense Boost'] and not buffactive['Defense Down'] and spell_recasts [547] == 0 and player.sub_job == 'BLU' then
+            windower.chat.input('/ma "Cocoon" <me>')
+            return 200
+        elseif not buffactive['Enmity Boost'] and not buffactive['Enmity Down'] and spell_recasts [476] == 0 then
+            windower.chat.input('/ma "Crusade" <me>')
+            return 200
+        elseif not buffactive['Shock Spikes'] and spell_recasts [251] == 0 and player.mpp > 50 then
+            send_command('input /ma "Shock Spikes" <me>')
+            return 200
+        elseif not buffactive.Refresh and spell_recasts [109] == 0 then
+            windower.chat.input('/ma "Refresh" <me>')
+            return 200
+        elseif player.sub_job == 'BLU' and not buffactive.Haste and spell_recasts [530] == 0 then
+            windower.chat.input('/ma "Refueling" <me>')
+            return 200
+        elseif not buffactive.Regen and spell_recasts [477] == 0 then
+            send_command('input /ma "Regen IV" <me>')
+            return 200
+        else
+            add_to_chat(123,'All buffs applied.')
+        end
 
 	elseif state.BuffMode.value == 'Hybrid' then
 		if not buffactive.Phalanx and spell_recasts[106] == 0 then

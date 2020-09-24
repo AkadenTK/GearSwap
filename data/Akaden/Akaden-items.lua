@@ -227,11 +227,11 @@ augments.Apogee.HQ = {
 }
 augmented_gear.Apogee = {}
 augmented_gear.Apogee.Magic={
-    body={ name="Apogee Dalmatica +1", augments=augments.Apogee.HQ.A, priority=-1},
-    feet={ name="Apogee Pumps +1", augments=augments.Apogee.HQ.A, priority=-1},
+    body={ name="Apogee Dalmatica +1", augments=augments.Apogee.HQ.A, priority=2},
+    feet={ name="Apogee Pumps +1", augments=augments.Apogee.HQ.A, priority=2},
 }
 augmented_gear.Apogee.Physical = set_combine(augmented_gear.Apogee.Magic, {
-    head={ name="Apogee Crown +1", augments=augments.Apogee.HQ.B, priority=-1},
-    legs = { name= "Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}, priority=-1},
-    feet = { name= "Apogee Pumps +1", augments=augments.Apogee.HQ.B, priority=-1},
+    head={ name="Apogee Crown +1", augments=augments.Apogee.HQ.B, priority=2},
+    legs = { name= "Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}, priority=2},
+    feet = { name= "Apogee Pumps +1", augments=augments.Apogee.HQ.B, priority=2},
 })

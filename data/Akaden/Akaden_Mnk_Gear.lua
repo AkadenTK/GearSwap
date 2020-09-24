@@ -7,7 +7,7 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
 	state.IdleMode:options('Normal', 'PDT')
-	state.Weapons:options('Verethragna','Godhands','JoltCounters','Staff','Barehanded','None')
+	state.Weapons:options('Verethragna','Godhands','Spharai','Staff','Barehanded','None')
 
 	state.AutoBoost = M(false, 'Auto Boost Mode')
 
@@ -166,6 +166,22 @@ function init_gear_sets()
 	sets.precast.WS['Ascetic\'s Fury'].FullAcc.Impetus = {
 		body="Bhikku Cyclas +1",}
 
+	sets.precast.WS['Final Heaven'] = {
+	    ammo="Knobkierrie",
+	    neck="Fotia Gorget",
+		head="Hesychast's crown +3",
+        body=augmented_gear.Herculean.WSD.STR.body,
+        hands="Anchorite's gloves +3",
+	    left_ear="Sherida Earring",
+	    right_ear="Tuisto Earring",
+	    back=augmented_gear.capes.str_wsd,
+	    waist="Moonbow Belt +1",
+    	left_ring="Regal Ring",
+	    right_ring="Niqmaddu Ring",
+    	legs="Hiza. Hizayoroi +2",
+	    feet=augmented_gear.Herculean.WSD.STR.feet,
+
+	}
 
 
 	sets.precast.WS["Victory Smite"]   = set_combine(sets.precast.WS, {
@@ -314,13 +330,13 @@ function init_gear_sets()
 		legs="Anchorite's hose +3",
 		feet="Hesychast's Gaiters +3",
 	    back=augmented_gear.capes.tp_counter,
-	    right_ear="Genmei Earring",
+	    --right_ear="Genmei Earring",
 	}
 	-- Normal melee sets
 	sets.engaged =  {
 		ammo="Aurgelmir orb +1",
         head=augmented_gear.Adhemar.Atk.head,
-        body="kendatsuba Samue",
+        body="Ken. Samue +1",
         hands=augmented_gear.Adhemar.Atk.hands,
 	    legs="Hesychast's Hose +3",
     	feet="Anchorite's Gaiters +3",
@@ -404,7 +420,7 @@ function init_gear_sets()
 	-- Weapons sets
 	sets.weapons.Godhands = {main="Godhands"}
 	sets.weapons.Verethragna = {main="Verethragna"}
-	sets.weapons.JoltCounters = {main="Jolt Counter"}
+	sets.weapons.Spharai = {main="Spharai"}
 	sets.weapons.Staff = {main="Malignance Pole",sub="Niobid Strap"}
 	sets.weapons.Barehanded = {main=empty}
 end

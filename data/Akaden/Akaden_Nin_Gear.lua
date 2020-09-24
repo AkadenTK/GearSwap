@@ -9,7 +9,8 @@ function user_setup()
     state.PhysicalDefenseMode:options('PDT')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('Kanaria','SavageBlade', 'Raiton', 'Proc_Sword', 'Proc_Katana', 'Proc_Dagger', 'Proc_Club', 'Proc_GKT', 'Proc_Staff', 'Proc_Scythe', 'Proc_Polearm', 'Proc_GS','None')
+    state.NukingMode = M('Never', 'Always','300', '1000')
+    state.Weapons:options('Kikoku', 'KikokuMB', 'Gokotai','SavageBlade','Proc_Sword', 'Proc_Katana', 'Proc_Dagger', 'Proc_Club', 'Proc_GKT', 'Proc_Staff', 'Proc_Scythe', 'Proc_Polearm', 'Proc_GS','None')
 	
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None','Knockback','SuppaBrutal','DWEarrings','DWMax'}
 	
@@ -33,15 +34,19 @@ function init_gear_sets()
     --------------------------------------
 
     organizer_items = {
+        "Shihei",
         "inoshishinofuda",
         "Chonofuda",
         "Shikanofuda",
+        "Shinobi-Tabi",
+        "Sanjaku-Tenugui",
     }
 
     sets.weapons = {}
-    sets.weapons.Kanaria = { main = "Kanaria", sub = "Ternion Dagger +1" }
-    sets.weapons.Raiton = { main = "Kanaria", sub = "Ternion Dagger +1", ranged = "Donar Gun" }
-    sets.weapons.SavageBlade = { main = "Naegling", sub = "Ternion Dagger +1" }
+    sets.weapons.Gokotai = { main = "Gokotai", sub = "Kanaria" }
+    sets.weapons.Kikoku = { main = "Kikoku", sub = "Kanaria" }
+    sets.weapons.KikokuMB = { main = "Kikoku", sub="Gokotai",}
+    sets.weapons.SavageBlade = { main = "Naegling", sub = "Kanaria" }
 
     sets.weapons.Proc_Katana = {main = 'Gassan', sub = empty, }
     sets.weapons.Proc_Sword = {main = 'Save the Queen II', sub = empty, }
@@ -54,14 +59,16 @@ function init_gear_sets()
     sets.weapons.Proc_GS = {main = 'Lament', sub = empty, }
 
     capes = {}
-    capes.DA_TP = "Sacro Mantle"
-    capes.MAB = nil
-    capes.STR_WSD = "Sacro Mantle"
+    capes.DA_TP = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
+    capes.MAB = { name="Andartia's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}}
+    capes.STR_WSD = { name="Andartia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
     capes.AGI_WSD = "Sacro Mantle"
+    capes.DEX_WSD = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
 
     sets.Enmity = {
         body="Emet Harness +1",
         hands="Kurys gloves",
+        legs="Zoar Subligar +1",
         feet="Ahosi Leggings",
         neck="Moonlight Necklace",
         left_ear="Friomisi Earring",
@@ -79,7 +86,9 @@ function init_gear_sets()
 	sets.precast.JA['Warcry'] = sets.Enmity
 
     -- Waltz set (chr and vit)
-    sets.precast.Waltz = {}
+    sets.precast.Waltz = {
+        body="Passion Jacket",
+    }
 	
     -- Don't need any special gear for Healing Waltz.
     sets.precast.Waltz['Healing Waltz'] = {}
@@ -115,17 +124,18 @@ function init_gear_sets()
     sets.engaged = {
         ammo="Happo Shuriken",
         head=augmented_gear.Adhemar.Atk.head,
-        body="Ken. Samue",
+        body="Ken. Samue +1",
         hands=augmented_gear.Adhemar.Atk.hands,
         back="Atheling Mantle",
         legs="Samnuha tights",
         feet=augmented_gear.Herculean.TA.feet,
-        neck="Moonbeam Nodowa",
+        neck="Ninja Nodowa +2",
         left_ear='Telos Earring',
         right_ear="Dedition Earring",
         left_ring="Gere ring",
         right_ring="Epona's ring",
         waist="Windbuffet belt +1",
+        back=capes.DA_TP,
     }
     sets.engaged.Acc = set_combine(sets.engaged, {
         head="Malignance chapeau",
@@ -143,12 +153,12 @@ function init_gear_sets()
     sets.engaged.DTLite = set_combine(sets.engaged, {
         head="Malignance chapeau",
         body="Malignance tabard",
-        left_ring="Defending Ring",
+        feet="Malignance boots",
     })
     sets.engaged.FullDT = set_combine(sets.engaged.DTLite, {
-        neck="Loricate Torque +1",
-        right_ear="Odnowa Earring +1",
-        waist="Flume Belt",
+        hands="Malignance gloves",
+        legs="Malignance tights",
+        right_ring="Defending Ring",
     })
 
     -- Snapshot for ranged
@@ -164,10 +174,10 @@ function init_gear_sets()
         ammo="Aurgelmir orb +1",
         head=augmented_gear.Adhemar.Atk.head,
         body="Mummu Jacket +1",
-        hands="Meg. Gloves +2",
+        hands="Ryuo Tekko +1",
         legs=augmented_gear.Herculean.CritDMG.DEX.legs,
         feet="Mummu Gamash. +1",
-        neck="Fotia Gorget",
+        neck="Ninja Nodowa +2",
         waist="Fotia Belt",
         left_ear="Ishvara Earring",
         right_ear="Brutal Earring",
@@ -183,11 +193,11 @@ function init_gear_sets()
 	sets.precast.WS['Blade: Hi'] = set_combine(sets.precast.WS, {
         ammo="Aurgelmir orb +1",
         head="Ken. Jinpachi +1",
-        body="Ken. Samue",
+        body="Ken. Samue +1",
         hands="Mummu wrists +2",
         legs="Mummu kecks +2",
         feet="Mummu Gamash. +2",
-        neck="Fotia Gorget",
+        neck="Ninja Nodowa +2",
         waist="Windbuffet Belt +1",
         left_ear="Odr Earring",
         right_ear="Brutal Earring",
@@ -202,11 +212,11 @@ function init_gear_sets()
     sets.precast.WS['Blade: Shun'] = set_combine(sets.precast.WS, {
         ammo="Aurgelmir orb +1",
         head="Ken. Jinpachi +1",
-        body="Ken. Samue",
+        body="Ken. Samue +1",
         hands="Ken. tekko +1",
         legs="Jokushu Haidate",
         feet="Ken. sune-ate +1",
-        neck="Fotia Gorget",
+        neck="Ninja Nodowa +2",
         left_ear="Brutal Earring",
         right_ear="Moonshade earring",        
         left_ring="Gere Ring",
@@ -219,15 +229,51 @@ function init_gear_sets()
     sets.precast.WS['Blade: Shun'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Blade: Shun'].Fodder = set_combine(sets.precast.WS['Blade: Shun'], {})
 
+    sets.precast.WS['Blade: Metsu'] = set_combine(sets.precast.WS, {
+        ammo="Aurgelmir orb +1",
+        head="Adhemar jacket +1",
+        body="Ken. Samue +1",
+        hands="Ken. tekko +1",
+        legs="Mochizuki hakama +3",
+        feet="Ken. sune-ate +1",
+        neck="Ninja Nodowa +2",
+        left_ear="Ishvara Earring",
+        right_ear="Odr earring",        
+        left_ring="Epaminondas's Ring",
+        right_ring="Regal Ring",
+        waist="Fotia Belt",
+        back=capes.DEX_WSD,
+    })
+
+    sets.precast.WS['Blade: Ku'] = set_combine(sets.precast.WS, {
+        ammo="Aurgelmir orb +1",
+        head="Ken. Jinpachi +1",
+        body="Ken. Samue +1",
+        hands="Ken. tekko +1",
+        legs="Jokushu Haidate",
+        feet="Ken. sune-ate +1",
+        neck="Ninja Nodowa +2",
+        left_ear="Mache earring +1",
+        right_ear="Odr Earring",   
+        left_ring="Gere Ring",
+        right_ring="Regal Ring",
+        waist="Fotia Belt",
+        back=capes.DA_TP,
+    })
+    sets.precast.WS['Blade: Ku'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {})
+    sets.precast.WS['Blade: Ku'].Acc = set_combine(sets.precast.WS.Acc, {})
+    sets.precast.WS['Blade: Ku'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
+    sets.precast.WS['Blade: Ku'].Fodder = set_combine(sets.precast.WS['Blade: Ku'], {})
+
     sets.precast.WS['Blade: Ten'] = set_combine(sets.precast.WS, {
         ammo="Aurgelmir orb +1",
         head=augmented_gear.Herculean.WSD.STR.head,
         body=augmented_gear.Herculean.WSD.DEX.body,
         hands=augmented_gear.Herculean.WSD.MAB.hands,
-        legs="Hizamaru Hizayoroi +2",
+        legs="Mochizuki Hakama +3",
         feet=augmented_gear.Herculean.WSD.STR.feet,
-        neck="Fotia Gorget",
-        waist="Saifi belt +1",
+        neck="Ninja Nodowa +2",
+        waist="Sailfi belt +1",
         left_ear="Ishvara Earring",
         right_ear="Moonshade Earring",
         left_ring="Epaminondas's Ring",
@@ -239,7 +285,76 @@ function init_gear_sets()
     sets.precast.WS['Blade: Ten'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Blade: Ten'].Fodder = set_combine(sets.precast.WS['Blade: Ten'], {})
 	
-    sets.precast.WS['Aeolian Edge'] = {}
+    sets.precast.WS['Aeolian Edge'] = {
+        head="Mochizuki Hatsuburi +3",
+        body="Samnuha Coat",
+        hands=augmented_gear.Herculean.WSD.MAB.hands,
+        legs=augmented_gear.Herculean.WSD.MAB.legs,
+        feet=augmented_gear.Herculean.WSD.MAB.feet,
+        neck="Baetyl Pendant",
+        left_ear="Friomisi Earring",
+        right_ear="Moonshade Earring",
+        left_ring="Shiva Ring +1",
+        right_ring="Dingir Ring",
+        waist="Orpheus's Sash",
+        back=capes.MAB,
+    }
+    sets.precast.WS['Blade: Ei'] = {
+        head="Mochizuki Hatsuburi +3",
+        body="Samnuha Coat",
+        hands=augmented_gear.Herculean.WSD.MAB.hands,
+        legs=augmented_gear.Herculean.WSD.MAB.legs,
+        feet=augmented_gear.Herculean.WSD.MAB.feet,
+        neck="Baetyl Pendant",
+        left_ear="Friomisi Earring",
+        right_ear="Moonshade Earring",
+        left_ring="Shiva Ring +1",
+        right_ring="Dingir Ring",
+        waist="Orpheus's Sash",
+        back=capes.MAB,
+    }
+    sets.precast.WS['Blade: Chi'] = {
+        head="Mochizuki Hatsuburi +3",
+        body="Samnuha Coat",
+        hands=augmented_gear.Herculean.WSD.MAB.hands,
+        legs=augmented_gear.Herculean.WSD.MAB.legs,
+        feet=augmented_gear.Herculean.WSD.MAB.feet,
+        neck="Baetyl Pendant",
+        left_ear="Friomisi Earring",
+        right_ear="Moonshade Earring",
+        left_ring="Shiva Ring +1",
+        right_ring="Dingir Ring",
+        waist="Orpheus's Sash",
+        back=capes.MAB,
+    }
+    sets.precast.WS['Blade: Teki'] = {
+        head="Mochizuki Hatsuburi +3",
+        body="Samnuha Coat",
+        hands=augmented_gear.Herculean.WSD.MAB.hands,
+        legs=augmented_gear.Herculean.WSD.MAB.legs,
+        feet=augmented_gear.Herculean.WSD.MAB.feet,
+        neck="Baetyl Pendant",
+        left_ear="Friomisi Earring",
+        right_ear="Moonshade Earring",
+        left_ring="Shiva Ring +1",
+        right_ring="Dingir Ring",
+        waist="Orpheus's Sash",
+        back=capes.MAB,
+    }
+    sets.precast.WS['Blade: Yu'] = {
+        head="Mochizuki Hatsuburi +3",
+        body="Samnuha Coat",
+        hands=augmented_gear.Herculean.WSD.MAB.hands,
+        legs=augmented_gear.Herculean.WSD.MAB.legs,
+        feet=augmented_gear.Herculean.WSD.MAB.feet,
+        neck="Baetyl Pendant",
+        left_ear="Friomisi Earring",
+        right_ear="Moonshade Earring",
+        left_ring="Shiva Ring +1",
+        right_ring="Dingir Ring",
+        waist="Orpheus's Sash",
+        back=capes.MAB,
+    }
 
 	-- Swap to these on Moonshade using WS if at 3000 TP
 	sets.MaxTP = {}
@@ -257,8 +372,10 @@ function init_gear_sets()
     sets.midcast.FastRecast = set_combine(sets.precast.FC, {})
 
     sets.midcast.ElementalNinjutsu = set_combine(sets.midcast.FastRecast, {
+        main="Malevolence",
+        sub="Malevolence",
         ammo="Pemphredo Tathlum",
-        head=augmented_gear.Herculean.WSD.MAB.head,
+        head="Mochizuki Hatsuburi +3",
         body="Samnuha Coat",
         hands=augmented_gear.Herculean.WSD.MAB.hands,
         legs=augmented_gear.Herculean.WSD.MAB.legs,
@@ -291,7 +408,7 @@ function init_gear_sets()
 	
     sets.midcast.Utsusemi = set_combine(sets.midcast.NinjutsuBuff, {
         feet="Hattori Kyahan",
-        back="Andartia's Mantle",
+        back=capes.DA_TP,
     })
 
     sets.midcast.RA = {}
@@ -361,6 +478,33 @@ function init_gear_sets()
 	sets.RedProcKatana = {}
 	sets.RedProcClub = {}
 	sets.RedProcStaff = {}
+end
+
+
+function user_job_aftercast(spell, spellMap, eventArgs)
+    if spellMap == 'ElementalNinjutsu' and state.NukingMode.value ~= 'Never' then
+        enable('main')
+        enable('sub')
+        enable('ranged')
+        enable('range')
+        enable('ammo')
+        for slot,piece in pairs(sets.weapons[state.Weapons.Value]) do
+            local s = {}
+            s[slot] = sets.weapons[state.Weapons.Value][slot]
+            equip(s)
+            disable(slot)
+        end
+    end
+end
+
+function user_job_post_precast(spell, spellMap, eventArgs)
+    if spellMap == 'ElementalNinjutsu' and state.NukingMode.value ~= 'Never' and (state.NukingMode.value == 'Always' or tonumber(state.NukingMode.value) > player.tp) then
+        enable('main')
+        enable('sub')
+        enable('ranged')
+        enable('range')
+        enable('ammo')
+    end
 end
 
 -- Select default macro book on initial load or subjob change.

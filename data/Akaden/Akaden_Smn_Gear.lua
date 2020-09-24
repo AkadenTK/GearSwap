@@ -49,7 +49,7 @@ function init_gear_sets()
         right_ear="Andoaa earring",
         left_ring="Evoker's ring",
         right_ring="Stikini Ring +1",
-        back="Conveyance Cape"
+        back={name="Conveyance Cape", priority=2},
         --ammo="Seraphicaller",
         --head="Convoker's Horn +2",
     }
@@ -81,10 +81,10 @@ function init_gear_sets()
     sets.precast.BloodPactWard = set_combine(sets.smnskill, { --I just stack it all because when I do salvage or a gear slot is locked by a NM it's nice
         main=staves.smnskill, -- II -2
         ammo="Sancus Sachet +1", -- II -7
-        head="Beckoner's horn +1",-- Favor +3, skill +13
+        head={name="Beckoner's horn +1", priority=2},-- Favor +3, skill +13
         hands="Baayami Cuffs", -- I -6, skill +28
-        legs="Baayami Slops +1", -- I -7, 35 skill
-        back="Conveyance Cape" --II -3
+        legs={name="Baayami Slops +1", priority=2}, -- I -7, 35 skill
+        back={name="Conveyance Cape",priority=2} --II -3
     })
 
     sets.precast.BloodPactRage = set_combine(sets.precast.BloodPactWard, {})
@@ -95,10 +95,10 @@ function init_gear_sets()
         main=staves.fc,--4
         sub="Vivid Strap",--1
         ammo="Impatiens",
-        head="Cath Palug Crown", -- 8
+        head="Cath Palug -Crown", -- 8
         body="Baayami Robe +1", -- 6
-        left_ear="Halasz earring",
-        right_ear="Malignance Earring", --4
+        left_ear="Malignance earring",
+        right_ear="Halasz Earring", --4
         --left_ring={name="Mephitas's Ring +1",priority=3},
         left_ring="Sangoma Ring",
         right_ring="Weatherspoon ring",  -- 5
@@ -135,8 +135,8 @@ function init_gear_sets()
         feet=augmented_gear.Apogee.Magic.feet,
         neck="Sanctity Necklace",
         waist="Regal Belt", -- hp
-        left_ear="Halasz Earring",
-        right_ear="moonshade Earring",
+        right_ear="Halasz Earring",
+        left_ear="moonshade Earring",
         left_ring={name="Mephitas's Ring +1",priority=3},
         right_ring={name="Mephitas's Ring",priority=3},
         back="Conveyance Cape"
@@ -249,12 +249,12 @@ function init_gear_sets()
         main=staves.physicalbp,
         sub="Elan Strap +1",
         ammo="Sancus Sachet +1",
-        head=augmented_gear.Apogee.Physical.head,
-        body="Convoker's Doublet +3",
+        head="Helios Band",
+        body={name="Convoker's Doublet +3", priority=2},
         hands=augmented_gear.Merlinic.Pet.Atk.hands,
         legs=augmented_gear.Apogee.Physical.legs,
         feet=augmented_gear.Apogee.Physical.feet,
-        neck="Summoner's Collar +2",
+        neck={name="Summoner's Collar +2", priority=2},
         waist="Incarnation Sash",
         left_ear="Gelos Earring",
         right_ear="Lugalbanda earring",
@@ -263,7 +263,10 @@ function init_gear_sets()
         back=augmented_gear.capes.atk,
     }
 		
-    sets.midcast.Pet.PhysicalBloodPactRage.Acc = set_combine(sets.midcast.Pet.PhysicalBloodPactRage, {})
+    sets.midcast.Pet.PhysicalBloodPactRage.Acc = set_combine(sets.midcast.Pet.PhysicalBloodPactRage, {
+        head=augmented_gear.Apogee.Physical.head,
+        feet="Convoker's Pigaches +2",
+    })
 
     sets.midcast.Pet.MagicalBloodPactRage = {
         main=staves.magicalbp,
@@ -319,17 +322,17 @@ function init_gear_sets()
         sub="Elan strap +1",
         ammo="Sancus Sachet +1",
         head="Convoker's Horn +1",
-        body=augmented_gear.Apogee.Magic.body,
+        body="Apogee Dalmatica +1",
         hands="Asteria Mitts +1",
         legs="Assiduity pants +1",
         feet="Baayami Sabots +1",
-        neck="Summoner's collar +2",
+        neck={name="Summoner's collar +2",priority=2},
         waist="Fucho-no-obi",
-        left_ear="Ethereal Earring",
+        left_ear={name="Evans Earring",priority=2},
         right_ear="Halasz earring",
-        left_ring="Defending Ring",
+        left_ring={name="Sangoma Ring",priority=2},
         right_ring="Stikini Ring +1",
-        back="Moonbeam Cape",
+        back={name="Moonbeam Cape",priority=2},
     }
 
     sets.idle.PDT = set_combine(sets.idle, {})
@@ -357,21 +360,12 @@ function init_gear_sets()
     
     -- Can make due without either the head or the body, and use +refresh items in those slots.
     
-    sets.idle.Avatar = {
+    sets.idle.Avatar = set_combine(sets.idle, {
         main=staves.perp,
         sub="Elan Strap +1",
         head="Beckoner's horn +1",
-        body=augmented_gear.Apogee.Magic.body,
-        hands="Asteria Mitts +1",
-        legs="Assiduity pants +1",
-        feet="Baayami Sabots +1",
-        neck="Summoner's collar +2",
-        ammo="Sancus Sachet +1",
         waist="Lucidity sash",
-        left_ring="Evoker's ring",
-        right_ring="Stikini Ring +1",
-        back="Moonbeam Cape",
-    }
+    })
 		
     sets.idle.PDT.Avatar = set_combine(sets.idle.Avatar, {})
 

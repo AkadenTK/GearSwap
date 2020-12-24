@@ -46,6 +46,7 @@ engaging = os.clock()
 include('Sel-MonsterAbilities.lua')
 
 state.AutoDefenseMode = M(false, 'Auto Defense Mode')
+state.AutoKnockbackMode = M(true, 'Auto Knockback Mode')
 state.TankAutoDefense = M(false, 'Maintain Tanking Defense')
 state.AutoEngageMode = M(false, 'Auto Engage Mode')
 state.AutoStunMode = M(false, 'Auto Stun Mode')
@@ -330,6 +331,8 @@ function check_reaction(act)
 			elseif MagicalAbility:contains(act_info.name) then
 				ability_type = 'Magical'
 			elseif ResistAbility:contains(act_info.name) then
+				ability_type = 'Resist'
+			elseif KnockbackAbility:contains(act_info.name) then
 				ability_type = 'Resist'
 			end
 			if targetsMe or (AoEAbility:contains(act_info.name) and ((otherTarget.in_alliance and targetsDistance < 10) or targetsSelf)) then

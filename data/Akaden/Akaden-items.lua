@@ -99,18 +99,19 @@ augmented_gear.Herculean.WSD.MAB = {
 augmented_gear.Herculean.WSD.STR = {
     head={ name="Herculean Helm", augments={'Attack+27','Weapon skill damage +3%','STR+14','Accuracy+6',}},
     body={ name="Herculean Vest", augments={'Attack+13','Weapon skill damage +3%','STR+10','Accuracy+5',}},
+    hands={ name="Herculean Gloves", augments={'Accuracy+1 Attack+1','Weapon skill damage +4%','STR+8','Accuracy+4','Attack+1',}},
     legs={ name="Herculean Trousers", augments={'Accuracy+16 Attack+16','Weapon skill damage +4%','STR+5','Attack+14',}},
     feet={ name="Herculean Boots", augments={'Accuracy+22 Attack+22','Weapon skill damage +4%','STR+9','Accuracy+9','Attack+12',}},
 }
 
 augmented_gear.Herculean.WSD.DEX = {
-    body={ name="Herculean Vest", augments={'Accuracy+14 Attack+14','Weapon skill damage +2%','DEX+10',}},
+    body={ name="Herculean Vest", augments={'Accuracy+30','Weapon skill damage +5%','DEX+10','Attack+9',}},
 }
 
 augmented_gear.Herculean.WSD.AGI = {
-    body={ name="Herculean Vest", augments={'Weapon skill damage +4%','STR+6','Rng.Acc.+13','Rng.Atk.+12',}},
-    legs={ name="Herculean Trousers", augments={'Rng.Acc.+24 Rng.Atk.+24','Weapon skill damage +2%','AGI+7','Rng.Atk.+8',}},
-    feet={ name="Herculean Boots", augments={'Rng.Atk.+24','Weapon skill damage +2%','AGI+6','Rng.Acc.+2',}},
+    --body={ name="Herculean Vest", augments={'Weapon skill damage +4%','STR+6','Rng.Acc.+13','Rng.Atk.+12',}},
+    legs={ name="Herculean Trousers", augments={'Rng.Acc.+25','Weapon skill damage +4%','AGI+8','Rng.Atk.+12',}},
+    --feet={ name="Herculean Boots", augments={'Rng.Atk.+24','Weapon skill damage +2%','AGI+6','Rng.Acc.+2',}},
 }
 
 augmented_gear.Herculean.CritDMG = {}

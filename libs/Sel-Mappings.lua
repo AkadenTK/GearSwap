@@ -376,6 +376,16 @@ data.equipment.rema_ranged_weapons_ammo_pouch = {
 	['Yoichinoyumi'] = "Yoichi's Quiver",
 	['Annihilator'] = 'Era. Bul. Pouch'}
 
+data.equipment.rema_ammo_to_ammo_pouch = {
+    ['Chrono Bullet'] = 'Chr. Bul. Pouch',
+    ['Living Bullet'] = 'Liv. Bul. Pouch',
+    ['Devastating Bullet'] = 'Dev. Bul. Pouch',
+    ['Chrono Arrow'] = 'Chrono Quiver',
+    ['Artemis\'s Arrow'] = "Artemis's Quiver",
+    ['Quelling Bolt'] = "Quelling B. Quiver",
+    ['Yoichi\'s Arrow'] = "Yoichi's Quiver",
+    ['Eradicating Bullet'] = 'Era. Bul. Pouch'}
+
 data.equipment.cprings = L{"Endorsement Ring","Trizek Ring","Vocation Ring","Capacity Ring","Facility Ring"}
 data.equipment.xprings = L{"Echad Ring","Caliber Ring","Emperor Band","Empress Band","Resolution Ring"}
 

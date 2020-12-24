@@ -9,7 +9,7 @@ function user_setup()
     state.PhysicalDefenseMode:options('PDT')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('Default','TreasureHunter','SavageBlade','None')
+    state.Weapons:options('Default', 'Mandau','TreasureHunter','SavageBlade','None')
 
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None','Suppa','DWEarrings','DWMax'}
 	state.AmbushMode = M(false, 'Ambush Mode')
@@ -41,13 +41,14 @@ function init_gear_sets()
     --------------------------------------
     augmented_gear.capes = {}
     augmented_gear.capes.STP = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}}
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {waist="Chaac belt", hands="Plunderer's Armlets +1",legs="Volte Hose",feet="Skulk. Poulaines"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap", waist="Chaac belt", hands="Plunderer's Armlets +1",legs="Volte Hose",feet="Skulk. Poulaines"})
     sets.ExtraRegen = {}
     sets.Kiting = {feet="Fajin Boots"}
     sets.Capacity={back="Aptitude Mantle"}
 
     sets.weapons = {}
     sets.weapons.Default = {main="Tauret", sub="Sandung"}
+    sets.weapons.Mandau = {main="Mandau", sub="Sandung"}
     sets.weapons.TreasureHunter = {main="Taming sari", sub="Sandung"}
     sets.weapons.SavageBlade = {main="Naegling", sub="Sandung"}
 
@@ -204,9 +205,9 @@ function init_gear_sets()
     }
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS["Rudra's Storm"] = set_combine(sets.precast.WS, {
-        ammo="Jukukik Feather",
+        ammo="Aurgelmir Orb +1",
         head=augmented_gear.Lustratio.DEX.head,
-        body=augmented_gear.Adhemar.Atk.body,
+        body=augmented_gear.Herculean.WSD.DEX.body,
         hands="Meg. Gloves +2",
         legs=augmented_gear.Lustratio.DEX.legs,
         feet=augmented_gear.Lustratio.D.feet,
@@ -223,6 +224,22 @@ function init_gear_sets()
     sets.precast.WS["Rudra's Storm"].SA = set_combine(sets.precast.WS["Rudra's Storm"], sets.sata)
     sets.precast.WS["Rudra's Storm"].TA = set_combine(sets.precast.WS["Rudra's Storm"], sets.sata)
     sets.precast.WS["Rudra's Storm"].SATA = set_combine(sets.precast.WS["Rudra's Storm"], sets.sata)
+
+    sets.precast.WS["Mercy Stroke"] = set_combine(sets.precast.WS, {
+        ammo="Aurgelmir Orb +1",
+        head=augmented_gear.Lustratio.DEX.head,
+        body=augmented_gear.Adhemar.Atk.body,
+        hands="Meg. Gloves +2",
+        legs=augmented_gear.Lustratio.DEX.legs,
+        feet=augmented_gear.Lustratio.D.feet,
+        waist="Chaac Belt",
+        neck="Caro Necklace",
+        left_ear="Odr Earring",
+        right_ear="Moonshade Earring",
+        left_ring="Regal Ring",
+        right_ring="Epaminondas's Ring",
+        back="Sacro Mantle",
+    })
 	
     sets.precast.WS["Mandalic Stab"] = set_combine(sets.precast.WS, {})
     sets.precast.WS["Mandalic Stab"].Acc = set_combine(sets.precast.WS["Mandalic Stab"], {})

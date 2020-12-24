@@ -6,12 +6,14 @@ function user_setup()
 	state.IdleMode:options('Normal', 'PDT')
     state.RHAutoWS = M{'','Last Stand', 'Trueflight','Wildfire'}
 	
-	DefaultAmmo = {['Fomalhaut'] = "Chrono Bullet"}
-	U_Shot_Ammo = {['Fomalhaut'] = "Animkii Bullet"}
+    ammostock = {}
+    ammostock['Chrono Bullet'] = 99
+    ammostock['Devastating Bullet'] = 30
 
-    gear.RAbullet = "Chrono Bullet"
-    gear.WSbullet = "Chrono Bullet"
-    gear.MAbullet = "Orichalcum Bullet" --For MAB WS, do not put single-use bullets here.
+    gear.ammo = {}
+    gear.ammo.RA = "Chrono Bullet"
+    gear.ammo.WS = "Chrono Bullet"
+    gear.ammo.MA = "Devastating Bullet" --For MAB WS, do not put single-use bullets here.
 	
 	gear.tp_ranger_jse_back = {name="Belenus's Cape",augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','"Store TP"+10',}}
 	gear.wsd_ranger_jse_back = {name="Belenus's Cape",augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Weapon skill damage +10%',}}
@@ -66,7 +68,7 @@ function init_gear_sets()
 	-- Ranged sets (snapshot)
 	
 	sets.precast.RA = {
-    	ammo=gear.RAbullet,
+    	ammo=gear.ammo.RA,
 		head="Taeon chapeau", -- s7
 		body="Arcadian Jerkin +1", -- r12
 	    hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}}, -- s8 r11
@@ -108,7 +110,7 @@ function init_gear_sets()
 	})
 		
     sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, {   
-	    ammo=gear.MAbullet,
+	    ammo=gear.ammo.MA,
 	    head=augmented_gear.Herculean.WSD.MAB.head,
 	    body="Samnuha coat",
 	    hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
@@ -124,7 +126,7 @@ function init_gear_sets()
    })
 		
     sets.precast.WS['Wildfire'] = set_combine(sets.precast.WS, {   
-	    ammo=gear.MAbullet,
+	    ammo=gear.ammo.MA,
 	    head=augmented_gear.Herculean.WSD.MAB.head,
 	    body="Samnuha coat",
 	    hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
@@ -147,7 +149,7 @@ function init_gear_sets()
         })
 		
     sets.precast.WS['Trueflight'] = set_combine(sets.precast.WS, {   
-	    ammo=gear.MAbullet,
+	    ammo=gear.ammo.MA,
 	    head=augmented_gear.Herculean.WSD.MAB.head,
 	    body="Samnuha coat",
 	    hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
@@ -171,7 +173,7 @@ function init_gear_sets()
         })
 
     sets.precast.WS['Last Stand'] = set_combine(sets.precast.WS, {
-	    ammo=gear.WSbullet,
+	    ammo=gear.ammo.WS,
 	    head="Orion Beret +3",
    		body=augmented_gear.Herculean.WSD.AGI.body,
 	    hands="Meg. Gloves +2",
@@ -211,7 +213,7 @@ function init_gear_sets()
 	-- Ranged sets
 
     sets.midcast.RA = {
-    	ammo=gear.RAbullet,
+    	ammo=gear.ammo.RA,
         head="Arcadian beret +1",
         left_ear="Telos earring",
         right_ear="Cessance earring",

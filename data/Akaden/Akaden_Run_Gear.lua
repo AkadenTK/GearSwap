@@ -71,8 +71,8 @@ function init_gear_sets()
 	}
 
     sets.sird = {
+        -- merits: 10
         ammo="Staunch Tathlum +1",           -- 11
-        head=augmented_gear.Taeon.SIRD.head, -- 10
         hands="Rawhide gloves",              -- 15
         legs="Carmine Cuisses +1",           -- 20
         feet=augmented_gear.Taeon.SIRD.feet, -- 9
@@ -306,7 +306,7 @@ function init_gear_sets()
         neck="Fotia Gorget",
         left_ear="Cessance Earring",
         right_ear="Sherida Earring",
-        left_ring="Petrov Ring",
+        --left_ring="Petrov Ring",
         right_ring="Niqmaddu Ring",
     })
     sets.precast.WS['Shockwave'].Acc = set_combine(sets.precast.WS['Shockwave'], {
@@ -363,9 +363,10 @@ function init_gear_sets()
     sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'],{head="Rune. Bandeau +3"}) 
 	sets.midcast['Refresh'] = set_combine(sets.midcast['Enhancing Magic'],{head="Erilaz Galea +1"}) 
     sets.midcast['Aquaveil'] = set_combine(sets.sird, {
+        head=augmented_gear.Taeon.SIRD.head,
         left_ear={name="Odnowa Earring +1",priority=2},
         right_ear={name="Tuisto earring", priority=2},
-        left_ring="Defending Ring",
+        --left_ring="Defending Ring",
         right_ring={name="Gelatinous Ring +1", priority=2},
         back={name="Moonbeam Cape", priority=2},
     })
@@ -440,7 +441,7 @@ function init_gear_sets()
     -- Extra defense sets.  Apply these on top of melee or defense sets.
     sets.Knockback = {}
     sets.MP = {right_ear="Ethereal Earring",waist="Flume Belt"}
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap", hands=augmented_gear.Herculean.TH.hands,feet="Volte Boots"})
 	
 	-- Weapons sets
     sets.weapons.Tank = {main="Epeolatry",sub="Refined Grip +1"}
@@ -471,6 +472,8 @@ function init_gear_sets()
         feet="Volte Boots",
         neck={name="Unmoving Collar +1", priority=2},
     })
+
+    sets.defense.Knockback = {body="Futhark Coat +3", legs="Dashing Subligar",feet="Ahosi leggings",back="Repulse Mantle",}
 	
 	-- Swap to these on Moonshade using WS if at 3000 TP
 	sets.MaxTP = {left_ear="Brutal Earring"}
@@ -558,12 +561,12 @@ function user_job_precast(spell, spellMap, eventArgs)
 			elseif tagged and spell_recasts[840] == 0 then
 				eventArgs.cancel = true
 				change_spell(player, 'Foil')
-			elseif spell_recasts[575] == 0 and player.sub_job == "BLU" then
-				eventArgs.cancel = true
-				change_spell(spell.target, 'Jettatura')
 			elseif spell_recasts[592] == 0 and player.sub_job == "BLU" then
 				eventArgs.cancel = true
 				change_spell(spell.target, 'Blank Gaze')
+            elseif spell_recasts[575] == 0 and player.sub_job == "BLU" then
+                eventArgs.cancel = true
+                change_spell(spell.target, 'Jettatura')
 			elseif spell_recasts[252] == 0 and player.sub_job == "DRK" then
 				eventArgs.cancel = true
 				change_spell(spell.target, 'Stun')

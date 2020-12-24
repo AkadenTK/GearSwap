@@ -114,4 +114,12 @@ AoEAbility = S{"Frond Fatale","Atropine Spore","Deracinator","Cruel Joke","Paral
 					"Empty Thrash","View Sync","Carousel","Vanity Dive","Chilling Roar","Scream","Fatal Scream","Tepal Twist","Bloom Fouette",
 					"Petalback Spin","Potted Plant","Tiiimbeeer","Rhinowrecker","Dark Orb","Spectral Floe","Interference","Beleaguerment",
 					"Besieger's Bane","Deathly Diminuendo","Enthrall","Flank Opening","Malign Invocation","Shadow Wreck","Shah Mat","Stygian Cyclone",
+					"Wrath of Gu\'Dha",
 				 }
+
+
+KnockbackAbility = S{'Shockwave','Big Horn','Snort','Nox Blast','Ram Charge','Sheep Charge','Tusk','Blockhead','Aqua Fortis','Regurgitation','Scythe Tail','Rhino Attack','Sudden Lunge',
+'Mandible Bite','Critical Bite','Uppercut','Aqua Blast','Desiccation','Dustvoid','Full-force Blow','Beak Lunge','Gliding Spike','Dread Dive','Helldive','Grim Halo','Wings of Gehenna',
+'Electromagnetic Field','Panzerfaust','Typhoon','Tourbillion','Spinning Attack','Shoulder Slam','Heavy Whisk','Goblin Rush','Gusting Gouge','Somersault Kick','Shoulder Attack','Shell Bash',
+'Head Butt','Wrath of Gu\'Dha','Shell Charge','Hydro Shot','Overthrow','Hammer-Go-Round','Double Kick','Shirahadori','Back Swish','Crosswind','Wind Shear','Spike Flail','Sideswipe',
+'Siphon Discharge','Concussive Oscillation','Damnation Dive','Carousel','Empty Seed','Mortal Revolution','Antigravity','Astral Gate','Colossal Blow','Cyclonic Turmoil','Lethe Arrows','Zephyr Arrow',}

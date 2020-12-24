@@ -27,7 +27,7 @@ end
 
 function init_gear_sets()
 
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="volte cap", hands=augmented_gear.Herculean.TH.hands,feet="Volte Boots"})
 
     augmented_gear.capes = {}
     augmented_gear.capes.tp_da = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
@@ -304,6 +304,8 @@ function init_gear_sets()
 	sets.defense.MDT = set_combine(sets.idle, {})
 		
 	sets.defense.MEVA = set_combine(sets.idle, {})
+	
+    sets.defense.Knockback = {legs="Dashing Subligar",back="Repulse Mantle",}
 
 	sets.Kiting = {feet="Herald's Gaiters"}
 

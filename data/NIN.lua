@@ -98,7 +98,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 		local WSset = standardize_set(get_precast_set(spell, spellMap))
 		local wsacc = check_ws_acc()
 		
-		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring" or WSset.left_ear == "Moonshade Earring" or WSset.right_ear == "Moonshade Earring") then
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
 			-- Replace Moonshade Earring if we're at cap TP
 			if get_effective_player_tp(spell, WSset) > 3200 then
 				if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccMaxTP then
@@ -125,7 +125,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 					equip(sets.DayWSEars[spell.english] or sets.DayWSEars)
 				end
 			end
-		elseif (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn then
+		elseif (WSset.ear1 and WSset.ear1:startswith("Lugra Earring")) or (WSset.ear2 and WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn then
 			if wsacc:contains('Acc') and not buffactive['Sneak Attack'] and sets.AccDayWSEars then
 				equip(sets.AccDayWSEars[spell.english] or sets.AccDayWSEars)
 			elseif sets.DayWSEars then

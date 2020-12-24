@@ -8,7 +8,7 @@ function user_setup()
 	state.ResistDefenseMode:options('MEVA')
     state.CastingMode:options('Normal','Resistant')
 	state.IdleMode:options('Normal', 'PDT','Refresh','Reraise')
-    state.Weapons:options('DDScythe', 'Algol','None')
+    state.Weapons:options('DDScythe', 'Algol', 'Ragnarok','None')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None'}
 	state.Passive = M{['description'] = 'Passive Mode','None','MP','Twilight'}
 
@@ -27,6 +27,7 @@ function init_gear_sets()
     sets.Capacity={back="Aptitude Mantle"}
 
     sets.weapons = {}
+    sets.weapons.Ragnarok = {main='Ragnarok', sub="Utu Grip"}
     sets.weapons.Algol = {main='Raetic Algol +1', sub="Utu Grip"}
     sets.weapons.DDScythe = {main='Anguta', sub="Utu Grip"}
 	--------------------------------------
@@ -54,7 +55,7 @@ function init_gear_sets()
 	
 	sets.precast.Flourish1 = {}
 
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap", waist = "Chaac belt", legs="Volte Hose", feet="Volte Boots"})
 		   
 	-- Fast cast sets for spells
 
@@ -158,8 +159,8 @@ function init_gear_sets()
     	ammo="Knobkierrie",
 		head="Flam. Zucchetto +2",
 		neck="Fotia Gorget",
-		left_ear="Moonshade Earring",
-		right_ear="Brutal earring",
+		ear1="Moonshade Earring",
+		ear2="Brutal earring",
     	body="Ignominy cuirass +3",
 		hands="Sulev. Gauntlets +2",
     	left_ring="Niqmaddu ring",
@@ -173,6 +174,11 @@ function init_gear_sets()
 	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
 	sets.precast.WS.FullAcc = set_combine(sets.precast.WS, {neck="Combatant's Torque"})
 	sets.precast.WS.Fodder = set_combine(sets.precast.WS, {})
+
+    sets.precast.WS['Scourge'] = set_combine(sets.precast.WS, {
+        ear1="Ishvara Earring",
+        back={ name="Ankou's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10'}},
+    })
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.	
     sets.precast.WS['Catastrophe'] = set_combine(sets.precast.WS, {})

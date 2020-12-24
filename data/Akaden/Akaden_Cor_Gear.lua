@@ -2,14 +2,14 @@
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
     state.OffenseMode:options('Normal', 'Acc', 'FullAcc','Crits')
-    state.RangedMode:options('Normal', 'Acc','FullAcc','Crits')
+    state.RangedMode:options('Normal', 'Acc','FullAcc','ArmaAM3')
     state.HybridMode:options('Normal','DTLite', 'DTMid', 'FullDT')
-    state.WeaponskillMode:options('Match','Normal', 'Acc','FullAcc', 'CappedAttack')
+    state.WeaponskillMode:options('Match','Normal', 'Acc','FullAcc', 'Crits', 'CappedAttack')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
-    state.Weapons:options('MeleeLeaden','SavageBlade','SavageRostam','MeleeLastStand','DWLeaden','DWLastStand','ShieldLeaden','ShieldLastStand','None')
+    state.Weapons:options('MeleeLeaden','SavageBlade','SavageRostam','MeleeFoma','MeleeArma','DWLeaden','DWFoma', 'DWArma','ShieldLeaden','ShieldFoma', 'ShieldArma', 'Aeolian','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
 
@@ -17,13 +17,15 @@ function user_setup()
 
     state.LastRoll = 'unknown'
     ammostock = {}
-    ammostock['Chrono Bullet'] = 100
+    ammostock['Chrono Bullet'] = 99
     ammostock['Living Bullet'] = 30
+    ammostock['Devastating Bullet'] = 99
 
     gear.RAbullet = "Chrono Bullet"
     gear.WSbullet = "Chrono Bullet"
     gear.MAbullet = "Living Bullet" --For MAB WS, do not put single-use bullets here.
-    gear.QDbullet = "Animikii Bullet"
+    gear.QDbullet = "Living Bullet"
+    gear.Maccbullet = "Devastating Bullet"
     options.ammo_warning_limit = 15
 
 	gear.tp_ranger_jse_back = {}
@@ -70,6 +72,7 @@ function init_gear_sets()
     augmented_gear.capes.agi_wsd={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}}
     augmented_gear.capes.snapshot={ name="Camulus's Mantle", augments={'"Snapshot"+10',}}
     augmented_gear.capes.FC={ name="Camulus's Mantle", augments={'"Fast Cast"+10',}}
+    augmented_gear.capes.ra_crit={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Crit.hit rate+10',}}
     augmented_gear.capes.dex_crit=augmented_gear.capes.melee
     augmented_gear.capes.defense=augmented_gear.capes.melee
 
@@ -84,12 +87,36 @@ function init_gear_sets()
     sets.weapons = {}
     sets.weapons.ShieldLeaden = {main=rostams.A, sub="Nusku Shield", range="Death Penalty"}
     sets.weapons.DWLeaden = {main=rostams.A, sub='Tauret', range="Death Penalty"}
-    sets.weapons.ShieldLastStand = {main=rostams.A, sub="Nusku Shield", range="Fomalhaut"}
-    sets.weapons.DWLastStand = {main=rostams.A, sub='Kustawi +1', range="Fomalhaut"}
+    sets.weapons.ShieldFoma = {main=rostams.A, sub="Nusku Shield", range="Fomalhaut"}
+    sets.weapons.ShieldArma = {main=rostams.A, sub="Nusku Shield", range="Armageddon"}
+    sets.weapons.DWFoma = {main=rostams.A, sub='Kustawi +1', range="Fomalhaut"}
+    sets.weapons.DWArma = {main=rostams.A, sub='Kustawi +1', range="Armageddon"}
     sets.weapons.SavageBlade = {main='Naegling', sub="Blurred Knife +1", range="Anarchy +2"}
     sets.weapons.SavageRostam = {main='Naegling', sub=rostams.B, range="Anarchy +2"}
     sets.weapons.MeleeLeaden = {main=rostams.B, sub="Tauret", range="Death Penalty"}
-    sets.weapons.MeleeLastStand = {main=rostams.B, sub="Blurred Knife +1", range="Fomalhaut"}
+    sets.weapons.MeleeFoma = {main=rostams.B, sub="Blurred Knife +1", range="Fomalhaut"}
+    sets.weapons.MeleeArma = {main=rostams.B, sub='Tauret', range="Armageddon"}
+    sets.weapons.Aeolian = {main=rostams.B, sub='Tauret', range="Anarchy +2"}
+
+    gear.ammo = {}
+    gear.ammo.RA = {}
+    gear.ammo.RA.Normal = "Chrono Bullet"
+    gear.ammo.RA.Acc = "Devastating Bullet"
+    gear.ammo.RA.FullAcc = "Devastating Bullet"
+    gear.ammo.RA.Crits = "Chrono Bullet"
+    gear.ammo.WS = {}
+    gear.ammo.WS.Physical = {}
+    gear.ammo.WS.Physical.Normal = "Chrono Bullet"
+    gear.ammo.WS.Physical.Acc = "Chrono Bullet"
+    gear.ammo.WS.Physical.FullAcc = "Devastating Bullet"
+    gear.ammo.WS.Physical.Crits = "Chrono Bullet"
+    gear.ammo.WS.Physical.CappedAttack = "Chrono Bullet"
+    gear.ammo.WS.Magical = {}
+    gear.ammo.WS.Magical.Normal = "Living Bullet"
+    gear.ammo.WS.Magical.Acc = "Living Bullet"
+    gear.ammo.WS.Magical.FullAcc = "Devastating Bullet"
+    gear.ammo.WS.Magical.Crits = "Living Bullet"
+    gear.ammo.WS.Magical.CappedAttack = "Living Bullet"
 
     sets.Compensator = {main=rostams.C,range="Compensator"}
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap", hands=augmented_gear.Herculean.TH.hands,feet="Volte Boots"})
@@ -264,7 +291,7 @@ function init_gear_sets()
     gear.CorsairShot = {}
     gear.CorsairShot.Augment = {feet="Chasseur's bottes +1",}
     sets.precast.CorsairShot = {
-        ammo=gear.MAbullet,
+        ammo=gear.QDbullet,
         head=augmented_gear.Herculean.WSD.MAB.head,
         --neck="Baetyl pendant",
         neck="Commodore charm +2",
@@ -296,6 +323,7 @@ function init_gear_sets()
     sets.precast.CorsairShot.Proc = set_combine(sets.precast.CorsairShot, {})
 
     sets.precast.CorsairShot.Acc =  set_combine(sets.precast.CorsairShot, {
+        ammo="Devastating Bullet",
         head="Laksamana's Tricorne +2",
         --neck="Sanctity necklace",
         neck="Commodore charm +2",
@@ -308,7 +336,7 @@ function init_gear_sets()
         back=augmented_gear.capes.mab_wsd,
         waist="Kwahu kachina belt",
         legs="Malignance Tights",
-        feet="Laksamana's Boots +3"
+        feet="Laksamana's Bottes +3"
     })
 
     sets.precast.CorsairShot['Light Shot'] = set_combine(sets.precast.CorsairShot.Acc, {})
@@ -344,7 +372,6 @@ function init_gear_sets()
 	sets.precast.FC.Cure = set_combine(sets.precast.FC, {})
 
     sets.precast.RA = { -- s69 r68
-        ammo=gear.RAbullet,
         --head={ name="Taeon Chapeau", augments={'Accuracy+14 Attack+14','"Snapshot"+5','"Snapshot"+5',}}, -- s10
         head='Chass. Tricorne +1', -- r14
         neck='Commodore Charm +2', -- s4
@@ -417,7 +444,7 @@ function init_gear_sets()
         body="Abnoba Kaftan",
         hands="Mummu Wrists +2",
         left_ring="Regal ring",
-        right_ring="Mummu ring",
+        right_ring="Begrudging ring",
         back=augmented_gear.capes.dex_crit,
         waist="Fotia belt",
         legs=augmented_gear.Herculean.CritDMG.DEX.legs,
@@ -425,11 +452,10 @@ function init_gear_sets()
     })
 
     sets.precast.WS['Exenterator'] = set_combine(sets.engaged, {
-        ammo=gear.WSbullet,
         head="Lanun Tricorne +3",
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
-        legs="Meghanada Chausses +2",
+        legs=augmented_gear.Adhemar.Rng.legs,
         feet="Lanun Bottes +3",
         neck="Fotia Gorget",
         waist="Fotia Belt",
@@ -441,7 +467,6 @@ function init_gear_sets()
 	})
 
     sets.precast.WS['Last Stand'] = {
-        ammo=gear.WSbullet,
         head="Lanun Tricorne +3",
         body="Laksamana's frac +3",
         hands="Meghanada gloves +2",
@@ -464,7 +489,7 @@ function init_gear_sets()
     sets.precast.WS['Last Stand'].FullAcc = set_combine(sets.precast.WS['Last Stand'].Acc,{
         right_ear="Beyla Earring",
         neck="Commodore Charm +2",
-        legs="Meghanada Chausses +2",
+        legs=augmented_gear.Adhemar.Rng.legs,
         })
 
     sets.precast.WS['Last Stand'].CappedAttack = set_combine(sets.precast.WS['Last Stand'],{
@@ -483,8 +508,7 @@ function init_gear_sets()
     sets.precast.WS['Split Shot'] = set_combine(sets.precast.WS['Last Stand'], {})
     sets.precast.WS['Split Shot'].Acc = set_combine(sets.precast.WS['Last Stand'].Acc, {})
 	
-    sets.precast.WS['Leaden Salute'] = {        
-        ammo=gear.MAbullet,
+    sets.precast.WS['Leaden Salute'] = {
         head="Pixie Hairpin +1",
         body="Lanun frac +3",
         hands="Carmine Finger Gauntlets +1",
@@ -547,7 +571,7 @@ function init_gear_sets()
     sets.midcast.Utsusemi = set_combine(sets.midcast.FastRecast, {})
 
     -- Ranged gear
-    sets.midcast.RA = {ammo=gear.RAbullet,
+    sets.midcast.RA = {
         head="Malignance Chapeau",
         body="Malignance Tabard",
         hands="Malignance Gloves",
@@ -563,19 +587,23 @@ function init_gear_sets()
     }
 
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA,{
-        left_ear="Enervating Earring",
+        --left_ear="Enervating Earring",
         body="Laksamana's frac +3",
         left_ring="Regal Ring",
     })
 
-    sets.midcast.RA.Crits = set_combine(sets.midcast.RA,{
-      head="Mummu bonnet +2",
+    sets.midcast.RA.ArmaAM3 = set_combine(sets.midcast.RA,{
+      head="Meghanada Visor +2",
       body="Mummu jacket +2",
-      hands="Chasseur's gants +1",  
-      right_ring="Begrudging ring", 
+      hands="Mummu wrists +2",  
       waist="Kwahu kachina belt",
-      legs="Mummu kecks +2",
+      legs="Darraigner's brias",
       feet="Mummu Gamashes +2",
+      left_ear="Beyla earring",
+      right_ear="Odr Earring",
+      left_ring="Dingir Ring",
+      right_ring="Begrudging ring", 
+      back=augmented_gear.capes.ra_crit,
     })
 
     sets.midcast.RA.FullAcc = set_combine(sets.midcast.RA.Acc,{
@@ -658,6 +686,8 @@ function init_gear_sets()
 		
     sets.defense.MEVA = set_combine(sets.defense.PDT, {})
 
+    sets.defense.Knockback = {legs="Dashing Subligar",back="Repulse Mantle",}
+
     sets.Kiting = {legs="Carmine Cuisses +1"}
 	
 	--sets.DWMax = {}
@@ -668,6 +698,135 @@ function user_job_self_command(commandArgs, eventArgs)
     if commandArgs[1]:lower() == 'corsairshotaug' then
         state.QuickDrawAug = true
         job_self_command({'elemental','quickdraw'}, eventArgs)
+    elseif commandArgs[1]:lower() == 'weaponcycle' then
+        local dw = S{'NIN','DNC'}:contains(player.sub_job)
+        local cycle = commandArgs[2]:lower()
+        if cycle == 'melee' then
+            if state.Weapons.value == 'MeleeLeaden' then
+                state.Weapons:set('SavageBlade')
+            elseif state.Weapons.value == 'SavageBlade' then
+                state.Weapons:set('SavageRostam')
+            elseif state.Weapons.value == 'SavageRostam' then
+                state.Weapons:set('MeleeFoma')
+            elseif state.Weapons.value == 'MeleeFoma' then
+                state.Weapons:set('MeleeArma')
+            else
+                state.Weapons:set('MeleeLeaden')
+            end
+            handle_update({'auto'})
+
+        elseif cycle == 'ranged' and dw then
+            if state.Weapons.value == 'DWLeaden' then
+                state.Weapons:set('DWFoma')
+            elseif state.Weapons.value == 'DWFoma' then
+                state.Weapons:set('DWArma')
+            else
+                state.Weapons:set('DWLeaden')
+            end
+            handle_update({'auto'})
+
+        elseif cycle == 'ranged' and not dw then -- no DW
+            if state.Weapons.value == 'ShieldLeaden' then
+                state.Weapons:set('ShieldFoma')
+            elseif state.Weapons.value == 'ShieldFoma' then
+                state.Weapons:set('ShieldArma')
+            else
+                state.Weapons:set('ShieldLeaden')
+            end
+            handle_update({'auto'})
+            
+        elseif cycle == 'leadensalute' then
+            if state.Weapons.value == 'MeleeLeaden' then
+                if dw then
+                    state.Weapons:set('DWLeaden')
+                else
+                    state.Weapons:set('ShieldLeaden')
+                end
+
+            else
+                if not state.Weapons.value:contains('Leaden') and (state.Weapons.value:contains('DW') or state.Weapons.value:contains('shield')) then
+                    if dw then
+                        state.Weapons:set('DWLeaden')
+                    else
+                        state.Weapons:set('ShieldLeaden')
+                    end
+                else
+                    state.Weapons:set('MeleeLeaden')
+                end
+            end
+            handle_update({'auto'})
+            
+        elseif cycle == 'laststand' then
+            if state.Weapons.value == 'MeleeFoma' then
+                state.Weapons:set('MeleeArma')
+            elseif state.Weapons.value == 'MeleeArma' then
+                if dw then
+                    state.Weapons:set('DWFoma')
+                else
+                    state.Weapons:set('ShieldFoma')
+                end
+            elseif state.Weapons.value == 'DWFoma' or state.Weapons.value == 'ShieldFoma' then
+                if dw then
+                    state.Weapons:set('DWArma')
+                else
+                    state.Weapons:set('ShieldArma')
+                end
+            else
+                state.Weapons:set('MeleeFoma')
+            end
+            handle_update({'auto'})
+            
+        elseif cycle == 'wildfire' then
+            if state.Weapons.value == 'MeleeArma' then
+                if dw then
+                    state.Weapons:set('DWArma')
+                else
+                    state.Weapons:set('ShieldArma')
+                end
+            else
+                state.Weapons:set('MeleeArma')
+            end
+            handle_update({'auto'})
+            
+        elseif cycle == 'savageblade' then
+            if state.Weapons.value == 'SavageBlade' then
+                state.Weapons:set('SavageRostam')
+            else
+                state.Weapons:set('SavageBlade')
+            end
+            handle_update({'auto'})
+            
+        elseif cycle == 'aeolianedge' then
+            state.Weapons:set('Aeolian')
+            handle_update({'auto'})
+            
+        end
+    end
+end
+
+function job_update(commandArgs, eventArgs)
+    gear.RAbullet = gear.ammo.RA[state.RangedMode.value]
+    if state.WeaponskillMode.value == "Match" then
+        gear.WSbullet = gear.ammo.WS.Physical[state.RangedMode.value]
+        gear.MAbullet = gear.ammo.WS.Magical [state.RangedMode.value]
+    else
+        gear.WSbullet = gear.ammo.WS.Physical[state.WeaponskillMode.value]
+        gear.MAbullet = gear.ammo.WS.Magical [state.WeaponskillMode.value]
+    end
+end
+
+function job_buff_change(buff, gain)
+    if buff:contains('Aftermath')  then
+        classes.CustomRangedGroups:clear()
+        if player.equipment.range then
+            if (player.equipment.range == 'Armageddon' and (buffactive['Aftermath: Lv.1'] or buffactive['Aftermath: Lv.2'] or buffactive['Aftermath: Lv.3'])) then
+                if gain then
+                    classes.CustomRangedGroups:append('AM')
+                else
+                    classes.CustomRangedGroups:remove('AM')
+                end
+            end
+        end
     end
 end
 
@@ -676,6 +835,34 @@ function select_default_macro_book()
     set_macro_page(1, 15)
     
     windower.chat.input:schedule(1,'/lockstyleset 18')
+end
+
+function user_job_precast(spell, spellMap, eventArgs)
+    if spell.type == 'WeaponSkill' then
+        if spell.skill == "Marksmanship" then
+            if data.weaponskills.elemental:contains(spell.english) then
+                equip({ammo=gear.MAbullet})
+            else
+                equip({ammo=gear.WSbullet})
+            end
+        end
+    elseif spell.action_type == 'Ranged Attack' then
+        equip({ammo=gear.RAbullet})
+    end
+end
+
+function user_job_midcast(spell, spellMap, eventArgs)
+    if spell.type == 'WeaponSkill' then
+        if spell.skill == "Marksmanship" then
+            if data.weaponskills.elemental:contains(spell.english) then
+                equip({ammo=gear.MAbullet})
+            else
+                equip({ammo=gear.WSbullet})
+            end
+        end
+    elseif spell.action_type == 'Ranged Attack' then
+        equip({ammo=gear.RAbullet})
+    end
 end
 
 function user_job_pretarget(spell, spellMap, eventArgs)

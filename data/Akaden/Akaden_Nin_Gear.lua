@@ -10,7 +10,7 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
     state.NukingMode = M('Never', 'Always','300', '1000')
-    state.Weapons:options('Kikoku', 'KikokuMB', 'Gokotai','SavageBlade','Proc_Sword', 'Proc_Katana', 'Proc_Dagger', 'Proc_Club', 'Proc_GKT', 'Proc_Staff', 'Proc_Scythe', 'Proc_Polearm', 'Proc_GS','None')
+    state.Weapons:options('Heishi','Kikoku', 'KikokuMB', 'Aeolian', 'Gokotai','SavageBlade','Proc_Sword', 'Proc_Katana', 'Proc_Dagger', 'Proc_Club', 'Proc_GKT', 'Proc_Staff', 'Proc_Scythe', 'Proc_Polearm', 'Proc_GS','None')
 	
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None','Knockback','SuppaBrutal','DWEarrings','DWMax'}
 	
@@ -43,20 +43,22 @@ function init_gear_sets()
     }
 
     sets.weapons = {}
+    sets.weapons.Heishi = { main = "Heishi Shorinken", sub="Gokotai",}
     sets.weapons.Gokotai = { main = "Gokotai", sub = "Kanaria" }
     sets.weapons.Kikoku = { main = "Kikoku", sub = "Kanaria" }
     sets.weapons.KikokuMB = { main = "Kikoku", sub="Gokotai",}
+    sets.weapons.Aeolian = { main = "Tauret", sub="Gokotai",}
     sets.weapons.SavageBlade = { main = "Naegling", sub = "Kanaria" }
 
-    sets.weapons.Proc_Katana = {main = 'Gassan', sub = empty, }
-    sets.weapons.Proc_Sword = {main = 'Save the Queen II', sub = empty, }
-    sets.weapons.Proc_Dagger = {main = 'Ceremonial Dagger', sub = empty, }
-    sets.weapons.Proc_Club = {main = 'Caduceus', sub = empty, }
-    sets.weapons.Proc_GKT = {main = 'Zanmato', sub = empty, }
-    sets.weapons.Proc_Staff = {main = 'Earth Staff', sub = empty, }
-    sets.weapons.Proc_Scythe = {main = 'Hoe', sub = empty, }
-    sets.weapons.Proc_Polearm = {main = 'Tzee Xicu\'s Blade', sub = empty, }
-    sets.weapons.Proc_GS = {main = 'Lament', sub = empty, }
+    sets.weapons.Proc_Katana = {main = 'Gassan', sub = empty, ammo="Aurgelmir Orb +1", }
+    sets.weapons.Proc_Sword = {main = 'Save the Queen II', sub = empty, ammo="Aurgelmir Orb +1", }
+    sets.weapons.Proc_Dagger = {main = 'Ceremonial Dagger', sub = empty, ammo="Aurgelmir Orb +1", }
+    sets.weapons.Proc_Club = {main = 'Caduceus', sub = empty, ammo="Aurgelmir Orb +1", }
+    sets.weapons.Proc_GKT = {main = 'Zanmato', sub = empty, ammo="Aurgelmir Orb +1", }
+    sets.weapons.Proc_Staff = {main = 'Earth Staff', sub = empty, ammo="Aurgelmir Orb +1", }
+    sets.weapons.Proc_Scythe = {main = 'Hoe', sub = empty, ammo="Aurgelmir Orb +1", }
+    sets.weapons.Proc_Polearm = {main = 'Tzee Xicu\'s Blade', sub = empty, ammo="Aurgelmir Orb +1", }
+    sets.weapons.Proc_GS = {main = 'Lament', sub = empty, ammo="Aurgelmir Orb +1", }
 
     capes = {}
     capes.DA_TP = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
@@ -75,7 +77,7 @@ function init_gear_sets()
         left_ring={name="Eihwaz Ring",priority=2},
         right_ring="Petrov Ring",
     }
-    sets.TreasureHunter = {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"}
+    sets.TreasureHunter = {head="volte cap", hands=augmented_gear.Herculean.TH.hands,feet="Volte Boots"}
     
 	
     -- Precast sets to enhance JAs
@@ -122,7 +124,7 @@ function init_gear_sets()
     
     -- Normal melee group
     sets.engaged = {
-        ammo="Happo Shuriken",
+        ammo="Seki Shuriken",
         head=augmented_gear.Adhemar.Atk.head,
         body="Ken. Samue +1",
         hands=augmented_gear.Adhemar.Atk.hands,
@@ -192,7 +194,7 @@ function init_gear_sets()
 	
 	sets.precast.WS['Blade: Hi'] = set_combine(sets.precast.WS, {
         ammo="Aurgelmir orb +1",
-        head="Ken. Jinpachi +1",
+        head="Hachiya Hatsuburi +3",
         body="Ken. Samue +1",
         hands="Mummu wrists +2",
         legs="Mummu kecks +2",
@@ -218,7 +220,7 @@ function init_gear_sets()
         feet="Ken. sune-ate +1",
         neck="Ninja Nodowa +2",
         left_ear="Brutal Earring",
-        right_ear="Moonshade earring",        
+        right_ear="Lugra earring +1",        
         left_ring="Gere Ring",
         right_ring="Regal Ring",
         waist="Fotia Belt",
@@ -231,17 +233,17 @@ function init_gear_sets()
 
     sets.precast.WS['Blade: Metsu'] = set_combine(sets.precast.WS, {
         ammo="Aurgelmir orb +1",
-        head="Adhemar jacket +1",
-        body="Ken. Samue +1",
+        head="Hachiya Hatsuburi +3",
+        body=augmented_gear.Herculean.WSD.DEX.body,
         hands="Ken. tekko +1",
-        legs="Mochizuki hakama +3",
+        legs="Jokushu Haidate",
         feet="Ken. sune-ate +1",
         neck="Ninja Nodowa +2",
-        left_ear="Ishvara Earring",
-        right_ear="Odr earring",        
+        left_ear="Lugra Earring +1",
+        right_ear="Ishvara earring",        
         left_ring="Epaminondas's Ring",
         right_ring="Regal Ring",
-        waist="Fotia Belt",
+        waist="Windbuffet Belt +1",
         back=capes.DEX_WSD,
     })
 
@@ -267,14 +269,14 @@ function init_gear_sets()
 
     sets.precast.WS['Blade: Ten'] = set_combine(sets.precast.WS, {
         ammo="Aurgelmir orb +1",
-        head=augmented_gear.Herculean.WSD.STR.head,
+        head="Hachiya Hatsuburi +3",
         body=augmented_gear.Herculean.WSD.DEX.body,
         hands=augmented_gear.Herculean.WSD.MAB.hands,
         legs="Mochizuki Hakama +3",
         feet=augmented_gear.Herculean.WSD.STR.feet,
         neck="Ninja Nodowa +2",
         waist="Sailfi belt +1",
-        left_ear="Ishvara Earring",
+        left_ear="Lugra earring +1",
         right_ear="Moonshade Earring",
         left_ring="Epaminondas's Ring",
         right_ring="Regal Ring",
@@ -284,17 +286,37 @@ function init_gear_sets()
     sets.precast.WS['Blade: Ten'].Acc = set_combine(sets.precast.WS.Acc, {})
     sets.precast.WS['Blade: Ten'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Blade: Ten'].Fodder = set_combine(sets.precast.WS['Blade: Ten'], {})
+
+    sets.precast.WS['Blade: Kamu'] = set_combine(sets.precast.WS, {
+        ammo="Aurgelmir orb +1",
+        head=augmented_gear.Herculean.WSD.STR.head,
+        body=augmented_gear.Herculean.WSD.DEX.body,
+        hands="Malignance Gloves",
+        legs="Mochizuki Hakama +3",
+        feet=augmented_gear.Herculean.WSD.STR.feet,
+        neck="Fotia Gorget",
+        waist="Fotia Belt",
+        left_ear="Lugra earring +1",
+        right_ear="Moonshade Earring",
+        left_ring="Epaminondas's Ring",
+        right_ring="Regal Ring",
+        back=capes.STR_WSD,
+    })
+    sets.precast.WS['Blade: Kamu'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {})
+    sets.precast.WS['Blade: Kamu'].Acc = set_combine(sets.precast.WS.Acc, {})
+    sets.precast.WS['Blade: Kamu'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
+    sets.precast.WS['Blade: Kamu'].Fodder = set_combine(sets.precast.WS['Blade: Kamu'], {})
 	
     sets.precast.WS['Aeolian Edge'] = {
         head="Mochizuki Hatsuburi +3",
-        body="Samnuha Coat",
+        body="Gyve Doublet",
         hands=augmented_gear.Herculean.WSD.MAB.hands,
         legs=augmented_gear.Herculean.WSD.MAB.legs,
         feet=augmented_gear.Herculean.WSD.MAB.feet,
         neck="Baetyl Pendant",
         left_ear="Friomisi Earring",
         right_ear="Moonshade Earring",
-        left_ring="Shiva Ring +1",
+        left_ring="Epaminondas's Ring",
         right_ring="Dingir Ring",
         waist="Orpheus's Sash",
         back=capes.MAB,
@@ -329,17 +351,31 @@ function init_gear_sets()
     }
     sets.precast.WS['Blade: Teki'] = {
         head="Mochizuki Hatsuburi +3",
-        body="Samnuha Coat",
+        body="Gyve Doublet",
         hands=augmented_gear.Herculean.WSD.MAB.hands,
-        legs=augmented_gear.Herculean.WSD.MAB.legs,
+        legs="Mochizuki Hakama +3",
         feet=augmented_gear.Herculean.WSD.MAB.feet,
-        neck="Baetyl Pendant",
+        neck="Fotia Gorget",
         left_ear="Friomisi Earring",
         right_ear="Moonshade Earring",
-        left_ring="Shiva Ring +1",
-        right_ring="Dingir Ring",
-        waist="Orpheus's Sash",
-        back=capes.MAB,
+        left_ring="Epona's Ring",
+        right_ring="Gere Ring",
+        waist="Fotia Belt",
+        back=capes.STR_WSD,
+    }
+    sets.precast.WS['Blade: To'] = {
+        head="Mochizuki Hatsuburi +3",
+        body="Gyve Doublet",
+        hands=augmented_gear.Herculean.WSD.MAB.hands,
+        legs="Mochizuki Hakama +3",
+        feet=augmented_gear.Herculean.WSD.MAB.feet,
+        neck="Fotia Gorget",
+        left_ear="Friomisi Earring",
+        right_ear="Moonshade Earring",
+        left_ring="Epona's Ring",
+        right_ring="Gere Ring",
+        waist="Fotia Belt",
+        back=capes.STR_WSD,
     }
     sets.precast.WS['Blade: Yu'] = {
         head="Mochizuki Hatsuburi +3",
@@ -357,7 +393,7 @@ function init_gear_sets()
     }
 
 	-- Swap to these on Moonshade using WS if at 3000 TP
-	sets.MaxTP = {}
+	sets.MaxTP = {ear1="Lugra Earring +1",ear2="Lugra Earring +1"}
 	sets.AccMaxTP = {}
 	sets.AccDayMaxTPWSEars = {}
 	sets.DayMaxTPWSEars = {}
@@ -512,4 +548,108 @@ function select_default_macro_book()
     -- Default macro set/book
     set_macro_page(1, 4)
     windower.chat.input:schedule(1,'/lockstyleset 3')
+end
+
+function user_job_filtered_action(spell, eventArgs)
+    if spell.type == 'WeaponSkill' then
+        local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+
+        if available_ws:contains(16) then -- dagger
+            if spell.english == "Blade: Ei" then
+                windower.chat.input('/ws "Energy Drain" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Shadow of Death" then
+                windower.chat.input('/ws "Energy Drain" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Tachi: Jinpu" then
+                windower.chat.input('/ws "Cyclone" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            end
+        elseif available_ws:contains(32) then -- sword 
+            if spell.english == "Seraph Strike" then
+                windower.chat.input('/ws "Seraph Blade" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Sunburst" then
+                windower.chat.input('/ws "Seraph Blade" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Tachi: Koki" then
+                windower.chat.input('/ws "Seraph Blade" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            end
+        elseif available_ws:contains(48) then -- gs 
+        elseif available_ws:contains(96) then -- scythe 
+            if spell.english == "Energy Drain" then
+                windower.chat.input('/ws "Shadow of Death" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Blade: Ei" then
+                windower.chat.input('/ws "Shadow of Death" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            end
+        elseif available_ws:contains(112) then -- polearm 
+        elseif available_ws:contains(128) then -- katana 
+            if spell.english == "Energy Drain" then
+                windower.chat.input('/ws "Blade: Ei" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Shadow of Death" then
+                windower.chat.input('/ws "Blade: Ei" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            end
+        elseif available_ws:contains(144) then -- gkt 
+            if spell.english == "Cyclone" then
+                windower.chat.input('/ws "Tachi: Jinpu" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Seraph Blade" then
+                windower.chat.input('/ws "Tachi: Koki" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Seraph Strike" then
+                windower.chat.input('/ws "Tachi: Koki" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Sunburst" then
+                windower.chat.input('/ws "Tachi: Koki" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            end
+        elseif available_ws:contains(160) then -- club 
+            if spell.english == "Seraph Blade" then
+                windower.chat.input('/ws "Seraph Strike" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Tachi: Koki" then
+                windower.chat.input('/ws "Seraph Strike" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Sunburst" then
+                windower.chat.input('/ws "Seraph Strike" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            end
+        elseif available_ws:contains(176) then -- staff 
+            if spell.english == "Seraph Blade" then
+                windower.chat.input('/ws "Sunburst" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Tachi: Koki" then
+                windower.chat.input('/ws "Sunburst" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            elseif spell.english == "Seraph Strike" then
+                windower.chat.input('/ws "Sunburst" '..spell.target.raw)
+                cancel_spell()
+                eventArgs.cancel = true
+            end
+        end
+    end
 end

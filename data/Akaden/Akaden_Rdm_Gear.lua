@@ -9,7 +9,7 @@ function user_setup()
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('CroceaDaybreak','CroceaTernion','NaeglingThibron','NaeglingTauret','NaeglingUllr','TauretThibron','TauretTernion','Odin','Nuking','NukingShield','Domain','None')
+	state.Weapons:options('Excal', 'CroceaDaybreak','CroceaTernion','NaeglingThibron','NaeglingTauret','NaeglingUllr','TauretThibron','TauretTernion','Odin','Nuking','NukingShield','Domain',"Enfeebling", 'Aeolian','None')
     state.EnhancingMode = M('Always', 'Never', '300', '1000')
     state.EnfeeblingMode = M('Never', 'Always','300', '1000')
     state.NukingMode = M('Never', 'Always','300', '1000')
@@ -106,6 +106,21 @@ function init_gear_sets()
 	sets.precast.WS = {}
 	
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
+    sets.precast.WS['Knights of Round'] = {
+        ammo="Aurgelmir orb +1",
+        head="Vitiation Chapeau +3",
+        body="Vitiation Tabard +3",
+        hands="Atrophy gloves +3",
+        legs="Jhakri Slops +2",
+        feet="Jhakri Pigaches +2",
+        neck="Dualist's Torque +1",
+        waist="Sailfi Belt +1",
+        left_ear="Ishvara Earring",
+        right_ear="Moonshade Earring",
+        left_ring="Rufescent Ring",
+        right_ring="Epaminondas's ring",
+        back=augmented_gear.capes.str_wsd,
+    }
 	sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
         ammo="Regal Gem",
         head='Vitiation Chapeau +3',
@@ -229,25 +244,25 @@ function init_gear_sets()
     }
 
     sets.precast.WS['Aeolian Edge'] = {
-        --ammo="Pemphredo Tathlum",
-        --head="Cath palug crown",
-        --body=augmented_gear.Merlinic.Damage.body,
-        --hands="Jhakri Cuffs +2",
-        --legs="Amalric Slops +1",
-        --feet=augmented_gear.Merlinic.Damage.feet,
-        --neck="Baetyl Pendant",
-        --waist="Refoccilation Stone",
-        --left_ear="Regal Earring",
-        --right_ear="Malignance earring",
-        --left_ring="Freke Ring",
-        --right_ring="Epaminondas's ring",
-        --back=augmented_gear.capes.int_mab,
+        ammo="Pemphredo Tathlum",
+        head="Cath palug crown",
+        body=augmented_gear.Merlinic.Damage.body,
+        hands="Jhakri Cuffs +2",
+        legs="Amalric Slops +1",
+        feet=augmented_gear.Merlinic.Damage.feet,
+        neck="Baetyl Pendant",
+        waist="Refoccilation Stone",
+        left_ear="Regal Earring",
+        right_ear="Malignance earring",
+        left_ring="Freke Ring",
+        right_ring="Epaminondas's ring",
+        back=augmented_gear.capes.int_mab,
     }
 
 	
 	-- Midcast Sets
 
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1",waist="Chaac Belt",legs="Volte Hose",feet="Volte Boots"})
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap",waist="Chaac Belt",legs="Volte Hose",feet="Volte Boots"})
 	
 	
 	-- Gear for specific elemental nukes.
@@ -262,7 +277,7 @@ function init_gear_sets()
         head="Viti. Chapeau +3",
         body="Shamash Robe",
         hands="Telchine Gloves",
-        legs="Atrophy Tights +2",
+        legs="Atrophy Tights +3",
         feet="Medium's Sabots",
         neck="Nodens Gorget",
         waist="Emphatikos Rope",-- sp. intr. rate.
@@ -309,7 +324,7 @@ function init_gear_sets()
         sub="Pukulatmuj",
         head="Befouled Crown",
         hands="Vitiation gloves +3",
-        legs="Atrophy Tights +2",
+        legs="Atrophy Tights +3",
         neck="Incanter's Torque",
         waist="Olympus sash",
         --waist="Embla Sash",
@@ -521,12 +536,10 @@ function init_gear_sets()
     })
         
     sets.engaged.DTLite = set_combine(sets.engaged, {
-        neck="Loricate Torque +1",
         right_ring="Defending Ring",
     })
         
     sets.engaged.DTLite.DW = set_combine(sets.engaged.DW, {
-        neck="Loricate Torque +1",
         right_ring="Defending Ring",
     })
 
@@ -603,6 +616,7 @@ function init_gear_sets()
     sets.NightIdle = {}
     
     -- Weapons sets
+    sets.weapons.Excal = {main="Crocea Mors", sub="Excalibur", }
     sets.weapons.CroceaDaybreak = {main="Crocea Mors", sub="Daybreak", }
     sets.weapons.CroceaTernion = {main="Crocea Mors", sub="Ternion Dagger +1", }
     sets.weapons.NaeglingThibron = {main="Naegling", sub="Thibron", }
@@ -615,6 +629,8 @@ function init_gear_sets()
     sets.weapons.Odin = {main='Ceremonial Dagger',sub="Ceremonial Dagger", range="Ullr", ammo="Demon Arrow"}
     sets.weapons.Nuking = {main='Maxentius',sub="Daybreak"}
     sets.weapons.NukingShield = {main='Daybreak',sub="Ammurapi Shield"}
+    sets.weapons.Enfeebling = {main='Crocea Mors',sub="Ammurapi Shield"}
+    sets.weapons.Aeolian = {main='Tauret',sub="Daybreak"}
 
 end
 

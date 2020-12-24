@@ -259,7 +259,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 		if state.LuzafRing.value and item_available("Luzaf's Ring") then
 			equip(sets.precast.LuzafRing)
 		end
-		if spell.type == 'CorsairRoll' and state.CompensatorMode.value ~= 'Never' and (state.CompensatorMode.value == 'Always' or tonumber(state.CompensatorMode.value) > player.tp) then
+		if spell.type == 'CorsairRoll' and state.CompensatorMode.value ~= 'Never' and spell.english ~= "Bolter's Roll" and (state.CompensatorMode.value == 'Always' or tonumber(state.CompensatorMode.value) > player.tp) then
 			for slot,piece in pairs(sets.Compensator) do
                 enable(slot)
                 local s = {}

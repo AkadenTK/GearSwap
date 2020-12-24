@@ -73,7 +73,7 @@ function init_gear_sets()
 	sets.HPDown = {}
 
 
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {hands=augmented_gear.Herculean.TH.hands,legs="Volte Hose",feet="Volte Boots"})
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte cap", hands=augmented_gear.Herculean.TH.hands,feet="Volte Boots"})
 
     sets.dt = {
     	ammo="Staunch Tathlum +1",
@@ -764,6 +764,7 @@ function init_gear_sets()
     })
 
 	sets.defense.Death = {left_ring="Eihwaz ring"}
+    sets.defense.Knockback = {legs="Dashing Subligar",back="Repulse Mantle",}
 
 	sets.defense.NukeLock = set_combine(sets.midcast['Blue Magic'].Magical, {})
 

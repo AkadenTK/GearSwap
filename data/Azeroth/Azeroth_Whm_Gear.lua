@@ -64,6 +64,8 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
     sets.precast.FC = {
+        main="Oranyan",                -- 7
+        sub="Achaq grip",
     	head="Haruspex hat",           --8
     	neck="Cleric's Torque",        --6
     	body="Inyanga jubbah +2",      --14
@@ -142,8 +144,9 @@ function init_gear_sets()
 		main="Queller Rod",
 	    sub="Sors Shield",
 	    ammo="Plumose Sachet",
-	    head=augmented_gear.Kaykaus.C.head,
-        body="Theophany Briault +2",
+        head=augmented_gear.Kaykaus.C.head,
+	    body=augmented_gear.Kaykaus.B.body,
+        --body="Theophany Briault +2",
 	    hands="Theophany Mitts +3",
 	    legs="Ebers Pantaloons +1",
 	    feet=augmented_gear.Kaykaus.D.feet,
@@ -151,7 +154,7 @@ function init_gear_sets()
 	    waist="Cleric's Belt",
 	    left_ear="Glorious Earring",
 	    right_ear="Nourishing Earring +1",
-	    left_ring="Lebeche Ring",
+	    left_ring="Menelaus's Ring",
 	    right_ring="Sirona's Ring",
 	    back=augmented_gear.capes.cure,
 	}
@@ -232,8 +235,8 @@ function init_gear_sets()
 
     -- 110 total Enhancing Magic Skill; caps even without Light Arts
 	sets.midcast['Enhancing Magic'] = {
-		main="Beneficus",
-		sub="Sors Shield",
+		main="Oranyan",
+		sub="Achaq grip",
 		head="Telchine cap",
 		body="Telchine Chasuble",
 		hands="Telchine gloves",
@@ -275,7 +278,17 @@ function init_gear_sets()
 
 	sets.midcast['Divine Magic'] = {}
 		
-	sets.midcast.Holy = {}
+	sets.midcast.Holy = {
+        main="Oranyan",
+        sub="Enki Strap",
+        hands="Fanatic gloves",
+        legs=augmented_gear.Chironic.macc.legs,
+        neck="Sanctity necklace",
+        left_ear="Malignance Earring",
+        right_ear="Regal Earring",
+        right_ring="Acumen Ring",
+        waist="Eschan Stone",
+    }
 
 	sets.midcast['Dark Magic'] = {}
 
@@ -291,8 +304,8 @@ function init_gear_sets()
 	sets.midcast.Stun.Resistant = {}
 
 	sets.midcast['Enfeebling Magic'] = {    
-		main="Queller's Rod",
-	    sub="Sors Shield",
+		main="Oranyan",
+	    sub="Enki Strap",
 	    ammo="Plumose Sachet",
 	    head="Inyanga Tiara +2",
 	    body="Theophany Briault +2",
@@ -347,6 +360,11 @@ function init_gear_sets()
     sets.idle.TPEat = set_combine(sets.idle, {neck="Chrys. Torque"})
 
 	sets.idle.Weak = set_combine(sets.idle, {})
+
+    sets.idle.Town = set_combine(sets.idle, {
+        main="Yagrush",
+        sub="Sors Shield"
+    })
 
     -- Defense sets
 

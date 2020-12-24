@@ -8,7 +8,7 @@ function user_setup()
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
-    state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
+    state.QDbullet = M{'','Leaden Salute', 'Last Stand','Wildfire'}
     state.Weapons:options('MeleeLeaden','SavageBlade','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
@@ -18,8 +18,9 @@ function user_setup()
     state.LastRoll = 'unknown'
     --ammostock = 999
     ammostock = {}
-    ammostock['Chrono Bullet'] = 100
+    ammostock['Chrono Bullet'] = 99
     --ammostock['Living Bullet'] = 30
+
 
     gear.RAbullet = "Chrono Bullet"
     gear.WSbullet = "Chrono Bullet"
@@ -76,12 +77,12 @@ function init_gear_sets()
     -- Start defining the sets
     --------------------------------------
     sets.weapons = {}
-    sets.weapons.SavageBlade = {main='Kaja Sword', sub="Blurred Knife +1", range="Anarchy +2"}
-    sets.weapons.MeleeLeaden = {main='Kaja Knife', sub="Blurred Knife +1", range="Fomalhaut"}
+    sets.weapons.SavageBlade = {main='Naegling', sub="Blurred Knife +1", range="Anarchy +2"}
+    sets.weapons.MeleeLeaden = {main='Tauret', sub="Blurred Knife +1", range="Fomalhaut"}
 
     sets.Compensator = {range="Compensator"}
 
-    sets.TreasureHunter = {head="White Rarab Cap +1", waist="Chaac belt", legs=augmented_gear.Herculean.TH.legs}
+    sets.TreasureHunter = {head="Volte Cap", waist="Chaac belt", legs=augmented_gear.Herculean.TH.legs}
     sets.Capacity = {back="Aptitude Mantle"}
     
     -- Precast Sets
@@ -275,7 +276,7 @@ function init_gear_sets()
     sets.precast.WS['Split Shot'].Acc = set_combine(sets.precast.WS['Last Stand'].Acc, {})
 	
     sets.precast.WS['Leaden Salute'] = {   
-        ammo=gear.MABullet,
+        ammo=gear.MAbullet,
         head="Pixie Hairpin +1",
         body="Lanun Frac +3",
         hands="Carmine Finger Gauntlets +1",
@@ -377,7 +378,7 @@ function init_gear_sets()
     sets.idle.PDT = set_combine(sets.defense.PDT, {})
     sets.defense.MDT = set_combine(sets.idle, {})		
     sets.defense.MEVA = set_combine(sets.idle, {})	
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", waist = "Chaac belt"})	
+    sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap", waist="Chaac belt", legs="Volte Hose",})	
 	sets.DWMax = {}
 end
 

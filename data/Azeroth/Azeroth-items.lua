@@ -107,6 +107,9 @@ augments.Kaykaus.HQ = {
     A = {'MP+80','MND+12','Mag. Acc.+20',},
     C = {'MP+80','Spell interruption rate down +12%','"Cure" spellcasting time -7%',},
 }
+augmented_gear.Kaykaus.B = {
+    body={ name="Kaykaus Bliaut +1", augments=augments.Kaykaus.HQ.B},
+}
 augmented_gear.Kaykaus.C = {
     head={ name="Kaykaus Mitra +1", augments=augments.Kaykaus.HQ.C},
 }

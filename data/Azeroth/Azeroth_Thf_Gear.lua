@@ -43,9 +43,9 @@ function init_gear_sets()
     -- Special sets (required by rules)
     --------------------------------------
     sets.weapons = {}
-    sets.weapons.Default = {main="Kaja Knife", sub="Sandung"}
+    sets.weapons.Default = {main="Aeneas", sub="Taming Sari"}
 
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="White Rarab Cap +1", hands="Plunderer's Armlets +1",legs=augmented_gear.Herculean.TH.legs,feet="Skulk. Poulaines"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap", hands="Plunderer's Armlets +1",legs=augmented_gear.Herculean.TH.legs,feet="Skulk. Poulaines"})
     sets.ExtraRegen = {}
     sets.Kiting = {feet="Fajin Boots"}
     sets.Capacity={back="Aptitude Mantle"}
@@ -125,7 +125,7 @@ function init_gear_sets()
         body=augmented_gear.Adhemar.Atk.body,
         hands=augmented_gear.Adhemar.Atk.hands,
         legs="Samnuha tights",
-        feet="Plun. Poulaines +1",
+        feet=augmented_gear.Herculean.TA.feet,
         neck="Anu torque",
         waist="Chiner's Belt +1",
         ear1="Sherida Earring",
@@ -153,9 +153,11 @@ function init_gear_sets()
 
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {
-        head="Pillager's bonnet +2",
-        body="Pillager's Vest +2",
+        head="Lustratio Cap +1",
+        body="Meghanada Cuirie +2",
         hands="Meghanada Gloves +2",
+        legs="Lustratio Subligar +1",
+        feet="Lustratio Leggings +1",
         ear1="Moonshade earring",
         ear2="Ishvara earring",
         ring2="Karieyh ring",
@@ -167,23 +169,29 @@ function init_gear_sets()
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Rudra\'s Storm'] = set_combine(sets.precast.WS, {
         ammo="Jukukik feather",
+        head="Lustratio Cap +1",
+        body="Meghanada Cuirie +2",
+        hands="Meghanada Gloves +2",
+        legs="Lustratio Subligar +1",
+        feet="Lustratio Leggings +1",
         ring1="Ilabrat Ring",
         waist="Artful belt +1",
-        legs=augmented_gear.Herculean.WSD.STR.legs,
-        feet="Lustratio Leggings",
     })
     sets.precast.WS["Rudra's Storm"].Acc = set_combine(sets.precast.WS["Rudra's Storm"], {})
 	sets.precast.WS["Rudra's Storm"].FullAcc = set_combine(sets.precast.WS["Rudra's Storm"].Acc, {})
     sets.precast.WS["Rudra's Storm"].SA = set_combine(sets.precast.WS["Rudra's Storm"], {
         ammo="Yetshila",
+        head="Pillager's bonnet +2",
         body="Meghanada Cuirie +2",
         })
     sets.precast.WS["Rudra's Storm"].TA = set_combine(sets.precast.WS["Rudra's Storm"], {
         ammo="Yetshila",
+        head="Pillager's bonnet +2",
         body="Meghanada Cuirie +2",
         })
     sets.precast.WS["Rudra's Storm"].SATA = set_combine(sets.precast.WS["Rudra's Storm"], {
         ammo="Yetshila",
+        head="Pillager's bonnet +2",
         body="Meghanada Cuirie +2",
         })
 	
@@ -260,11 +268,9 @@ function init_gear_sets()
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 
     sets.idle = set_combine(sets.engaged, {
-        head="Turms Cap +1",
         body="Meghanada Cuirie +2",
         hands="Malignance gloves",
         legs="Malignance Tights",
-        feet="Turms Leggings +1",
         neck="Twilight Torque",
         left_ring="Defending Ring",
         right_ring="Karieyh Ring",

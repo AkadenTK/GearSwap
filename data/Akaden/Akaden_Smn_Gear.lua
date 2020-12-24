@@ -3,6 +3,7 @@ function user_setup()
     state.OffenseMode:options('None', 'Normal', 'Acc')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT', 'TPEat')
+    state.Weapons:options('None', 'Nirvana')
 	
     send_command('bind !` input /ja "Release" <me>')
 	send_command('bind @` gs c cycle MagicBurst')
@@ -24,7 +25,9 @@ function init_gear_sets()
         perp = "Nirvana",
         refresh = "Daybreak",
         fc = "Grioavolr",
-    }
+    } 
+    sets.weapons = {}
+    sets.weapons.Nirvana = { main = "Nirvana", sub = "Elan Strap +1" }
 
     --[#2 Augmented Items & JSE Cape ]--
     augmented_gear.capes = {}
@@ -58,7 +61,7 @@ function init_gear_sets()
     -- Precast Sets
     --------------------------------------
     
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap +1", waist="Chaac Belt",legs="Volte Hose",feet="Volte Boots"})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap", waist="Chaac Belt", legs="Volte Hose", feet="Volte Boots"})
 	
     -- Precast sets to enhance JAs
     --sets.precast.JA['Astral Flow'] = {head="Glyphic Horn"}
@@ -299,10 +302,15 @@ function init_gear_sets()
     sets.midcast.Pet['Elemental Magic'].Resistant = {}
     
 	sets.midcast.Pet['Flaming Crush'] = set_combine(sets.midcast.Pet.MagicalBloodPactRage, {
-
+        main=staves.physicalbp,
+        sub="Elan Strap +1",
+        legs=augmented_gear.Apogee.Physical.legs,
     })
 		
-	sets.midcast.Pet['Flaming Crush'].Acc = set_combine(sets.midcast.Pet['Flaming Crush'], {})
+	sets.midcast.Pet['Flaming Crush'].Acc = set_combine(sets.midcast.Pet['Flaming Crush'], {
+        body={name="Convoker's Doublet +3", priority=2},
+        feet="Convoker's Pigaches +2",
+    })
 
     --------------------------------------
     -- Idle/resting/defense/etc sets

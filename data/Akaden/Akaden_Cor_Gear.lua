@@ -9,7 +9,7 @@ function user_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode', 'None', 'DWMax'}
     state.RHAutoWS = M{'','Leaden Salute', 'Last Stand','Wildfire'}
-    state.Weapons:options('MeleeLeaden','SavageBlade','SavageRostam','MeleeFoma','MeleeArma','DWLeaden','DWFoma', 'DWArma','ShieldLeaden','ShieldFoma', 'ShieldArma', 'Aeolian','None')
+    state.Weapons:options('MeleeLeaden','SavageBlade','SavageRostam','MeleeFoma','MeleeArma','DWLeaden','DWFoma', 'DWArma','DWWildfire','ShieldLeaden','ShieldFoma', 'ShieldArma', 'Aeolian','None')
     state.QuickDrawMode = M{'StoreTP','Damage'}
     state.QuickDrawAug = false
 
@@ -91,6 +91,7 @@ function init_gear_sets()
     sets.weapons.ShieldArma = {main=rostams.A, sub="Nusku Shield", range="Armageddon"}
     sets.weapons.DWFoma = {main=rostams.A, sub='Kustawi +1', range="Fomalhaut"}
     sets.weapons.DWArma = {main=rostams.A, sub='Kustawi +1', range="Armageddon"}
+    sets.weapons.DWWildfire = {main=rostams.A, sub='Tauret', range="Armageddon"}
     sets.weapons.SavageBlade = {main='Naegling', sub="Blurred Knife +1", range="Anarchy +2"}
     sets.weapons.SavageRostam = {main='Naegling', sub=rostams.B, range="Anarchy +2"}
     sets.weapons.MeleeLeaden = {main=rostams.B, sub="Tauret", range="Death Penalty"}
@@ -157,7 +158,7 @@ function init_gear_sets()
         waist="Flume Belt",
         left_ear="Ethereal Earring",
         left_ring="Defending Ring",
-        right_ring="Warden's Ring",
+        --right_ring="Warden's Ring",
         back=augmented_gear.capes.melee, 
     }    
 
@@ -782,6 +783,12 @@ function user_job_self_command(commandArgs, eventArgs)
                     state.Weapons:set('DWArma')
                 else
                     state.Weapons:set('ShieldArma')
+                end
+            elseif state.Weapons.value == 'DWArma' or state.Weapons.value == 'ShieldArma' then
+                if dw then
+                    state.Weapons:set('DWWildfire')
+                else
+                    state.Weapons:set('MeleeArma')
                 end
             else
                 state.Weapons:set('MeleeArma')

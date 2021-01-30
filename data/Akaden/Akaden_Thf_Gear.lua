@@ -43,11 +43,11 @@ function init_gear_sets()
     augmented_gear.capes.STP = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}}
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {head="Volte Cap", waist="Chaac belt", hands="Plunderer's Armlets +1",legs="Volte Hose",feet="Skulk. Poulaines"})
     sets.ExtraRegen = {}
-    sets.Kiting = {feet="Fajin Boots"}
-    sets.Capacity={back="Aptitude Mantle"}
+    sets.Kiting = {feet="Skd. Jambeaux +1"}
+    --sets.Capacity={back="Aptitude Mantle"}
 
     sets.weapons = {}
-    sets.weapons.Default = {main="Tauret", sub="Sandung"}
+    sets.weapons.Default = {main="Aeneas", sub="Ternion Dagger +1"}
     sets.weapons.Mandau = {main="Mandau", sub="Sandung"}
     sets.weapons.TreasureHunter = {main="Taming sari", sub="Sandung"}
     sets.weapons.SavageBlade = {main="Naegling", sub="Sandung"}

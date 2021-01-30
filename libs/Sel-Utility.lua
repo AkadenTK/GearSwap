@@ -238,8 +238,12 @@ function refine_waltz(spell, spellMap, eventArgs)
     -- If curing someone in our alliance, we can estimate their missing HP
     elseif spell.target.isallymember then
         local target = find_player_in_alliance(spell.target.name)
-        local est_max_hp = target.hp / (target.hpp/100)
-        missingHP = math.floor(est_max_hp - target.hp)
+        if target.hpp > 0 then
+            local est_max_hp = target.hp / (target.hpp/100)
+            missingHP = math.floor(est_max_hp - target.hp)
+        else
+            return false
+        end
 		
 		if player.main_job == 'DNC' and state.Buff['Contradance'] then
 			missingHP = missingHP / 2

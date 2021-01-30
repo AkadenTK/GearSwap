@@ -2,7 +2,7 @@ function user_setup()
 	-- Options: Override default values
     state.OffenseMode:options('Normal','Acc','FullAcc')
     state.WeaponskillMode:options('Match','Normal', 'Acc', 'FullAcc')
-    state.HybridMode:options('Normal', 'DTLite', 'CounterHybrid','MEVA')
+    state.HybridMode:options('Normal', 'DTLite', 'CounterHybrid','MEVA','DTFull')
     state.PhysicalDefenseMode:options('PDT', 'HP')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
@@ -384,13 +384,19 @@ function init_gear_sets()
 		left_ring="Defending Ring",
 		ammo="Staunch Tathlum +1",
 	})
+	sets.engaged.DTFull = set_combine(sets.engaged.DTLite, {
+		legs="Malignance Tights",
+		feet="Malignance Boots",
+		right_ring="Gelatinous Ring +1",
+	})
 	--sets.engaged.Acc.PDT = {}
 	--sets.engaged.FullAcc.PDT = {}
 	sets.engaged.MEVA = set_combine(sets.engaged, {
 		head="Kendatsuba Jinpachi +1",
-		body="Malignance Tabard",
-		--legs="Kendatsuba Hakama",
-		--feet="Kendatsuba Sune-ate",
+		body="Kendatsuba Samue +1",
+		hands="Malignance Gloves",
+		legs="Malignance Tights",
+		feet="Kendatsuba Sune-ate +1",
 	})
 	--sets.engaged.Acc.PDTOnly = {}
 	--sets.engaged.FullAcc.PDTOnly = {}

@@ -3,7 +3,7 @@ function user_job_setup()
     state.OffenseMode:options('Normal','Acc')
     state.CastingMode:options('Normal','Resistant','AoE')
     state.IdleMode:options('Normal','NoRefresh','DT')
-	state.Weapons:options('None','Aeneas','DualWeapons','DualNaegling','DualTauret','DualNukeWeapons')
+	state.Weapons:options('None','Aeneas','DWAeneasTPBonus','DWAeneasTernion')
 
 	-- Adjust this if using the Terpander (new +song instrument)
     info.ExtraSongInstrument = 'Daurdabla'
@@ -33,10 +33,8 @@ function init_gear_sets()
 
 	-- Weapons sets
 	sets.weapons.Aeneas = {main="Aeneas",sub="Genmei Shield"}
-	sets.weapons.DualWeapons = {main="Aeneas",sub="Blurred Knife +1"}
-	sets.weapons.DualNaegling = {main="Naegling",sub="Blurred Knife +1"}
-	sets.weapons.DualTauret = {main="Tauret",sub="Blurred Knife +1"}
-	sets.weapons.DualNukeWeapons = {main="Malevolence",sub="Malevolence"}
+	sets.weapons.DWAeneasTPBonus = {main="Aeneas",sub="Fusetto +2"}
+	sets.weapons.DWAeneasTernion = {main="Aeneas",sub="Blurred Knife +1"}
 
     sets.buff.Sublimation = {waist="Embla Sash"}
     sets.buff.DTSublimation = {waist="Embla Sash"}

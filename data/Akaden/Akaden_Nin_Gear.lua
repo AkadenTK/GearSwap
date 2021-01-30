@@ -393,7 +393,7 @@ function init_gear_sets()
     }
 
 	-- Swap to these on Moonshade using WS if at 3000 TP
-	sets.MaxTP = {ear1="Lugra Earring +1",ear2="Lugra Earring +1"}
+	--sets.MaxTP = {ear1="Lugra Earring +1",ear2="Lugra Earring +1"}
 	sets.AccMaxTP = {}
 	sets.AccDayMaxTPWSEars = {}
 	sets.DayMaxTPWSEars = {}

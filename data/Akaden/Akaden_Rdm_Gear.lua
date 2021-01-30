@@ -9,7 +9,7 @@ function user_setup()
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('Excal', 'CroceaDaybreak','CroceaTernion','NaeglingThibron','NaeglingTauret','NaeglingUllr','TauretThibron','TauretTernion','Odin','Nuking','NukingShield','Domain',"Enfeebling", 'Aeolian','None')
+	state.Weapons:options('CroceaDaybreak','CroceaTernion','NaeglingThibron','NaeglingTauret','NaeglingUllr','TauretThibron','TauretTernion','Odin','Nuking','NukingShield','Domain',"Enfeebling", 'Aeolian','None')
     state.EnhancingMode = M('Always', 'Never', '300', '1000')
     state.EnfeeblingMode = M('Never', 'Always','300', '1000')
     state.NukingMode = M('Never', 'Always','300', '1000')
@@ -345,7 +345,7 @@ function init_gear_sets()
 		
 	--Red Mage enhancing sets are handled in a different way from most, layered on due to the way Composure works
 	--Don't set combine a full set with these spells, they should layer on Enhancing Set > Composure (If Applicable) > Spell
-	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif +1", waist="Gishdubar Sash",legs="Leth. Fuseau +1"})
+	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif +1",body="Atrophy Tabard +2", waist="Gishdubar Sash",legs="Leth. Fuseau +1"})
 	sets.midcast.Aquaveil = set_combine(sets.enhancing_skill, {head="Amalric Coif +1", waist="Emphatikos Rope"})
 	sets.midcast.BarElement = set_combine(sets.enhancing_skill, {})
     sets.midcast.Stoneskin = set_combine(sets.enhancing_skill, {neck="Nodens Gorget",waist="Siegel Sash"})
